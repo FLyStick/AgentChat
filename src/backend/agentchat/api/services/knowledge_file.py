@@ -10,11 +10,6 @@ from agentchat.settings import app_settings
 
 class KnowledgeFileService:
     @classmethod
-    def parse_knowledge_file(cls):
-        """使用 miner u 进行解析PDF，然后进行切割"""
-        pass
-
-    @classmethod
     async def get_knowledge_file(cls, knowledge_id):
         results = await KnowledgeFileDao.select_knowledge_file(knowledge_id)
         return [res.to_dict() for res in results]

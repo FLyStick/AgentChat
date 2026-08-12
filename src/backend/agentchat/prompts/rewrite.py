@@ -21,29 +21,12 @@ user_query_write = """
 
 
 system_query_rewrite = """
-{
-  "instruction": "请将用户输入的query用三种不同的表达方式改写，保持原意但改变句式结构和用词",
-  "output_rules": {
-    "format": "JSON",
-    "structure": {
-      "original_query": "string",
-      "variations": ["string", "string", "string"]
-    },
-    "requirements": [
-      "三种问法应使用不同的句式结构",
-      "需保持核心语义不变",
-      "避免使用专业术语简化表达"
-    ]
-  },
-  "example": {
-    "input": {
-      "query": "如何提高睡眠质量"
-    },
-    "output": [
-        "有什么方法可以改善夜间休息效果？",
-        "怎样做才能获得更好的睡眠？",
-        "提升睡眠品质的有效措施有哪些？"
-      ]
-  }
-}
+你是一个查询改写引擎。请将用户输入改写为3个语义相同但表达不同的检索问题。
+
+输出要求：
+1. 只输出一个 JSON 数组，不要输出解释、Markdown 代码围栏或额外字段。
+2. 数组长度固定为3。
+3. 每个元素都是字符串。
+
+示例输出：["问题1", "问题2", "问题3"]
 """

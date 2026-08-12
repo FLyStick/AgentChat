@@ -34,8 +34,6 @@ class WorkSpaceSessionService:
         result = await WorkSpaceSessionDao.get_workspace_session_from_id(session_id)
         if result is None:
             return None
+        if result.user_id != user_id:
+            raise ValueError(f"No permission to access workspace session {session_id}")
         return result.to_dict()
-
-    @classmethod
-    async def generate_session_title(cls, user_query):
-        pass

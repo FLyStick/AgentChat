@@ -10,8 +10,9 @@ from agentchat.api.services.workspace_session import WorkSpaceSessionService
 from agentchat.prompts.completion import SYSTEM_PROMPT
 from agentchat.api.responses.builder import resp_200
 from agentchat.schemas.usage_stats import UsageStatsAgentType
-from agentchat.schemas.workspace import WorkSpaceSimpleTask
+from agentchat.schemas.workspace import CreateWorkSpaceSessionReq, WorkSpaceAgents, WorkSpaceSimpleTask
 from agentchat.api.services.user import UserPayload, get_login_user
+from agentchat.database.models.workspace_session import WorkSpaceSessionCreate
 from agentchat.services.workspace.simple_agent import WorkSpaceSimpleAgent, MCPConfig
 from agentchat.utils.contexts import set_user_id_context, set_agent_name_context
 
@@ -30,11 +31,20 @@ async def get_workspace_sessions(login_user: UserPayload = Depends(get_login_use
 
 
 @router.post("/session", summary="创建工作台会话")
-async def create_workspace_session(*,
-                                   title: str = "",
-                                   contexts: dict = {},
+async def create_workspace_session(req: CreateWorkSpaceSessionReq,
                                    login_user: UserPayload = Depends(get_login_user)):
-    pass
+    try:
+        session = await WorkSpaceSessionService.create_workspace_session(
+            WorkSpaceSessionCreate(
+                title=req.title,
+                agent=WorkSpaceAgents.SimpleAgent.value,
+                user_id=login_user.user_id,
+                contexts=req.contexts
+            )
+        )
+        return resp_200(data=session.to_dict())
+    except Exception as err:
+        raise HTTPException(status_code=500, detail=str(err))
 
 @router.post("/session/{session_id}", summary="进入工作台会话")
 async def workspace_session_info(session_id: str,
@@ -46,7 +56,7 @@ async def workspace_session_info(session_id: str,
         raise HTTPException(status_code=500, detail=str(err))
 
 @router.delete("/session", summary="删除工作台的会话")
-async def create_workspace_session(session_id: str,
+async def delete_workspace_session(session_id: str,
                                    login_user: UserPayload = Depends(get_login_user)):
     try:
         await WorkSpaceSessionService.delete_workspace_session([session_id], login_user.user_id)
@@ -105,5 +115,4 @@ async def workspace_simple_chat(simple_task: WorkSpaceSimpleTask,
             "X-Accel-Buffering": "no",
         }
     )
-
 

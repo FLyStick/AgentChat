@@ -17,8 +17,8 @@ server:
 # 数据库配置：MySQL (请根据实际配置更改 endpoint)
 # 格式：mysql+pymysql://<user>:<password>@<host>:<port>/<database>
 mysql:
-  endpoint: "mysql+pymysql://root:your-mysql-password@localhost:3306/agentchat" # 同步连接配置
-  async_endpoint: "mysql+aiomysql://root:your-mysql-password@localhost:3306/agentchat" # 异步连接配置
+  endpoint: "mysql+pymysql://root:${MYSQL_PASSWORD:-your-mysql-password}@localhost:3306/agentchat" # 同步连接配置
+  async_endpoint: "mysql+aiomysql://root:${MYSQL_PASSWORD:-your-mysql-password}@localhost:3306/agentchat" # 异步连接配置
 
 # 缓存配置：Redis
 redis:
@@ -28,39 +28,39 @@ redis:
 multi_models:
   # 对话模型配置
   conversation_model:
-    api_key: "your-api-key"
+    api_key: "${AGENTCHAT_ALIYUN_API_KEY:-your-api-key}"
     base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
     model_name: "qwen-plus"
   # 工具调用/Function Call 模型配置
   tool_call_model:
-    api_key: "your-api-key"
+    api_key: "${AGENTCHAT_ALIYUN_API_KEY:-your-api-key}"
     base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
     model_name: "qwen-plus"
   # 复杂推理模型配置
   reasoning_model:
-    api_key: "your-api-key"
+    api_key: "${AGENTCHAT_DEEPSEEK_API_KEY:-your-api-key}"
     base_url: "https://api.deepseek.com/v1"
     model_name: "deepseek-reasoner"
   # 文生图模型配置
   text2image:
-    api_key: "your-api-key"
+    api_key: "${AGENTCHAT_ALIYUN_API_KEY:-your-api-key}"
     base_url: "https://dashscope.aliyuncs.com/api/v1/services/aigc/text2image/image-synthesis"
     model_name: "wanx2.0-t2i-turbo"
   # 多模态 (视觉) 模型配置
   qwen_vl:
-    api_key: "your-api-key"
+    api_key: "${AGENTCHAT_ALIYUN_API_KEY:-your-api-key}"
     base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
     model_name: "qwen-vl-plus"
 
   # Embedding 模型配置 (用于向量化)
   embedding:
-    api_key: "your-api-key"
+    api_key: "${AGENTCHAT_ALIYUN_API_KEY:-your-api-key}"
     base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
     model_name: "text-embedding-v4"
 
   # Rerank 模型配置 (用于重排序召回结果)
   rerank:
-    api_key: "your-api-key"
+    api_key: "${AGENTCHAT_ALIYUN_API_KEY:-your-api-key}"
     base_url: "https://dashscope.aliyuncs.com/api/v1/services/rerank/text-rerank/text-rerank"
     model_name: "gte-rerank-v2"
 
@@ -69,25 +69,25 @@ multi_models:
 tools:
   # 高德地图天气 API 配置
   weather:
-    api_key: "your-amap-api-key"
+    api_key: "${AGENTCHAT_AMAP_API_KEY:-your-amap-api-key}"
     endpoint: "https://restapi.amap.com/v3/weather/weatherInfo?parameters"
   # Tavily 联网搜索 API 配置 (注意配额限制)
   tavily:
-    api_key: "your-tavily-api-key"
+    api_key: "${AGENTCHAT_TAVILY_API_KEY:-your-tavily-api-key}"
   # SerpApi 上的 Google Search API 配置
   google:
-    api_key: "your-serpapi-api-key"
+    api_key: "${AGENTCHAT_SERPAPI_API_KEY:-your-serpapi-api-key}"
   # 阿里云快递查询 API 配置
   delivery:
-    api_key: "your-delivery-api-key"
+    api_key: "${AGENTCHAT_DELIVERY_API_KEY:-your-delivery-api-key}"
     endpoint: "https://qyexpress.market.alicloudapi.com/composite/queryexpress"
   # BoCha 联网搜索 API 配置
   bocha:
-    api_key: "your-bocha-api-key"
+    api_key: "${AGENTCHAT_BOCHA_API_KEY:-your-bocha-api-key}"
     endpoint: "https://api.bochaai.com/v1/web-search"
   # You.com Search & Research API 配置（获取 API 密钥: https://ydc-index.io/docs）
   youcom:
-    api_key: ""
+    api_key: "${AGENTCHAT_YOUCOM_API_KEY:-}"
     endpoint: "https://ydc-index.io/v1/search"
 
 # RAG (检索增强生成) 配置
@@ -119,15 +119,15 @@ storage:
   mode: "minio" # or oss
 
   oss:
-    access_key_id: "your-oss-access-key-id"
-    access_key_secret: "your-oss-access-key-secret"
+    access_key_id: "${AGENTCHAT_OSS_ACCESS_KEY_ID:-your-oss-access-key-id}"
+    access_key_secret: "${AGENTCHAT_OSS_ACCESS_KEY_SECRET:-your-oss-access-key-secret}"
     endpoint: "oss-cn-beijing.aliyuncs.com"
     bucket_name: "agentchat" # OSS 存储桶名称
     base_url: "https://agentchat.oss-cn-beijing.aliyuncs.com" # 访问基础 URL
 
   minio:
-    access_key_id: "minioadmin"
-    access_key_secret: "minioadmin"
+    access_key_id: "${MINIO_ROOT_USER:-your-minio-user}"
+    access_key_secret: "${MINIO_ROOT_PASSWORD:-your-minio-password}"
     endpoint: "127.0.0.1:9002"
     bucket_name: "agentchat" # minio 存储桶名称
     base_url: "http://127.0.0.1:9002/agentchat" # 访问基础 URL
@@ -142,17 +142,17 @@ default_config:
 
 # 扩展功能：微信配置 (不添加也可正常运行)
 wechat_config:
-  token: "your-wechat-token"
-  app_id: "your-wechat-app-id"
-  secret: "your-wechat-secret"
+  token: "${AGENTCHAT_WECHAT_TOKEN:-your-wechat-token}"
+  app_id: "${AGENTCHAT_WECHAT_APP_ID:-your-wechat-app-id}"
+  secret: "${AGENTCHAT_WECHAT_SECRET:-your-wechat-secret}"
 
 # 追踪工具 Langfuse 配置 (目前版本可能未应用)
 langfuse:
   trace_name: "agentchat"
   host: "https://cloud.langfuse.com"
-  public_key: "your-langfuse-public-key" # Langfuse 公钥
-  secret_key: "your-langfuse-secret-key" # Langfuse 私钥
-  user_id: "your-user-id" # 用户 ID
+  public_key: "${LANGFUSE_PUBLIC_KEY:-your-langfuse-public-key}" # Langfuse 公钥
+  secret_key: "${LANGFUSE_SECRET_KEY:-your-langfuse-secret-key}" # Langfuse 私钥
+  user_id: "${LANGFUSE_USER_ID:-your-user-id}" # 用户 ID
 
 # 接口白名单路径
-whitelist_paths: ["/mcp/*"]
+whitelist_paths: ["/api/v1/mcp/*"]

@@ -10,7 +10,7 @@ router = APIRouter(tags=["History"])
 async def get_dialog_history(dialog_id: str = Query(..., description="对话的ID", embed=True),
                              login_user: UserPayload = Depends(get_login_user)):
     try:
-        results = await HistoryService.get_dialog_history(dialog_id=dialog_id)
+        results = await HistoryService.get_dialog_history(dialog_id=dialog_id, user_id=login_user.user_id)
         return resp_200(data=results)
     except Exception as err:
         logger.error(err)

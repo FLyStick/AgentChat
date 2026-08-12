@@ -81,9 +81,6 @@ class CodeActAgent:
             elif typ == "values":
                 yield chunk
 
-    async def ainvoke(self, messages: List[BaseMessage]):
-        pass
-
     def create_pyodide_eval_fn(self, sandbox: PyodideSandbox) -> EvalCoroutine:
         """Create an eval_fn that uses PyodideSandbox.
         """

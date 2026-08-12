@@ -23,10 +23,12 @@ class RagHandler:
         await es_client.index_documents(index_name, chunks)
 
     @classmethod
-    async def mix_retrival_documents(cls, query_list, knowledges_id, search_field="summary"):
+    async def mix_retrival_documents(cls, query_list, knowledges_id, search_field="summary", index_names=None):
 
         if app_settings.rag.enable_elasticsearch:
-            es_documents, milvus_documents = await MixRetrival.mix_retrival_documents(query_list, knowledges_id, search_field)
+            es_documents, milvus_documents = await MixRetrival.mix_retrival_documents(
+                query_list, knowledges_id, search_field, index_names
+            )
             # 先对ES和Milvus结果分别排序
             es_documents.sort(key=lambda x: x.score, reverse=True)
             milvus_documents.sort(key=lambda x: x.score, reverse=True)
@@ -87,7 +89,7 @@ class RagHandler:
             return final_result
         else:
             logger.info(f"Recall for summary Field numbers < top k, Start recall use content Field")
-            return await cls.retrieve_ranked_documents(query, knowledges_id, knowledges_id)
+            return await cls.retrieve_ranked_documents(query, knowledges_id)
 
 
     @classmethod
@@ -119,7 +121,9 @@ class RagHandler:
             rewritten_queries = [query]
 
         # 文档检索
-        retrieved_documents = await cls.mix_retrival_documents(rewritten_queries, collection_names, "content")
+        retrieved_documents = await cls.mix_retrival_documents(
+            rewritten_queries, collection_names, "content", index_names
+        )
 
         # 准备重排序的文档内容
         documents_to_rerank = [doc.content for doc in retrieved_documents]

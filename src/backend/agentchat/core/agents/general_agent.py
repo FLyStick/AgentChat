@@ -11,7 +11,7 @@ from langchain.tools.tool_node import ToolCallRequest
 from langchain.agents import create_agent, AgentState
 from langgraph.config import get_stream_writer
 from langchain_core.messages import BaseMessage, ToolMessage, HumanMessage, AIMessageChunk
-from langchain.agents.middleware import LLMToolSelectorMiddleware, ModelRequest, ModelResponse, AgentMiddleware
+from langchain.agents.middleware import ModelRequest, ModelResponse, AgentMiddleware
 
 from agentchat.api.services.agent_skill import AgentSkillService
 from agentchat.core.agents.skill_agent import SkillAgent
@@ -31,10 +31,6 @@ class StreamAgentState(AgentState):
     tool_call_count: NotRequired[int]
     model_call_count: NotRequired[int]
     user_id: NotRequired[str]
-    available_tools: NotRequired[List[BaseTool]]
-
-
-MAX_TOOLS_SIZE = 10
 
 class AgentConfig(BaseModel):
     user_id: str
@@ -74,8 +70,6 @@ class EmitEventAgentMiddleware(AgentMiddleware):
         handler: Callable[[ModelRequest], ModelResponse],
     ) -> ModelResponse:
         try:
-            if available_tools := request.state.get("available_tools", []):
-                request.tools = available_tools
             response = await handler(request)
             return response
         except Exception as err:
@@ -118,7 +112,6 @@ class GeneralAgent:
         self.agent_config = agent_config
 
         self.conversation_model = None
-        self.tool_invocation_model = None
         self.react_agent = None
 
         self.tools = []
@@ -150,17 +143,10 @@ class GeneralAgent:
         await self.setup_knowledge_tool()
         await self.setup_language_model()
 
-        self.search_tool = self.setup_search_tool()
         self.middlewares = await self.setup_agent_middleware()
         self.react_agent = self.setup_react_agent()
 
     async def setup_agent_middleware(self):
-        # 仅支持传入response_format为json object的模型
-        tool_selector_middleware = LLMToolSelectorMiddleware(
-            model=self.tool_invocation_model,
-            max_tools=3 # 限制每次选择最多 3个工具
-        )
-
         emit_event_middleware = EmitEventAgentMiddleware(self.get_tool_display_name)
 
         return [emit_event_middleware]
@@ -174,59 +160,13 @@ class GeneralAgent:
         else:
             self.conversation_model = ModelManager.get_conversation_model()
 
-        # 意图识别模型
-        self.tool_invocation_model = ModelManager.get_tool_invocation_model()
-
     def setup_react_agent(self):
         return create_agent(
             model=self.conversation_model,
             tools=self.tools + self.mcp_agent_as_tools + self.skill_agent_as_tools,
-            #tools=[self.search_tool] if len(self.tools + self.mcp_agent_as_tools) >= MAX_TOOLS_SIZE else self.tools + self.mcp_agent_as_tools,
             middleware=self.middlewares,
             state_schema=StreamAgentState
         )
-
-    def setup_search_tool(self):
-        """这里相当于也是一个探索阶段，当绑定的工具数量很多时，会极大的占用上下文的Token数量以及影响命中效果
-        所以在工具数量超过MaxToolsSize阈值后，会先只绑定一个搜索工具去搜索可用的工具，之后再拿着可用的工具进行对应的调用
-
-        不适用：
-            1.工具数量较少
-            2.一些工具在每次对话都能用到
-        """
-        @tool(parse_docstring=True)
-        def search_available_tools(query: str, tool_call_id):
-            """
-            搜索可用的工具，使用此工具查找是否包含相关的能力
-
-            Args:
-                query (str): 执行任务的关键词，例如 'github'、'search'、'天气'
-
-            Returns:
-                str: 返回本次任务可能能用到的接口
-            """
-            found_tools = []
-            available_tools = self.tools + self.mcp_agent_as_tools
-            for tool in available_tools:
-                if tool.name == "search_available_tools":
-                    continue
-                if query.lower() in tool.name or query.lower() in tool.description:
-                    found_tools.append(tool)
-
-            if not found_tools:
-                content_str = "未找到相关工具。请尝试其他关键词。"
-            else:
-                content_str = f"已找到并激活以下工具:\n" + "\n".join([tool.name for tool in found_tools]) + "\n\n现在你可以调用这些工具了。"
-
-            tool_msg = ToolMessage(
-                content=content_str,
-                tool_call_id=tool_call_id,
-                name="search_available_tools"
-            )
-
-            return Command(update={"available_tools": found_tools, "messages": [tool_msg]})
-        return search_available_tools
-
 
     async def setup_tools(self) -> List[BaseTool]:
         def create_openapi_tool_executor(tool_adapter, tool_name):
@@ -366,6 +306,7 @@ class GeneralAgent:
 
     async def astream(self, messages: List[BaseMessage]) -> AsyncGenerator[Dict[str, Any], None]:
         """流式调用主方法"""
+        self.stop_streaming = False
         response_content = ""
         try:
             async for token, metadata in self.react_agent.astream(
@@ -373,6 +314,8 @@ class GeneralAgent:
                     config={"callbacks": [usage_metadata_callback]},
                     stream_mode=["messages", "custom"],
             ):
+                if self.stop_streaming:
+                    break
                 if token == "custom":
                     yield self.wrap_event(metadata)
                 elif isinstance(metadata[0], AIMessageChunk) and metadata[0].content:
@@ -397,6 +340,8 @@ class GeneralAgent:
                     "accumulated": response_content
                 }
             }
+        finally:
+            self.stop_streaming = False
 
     def stop_streaming_callback(self):
         self.stop_streaming = True

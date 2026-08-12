@@ -4,6 +4,7 @@ from langchain_core.messages import BaseMessage, AIMessage, HumanMessage
 
 from agentchat.database.dao.dialog import DialogDao
 from agentchat.database.dao.history import HistoryDao
+from agentchat.api.services.dialog import DialogService
 from agentchat.services.rag.es_client import client as es_client
 from agentchat.services.rag.vector_stores import milvus_client
 from agentchat.schemas.chunk import ChunkModel
@@ -56,12 +57,9 @@ class HistoryService:
         return result
 
     @classmethod
-    async def enable_memory_select_history(cls, dialog_id: str, top_k: int = 10):
-        pass
-
-    @classmethod
-    async def get_dialog_history(cls, dialog_id: str):
+    async def get_dialog_history(cls, dialog_id: str, user_id: str):
         try:
+            await DialogService.verify_user_permission(dialog_id, user_id)
             results = await HistoryDao.get_dialog_history(dialog_id)
             return [res.to_dict() for res in results]
         except Exception as err:

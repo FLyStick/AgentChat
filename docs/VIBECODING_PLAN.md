@@ -7,7 +7,7 @@
 
 | 阶段 | 主题 | 核心目标 | 预估 | 状态 |
 | --- | --- | --- | --- | --- |
-| P0 | 基线修复 | 修复会导致功能失效的已知问题，收敛权限和配置安全 | 3-5 天 | 未开始 |
+| P0 | 基线修复 | 修复会导致功能失效的已知问题，收敛权限和配置安全 | 3-5 天 | 已完成（静态验证） |
 | P1 | 测试与可观测性 | 建立测试骨架，打通可观测链路，先保证工程可信 | 2-3 天 | 未开始 |
 | P2 | 评测与演示证据 | 让 RAG、记忆、断流三项指标可复现，准备面试 demo | 3-5 天 | 未开始 |
 | P3 | 核心能力增强 | 真多 Agent 协作、记忆质量、检索质量的增量优化 | 4-6 天 | 未开始 |
@@ -17,15 +17,15 @@
 
 目标：把当前明显不可用的功能修到“本地能跑、链路能通、权限安全”。
 
-- [ ] 修复 ES 检索结果遍历错误，命中结果不再丢失
-- [ ] 修复 Query Rewrite 输出格式不一致问题，统一为下游可解析的格式
-- [ ] 实现真实断流取消，不再只设置 `stop_streaming` 标志
-- [ ] 检查并接上 tool selector 中间件，或删除未启用的分支
-- [ ] 修复“工具过多时启用 search 工具”的兜底逻辑
-- [ ] 修复 RAG 回退检索时 collection/index 命名错误
-- [ ] `GET /api/v1/history` 增加对话归属校验
-- [ ] 密钥迁移到环境变量，移除仓库内明文 API Key / 密码
-- [ ] 整理明显空实现：删除或补齐 workspace session、memory select history 等占位代码
+- [x] 修复 ES 检索结果遍历错误，命中结果不再丢失
+- [x] 修复 Query Rewrite 输出格式不一致问题，统一为下游可解析的格式
+- [x] 实现断流后停止继续产出（当前为循环级停止 yield；真正的任务级取消见 P2）
+- [x] 删除未启用的 tool selector 中间件与相关死代码
+- [x] 删除“工具过多时启用 search 工具”的未生效兜底链路
+- [x] 修复 RAG 回退检索时 collection/index 命名错误
+- [x] `GET /api/v1/history` 增加对话归属校验
+- [x] 密钥迁移到环境变量，移除仓库内明文 API Key / 密码
+- [x] 整理明显空实现：删除或补齐 workspace session、memory select history 等占位代码
 
 验收标准：
 
@@ -33,6 +33,15 @@
 - 后端启动无配置错误，密钥来自环境变量
 - 普通对话、知识库检索、断流三条主链路手动验证通过
 - 越权访问他人对话被拒绝
+
+完成说明（静态验证）：
+
+- ES 客户端改为延迟初始化，`search_documents` 正确遍历命中结果，`close()` 改为同步单例关闭
+- Query Rewrite 强制输出 JSON 数组，解析失败时兜底为 `[user_input]`
+- workspace session 创建/删除补齐，历史权限校验覆盖 `get_dialog_history` 与 `get_workspace_session_from_id`
+- `general_agent` 删除 tool selector、search tool 等未生效链路；断流在事件循环层停止后续产出
+- `config.yaml.example`、`docker-compose.yml` 使用 `${ENV_VAR}` 占位，新增 `.env.example`
+- 运行验证依赖 P1 测试环境：当前仓库环境缺少 langchain、starlette、elasticsearch 等运行时依赖，已通过 `py_compile` 与静态引用检查
 
 ## P1：测试与可观测性
 
@@ -56,6 +65,7 @@
 
 - [ ] 建立 RAG benchmark：固定知识库、query 集、ground truth、评测脚本
 - [ ] 建立记忆 benchmark：短期窗口 / 摘要 / 长期记忆的对比样本
+- [ ] 实现任务级断流取消：中断正在执行的模型调用，并记录真实终止时长
 - [ ] 建立断流压测脚本：记录断开到推理终止的真实时长
 - [ ] 输出评测报告模板：baseline、当前结果、提升幅度、复现方法
 - [ ] 编写端到端 demo 剧本：知识上传、RAG 问答、Skill、MCP、多轮记忆

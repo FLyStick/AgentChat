@@ -1,4 +1,5 @@
 import json
+import re
 
 from loguru import logger
 from langchain_core.messages import HumanMessage, SystemMessage
@@ -14,14 +15,30 @@ class QueryRewrite:
     async def rewrite(self, user_input):
         rewrite_prompt = user_query_write.format(user_input=user_input)
         response = self.client.invoke([SystemMessage(content=system_query_rewrite), HumanMessage(content=rewrite_prompt)])
-        cleaned_response = response.content.replace("```json", "")
-        cleaned_response = cleaned_response.replace("```", "").strip()
+        return self._extract_query_list(response.content, user_input)
 
+    @staticmethod
+    def _extract_query_list(content, user_input):
+        if isinstance(content, list):
+            return content
+
+        cleaned = content.replace("```json", "").replace("```", "").strip()
         try:
-            result = json.loads(cleaned_response)
-            return result
+            result = json.loads(cleaned)
+            if isinstance(result, list):
+                return result
         except Exception as e:
             logger.info(f"json loads error: {e}")
-            return [user_input]
+
+        array_match = re.search(r"\[[\s\S]*\]", cleaned)
+        if array_match:
+            try:
+                result = json.loads(array_match.group())
+                if isinstance(result, list):
+                    return result
+            except Exception as e:
+                logger.info(f"json array extract error: {e}")
+
+        return [user_input]
 
 query_rewriter = QueryRewrite()

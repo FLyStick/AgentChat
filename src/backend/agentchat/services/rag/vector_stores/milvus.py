@@ -25,10 +25,6 @@ class MilvusClient:
             logger.error(f"Failed to connect to Milvus: {e}")
             raise
 
-    def _initialize_collections(self):
-        """移除此方法，改为懒加载模式"""
-        pass
-
     def _ensure_collection_loaded(self, collection: Collection) -> bool:
         """确保集合被加载到内存中（懒加载）"""
         collection_name = collection.name

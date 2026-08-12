@@ -20,13 +20,14 @@ class MixRetrival:
         return documents
 
     @classmethod
-    async def retrival_es_documents(cls, query, knowledges_id, search_field):
+    async def retrival_es_documents(cls, query, knowledges_id, search_field, index_names=None):
         """从Elasticsearch检索文档"""
         documents = []
         queries = query if isinstance(query, list) else [query]
 
+        es_knowledge_ids = index_names or knowledges_id
         for query in queries:
-            for knowledge_id in knowledges_id:
+            for knowledge_id in es_knowledge_ids:
                 if search_field == "summary":
                     documents += await es_client.search_documents_summary(query, knowledge_id)
                 else:
@@ -35,11 +36,11 @@ class MixRetrival:
         return documents
 
     @classmethod
-    async def mix_retrival_documents(cls, query_list, knowledges_id, search_field):
+    async def mix_retrival_documents(cls, query_list, knowledges_id, search_field, index_names=None):
         es_documents = []
         milvus_documents = []
         for query in query_list:
-            es_documents += await cls.retrival_es_documents(query, knowledges_id, search_field)
+            es_documents += await cls.retrival_es_documents(query, knowledges_id, search_field, index_names)
             milvus_documents += await cls.retrival_milvus_documents(query, knowledges_id, search_field)
 
         return es_documents, milvus_documents

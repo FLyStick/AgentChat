@@ -14,6 +14,7 @@ from agentchat.middleware.trace_id_middleware import TraceIDMiddleware
 from agentchat.middleware.white_list_middleware import WhitelistMiddleware
 from agentchat.settings import init_app_settings
 from agentchat.settings import app_settings
+from agentchat.services.rag.es_client import client as es_client
 
 warnings.filterwarnings("ignore")
 logging.getLogger("chromadb").setLevel(logging.WARNING)
@@ -78,6 +79,7 @@ async def lifespan(app: FastAPI):
     yield
 
     await redis_client.close()
+    es_client.close()
 
 
 def create_app():
