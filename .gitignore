@@ -13,3 +13,7 @@ memory_db/
 vector_db/
 
 node_modules/
+
+# 本地敏感配置（含真实密钥，勿提交；上传请使用 config.yaml.example 模板）
+src/backend/agentchat/config.yaml
+docker/docker_config.yaml
