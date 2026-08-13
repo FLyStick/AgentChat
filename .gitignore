@@ -20,3 +20,4 @@ docker/docker_config.yaml
 
 # MinIO 本地数据（运行时数据，勿提交）
 docker/data/
+.venv/

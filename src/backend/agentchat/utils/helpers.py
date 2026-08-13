@@ -1,7 +1,6 @@
 import json
 import os
 import re
-import requests
 from loguru import  logger
 from pydantic import BaseModel, Field
 
@@ -209,36 +208,6 @@ def load_all_scene_configs(chatId):
             all_scene_configs[key] = value
 
     return all_scene_configs
-
-def send_message(prompt, user_input):
-    """
-    请求LLM函数
-    """
-    
-    # logger.logger_api.info('prompt输入:' + prompts)
-    
-    # logger.logger_api.info('用户输入:' + user_input)
-
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization": "-------------"
-    }
-    data = {
-        "models": "Qwen1.5-72b-chat",
-        "messages": [{"role": "user", "content": prompt}]
-    }
-
-    response = requests.post("models.url", data=json.dumps(data),
-                             headers=headers).content
-    print(response)
-
-    response_1 = json.loads(response)
-    message = response_1["choices"][0]["message"]["content"]
-    
-    # logger.logger_api.info("大模型输出：" + str(message))
-    
-    return str(message)
-
 
 def is_slot_fully_filled(json_data):
     """

@@ -19,6 +19,7 @@ async def upload_file(
     login_user: UserPayload = Depends(get_login_user)
 ):
     try:
+        await KnowledgeService.verify_user_permission(knowledge_id, login_user.user_id)
         # 获取本地临时文件路径
         file_name = file_url.split("/")[-1]
         local_file_path = get_save_tempfile(file_name)

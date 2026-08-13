@@ -25,6 +25,7 @@ from agentchat.services.rag.handler import RagHandler
 from agentchat.core.agents.mcp_agent import MCPAgent, MCPConfig
 from agentchat.api.services.mcp_server import MCPService
 from agentchat.tools.openapi_tool.adapter import OpenAPIToolAdapter
+from agentchat.utils.events import build_stream_event
 
 
 class StreamAgentState(AgentState):
@@ -85,25 +86,39 @@ class EmitEventAgentMiddleware(AgentMiddleware):
         tool_call_count = request.state.get("tool_call_count", 0)
         # 发送工具分析开始事件
         tool_type, display_tool_name = self.name_resolver_func(request.tool_call["name"])
+        started_at = time.time()
         writer({
             "status": "START",
             "title": f"执行可用{tool_type}: {display_tool_name}",
-            "message": f"正在调用插件工具 {display_tool_name}..."
-            })
+            "message": f"正在调用插件工具 {display_tool_name}...",
+            "tool_name": request.tool_call["name"],
+            "tool_type": tool_type,
+            "display_tool_name": display_tool_name,
+            "duration_ms": 0,
+        })
         request.state["tool_call_count"] = tool_call_count + 1
         try:
             tool_result = await handler(request)
             writer({
                 "status": "END",
                 "title": f"执行可用{tool_type}: {display_tool_name}",
-                "message": tool_result.content
-                })
+                "message": str(tool_result.content),
+                "tool_name": request.tool_call["name"],
+                "tool_type": tool_type,
+                "display_tool_name": display_tool_name,
+                "duration_ms": round((time.time() - started_at) * 1000, 2),
+            })
             return tool_result
         except Exception as err:
             writer({
                 "status": "ERROR",
                 "title": f"执行可用{tool_type}: {display_tool_name}",
-                "message": str(err)
+                "message": str(err),
+                "tool_name": request.tool_call["name"],
+                "tool_type": tool_type,
+                "display_tool_name": display_tool_name,
+                "duration_ms": round((time.time() - started_at) * 1000, 2),
+                "error": {"message": str(err)},
             })
             return ToolMessage(content=str(err), name=request.tool_call["name"], tool_call_id=request.tool_call["id"])
 
@@ -126,12 +141,7 @@ class GeneralAgent:
 
     def wrap_event(self, data: Dict[Any, Any]):
         """发送流式事件"""
-        event = {
-            "type": "event",
-            "timestamp": time.time(),
-            "data": data
-        }
-        return event
+        return build_stream_event("event", data)
 
     async def init_agent(self):
         self.mcp_agent_as_tools = await self.setup_mcp_agent_as_tools()
@@ -320,26 +330,24 @@ class GeneralAgent:
                     yield self.wrap_event(metadata)
                 elif isinstance(metadata[0], AIMessageChunk) and metadata[0].content:
                     response_content += metadata[0].content
-                    yield {
-                        "type": "response_chunk",
-                        "timestamp": time.time(),
-                        "data": {
-                            "chunk": metadata[0].content,
-                            "accumulated": response_content
-                        }
-                    }
+                    yield build_stream_event("response_chunk", {
+                        "chunk": metadata[0].content,
+                        "accumulated": response_content,
+                    })
 
         # 针对模型回复进行兜底操作，错误类型包括：敏感词，模型问题
         except Exception as err:
             logger.error(f"LLM Model Error: {err}")
-            yield {
-                "type": "response_chunk",
-                "timestamp": time.time(),
-                "data": {
-                    "chunk": "您的问题触及到我的知识盲区，请换个问题吧✨",
-                    "accumulated": response_content
-                }
-            }
+            yield self.wrap_event({
+                "status": "ERROR",
+                "title": "模型执行失败",
+                "message": str(err),
+                "error": {"message": str(err)},
+            })
+            yield build_stream_event("response_chunk", {
+                "chunk": "您的问题触及到我的知识盲区，请换个问题吧✨",
+                "accumulated": response_content,
+            })
         finally:
             self.stop_streaming = False
 

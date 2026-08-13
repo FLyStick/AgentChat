@@ -1,6 +1,7 @@
 from loguru import logger
 from typing import Optional
 from agentchat.services.rag.retrieval import MixRetrival
+from agentchat.services.rag.result_merger import merge_documents_by_score
 from agentchat.services.rewrite.query_write import query_rewriter
 from agentchat.services.rag.es_client import client as es_client
 from agentchat.services.rag.vector_stores import milvus_client
@@ -36,21 +37,7 @@ class RagHandler:
         else:
             all_documents = await MixRetrival.retrival_milvus_documents(query_list, knowledges_id, search_field)
 
-        # 合并并去重，保留分数更高的文档
-        documents = []
-        seen_chunk_ids = set()
-
-        # 按分数从高到低排序
-        all_documents.sort(key=lambda x: x.score, reverse=True)
-        
-        # 去重，保留分数最高的
-        for doc in all_documents:
-            if doc.chunk_id not in seen_chunk_ids:
-                seen_chunk_ids.add(doc.chunk_id)
-                documents.append(doc)
-                if len(documents) >= 10:  # 限制返回10个文档
-                    break
-        
+        documents = merge_documents_by_score(all_documents, top_k=10)
         return documents
 
     @classmethod

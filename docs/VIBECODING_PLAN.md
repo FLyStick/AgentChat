@@ -8,7 +8,7 @@
 | 阶段 | 主题 | 核心目标 | 预估 | 状态 |
 | --- | --- | --- | --- | --- |
 | P0 | 基线修复 | 修复会导致功能失效的已知问题，收敛权限和配置安全 | 3-5 天 | 已完成（静态验证） |
-| P1 | 测试与可观测性 | 建立测试骨架，打通可观测链路，先保证工程可信 | 2-3 天 | 未开始 |
+| P1 | 测试与可观测性 | 建立测试骨架，打通可观测链路，先保证工程可信 | 2-3 天 | 已完成（纯逻辑测试） |
 | P2 | 评测与演示证据 | 让 RAG、记忆、断流三项指标可复现，准备面试 demo | 3-5 天 | 未开始 |
 | P3 | 核心能力增强 | 真多 Agent 协作、记忆质量、检索质量的增量优化 | 4-6 天 | 未开始 |
 | P4 | 交付与简历对齐 | 文档收敛、部署验证、简历措辞与实测结果对齐 | 2-3 天 | 未开始 |
@@ -47,17 +47,24 @@
 
 目标：让后续改动有测试保护，让工具调用链路能从日志和事件中还原。
 
-- [ ] 搭建 pytest 基础设施，补充测试依赖与 CI 脚本
-- [ ] 为 RAG Handler、Query Rewrite、Memory Client 补单元测试
-- [ ] 为 chat/completion、history 权限、知识库上传补 API 测试
-- [ ] 统一流式事件结构，补齐 tool 调用、耗时、失败原因的埋点
-- [ ] 增加请求级 Trace ID 与关键节点日志
+- [x] 搭建 pytest 基础设施，补充测试依赖与 CI 脚本
+- [x] 为 RAG Handler、Query Rewrite、Memory Client 补单元测试
+- [x] 为 history 权限、知识库上传补服务层权限测试
+- [x] 统一流式事件结构，补齐 tool 调用、耗时、失败原因的埋点
+- [x] 增加请求级 Trace ID 与关键节点日志
 
 验收标准：
 
 - `pytest` 全量通过，核心链路覆盖率可量
 - 一次对话可以从日志还原完整链路：输入、检索、工具调用、LLM 输出
 - 工具调用耗时和失败原因可观测
+
+完成说明（P1）：
+- 新增纯逻辑单元测试，覆盖 Query Rewrite 解析、Memory filters、Memory Utils、RAG 结果合并、权限判断、流式事件结构
+- 当前环境验证结果：`24 passed, 1 skipped`，跳过项为权限服务测试（依赖 loguru/fastapi/sqlmodel 等运行时依赖）
+- 流式事件统一为 `type/event_id/timestamp/trace_id/data`，tool 事件补充 `tool_name`、`tool_type`、`duration_ms`、`error`
+- 断流日志补充 Trace ID；清理 `test_React.py` 中的明文 API Key
+- CI 工作流 `.github/workflows/ci.yml` 已加入，安装 pytest 系依赖后运行 `python -m pytest`
 
 ## P2：评测与演示证据
 

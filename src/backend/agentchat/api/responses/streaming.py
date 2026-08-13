@@ -2,6 +2,7 @@ from loguru import logger
 from typing import Callable
 from starlette.types import Receive
 from fastapi.responses import StreamingResponse
+from agentchat.utils.events import current_trace_id
 
 
 class WatchedStreamingResponse(StreamingResponse):
@@ -25,7 +26,7 @@ class WatchedStreamingResponse(StreamingResponse):
         while True:
             message = await receive()
             if message["type"] == "http.disconnect":
-                logger.info("http.disconnect. stop task and streaming")
+                logger.info(f"http.disconnect. stop task and streaming. trace_id={current_trace_id()}")
 
                 if self.callback:
                     self.callback()

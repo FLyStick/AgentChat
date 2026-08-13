@@ -4,6 +4,7 @@ from agentchat.database.dao.knowledge import KnowledgeDao
 from agentchat.database.dao.knowledge_file import KnowledgeFileDao
 from agentchat.database.models.user import AdminUser
 from agentchat.utils.file_utils import format_file_size
+from agentchat.utils.permissions import ensure_owner_or_admin
 
 
 class KnowledgeService:
@@ -55,8 +56,7 @@ class KnowledgeService:
     @classmethod
     async def verify_user_permission(cls, knowledge_id, user_id):
         knowledge_user_id = await cls.select_user_by_id(knowledge_id)
-        if user_id != knowledge_user_id and user_id != AdminUser:
-            raise ValueError(f'没有权限访问')
+        ensure_owner_or_admin(knowledge_user_id, user_id, AdminUser, "没有权限访问")
 
     @classmethod
     async def update_knowledge(cls, knowledge_id, knowledge_name, knowledge_desc):
@@ -80,4 +80,3 @@ class KnowledgeService:
             return [knowledge.id for knowledge in knowledges]
         except Exception as err:
             raise ValueError(f"Get knowledges id form name error:{err}")
-

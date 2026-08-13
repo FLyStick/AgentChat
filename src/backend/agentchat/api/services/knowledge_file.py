@@ -7,6 +7,7 @@ from agentchat.database.models.user import AdminUser
 from agentchat.services.rag.parser import doc_parser
 from agentchat.services.rag.handler import RagHandler
 from agentchat.settings import app_settings
+from agentchat.utils.permissions import ensure_owner_or_admin
 
 class KnowledgeFileService:
     @classmethod
@@ -59,8 +60,7 @@ class KnowledgeFileService:
     @classmethod
     async def verify_user_permission(cls, knowledge_file_id, user_id):
         knowledge_file = await cls.select_knowledge_file_by_id(knowledge_file_id)
-        if user_id not in (AdminUser, knowledge_file.user_id):
-            raise ValueError("没有权限访问")
+        ensure_owner_or_admin(knowledge_file.user_id, user_id, AdminUser, "没有权限访问")
 
     @classmethod
     async def update_parsing_status(cls, knowledge_file_id, status):

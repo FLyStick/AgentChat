@@ -7,6 +7,7 @@ from agentchat.database.dao.dialog import DialogDao
 from agentchat.database.dao.history import HistoryDao
 from agentchat.database.models.user import AdminUser
 from agentchat.prompts.completion import GENERATE_CHAT_SUMMARY
+from agentchat.utils.permissions import ensure_owner_or_admin
 
 
 class DialogService:
@@ -73,8 +74,7 @@ class DialogService:
     async def verify_user_permission(cls, dialog_id: str, user_id: str):
         """Verify user has permission to access dialog"""
         dialog = await DialogDao.get_agent_by_dialog_id(dialog_id=dialog_id)
-        if user_id not in (AdminUser, dialog.user_id):
-            raise ValueError(f"没有权限访问")
+        ensure_owner_or_admin(dialog.user_id, user_id, AdminUser, "没有权限访问")
 
     @classmethod
     async def get_dialog_history_summary(cls, dialog_id):
@@ -242,6 +242,5 @@ class DialogService:
         new_messages = [m for pair in kept_pairs for m in pair]
 
         return old_messages, new_messages
-
 
 
