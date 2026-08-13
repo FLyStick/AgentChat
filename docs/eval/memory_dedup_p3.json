@@ -1,0 +1,18 @@
+{
+  "framework": "memory_dedup",
+  "add_attempts": 60,
+  "inserted": 20,
+  "duplicates_skipped": 40,
+  "duplicate_skip_rate": 0.6667,
+  "exact_hash_ids_stable": true,
+  "updates": {
+    "real_updates": 1,
+    "redundant_updates_skipped": 20,
+    "unknown_update_skipped": 1
+  },
+  "history_failure_fallback": {
+    "simulated_failures": 1,
+    "vector_write_survived": true,
+    "record_count_after_failure": 1
+  }
+}

@@ -44,6 +44,7 @@ class AgentConfig(BaseModel):
     system_prompt: str
     enable_memory: bool = False
     name: str = None
+    enable_multi_agent: bool = True
 
 
 
@@ -135,6 +136,7 @@ class GeneralAgent:
         self.middlewares = []
         self.skill_agent_as_tools = []
         self.tool_metadata_map: Dict[str, Dict[str, str]] = {}
+        self.orchestrator = None
 
         # 流式事件队列
         self.event_queue = asyncio.Queue()
@@ -155,6 +157,11 @@ class GeneralAgent:
 
         await self.setup_knowledge_tool()
         await self.setup_language_model()
+
+        if self.agent_config.enable_multi_agent and self.conversation_model is not None:
+            from agentchat.core.agents.orchestrator import build_demo_orchestrator
+
+            self.orchestrator = build_demo_orchestrator(self.conversation_model)
 
         self.middlewares = await self.setup_agent_middleware()
         self.react_agent = self.setup_react_agent()
@@ -323,6 +330,12 @@ class GeneralAgent:
         self.cancellable_stream = None
         response_content = ""
 
+        if await self._is_multi_agent_input(messages):
+            self.last_stream_summary = None
+            async for event in self._stream_multi_agent(messages):
+                yield event
+            return
+
         async def _produce(queue: asyncio.Queue) -> None:
             producer_content = ""
             async for token, metadata in self.react_agent.astream(
@@ -400,3 +413,46 @@ class GeneralAgent:
         tool_type = metadata.get("type", "工具")
 
         return tool_type, friendly_name
+
+    @staticmethod
+    def _extract_user_input(messages: List[BaseMessage]) -> str:
+        """Extract the latest human message text for deterministic routing."""
+        for message in reversed(messages):
+            if isinstance(message, HumanMessage):
+                content = message.content
+                return content if isinstance(content, str) else str(content)
+        return ""
+
+    async def _is_multi_agent_input(self, messages: List[BaseMessage]) -> bool:
+        if self.orchestrator is None:
+            return False
+        user_input = self._extract_user_input(messages)
+        return bool(user_input) and self.orchestrator.should_route(user_input)
+
+    async def _stream_multi_agent(
+        self, messages: List[BaseMessage]
+    ) -> AsyncGenerator[Dict[str, Any], None]:
+        """Run the demo orchestrator and emit layered main/sub-agent events."""
+        user_input = self._extract_user_input(messages)
+        try:
+            result = await self.orchestrator.run(user_input)
+            for event in result.get("events", []):
+                yield self.wrap_event(event)
+            response = result.get("response") or "编排 Agent 未返回有效结果。"
+            yield build_stream_event("response_chunk", {
+                "chunk": response,
+                "accumulated": response,
+            })
+        except Exception as err:
+            logger.error(f"Multi-agent orchestration error: {err}")
+            yield self.wrap_event({
+                "status": "ERROR",
+                "title": "多 Agent 编排失败",
+                "message": str(err),
+                "error": {"message": str(err)},
+            })
+            fallback = "多 Agent 编排执行失败，请稍后重试。"
+            yield build_stream_event("response_chunk", {
+                "chunk": fallback,
+                "accumulated": fallback,
+            })

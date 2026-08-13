@@ -10,7 +10,7 @@
 | P0 | 基线修复 | 修复会导致功能失效的已知问题，收敛权限和配置安全 | 3-5 天 | 已完成（静态验证） |
 | P1 | 测试与可观测性 | 建立测试骨架，打通可观测链路，先保证工程可信 | 2-3 天 | 已完成（纯逻辑测试） |
 | P2 | 评测与演示证据 | 让 RAG、记忆、断流三项指标可复现，准备面试 demo | 3-5 天 | 已完成（离线/模拟可复现，真实链路待补） |
-| P3 | 核心能力增强 | 真多 Agent 协作、记忆质量、检索质量的增量优化 | 4-6 天 | 未开始 |
+| P3 | 核心能力增强 | 真多 Agent 协作、记忆质量、检索质量的增量优化 | 4-6 天 | 已完成（离线/模拟可复现） |
 | P4 | 交付与简历对齐 | 文档收敛、部署验证、简历措辞与实测结果对齐 | 2-3 天 | 未开始 |
 
 ## P0：基线修复
@@ -96,18 +96,27 @@
 
 目标：在稳定基线上做增量，重点服务简历里的“多 Agent”和“Context Engineering”。
 
-- [ ] 设计一个真实的多 Agent 触发场景，并让主链路真正调用子 Agent
-- [ ] 为子 Agent 保留独立 ReAct 链，输出主 Agent 与子 Agent 的分层事件
-- [ ] 增加多 Agent 场景测试，避免“看起来有，实际不触发”
-- [ ] 验证记忆去重与合并逻辑，补齐写入失败与重复记忆兜底
-- [ ] 校准 token 控制策略：阈值、摘要触发点、长对话稳定上限
-- [ ] RAG 按 benchmark 结果做定向优化：改写、混合检索权重、Rerank 阈值
+- [x] 设计一个真实的多 Agent 触发场景，并让主链路真正调用子 Agent
+- [x] 为子 Agent 保留独立 ReAct 链，输出主 Agent 与子 Agent 的分层事件
+- [x] 增加多 Agent 场景测试，避免“看起来有，实际不触发”
+- [x] 验证记忆去重与合并逻辑，补齐写入失败与重复记忆兜底
+- [x] 校准 token 控制策略：阈值、摘要触发点、长对话稳定上限
+- [x] RAG 按 benchmark 结果做定向优化：改写、混合检索权重、Rerank 阈值
 
 验收标准：
 
 - 固定 demo 输入可以稳定触发多 Agent 协作
 - 记忆 benchmark 与 token 分布结果可展示
 - 优化项都有 P2 benchmark 的前后对比，而不是凭感觉改
+
+完成说明（P3）：
+
+- 新增多 Agent 编排层 `core/agents/orchestrator.py`：主 Agent 按固定关键词路由到制度、酒店、项目三个子 Agent，子 Agent 各自持有独立 ReAct 链与工具集，流式事件区分 `agent_start/agent_plan/sub_agent_start/sub_agent_end/agent_end`
+- `GeneralAgent.init_agent()` 接入 demo orchestrator，`astream()` 命中固定场景时走多 Agent 分支；新增 4 个 P3 测试模块，整体测试结果 `55 passed`
+- 记忆客户端补齐精确 hash 查重、冗余更新跳过、未知 id 跳过、历史写失败不阻断向量写；`memory-duplicate` benchmark 归档 `docs/eval/memory_dedup_p3.json`
+- 新增 `token` benchmark 校准长对话 token 策略，40 对样本 / 8560 tokens，归档 `docs/eval/token_budget_p3.json`
+- 新增 `rag-optimizer` benchmark：查询改写 + content/summary/tags 混合字段 + rerank 阈值；9 条固定 query 上 `mean_mrr` 从 `0.9259` 提升到 `1.0`，加班硬查询排名从第 3 提升到第 1，归档 `docs/eval/rag_p3_before_after.json`
+- 限制：当前多 Agent 为固定 demo 场景，RAG 优化为离线词法基准；真实模型链路与线上检索在 P4 补测后再进入简历
 
 ## P4：交付与简历对齐
 

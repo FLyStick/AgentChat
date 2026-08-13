@@ -276,22 +276,35 @@ class AsyncMemory(MemoryBase):
                                 data=action_text,
                                 existing_embeddings=new_message_embeddings,
                                 metadata=deepcopy(metadata),
+                                filters=effective_filters,
                             )
                         )
                         memory_tasks.append((task, resp, "ADD", None))
                     elif event_type == "UPDATE":
+                        memory_id = temp_uuid_mapping.get(resp.get("id"))
+                        if memory_id is None:
+                            logger.warning(
+                                f"Skipping UPDATE for unknown memory id: {resp.get('id')}"
+                            )
+                            continue
                         task = asyncio.create_task(
                             self._update_memory(
-                                memory_id=temp_uuid_mapping[resp["id"]],
+                                memory_id=memory_id,
                                 data=action_text,
                                 existing_embeddings=new_message_embeddings,
                                 metadata=deepcopy(metadata),
                             )
                         )
-                        memory_tasks.append((task, resp, "UPDATE", temp_uuid_mapping[resp["id"]]))
+                        memory_tasks.append((task, resp, "UPDATE", memory_id))
                     elif event_type == "DELETE":
-                        task = asyncio.create_task(self._delete_memory(memory_id=temp_uuid_mapping[resp.get("id")]))
-                        memory_tasks.append((task, resp, "DELETE", temp_uuid_mapping[resp.get("id")]))
+                        memory_id = temp_uuid_mapping.get(resp.get("id"))
+                        if memory_id is None:
+                            logger.warning(
+                                f"Skipping DELETE for unknown memory id: {resp.get('id')}"
+                            )
+                            continue
+                        task = asyncio.create_task(self._delete_memory(memory_id=memory_id))
+                        memory_tasks.append((task, resp, "DELETE", memory_id))
                     elif event_type == "NONE":
                         logger.info("NOOP for Memory (async).")
                 except Exception as e:
@@ -646,38 +659,73 @@ class AsyncMemory(MemoryBase):
         """
         return await asyncio.to_thread(self.db.get_history, memory_id)
 
-    async def _create_memory(self, data, existing_embeddings, metadata=None):
+    async def _create_memory(self, data, existing_embeddings, metadata=None, filters=None):
         logger.debug(f"Creating memory with {data=}")
         if data in existing_embeddings:
             embeddings = existing_embeddings[data]
         else:
             embeddings = await asyncio.to_thread(self.embedding_model.embed, data)
 
+        new_metadata = deepcopy(metadata) if metadata is not None else {}
+        new_metadata["data"] = data
+        new_metadata["hash"] = hashlib.md5(data.encode()).hexdigest()
+        new_metadata["created_at"] = datetime.now(pytz.timezone("US/Pacific")).isoformat()
+
+        existing_memory = await self._find_existing_memory(data, embeddings, filters)
+        if existing_memory is not None:
+            logger.info(
+                f"Duplicate memory skipped for {data!r}; reusing id={existing_memory.id}"
+            )
+            return existing_memory.id
+
         memory_id = str(uuid.uuid4())
-        metadata = metadata or {}
-        metadata["data"] = data
-        metadata["hash"] = hashlib.md5(data.encode()).hexdigest()
-        metadata["created_at"] = datetime.now(pytz.timezone("US/Pacific")).isoformat()
 
         await asyncio.to_thread(
             self.vector_store.insert,
             vectors=[embeddings],
             ids=[memory_id],
-            payloads=[metadata],
+            payloads=[new_metadata],
         )
 
-        await asyncio.to_thread(
-            self.db.add_history,
+        await self._write_history(
             memory_id,
             None,
             data,
             "ADD",
-            created_at=metadata.get("created_at"),
-            actor_id=metadata.get("actor_id"),
-            role=metadata.get("role"),
+            created_at=new_metadata.get("created_at"),
+            actor_id=new_metadata.get("actor_id"),
+            role=new_metadata.get("role"),
         )
 
         return memory_id
+
+    async def _find_existing_memory(self, data, embeddings, filters=None):
+        """Return an exact-hash memory from the vector store, if one already exists."""
+        try:
+            results = await asyncio.to_thread(
+                self.vector_store.search,
+                query=data,
+                vectors=embeddings,
+                limit=5,
+                filters=filters,
+            )
+        except Exception as err:
+            logger.debug(f"Duplicate lookup failed for {data!r}: {err}")
+            return None
+
+        memory_hash = hashlib.md5(data.encode()).hexdigest()
+        for memory in results:
+            payload = getattr(memory, "payload", None) or {}
+            if payload.get("hash") == memory_hash and payload.get("data") == data:
+                return memory
+        return None
+
+    async def _write_history(self, *args, **kwargs):
+        """Persist memory history; a history failure must not abort vector-store changes."""
+        try:
+            await asyncio.to_thread(self.db.add_history, *args, **kwargs)
+        except Exception as err:
+            logger.warning(f"Memory history write failed: {err}")
 
     async def _create_procedural_memory(self, messages, metadata=None, llm=None, prompt=None):
         """
@@ -721,9 +769,14 @@ class AsyncMemory(MemoryBase):
         if metadata is None:
             raise ValueError("Metadata cannot be done for procedural memory.")
 
-        metadata["memory_type"] = MemoryType.PROCEDURAL.value
+        new_metadata = deepcopy(metadata)
+        new_metadata["memory_type"] = MemoryType.PROCEDURAL.value
         embeddings = await asyncio.to_thread(self.embedding_model.embed, procedural_memory)
-        memory_id = await self._create_memory(procedural_memory, {procedural_memory: embeddings}, metadata=metadata)
+        memory_id = await self._create_memory(
+            procedural_memory,
+            {procedural_memory: embeddings},
+            metadata=new_metadata,
+        )
 
         result = {"results": [{"id": memory_id, "memory": procedural_memory, "event": "ADD"}]}
 
@@ -738,26 +791,33 @@ class AsyncMemory(MemoryBase):
             logger.error(f"Error getting memory with ID {memory_id} during update.")
             raise ValueError(f"Error getting memory with ID {memory_id}. Please provide a valid 'memory_id'")
 
-        prev_value = existing_memory.payload.get("data")
+        existing_payload = getattr(existing_memory, "payload", None) or {}
+        prev_value = existing_payload.get("data")
+
+        if prev_value == data:
+            logger.info(
+                f"Memory {memory_id} already contains the same content; skipping redundant update."
+            )
+            return memory_id
 
         new_metadata = deepcopy(metadata) if metadata is not None else {}
 
         new_metadata["data"] = data
         new_metadata["hash"] = hashlib.md5(data.encode()).hexdigest()
-        new_metadata["created_at"] = existing_memory.payload.get("created_at")
+        new_metadata["created_at"] = existing_payload.get("created_at")
         new_metadata["updated_at"] = datetime.now(pytz.timezone("US/Pacific")).isoformat()
 
-        if "user_id" in existing_memory.payload:
-            new_metadata["user_id"] = existing_memory.payload["user_id"]
-        if "agent_id" in existing_memory.payload:
-            new_metadata["agent_id"] = existing_memory.payload["agent_id"]
-        if "run_id" in existing_memory.payload:
-            new_metadata["run_id"] = existing_memory.payload["run_id"]
+        if "user_id" in existing_payload:
+            new_metadata["user_id"] = existing_payload["user_id"]
+        if "agent_id" in existing_payload:
+            new_metadata["agent_id"] = existing_payload["agent_id"]
+        if "run_id" in existing_payload:
+            new_metadata["run_id"] = existing_payload["run_id"]
 
-        if "actor_id" in existing_memory.payload:
-            new_metadata["actor_id"] = existing_memory.payload["actor_id"]
-        if "role" in existing_memory.payload:
-            new_metadata["role"] = existing_memory.payload["role"]
+        if "actor_id" in existing_payload:
+            new_metadata["actor_id"] = existing_payload["actor_id"]
+        if "role" in existing_payload:
+            new_metadata["role"] = existing_payload["role"]
 
         if data in existing_embeddings:
             embeddings = existing_embeddings[data]
@@ -772,8 +832,7 @@ class AsyncMemory(MemoryBase):
         )
         logger.info(f"Updating memory with ID {memory_id=} with {data=}")
 
-        await asyncio.to_thread(
-            self.db.add_history,
+        await self._write_history(
             memory_id,
             prev_value,
             data,
@@ -788,17 +847,17 @@ class AsyncMemory(MemoryBase):
     async def _delete_memory(self, memory_id):
         logger.info(f"Deleting memory with {memory_id=}")
         existing_memory = await asyncio.to_thread(self.vector_store.get, vector_id=memory_id)
-        prev_value = existing_memory.payload["data"]
+        existing_payload = getattr(existing_memory, "payload", None) or {}
+        prev_value = existing_payload.get("data")
 
         await asyncio.to_thread(self.vector_store.delete, vector_id=memory_id)
-        await asyncio.to_thread(
-            self.db.add_history,
+        await self._write_history(
             memory_id,
             prev_value,
             None,
             "DELETE",
-            actor_id=existing_memory.payload.get("actor_id"),
-            role=existing_memory.payload.get("role"),
+            actor_id=existing_payload.get("actor_id"),
+            role=existing_payload.get("role"),
             is_deleted=True,
         )
 
