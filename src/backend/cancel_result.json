@@ -1,0 +1,70 @@
+{
+  "framework": "cancel_stress",
+  "settings": {
+    "runs": 5,
+    "initial_delay_ms": 150.0,
+    "chunk_interval_ms": 30.0,
+    "chunks": 30,
+    "cancel_after_ms": 250.0
+  },
+  "runs": [
+    {
+      "run": 1,
+      "received_chunks": 3,
+      "cancelled": true,
+      "reason": "cancelled",
+      "total_duration_ms": 249.927,
+      "cancel_to_terminate_ms": 0.092,
+      "trace_id": null
+    },
+    {
+      "run": 2,
+      "received_chunks": 3,
+      "cancelled": true,
+      "reason": "cancelled",
+      "total_duration_ms": 268.827,
+      "cancel_to_terminate_ms": 0.137,
+      "trace_id": null
+    },
+    {
+      "run": 3,
+      "received_chunks": 2,
+      "cancelled": true,
+      "reason": "cancelled",
+      "total_duration_ms": 239.711,
+      "cancel_to_terminate_ms": 0.159,
+      "trace_id": null
+    },
+    {
+      "run": 4,
+      "received_chunks": 3,
+      "cancelled": true,
+      "reason": "cancelled",
+      "total_duration_ms": 258.179,
+      "cancel_to_terminate_ms": 0.097,
+      "trace_id": null
+    },
+    {
+      "run": 5,
+      "received_chunks": 3,
+      "cancelled": true,
+      "reason": "cancelled",
+      "total_duration_ms": 260.544,
+      "cancel_to_terminate_ms": 0.245,
+      "trace_id": null
+    }
+  ],
+  "summary": {
+    "runs": 5,
+    "threshold_ms": 500.0,
+    "passed_runs": 5,
+    "pass_rate": 1.0,
+    "cancel_to_terminate_ms": {
+      "mean_ms": 0.146,
+      "p50_ms": 0.137,
+      "p90_ms": 0.211,
+      "p95_ms": 0.228,
+      "max_ms": 0.245
+    }
+  }
+}

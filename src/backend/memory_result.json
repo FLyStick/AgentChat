@@ -1,0 +1,271 @@
+{
+  "framework": "memory",
+  "top_k": 3,
+  "modes": [
+    "short_term",
+    "summary",
+    "long_term"
+  ],
+  "mode_reports": {
+    "short_term": {
+      "case_count": 4,
+      "hit_rate": 1.0,
+      "mean_recall_at_k": 1.0,
+      "mean_mrr": 1.0,
+      "mean_context_characters": 60.8,
+      "latency_ms": {
+        "mean_ms": 0.333,
+        "p50_ms": 0.069,
+        "p90_ms": 0.817,
+        "p95_ms": 0.976,
+        "max_ms": 1.136
+      },
+      "cases": [
+        {
+          "case_id": "memory_short_01",
+          "case_type": "short_term",
+          "query": "我明天几点见客户？",
+          "expected": [
+            "下午3点"
+          ],
+          "retrieved": [
+            "assistant: 好的，已安排明天下午3点，会议室A302。",
+            "user: 我会提前十分钟到。",
+            "assistant: 收到，我会在会议开始前提醒你。"
+          ],
+          "hit": 1.0,
+          "recall_at_k": 1.0,
+          "mrr_at_k": 1.0,
+          "hit_at_k": 1.0,
+          "context_characters": 73,
+          "latency_ms": 1.136
+        },
+        {
+          "case_id": "memory_short_02",
+          "case_type": "short_term",
+          "query": "报销单现在怎么样了？",
+          "expected": [
+            "审批中"
+          ],
+          "retrieved": [
+            "assistant: 已经提交，正在审批中。"
+          ],
+          "hit": 1.0,
+          "recall_at_k": 1.0,
+          "mrr_at_k": 1.0,
+          "hit_at_k": 1.0,
+          "context_characters": 54,
+          "latency_ms": 0.071
+        },
+        {
+          "case_id": "memory_short_03",
+          "case_type": "short_term",
+          "query": "周报什么时候发？",
+          "expected": [
+            "周五"
+          ],
+          "retrieved": [
+            "assistant: 好的，周报已调整为周五发送。",
+            "user: 顺便提醒我周四下班前准备。"
+          ],
+          "hit": 1.0,
+          "recall_at_k": 1.0,
+          "mrr_at_k": 1.0,
+          "hit_at_k": 1.0,
+          "context_characters": 61,
+          "latency_ms": 0.066
+        },
+        {
+          "case_id": "memory_short_04",
+          "case_type": "short_term",
+          "query": "客户预算上限多少？",
+          "expected": [
+            "80万"
+          ],
+          "retrieved": [
+            "assistant: 已记录，客户预算上限80万。",
+            "user: 客户预算上限是80万，别再提超出这个范围的需求。"
+          ],
+          "hit": 1.0,
+          "recall_at_k": 1.0,
+          "mrr_at_k": 1.0,
+          "hit_at_k": 1.0,
+          "context_characters": 55,
+          "latency_ms": 0.059
+        }
+      ]
+    },
+    "summary": {
+      "case_count": 4,
+      "hit_rate": 1.0,
+      "mean_recall_at_k": 1.0,
+      "mean_mrr": 1.0,
+      "mean_context_characters": 27.0,
+      "latency_ms": {
+        "mean_ms": 0.041,
+        "p50_ms": 0.038,
+        "p90_ms": 0.051,
+        "p95_ms": 0.053,
+        "max_ms": 0.055
+      },
+      "cases": [
+        {
+          "case_id": "memory_summary_01",
+          "case_type": "summary",
+          "query": "客户预算是多少？",
+          "expected": [
+            "80万"
+          ],
+          "retrieved": [
+            "项目Alpha已完成POC，客户预算80万，后续每周五同步项目进展。"
+          ],
+          "hit": 1.0,
+          "recall_at_k": 1.0,
+          "mrr_at_k": 1.0,
+          "hit_at_k": 1.0,
+          "context_characters": 34,
+          "latency_ms": 0.055
+        },
+        {
+          "case_id": "memory_summary_02",
+          "case_type": "summary",
+          "query": "本月最重要的目标是什么？",
+          "expected": [
+            "上线推荐接口"
+          ],
+          "retrieved": [
+            "本月目标：上线推荐接口，完成联调。风险：依赖方排期延后一周。"
+          ],
+          "hit": 1.0,
+          "recall_at_k": 1.0,
+          "mrr_at_k": 1.0,
+          "hit_at_k": 1.0,
+          "context_characters": 30,
+          "latency_ms": 0.042
+        },
+        {
+          "case_id": "memory_summary_03",
+          "case_type": "summary",
+          "query": "新来的测试同事叫什么？",
+          "expected": [
+            "赵凯"
+          ],
+          "retrieved": [
+            "本周新入职3人：前端王明、后端李娜、测试赵凯。"
+          ],
+          "hit": 1.0,
+          "recall_at_k": 1.0,
+          "mrr_at_k": 1.0,
+          "hit_at_k": 1.0,
+          "context_characters": 23,
+          "latency_ms": 0.034
+        },
+        {
+          "case_id": "memory_summary_04",
+          "case_type": "summary",
+          "query": "服务器现在部署在哪里？",
+          "expected": [
+            "新加坡"
+          ],
+          "retrieved": [
+            "服务器已迁移至新加坡节点，DNS切换完成。"
+          ],
+          "hit": 1.0,
+          "recall_at_k": 1.0,
+          "mrr_at_k": 1.0,
+          "hit_at_k": 1.0,
+          "context_characters": 21,
+          "latency_ms": 0.031
+        }
+      ]
+    },
+    "long_term": {
+      "case_count": 4,
+      "hit_rate": 1.0,
+      "mean_recall_at_k": 1.0,
+      "mean_mrr": 1.0,
+      "mean_context_characters": 32.5,
+      "latency_ms": {
+        "mean_ms": 0.051,
+        "p50_ms": 0.049,
+        "p90_ms": 0.061,
+        "p95_ms": 0.063,
+        "max_ms": 0.065
+      },
+      "cases": [
+        {
+          "case_id": "memory_long_01",
+          "case_type": "long_term",
+          "query": "数据部门负责人邮箱是什么？",
+          "expected": [
+            "zhang.san@example.com"
+          ],
+          "retrieved": [
+            "员工编号T-1001的张三是数据部门负责人。",
+            "张三的邮箱是zhang.san@example.com。"
+          ],
+          "hit": 1.0,
+          "recall_at_k": 1.0,
+          "mrr_at_k": 1.0,
+          "hit_at_k": 1.0,
+          "context_characters": 50,
+          "latency_ms": 0.065
+        },
+        {
+          "case_id": "memory_long_02",
+          "case_type": "long_term",
+          "query": "日志数据要保留多久？",
+          "expected": [
+            "90天"
+          ],
+          "retrieved": [
+            "公司日志保留90天。",
+            "用户资料默认保存24个月。"
+          ],
+          "hit": 1.0,
+          "recall_at_k": 1.0,
+          "mrr_at_k": 1.0,
+          "hit_at_k": 1.0,
+          "context_characters": 23,
+          "latency_ms": 0.047
+        },
+        {
+          "case_id": "memory_long_03",
+          "case_type": "long_term",
+          "query": "标准交付周期是几天？",
+          "expected": [
+            "3个工作日"
+          ],
+          "retrieved": [
+            "标准交付周期为3个工作日。",
+            "加急交付需要额外支付30%费用。"
+          ],
+          "hit": 1.0,
+          "recall_at_k": 1.0,
+          "mrr_at_k": 1.0,
+          "hit_at_k": 1.0,
+          "context_characters": 29,
+          "latency_ms": 0.051
+        },
+        {
+          "case_id": "memory_long_04",
+          "case_type": "long_term",
+          "query": "自动备份是什么时间？",
+          "expected": [
+            "每天23:00"
+          ],
+          "retrieved": [
+            "服务器自动备份时间是每天23:00。",
+            "备份数据保留30天。"
+          ],
+          "hit": 1.0,
+          "recall_at_k": 1.0,
+          "mrr_at_k": 1.0,
+          "hit_at_k": 1.0,
+          "context_characters": 28,
+          "latency_ms": 0.041
+        }
+      ]
+    }
+  }
+}

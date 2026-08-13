@@ -1,0 +1,145 @@
+{
+  "dataset_name": "memory_offline_modes",
+  "dataset_path": "src/backend/agentchat/benchmarks/fixtures/memory/cases.json",
+  "description": "记忆基准：短期窗口、摘要、长期事实三类固定样本。",
+  "cases": [
+    {
+      "id": "memory_short_01",
+      "type": "short_term",
+      "history": [
+        {"role": "user", "content": "帮我安排明天下午3点和客户的会议。"},
+        {"role": "assistant", "content": "好的，已安排明天下午3点，会议室A302。"},
+        {"role": "user", "content": "我会提前十分钟到。"},
+        {"role": "assistant", "content": "收到，我会在会议开始前提醒你。"}
+      ],
+      "summary": [],
+      "facts": [],
+      "query": "我明天几点见客户？",
+      "expected": ["下午3点"]
+    },
+    {
+      "id": "memory_short_02",
+      "type": "short_term",
+      "history": [
+        {"role": "user", "content": "报销单提交了吗？"},
+        {"role": "assistant", "content": "已经提交，正在审批中。"},
+        {"role": "user", "content": "需要我补充材料吗？"},
+        {"role": "assistant", "content": "暂时不需要。"}
+      ],
+      "summary": [],
+      "facts": [],
+      "query": "报销单现在怎么样了？",
+      "expected": ["审批中"]
+    },
+    {
+      "id": "memory_short_03",
+      "type": "short_term",
+      "history": [
+        {"role": "user", "content": "以后周报改成周五发。"},
+        {"role": "assistant", "content": "好的，周报已调整为周五发送。"},
+        {"role": "user", "content": "顺便提醒我周四下班前准备。"},
+        {"role": "assistant", "content": "已添加提醒。"}
+      ],
+      "summary": [],
+      "facts": [],
+      "query": "周报什么时候发？",
+      "expected": ["周五"]
+    },
+    {
+      "id": "memory_short_04",
+      "type": "short_term",
+      "history": [
+        {"role": "user", "content": "客户预算上限是80万，别再提超出这个范围的需求。"},
+        {"role": "assistant", "content": "已记录，客户预算上限80万。"}
+      ],
+      "summary": [],
+      "facts": [],
+      "query": "客户预算上限多少？",
+      "expected": ["80万"]
+    },
+    {
+      "id": "memory_summary_01",
+      "type": "summary",
+      "history": [],
+      "summary": ["项目Alpha已完成POC，客户预算80万，后续每周五同步项目进展。"],
+      "facts": [],
+      "query": "客户预算是多少？",
+      "expected": ["80万"]
+    },
+    {
+      "id": "memory_summary_02",
+      "type": "summary",
+      "history": [],
+      "summary": ["本月目标：上线推荐接口，完成联调。风险：依赖方排期延后一周。"],
+      "facts": [],
+      "query": "本月最重要的目标是什么？",
+      "expected": ["上线推荐接口"]
+    },
+    {
+      "id": "memory_summary_03",
+      "type": "summary",
+      "history": [],
+      "summary": ["本周新入职3人：前端王明、后端李娜、测试赵凯。"],
+      "facts": [],
+      "query": "新来的测试同事叫什么？",
+      "expected": ["赵凯"]
+    },
+    {
+      "id": "memory_summary_04",
+      "type": "summary",
+      "history": [],
+      "summary": ["服务器已迁移至新加坡节点，DNS切换完成。"],
+      "facts": [],
+      "query": "服务器现在部署在哪里？",
+      "expected": ["新加坡"]
+    },
+    {
+      "id": "memory_long_01",
+      "type": "long_term",
+      "history": [],
+      "summary": [],
+      "facts": [
+        "员工编号T-1001的张三是数据部门负责人。",
+        "张三的邮箱是zhang.san@example.com。"
+      ],
+      "query": "数据部门负责人邮箱是什么？",
+      "expected": ["zhang.san@example.com"]
+    },
+    {
+      "id": "memory_long_02",
+      "type": "long_term",
+      "history": [],
+      "summary": [],
+      "facts": [
+        "公司日志保留90天。",
+        "用户资料默认保存24个月。"
+      ],
+      "query": "日志数据要保留多久？",
+      "expected": ["90天"]
+    },
+    {
+      "id": "memory_long_03",
+      "type": "long_term",
+      "history": [],
+      "summary": [],
+      "facts": [
+        "标准交付周期为3个工作日。",
+        "加急交付需要额外支付30%费用。"
+      ],
+      "query": "标准交付周期是几天？",
+      "expected": ["3个工作日"]
+    },
+    {
+      "id": "memory_long_04",
+      "type": "long_term",
+      "history": [],
+      "summary": [],
+      "facts": [
+        "服务器自动备份时间是每天23:00。",
+        "备份数据保留30天。"
+      ],
+      "query": "自动备份是什么时间？",
+      "expected": ["每天23:00"]
+    }
+  ]
+}

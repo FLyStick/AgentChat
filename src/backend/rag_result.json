@@ -1,0 +1,178 @@
+{
+  "framework": "rag",
+  "top_k": 5,
+  "retriever": "OfflineRetriever",
+  "dataset": "src/backend/agentchat/benchmarks/fixtures/rag/dataset.json",
+  "cases": [
+    {
+      "query_id": "rag_q_checkin_time",
+      "query": "酒店几点可以办理入住，几点退房？",
+      "difficulty": "easy",
+      "expected": [
+        "hotel_faq_checkin"
+      ],
+      "retrieved": [
+        "hotel_faq_checkin",
+        "hotel_faq_breakfast",
+        "project_manual_rag",
+        "hotel_faq_wifi",
+        "internal_policy_leave"
+      ],
+      "recall_at_k": 1.0,
+      "mrr_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "latency_ms": 0.669
+    },
+    {
+      "query_id": "rag_q_wifi_password",
+      "query": "客房Wi-Fi密码是多少？",
+      "difficulty": "easy",
+      "expected": [
+        "hotel_faq_wifi"
+      ],
+      "retrieved": [
+        "hotel_faq_wifi",
+        "hotel_faq_checkin",
+        "hotel_faq_breakfast"
+      ],
+      "recall_at_k": 1.0,
+      "mrr_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "latency_ms": 0.501
+    },
+    {
+      "query_id": "rag_q_breakfast",
+      "query": "早餐几点供应，收费是多少？",
+      "difficulty": "easy",
+      "expected": [
+        "hotel_faq_breakfast"
+      ],
+      "retrieved": [
+        "hotel_faq_breakfast",
+        "hotel_faq_wifi"
+      ],
+      "recall_at_k": 1.0,
+      "mrr_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "latency_ms": 0.515
+    },
+    {
+      "query_id": "rag_q_deploy",
+      "query": "项目的启动命令是什么？",
+      "difficulty": "easy",
+      "expected": [
+        "project_manual_deploy"
+      ],
+      "retrieved": [
+        "project_manual_deploy"
+      ],
+      "recall_at_k": 1.0,
+      "mrr_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "latency_ms": 0.509
+    },
+    {
+      "query_id": "rag_q_rag_chain",
+      "query": "RAG检索链路用到了哪些组件？",
+      "difficulty": "easy",
+      "expected": [
+        "project_manual_rag"
+      ],
+      "retrieved": [
+        "project_manual_rag",
+        "internal_policy_expense"
+      ],
+      "recall_at_k": 1.0,
+      "mrr_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "latency_ms": 0.514
+    },
+    {
+      "query_id": "rag_q_leave",
+      "query": "请病假需要提前多久申请？",
+      "difficulty": "easy",
+      "expected": [
+        "internal_policy_leave"
+      ],
+      "retrieved": [
+        "internal_policy_leave",
+        "internal_policy_overtime",
+        "project_manual_deploy",
+        "internal_policy_expense",
+        "hotel_faq_checkin"
+      ],
+      "recall_at_k": 1.0,
+      "mrr_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "latency_ms": 0.669
+    },
+    {
+      "query_id": "rag_q_expense",
+      "query": "报销大概多久能到账？",
+      "difficulty": "normal",
+      "expected": [
+        "internal_policy_expense"
+      ],
+      "retrieved": [
+        "internal_policy_expense"
+      ],
+      "recall_at_k": 1.0,
+      "mrr_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "latency_ms": 0.474
+    },
+    {
+      "query_id": "rag_q_supervisor_sign",
+      "query": "报销金额比较大时，谁需要签字？",
+      "difficulty": "normal",
+      "expected": [
+        "internal_policy_expense"
+      ],
+      "retrieved": [
+        "internal_policy_expense",
+        "internal_policy_overtime",
+        "hotel_faq_breakfast",
+        "project_manual_deploy",
+        "hotel_faq_checkin"
+      ],
+      "recall_at_k": 1.0,
+      "mrr_at_k": 1.0,
+      "hit_at_k": 1.0,
+      "latency_ms": 0.543
+    },
+    {
+      "query_id": "rag_q_overtime_pay",
+      "query": "下班后继续干活，公司如何计酬？",
+      "difficulty": "hard",
+      "expected": [
+        "internal_policy_overtime"
+      ],
+      "retrieved": [
+        "hotel_faq_checkin",
+        "hotel_faq_wifi",
+        "internal_policy_overtime",
+        "project_manual_deploy",
+        "internal_policy_expense"
+      ],
+      "recall_at_k": 1.0,
+      "mrr_at_k": 0.3333,
+      "hit_at_k": 1.0,
+      "latency_ms": 0.665
+    }
+  ],
+  "summary": {
+    "case_count": 9,
+    "top_k": 5,
+    "mean_recall_at_k": 1.0,
+    "mean_mrr": 0.9259,
+    "hit_rate_at_k": 1.0,
+    "median_recall_at_k": 1.0,
+    "latency_ms": {
+      "mean_ms": 0.562,
+      "p50_ms": 0.515,
+      "p90_ms": 0.669,
+      "p95_ms": 0.669,
+      "max_ms": 0.669
+    }
+  }
+}

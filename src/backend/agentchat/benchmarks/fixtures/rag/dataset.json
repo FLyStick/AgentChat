@@ -1,0 +1,119 @@
+{
+  "dataset_name": "rag_hotel_faq_offline",
+  "dataset_path": "src/backend/agentchat/benchmarks/fixtures/rag/dataset.json",
+  "description": "固定知识库基准：酒店 FAQ、项目手册、内部制度，用于离线召回评测和线上 RAG 对齐。",
+  "docs": [
+    {
+      "chunk_id": "hotel_faq_checkin",
+      "content": "酒店入住时间为下午14:00，退房时间为中午12:00。前台24小时值班，行李可以寄存。",
+      "summary": "入住14:00，退房12:00，支持行李寄存。",
+      "file_name": "hotel_faq.md",
+      "tags": ["hotel", "checkin"]
+    },
+    {
+      "chunk_id": "hotel_faq_wifi",
+      "content": "客房无线网络名称为GrandHotel-Guest，密码为CheckIn2026，公共区域免费连接。",
+      "summary": "Wi-Fi密码CheckIn2026，公共区域免费。",
+      "file_name": "hotel_faq.md",
+      "tags": ["hotel", "wifi"]
+    },
+    {
+      "chunk_id": "hotel_faq_breakfast",
+      "content": "自助早餐供应时间为06:30至10:00，地点在二楼餐厅；住客含双早，额外早餐每人68元。",
+      "summary": "早餐06:30-10:00，住客含双早，额外每人68元。",
+      "file_name": "hotel_faq.md",
+      "tags": ["hotel", "breakfast"]
+    },
+    {
+      "chunk_id": "project_manual_deploy",
+      "content": "AgentChat后端启动命令：python -m uvicorn agentchat.main:app --host 0.0.0.0 --port 8000。启动前需要配置数据库和向量库环境变量。",
+      "summary": "启动命令 uvicorn agentchat.main:app，需先配置环境变量。",
+      "file_name": "project_manual.md",
+      "tags": ["project", "deploy"]
+    },
+    {
+      "chunk_id": "project_manual_rag",
+      "content": "知识库问答使用RAG链路：文档上传后切成固定长度分块，写入Chroma向量库；可选同步Elasticsearch关键词索引，检索后经过重排返回结果。",
+      "summary": "RAG链路：文件分块、Chroma向量库、可选ES、重排。",
+      "file_name": "project_manual.md",
+      "tags": ["project", "rag"]
+    },
+    {
+      "chunk_id": "internal_policy_leave",
+      "content": "员工请假需提前1个工作日提交申请，病假可当日提交并附医院证明；请假由直属主管审批。",
+      "summary": "请假提前1个工作日申请，病假可当日提交。",
+      "file_name": "internal_policy.md",
+      "tags": ["policy", "leave"]
+    },
+    {
+      "chunk_id": "internal_policy_expense",
+      "content": "报销单需附原始发票，财务审核通过后5个工作日内打款；单笔超过5000元需要部门总监复核。",
+      "summary": "报销5个工作日到账，超过5000元需总监复核。",
+      "file_name": "internal_policy.md",
+      "tags": ["policy", "expense"]
+    },
+    {
+      "chunk_id": "internal_policy_overtime",
+      "content": "加班需提前申请，工作日晚间加班按1.5倍时薪补偿，周末加班优先安排调休。",
+      "summary": "工作日加班1.5倍时薪，周末优先调休。",
+      "file_name": "internal_policy.md",
+      "tags": ["policy", "overtime"]
+    }
+  ],
+  "queries": [
+    {
+      "id": "rag_q_checkin_time",
+      "query": "酒店几点可以办理入住，几点退房？",
+      "difficulty": "easy",
+      "ground_truth": ["hotel_faq_checkin"]
+    },
+    {
+      "id": "rag_q_wifi_password",
+      "query": "客房Wi-Fi密码是多少？",
+      "difficulty": "easy",
+      "ground_truth": ["hotel_faq_wifi"]
+    },
+    {
+      "id": "rag_q_breakfast",
+      "query": "早餐几点供应，收费是多少？",
+      "difficulty": "easy",
+      "ground_truth": ["hotel_faq_breakfast"]
+    },
+    {
+      "id": "rag_q_deploy",
+      "query": "项目的启动命令是什么？",
+      "difficulty": "easy",
+      "ground_truth": ["project_manual_deploy"]
+    },
+    {
+      "id": "rag_q_rag_chain",
+      "query": "RAG检索链路用到了哪些组件？",
+      "difficulty": "easy",
+      "ground_truth": ["project_manual_rag"]
+    },
+    {
+      "id": "rag_q_leave",
+      "query": "请病假需要提前多久申请？",
+      "difficulty": "easy",
+      "ground_truth": ["internal_policy_leave"]
+    },
+    {
+      "id": "rag_q_expense",
+      "query": "报销大概多久能到账？",
+      "difficulty": "normal",
+      "ground_truth": ["internal_policy_expense"]
+    },
+    {
+      "id": "rag_q_supervisor_sign",
+      "query": "报销金额比较大时，谁需要签字？",
+      "difficulty": "normal",
+      "ground_truth": ["internal_policy_expense"]
+    },
+    {
+      "id": "rag_q_overtime_pay",
+      "query": "下班后继续干活，公司如何计酬？",
+      "difficulty": "hard",
+      "ground_truth": ["internal_policy_overtime"]
+    }
+  ]
+}

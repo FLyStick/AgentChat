@@ -26,6 +26,7 @@ from agentchat.core.agents.mcp_agent import MCPAgent, MCPConfig
 from agentchat.api.services.mcp_server import MCPService
 from agentchat.tools.openapi_tool.adapter import OpenAPIToolAdapter
 from agentchat.utils.events import build_stream_event
+from agentchat.utils.cancellable_stream import CancellableAsyncStream
 
 
 class StreamAgentState(AgentState):
@@ -138,6 +139,8 @@ class GeneralAgent:
         # 流式事件队列
         self.event_queue = asyncio.Queue()
         self.stop_streaming = False
+        self.cancellable_stream = None
+        self.last_stream_summary = None
 
     def wrap_event(self, data: Dict[Any, Any]):
         """发送流式事件"""
@@ -317,8 +320,11 @@ class GeneralAgent:
     async def astream(self, messages: List[BaseMessage]) -> AsyncGenerator[Dict[str, Any], None]:
         """流式调用主方法"""
         self.stop_streaming = False
+        self.cancellable_stream = None
         response_content = ""
-        try:
+
+        async def _produce(queue: asyncio.Queue) -> None:
+            producer_content = ""
             async for token, metadata in self.react_agent.astream(
                     input={"messages": copy.deepcopy(messages), "model_call_count": 0, "user_id": self.agent_config.user_id},
                     config={"callbacks": [usage_metadata_callback]},
@@ -327,13 +333,24 @@ class GeneralAgent:
                 if self.stop_streaming:
                     break
                 if token == "custom":
-                    yield self.wrap_event(metadata)
+                    queue.put_nowait(self.wrap_event(metadata))
                 elif isinstance(metadata[0], AIMessageChunk) and metadata[0].content:
-                    response_content += metadata[0].content
-                    yield build_stream_event("response_chunk", {
+                    producer_content += metadata[0].content
+                    queue.put_nowait(build_stream_event("response_chunk", {
                         "chunk": metadata[0].content,
-                        "accumulated": response_content,
-                    })
+                        "accumulated": producer_content,
+                    }))
+
+        stream = CancellableAsyncStream(_produce)
+        self.cancellable_stream = stream
+        if self.stop_streaming:
+            stream.request_cancel()
+
+        try:
+            async for event in stream:
+                if event.get("type") == "response_chunk":
+                    response_content += event["data"].get("chunk", "")
+                yield event
 
         # 针对模型回复进行兜底操作，错误类型包括：敏感词，模型问题
         except Exception as err:
@@ -350,9 +367,20 @@ class GeneralAgent:
             })
         finally:
             self.stop_streaming = False
+            summary = stream.summary()
+            self.last_stream_summary = summary
+            if summary is not None and summary.get("cancelled"):
+                logger.info(
+                    f"Stream cancelled. total_duration_ms={summary.get('total_duration_ms')} "
+                    f"cancel_to_terminate_ms={summary.get('cancel_to_terminate_ms')} "
+                    f"trace_id={summary.get('trace_id')}"
+                )
+            self.cancellable_stream = None
 
     def stop_streaming_callback(self):
         self.stop_streaming = True
+        if self.cancellable_stream is not None:
+            self.cancellable_stream.request_cancel()
 
     def get_tool_display_name(self, tool_name: str):
         """

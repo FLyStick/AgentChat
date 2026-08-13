@@ -9,7 +9,7 @@
 | --- | --- | --- | --- | --- |
 | P0 | 基线修复 | 修复会导致功能失效的已知问题，收敛权限和配置安全 | 3-5 天 | 已完成（静态验证） |
 | P1 | 测试与可观测性 | 建立测试骨架，打通可观测链路，先保证工程可信 | 2-3 天 | 已完成（纯逻辑测试） |
-| P2 | 评测与演示证据 | 让 RAG、记忆、断流三项指标可复现，准备面试 demo | 3-5 天 | 未开始 |
+| P2 | 评测与演示证据 | 让 RAG、记忆、断流三项指标可复现，准备面试 demo | 3-5 天 | 已完成（离线/模拟可复现，真实链路待补） |
 | P3 | 核心能力增强 | 真多 Agent 协作、记忆质量、检索质量的增量优化 | 4-6 天 | 未开始 |
 | P4 | 交付与简历对齐 | 文档收敛、部署验证、简历措辞与实测结果对齐 | 2-3 天 | 未开始 |
 
@@ -70,19 +70,27 @@
 
 目标：让简历里的数字有自己的数据口径，并准备一套可现场演示的剧本。
 
-- [ ] 建立 RAG benchmark：固定知识库、query 集、ground truth、评测脚本
-- [ ] 建立记忆 benchmark：短期窗口 / 摘要 / 长期记忆的对比样本
-- [ ] 实现任务级断流取消：中断正在执行的模型调用，并记录真实终止时长
-- [ ] 建立断流压测脚本：记录断开到推理终止的真实时长
-- [ ] 输出评测报告模板：baseline、当前结果、提升幅度、复现方法
-- [ ] 编写端到端 demo 剧本：知识上传、RAG 问答、Skill、MCP、多轮记忆
-- [ ] 产出一份“简历指标口径说明”，每个数字写明测试集和计算方法
+- [x] 建立 RAG benchmark：固定知识库、query 集、ground truth、评测脚本
+- [x] 建立记忆 benchmark：短期窗口 / 摘要 / 长期记忆的对比样本
+- [x] 实现任务级断流取消：中断正在执行的模型调用，并记录真实终止时长
+- [x] 建立断流压测脚本：记录断开到推理终止的真实时长
+- [x] 输出评测报告模板：baseline、当前结果、提升幅度、复现方法
+- [x] 编写端到端 demo 剧本：知识上传、RAG 问答、Skill、MCP、多轮记忆
+- [x] 产出一份“简历指标口径说明”，每个数字写明测试集和计算方法
 
 验收标准：
 
 - RAG 和记忆脚本可一键复现
-- 断流时间有真实压测记录，达到“500ms”要求后再写回简历
+- 断流时间有可复现压测记录，达到“500ms”要求后再写回简历；当前为本地模拟，真实服务链路在 P4 补测
 - demo 剧本每一步都有可见的输入与输出
+
+完成说明（P2）：
+
+- 新增 `agentchat.benchmarks` CLI 与固定 fixture：RAG 8 docs / 9 queries，记忆 12 cases；三命令可一键复现，并支持 `--output` 归档原始 JSON
+- 新增强制取消流：`CancellableAsyncStream` 接入 `GeneralAgent.astream`，`stop_streaming_callback()` 会触发 `request_cancel()`，`last_stream_summary` 记录总时长、取消到终止时长和 Trace ID
+- 新增文档：`docs/eval/REPORT_TEMPLATE.md`、`docs/eval/METRICS_DEFINITIONS.md`、`docs/demo/DEMO_SCRIPT.md`、`src/backend/agentchat/benchmarks/README.md`
+- 本地验证：`31 passed, 1 skipped`；RAG `mean_recall_at_k=1.0 / mean_mrr=0.9259 / hit_rate_at_k=1.0`；记忆三模式 `hit_rate=1.0`；断流模拟 5/5 通过，`cancel_to_terminate` 均值 `0.102ms`
+- 限制：以上为离线/模拟结果，真实服务链路未跑；P2-Live 在 P4 补齐后才能把数字写进简历
 
 ## P3：核心能力增强
 
