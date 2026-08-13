@@ -11,6 +11,7 @@
 | P1 | 测试与可观测性 | 建立测试骨架，打通可观测链路，先保证工程可信 | 2-3 天 | 已完成（纯逻辑测试） |
 | P2 | 评测与演示证据 | 让 RAG、记忆、断流三项指标可复现，准备面试 demo | 3-5 天 | 已完成（离线/模拟可复现，真实链路待补） |
 | P3 | 核心能力增强 | 真多 Agent 协作、记忆质量、检索质量的增量优化 | 4-6 天 | 已完成（离线/模拟可复现） |
+| P3.5 | 生产链路收敛 | 把 P3 的模拟增强接回生产配置，统一 token 预算并全量回归 | 1-2 天 | 已完成（生产配置化，全量测试通过） |
 | P4 | 交付与简历对齐 | 文档收敛、部署验证、简历措辞与实测结果对齐 | 2-3 天 | 未开始 |
 
 ## P0：基线修复
@@ -117,6 +118,23 @@
 - 新增 `token` benchmark 校准长对话 token 策略，40 对样本 / 8560 tokens，归档 `docs/eval/token_budget_p3.json`
 - 新增 `rag-optimizer` benchmark：查询改写 + content/summary/tags 混合字段 + rerank 阈值；9 条固定 query 上 `mean_mrr` 从 `0.9259` 提升到 `1.0`，加班硬查询排名从第 3 提升到第 1，归档 `docs/eval/rag_p3_before_after.json`
 - 限制：当前多 Agent 为固定 demo 场景，RAG 优化为离线词法基准；真实模型链路与线上检索在 P4 补测后再进入简历
+
+## P3.5：生产链路收敛
+
+目标：把 P3 里“演示可复现”的部分收敛到真实生产路径，避免改动只存在于测试侧。
+
+- [x] 抽离共享 token 预算 helper，`DialogService.update_dialog_summary` 与 benchmark 复用同一分片规则
+- [x] 多 Agent 改为配置驱动：默认关闭，显式 `enable_multi_agent=True` 才构造 orchestrator
+- [x] RAG 生产 handler 支持 `content+summary` 双字段检索、`rerank_threshold` 配置、`top_k=None` 不丢结果
+- [x] 数据库旧库兼容：`init_data.py` 通过 `inspect + ALTER TABLE` 补多 Agent 配置列
+- [x] 新增 P3.5 测试与 conftest 离线依赖桩，全量测试 `68 passed`
+
+完成说明（P3.5）：
+
+- `agentchat/utils/message_budget.py` 定义 `message_token_count / pair_messages / pair_token_count / split_messages_by_token / default_summary_cutoff_tokens`，摘要服务与 `benchmarks/token_budget.py` 都委托该 helper
+- 子 Agent 输入由纯字符串改为 `SystemMessage(sub_prompt) + 原历史/最新 HumanMessage`，`orchestrator` 支持 `List[BaseMessage]`
+- RAG 检索按配置选择 `content` 或 `content+summary` 字段，summary 回退 content 时透传重写结果与配置参数
+- 限制：多 Agent 仍默认关闭，固定关键词路由仍是 P4 前用于面试演示的场景；RAG 生产 handler 已接配置，但检索效果离线验证为 mock 数据，不伪造线上指标
 
 ## P4：交付与简历对齐
 

@@ -20,6 +20,7 @@ class AgentTable(SQLModelSerializable, table=True):
     system_prompt: str = Field(default="", description="Agent设定的系统提示词")
     llm_id: str = Field(default="", description="Agent绑定的LLM模型")
     enable_memory: bool = Field(default=True, description="是否开启记忆功能")
+    enable_multi_agent: bool = Field(default=False, description="是否开启多智能体协作")
     mcp_ids: List[str] = Field(default=[], sa_column=Column(JSON), description="Agent绑定的MCP Server")
     tool_ids: List[str] = Field(default=[], sa_column=Column(JSON), description="Agent绑定的工具列表")
     agent_skill_ids: List[str] = Field(default=[], sa_column=Column(JSON), description="Agent绑定的技能")

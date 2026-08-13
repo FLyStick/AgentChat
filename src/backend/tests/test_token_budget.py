@@ -6,6 +6,7 @@ from agentchat.benchmarks.token_budget import (
     run_token_budget_benchmark,
     split_messages_by_token,
 )
+from agentchat.utils.message_budget import default_summary_cutoff_tokens
 
 
 def _messages(*sizes):
@@ -42,6 +43,24 @@ def test_split_never_forces_summary_for_oversized_single_pair():
 
     assert old_messages == []
     assert kept_messages == []
+
+
+def test_split_keeps_newest_pair_when_multiple_pairs_exceed_cutoff():
+    old_messages, kept_messages = split_messages_by_token(
+        _messages(300, 300, 200, 200), 100
+    )
+
+    assert [message.content for message in old_messages] == ["message_0", "message_1"]
+    assert [message.content for message in kept_messages] == ["message_2", "message_3"]
+
+
+def test_default_summary_cutoff_tokens_resolves_safely():
+    assert default_summary_cutoff_tokens({"dialog_summary_cutoff_tokens": 2000}) == 2000
+    assert default_summary_cutoff_tokens({"dialog_summary_cutoff_tokens": "1500"}) == 1500
+    assert default_summary_cutoff_tokens({}) == 3000
+    assert default_summary_cutoff_tokens({"dialog_summary_cutoff_tokens": None}) == 3000
+    assert default_summary_cutoff_tokens({"dialog_summary_cutoff_tokens": "-1"}) == 3000
+    assert default_summary_cutoff_tokens({"dialog_summary_cutoff_tokens": -10}) == 3000
 
 
 def test_split_returns_empty_when_everything_fits():

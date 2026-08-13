@@ -240,11 +240,11 @@ git clone https://github.com/Shy2593666979/AgentChat.git
 
 cd AgentChat
 ```
-
-
 后端启动服务
 ```bash
 cd src/backend
+
+uvicorn agentchat.main:app --port 7860 --host 0.0.0.0
 
 # 安装依赖
 1. pip install -r requirements.txt

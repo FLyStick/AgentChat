@@ -8,7 +8,7 @@ import uuid
 from dataclasses import dataclass, field
 from typing import Any, AsyncGenerator, Dict, Iterable, List, Optional, Sequence
 
-from langchain_core.messages import HumanMessage
+from langchain_core.messages import BaseMessage, HumanMessage, SystemMessage
 from langchain_core.tools import BaseTool, tool
 
 from agentchat.core.agents.react_agent import ReactAgent
@@ -20,6 +20,17 @@ def _nested_event_data(nested_event: Dict[str, Any]) -> Dict[str, Any]:
     if isinstance(data, dict) and "data" in data:
         return data["data"]
     return data or {}
+
+
+def _extract_text(user_input: Any) -> str:
+    """从字符串或对话消息列表中提取最新用户文本。"""
+    if isinstance(user_input, str):
+        return user_input
+    for message in reversed(user_input or []):
+        if isinstance(message, HumanMessage):
+            content = message.content
+            return content if isinstance(content, str) else str(content)
+    return ""
 
 
 @dataclass
@@ -43,14 +54,29 @@ class SubAgent:
             tools=list(self.tools),
         )
 
-    async def invoke(self, user_query: str) -> Dict[str, Any]:
+    async def invoke(self, user_query: Any) -> Dict[str, Any]:
         """运行子 Agent 的 ReAct 链，并收集其分层执行事件。"""
         events: List[Dict[str, Any]] = []
         chunks: List[str] = []
         tool_calls = 0
 
+        if isinstance(user_query, list):
+            input_messages = [
+                SystemMessage(content=self.system_prompt),
+                *(
+                    message
+                    for message in user_query
+                    if not isinstance(message, SystemMessage)
+                ),
+            ]
+        else:
+            input_messages = [
+                SystemMessage(content=self.system_prompt),
+                HumanMessage(content=user_query),
+            ]
+
         async for nested_event in self.react_agent.astream(
-            [HumanMessage(content=user_query)]
+            input_messages
         ):
             if nested_event["type"] == "event":
                 data = _nested_event_data(nested_event)
@@ -89,19 +115,20 @@ class MultiAgentOrchestrator:
             merged.extend(subagent.keywords)
         return merged
 
-    def route(self, user_input: str) -> List[SubAgent]:
+    def route(self, user_input: Any) -> List[SubAgent]:
         """按固定意图关键词路由，保证演示输入的结果是确定性的。"""
+        text = _extract_text(user_input)
         matched: List[SubAgent] = []
         for subagent in self.subagents.values():
-            if any(keyword in user_input for keyword in subagent.keywords):
+            if any(keyword in text for keyword in subagent.keywords):
                 matched.append(subagent)
         return matched
 
-    def should_route(self, user_input: str) -> bool:
+    def should_route(self, user_input: Any) -> bool:
         """判断当前输入是否命中任意子 Agent。"""
         return bool(self.route(user_input))
 
-    async def run(self, user_input: str) -> Dict[str, Any]:
+    async def run(self, user_input: Any) -> Dict[str, Any]:
         """执行匹配到的子 Agent，并返回聚合后的主运行结果。"""
         main_run_id = uuid.uuid4().hex
         events: List[Dict[str, Any]] = []

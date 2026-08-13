@@ -1,6 +1,7 @@
 import asyncio
 
 import pytest
+from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
 
 from agentchat.settings import app_settings
 
@@ -12,6 +13,7 @@ app_settings.mysql = {
 }
 
 orchestrator = pytest.importorskip("agentchat.core.agents.orchestrator")
+general_agent = pytest.importorskip("agentchat.core.agents.general_agent")
 
 
 class FakeSubAgent:
@@ -31,6 +33,28 @@ class FakeSubAgent:
             "events": self.events,
             "tool_calls": 1,
         }
+
+
+class FakeReactAgent:
+    def __init__(self):
+        self.received = []
+
+    async def astream(self, input_messages):
+        self.received = input_messages
+        yield {"type": "response_chunk", "data": {"chunk": "answer"}}
+
+
+def make_config(enable_multi_agent=False):
+    return general_agent.AgentConfig(
+        user_id="user_1",
+        llm_id="",
+        mcp_ids=[],
+        knowledge_ids=[],
+        tool_ids=[],
+        agent_skill_ids=[],
+        system_prompt="demo prompt",
+        enable_multi_agent=enable_multi_agent,
+    )
 
 
 def make_orchestrator():
@@ -110,3 +134,110 @@ def test_subagent_result_normalization_keeps_inner_payload():
     nested = {"data": {"data": {"chunk": "inner"}}}
     assert orchestrator._nested_event_data(nested) == {"chunk": "inner"}
     assert orchestrator._nested_event_data({}) == {}
+
+
+def test_multi_agent_defaults_to_disabled():
+    config = general_agent.AgentConfig(
+        user_id="user_1",
+        llm_id="",
+        mcp_ids=[],
+        knowledge_ids=[],
+        tool_ids=[],
+        agent_skill_ids=[],
+        system_prompt="demo prompt",
+    )
+
+    assert config.enable_multi_agent is False
+
+
+def test_general_agent_builds_orchestrator_only_when_enabled(monkeypatch):
+    async def noop_setup(self):
+        return None
+
+    async def setup_model(self):
+        self.conversation_model = object()
+
+    monkeypatch.setattr(general_agent.GeneralAgent, "setup_mcp_agent_as_tools", noop_setup)
+    monkeypatch.setattr(general_agent.GeneralAgent, "setup_tools", noop_setup)
+    monkeypatch.setattr(general_agent.GeneralAgent, "setup_agent_skill_as_tools", noop_setup)
+    monkeypatch.setattr(general_agent.GeneralAgent, "setup_knowledge_tool", noop_setup)
+    monkeypatch.setattr(general_agent.GeneralAgent, "setup_agent_middleware", noop_setup)
+    monkeypatch.setattr(general_agent.GeneralAgent, "setup_language_model", setup_model)
+    monkeypatch.setattr(general_agent.GeneralAgent, "setup_react_agent", lambda self: None)
+
+    enabled_agent = general_agent.GeneralAgent(make_config(enable_multi_agent=True))
+    asyncio.run(enabled_agent.init_agent())
+    assert enabled_agent.orchestrator is not None
+
+    disabled_agent = general_agent.GeneralAgent(make_config(enable_multi_agent=False))
+    asyncio.run(disabled_agent.init_agent())
+    assert disabled_agent.orchestrator is None
+
+
+def test_general_agent_routes_only_keyword_hits():
+    agent = general_agent.GeneralAgent(make_config(enable_multi_agent=True))
+    agent.orchestrator = make_orchestrator()
+
+    assert asyncio.run(agent._is_multi_agent_input([HumanMessage(content="hotel wifi")])) is True
+    assert asyncio.run(agent._is_multi_agent_input([HumanMessage(content="hello world")])) is False
+
+
+class RecordingOrchestrator:
+    def __init__(self):
+        self.captured = None
+
+    async def run(self, user_input):
+        self.captured = user_input
+        return {
+            "run_id": "run_1",
+            "routes": [],
+            "response": "routed",
+            "events": [],
+            "subagent_runs": [],
+        }
+
+
+def test_stream_multi_agent_passes_full_message_context():
+    agent = general_agent.GeneralAgent(make_config(enable_multi_agent=True))
+    recorder = RecordingOrchestrator()
+    agent.orchestrator = recorder
+    messages = [
+        SystemMessage(content="main system prompt"),
+        HumanMessage(content="hotel wifi"),
+    ]
+
+    async def collect():
+        return [event async for event in agent._stream_multi_agent(messages)]
+
+    events = asyncio.run(collect())
+
+    assert recorder.captured is messages
+    assert any(event["type"] == "response_chunk" for event in events)
+
+
+def test_subagent_invoke_receives_system_history_and_latest_human():
+    subagent = orchestrator.SubAgent(
+        name="hotel_agent",
+        display_name="Hotel Agent",
+        description="hotel policy",
+        keywords=("hotel",),
+        model=object(),
+        tools=[],
+        system_prompt="sub system prompt",
+    )
+    fake = FakeReactAgent()
+    subagent.react_agent = fake
+    messages = [
+        SystemMessage(content="main system prompt"),
+        AIMessage(content="previous answer"),
+        HumanMessage(content="hotel wifi"),
+    ]
+
+    result = asyncio.run(subagent.invoke(messages))
+
+    assert result["response"] == "answer"
+    assert [message.content for message in fake.received] == [
+        "sub system prompt",
+        "previous answer",
+        "hotel wifi",
+    ]

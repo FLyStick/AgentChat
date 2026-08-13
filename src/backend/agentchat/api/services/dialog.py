@@ -1,3 +1,5 @@
+from typing import Optional
+
 from loguru import logger
 
 from agentchat.api.services.agent import AgentService
@@ -7,7 +9,12 @@ from agentchat.database.dao.dialog import DialogDao
 from agentchat.database.dao.history import HistoryDao
 from agentchat.database.models.user import AdminUser
 from agentchat.prompts.completion import GENERATE_CHAT_SUMMARY
+from agentchat.settings import app_settings
 from agentchat.utils.permissions import ensure_owner_or_admin
+from agentchat.utils.message_budget import (
+    default_summary_cutoff_tokens,
+    split_messages_by_token as split_messages_by_token_budget,
+)
 
 
 class DialogService:
@@ -82,7 +89,10 @@ class DialogService:
         return dialog.summary
 
     @classmethod
-    async def update_dialog_summary(cls, dialog_id: str, user_id: str, cutoff_tokens: int=3000):
+    async def update_dialog_summary(cls, dialog_id: str, user_id: str, cutoff_tokens: Optional[int]=None):
+        if cutoff_tokens is None:
+            cutoff_tokens = default_summary_cutoff_tokens(app_settings.default_config)
+
         messages = await HistoryDao.select_history_from_time(
             dialog_id=dialog_id,
             k=10000
@@ -106,52 +116,12 @@ class DialogService:
         if not incremental_messages:
             return None
 
-        # 两两分组
-        pairs = []
-        i = 0
-        while i < len(incremental_messages) - 1:
-            if incremental_messages[i].role == "user" and incremental_messages[i + 1].role == "assistant":
-                pairs.append((incremental_messages[i], incremental_messages[i + 1]))
-                i += 2
-            else:
-                i += 1
+        # 与离线 benchmark 共用同一套截断语义：多对时至少保留最新一对。
+        old_messages, _ = split_messages_by_token_budget(
+            incremental_messages, cutoff_tokens
+        )
 
-        if not pairs:
-            return None
-
-        # 至少保留一对
-        # 如果只有一对，并且 token 超过 cutoff → 不总结
-        if len(pairs) == 1:
-            pair_tokens = sum((m.token_usage or len(m.content) // 4) for m in pairs[0])
-            if pair_tokens > cutoff_tokens:
-                return None
-
-        # 从后往前截断 token
-        total_tokens = 0
-        kept_pairs = []
-
-        for pair in reversed(pairs):
-            pair_tokens = sum((m.token_usage or len(m.content) // 4) for m in pair)
-
-            if total_tokens + pair_tokens > cutoff_tokens:
-                break
-
-            kept_pairs.append(pair)
-            total_tokens += pair_tokens
-
-        kept_pairs = list(reversed(kept_pairs))
-
-        # 切分messages
-        cutoff_index = len(pairs) - len(kept_pairs)
-        old_pairs = pairs[:cutoff_index]
-
-        # 保证 new 至少有一对
-        if not kept_pairs:
-            # 把最后一对强行放入 new
-            kept_pairs = [pairs[-1]]
-            old_pairs = pairs[:-1]
-
-        if not old_pairs:
+        if not old_messages:
             return None
 
         # 构造 summary 输入
@@ -161,8 +131,6 @@ class DialogService:
                 role = "User" if m.role == "user" else "Assistant"
                 texts.append(f"{role}: {m.content}")
             return "\n".join(texts)
-
-        old_messages = [m for pair in old_pairs for m in pair]
 
         summary_input = f"""
         【已有总结】
@@ -199,48 +167,5 @@ class DialogService:
 
     @classmethod
     def split_messages_by_token(cls, messages, cutoff_tokens: int):
-        if not messages or cutoff_tokens <= 0:
-            return [], []
-
-        # user、assistant两两分组
-        pairs = []
-        i = 0
-        while i < len(messages) - 1:
-            if messages[i].role == "user" and messages[i + 1].role == "assistant":
-                pairs.append((messages[i], messages[i + 1]))
-                i += 2
-            else:
-                i += 1
-
-        if not pairs:
-            return [], []
-
-        # 从后往前累计 token
-        total_tokens = 0
-        kept_pairs = []
-
-        for pair in reversed(pairs):
-            pair_tokens = sum((m.token_usage or len(m.content) // 4) for m in pair)
-
-            if total_tokens + pair_tokens > cutoff_tokens:
-                break
-
-            kept_pairs.append(pair)
-            total_tokens += pair_tokens
-
-        kept_pairs = list(reversed(kept_pairs))
-
-        # 切分
-        cutoff_index = len(pairs) - len(kept_pairs)
-        old_pairs = pairs[:cutoff_index]
-
-        if not old_pairs or not kept_pairs:
-            return [], []
-
-        # 展平成 messages
-        old_messages = [m for pair in old_pairs for m in pair]
-        new_messages = [m for pair in kept_pairs for m in pair]
-
-        return old_messages, new_messages
-
-
+        """Thin backward-compatible wrapper around the shared budget helper."""
+        return split_messages_by_token_budget(messages, cutoff_tokens)

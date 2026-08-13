@@ -4,6 +4,7 @@ import httpx
 import aiofiles
 from loguru import logger
 from sqlmodel import SQLModel
+from sqlalchemy import inspect, text
 
 from agentchat.database import engine, SystemUser, ensure_mysql_database, AgentTable, ToolTable
 from agentchat.api.services.agent import AgentService
@@ -69,9 +70,28 @@ async def init_database():
     try:
         ensure_mysql_database()
         SQLModel.metadata.create_all(engine)
+        _ensure_agent_multi_agent_column(engine)
         logger.success("MySQL tables are ready")
     except Exception as err:
         logger.error(f"Create MySQL Table Error: {err}")
+
+
+def _ensure_agent_multi_agent_column(db_engine) -> None:
+    """Add enable_multi_agent to an existing agent table without a migration tool."""
+    column_names = {
+        column["name"]
+        for column in inspect(db_engine).get_columns("agent")
+    }
+    if "enable_multi_agent" in column_names:
+        return
+    with db_engine.begin() as connection:
+        connection.execute(
+            text(
+                "ALTER TABLE agent "
+                "ADD COLUMN enable_multi_agent TINYINT(1) NOT NULL DEFAULT 0"
+            )
+        )
+    logger.info("Added agent.enable_multi_agent column")
 
 async def load_json(path: str):
     """

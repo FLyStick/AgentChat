@@ -14,41 +14,40 @@ from agentchat.core.agents.structured_response_agent import StructuredResponseAg
 from agentchat.services.mcp.manager import MCPManager
 from agentchat.utils.convert import convert_mcp_config
 
-# A Plan-and-Execute Agent Execution Paradigm
+# Plan-and-Execute（先规划后执行）Agent 执行范式
 class PlanExecuteAgent:
     """
-    A planning-based conversational AI agent that can execute tools and functions through strategic planning.
+    基于规划策略的对话式 AI Agent：通过战略规划来执行工具和函数。
 
-    The PlanExecuteAgent is designed to analyze user queries, create execution plans, and orchestrate
-    tool calls to provide comprehensive responses. It supports both plugin functions and MCP (Model Context Protocol)
-    tools, with real-time event streaming and error handling capabilities.
+    PlanExecuteAgent 用于分析用户查询、制定执行计划并编排工具调用，以提供全面的回答。
+    它同时支持插件函数和 MCP（Model Context Protocol）工具，具备实时事件流和错误处理能力。
 
-    Key Features:
-        - Strategic planning before tool execution
-        - Support for both sync and async functions
-        - MCP (Model Context Protocol) tool integration
-        - Real-time event streaming
-        - Automatic JSON repair for malformed responses
-        - Comprehensive error handling and logging
+    核心特性：
+        - 工具执行前先进行战略规划
+        - 同时支持同步与异步函数
+        - 集成 MCP（Model Context Protocol）工具
+        - 实时事件流
+        - 对格式错误的响应自动进行 JSON 修复
+        - 完善的错误处理与日志记录
 
-    Attributes:
-        user_id (str): User identifier for personalization and configuration
-        tools (List[BaseTool]): List of available tools for the agent
-        mcp_ids (List[str]): List of MCP server IDs to be integrated
-        mcp_manager (MCPManager): Manager for MCP tools and configurations
-        mcp_tools (List[BaseTool]): Dynamically loaded MCP tools
-        conversation_model: Model for general conversation
-        tool_call_model: Model specifically for tool invocation
+    属性：
+        user_id (str): 用户标识，用于个性化与配置
+        tools (List[BaseTool]): Agent 可用的工具列表
+        mcp_ids (List[str]): 需要集成的 MCP 服务器 ID 列表
+        mcp_manager (MCPManager): MCP 工具与配置的管理器
+        mcp_tools (List[BaseTool]): 动态加载的 MCP 工具
+        conversation_model: 通用对话模型
+        tool_call_model: 专门用于工具调用的模型
 
-    Example:
-        Basic usage with tools:
+    示例：
+        工具的基本用法：
 
         ```python
         from langchain_core.tools import tool
 
         @tool
         def get_weather(city: str) -> str:
-            '''Get current weather for a city'''
+            '''获取某个城市的当前天气'''
             return f"Weather in {city}: 22°C, sunny"
 
         agent = PlanExecuteAgent(
@@ -62,11 +61,11 @@ class PlanExecuteAgent:
         print(response)
         ```
 
-    Note:
-        - Tools should include proper descriptions for effective planning
-        - MCP servers must be properly configured and accessible
-        - The agent automatically handles JSON parsing errors with repair attempts
-        - Planning phase occurs before tool execution for strategic decision making
+    注意：
+        - 工具应包含合适的描述，以便有效规划
+        - MCP 服务器必须正确配置且可访问
+        - Agent 会自动尝试修复 JSON 解析错误
+        - 规划阶段先于工具执行，用于战略决策
     """
     def __init__(self,
                  user_id: str,
@@ -82,6 +81,7 @@ class PlanExecuteAgent:
         self.tool_call_model = ModelManager.get_tool_invocation_model()
 
     async def setup_mcp_tools(self):
+        """加载 MCP 工具：首次调用时初始化 MCP 管理器。"""
         if not self.mcp_manager:
             mcp_servers = []
             for mcp_id in self.mcp_ids:
@@ -93,6 +93,7 @@ class PlanExecuteAgent:
         return await self.mcp_manager.get_mcp_tools()
 
     async def _plan_agent_actions(self, messages: List[BaseMessage]):
+        """规划阶段：让模型输出结构化执行计划（JSON），解析失败时自动修复。"""
         structured_response_agent = StructuredResponseAgent(response_format=PlanToolFlow)
 
         call_messages: List[BaseMessage] = []
@@ -112,7 +113,7 @@ class PlanExecuteAgent:
             self.agent_plans = content
             return content
         except Exception as err:
-            # Send the error message for parsing model output
+            # 解析失败：将错误信息回传给模型进行 JSON 修复
             fix_message = HumanMessage(
                 content=FIX_JSON_PROMPT.format(json_content=response.content, json_error=str(err)))
             fix_response = await self.conversation_model.ainvoke([fix_message])
@@ -120,33 +121,35 @@ class PlanExecuteAgent:
             try:
                 fix_content = json.loads(fix_response.content)
                 self.agent_plans = fix_content
-                # Send the completion message for JSON data repair
+                # 修复成功，返回修复后的计划
                 return fix_content
             except Exception as fix_err:
-                # Send the message for irreparable JSON data
+                # 修复失败：抛出异常
                 raise ValueError(fix_err)
 
     async def _execute_agent_actions(self, agent_plans):
+        """执行阶段：按计划逐步调用工具，收集工具结果。"""
         tool_call_model = self.tool_call_model.bind_tools(self.tools + self.mcp_tools)
 
         tool_results: List[BaseMessage] = []
         for step, plan in agent_plans.items():
+            # 计划要求询问用户时，直接返回计划内容并结束
             if plan[0].get("tool_name") == "call_user":
                 tool_results.append(AIMessage(content=str(plan)))
                 break
 
-            # Prepare different prompts for each call
+            # 为每一步构造独立的调用提示词
             call_tool_messages = []
             system_message = HumanMessage(content=SINGLE_PLAN_CALL_PROMPT.format(plan_actions=str(plan)))
             call_tool_messages.append(system_message)
             call_tool_messages.extend(tool_results)
 
             response = await tool_call_model.ainvoke(call_tool_messages)
-            # Determine if there are tools available for calling
+            # 判断是否有可调用的工具
             if response.tool_calls:
                 return response
             else:
-                # Send no tools available event to main agent
+                # 无可用工具：构造空结果消息
                 ai_message = AIMessage(content="No available tools found")
 
             tool_messages = await self._execute_tool(ai_message)
@@ -156,7 +159,7 @@ class PlanExecuteAgent:
         return tool_results
 
     async def _execute_tool(self, message: AIMessage):
-        """Tool execution - sub-agent responsible for specific tool execution"""
+        """工具执行：负责具体工具调用的子流程。"""
         tool_calls = message.tool_calls
         tool_messages: List[BaseMessage] = []
 
@@ -168,14 +171,14 @@ class PlanExecuteAgent:
 
             try:
                 if hasattr(use_tool, "coroutine") and use_tool.coroutine is not None:
-                    # Determine if user personal configuration needs to be added
+                    # 判断是否需要补充用户个人配置（如鉴权信息）
                     if is_mcp_tool:
                         personal_config = await MCPUserConfigService.get_mcp_user_config(self.user_id, self._get_mcp_id_by_tool(tool_name))
                         tool_args.update(personal_config)
 
                     tool_result, _ = await use_tool.coroutine(**tool_args)
                 else:
-                    # Convert to async
+                    # 同步函数转为异步执行
                     tool_result = await asyncio.to_thread(use_tool.func, **tool_args)
 
                 tool_messages.append(
@@ -190,6 +193,7 @@ class PlanExecuteAgent:
         return tool_messages
 
     async def astream(self, messages: List[BaseMessage]):
+        """流式版本：规划 -> 执行工具 -> 对话模型流式输出最终回答。"""
         await self.setup_mcp_tools()
 
         agent_plans = await self._plan_agent_actions(messages)
@@ -212,6 +216,7 @@ class PlanExecuteAgent:
 
 
     async def ainvoke(self, messages: List[BaseMessage]):
+        """非流式版本：规划 -> 执行工具 -> 对话模型生成最终回答。"""
         await self.setup_mcp_tools()
 
         agent_plans = await self._plan_agent_actions(messages)
@@ -225,12 +230,14 @@ class PlanExecuteAgent:
         return response.content
 
     def _get_mcp_id_by_tool(self, tool_name):
+        """根据工具名反查其所属的 MCP 服务器 ID。"""
         for server in self.mcp_servers:
             if tool_name in server["tools"]:
                 return server["mcp_server_id"]
         return None
 
     def _find_tool_use(self, tool_name):
+        """查找工具：返回 (是否为 MCP 工具, 工具实例)。"""
         if tool_name in [tool.name for tool in self.tools]:
             return True, self.tools[tool_name]
         elif tool_name in [tool.name for tool in self.mcp_tools]:

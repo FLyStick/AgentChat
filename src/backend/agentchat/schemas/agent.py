@@ -10,6 +10,7 @@ class AgentCreateReq(BaseModel):
     knowledge_ids: List[str] = Field(default=[], description="绑定的知识库ID")
     agent_skill_ids: List[str] = Field(default=[], description="绑定的技能")
     enable_memory: bool = Field(True, description="是否使用嵌入")
+    enable_multi_agent: bool = Field(False, description="是否开启多智能体协作")
     system_prompt: str = Field(..., description="Agent 系统提示词")
     logo_url: str = Field(..., description="Logo URL")
 
@@ -24,6 +25,7 @@ class AgentUpdateReq(BaseModel):
     llm_id: Optional[str] = Field(None, description="Agent 绑定的LLM ID")
     agent_skill_ids: List[str] = Field(default=[], description="绑定的技能")
     enable_memory: Optional[bool] = Field(True, description="是否使用嵌入")
+    enable_multi_agent: Optional[bool] = Field(None, description="是否开启多智能体协作")
     logo_url: Optional[str] = Field(None, description="Logo URL")
     system_prompt: str = Field(None, description="Agent 系统提示词")
 

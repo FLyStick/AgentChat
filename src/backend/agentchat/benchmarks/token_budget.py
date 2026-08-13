@@ -1,9 +1,7 @@
 """Token budget calibration for long conversations.
 
-The split logic mirrors ``DialogService.update_dialog_summary``: messages are
-grouped into user/assistant pairs, the newest pairs that fit inside the token
-cutoff are kept, and a forced last pair protects the model from receiving an
-empty context.
+The split logic delegates to ``agentchat.utils.message_budget`` so the offline
+calibration and the production ``DialogService`` path use the same semantics.
 """
 
 from dataclasses import dataclass
@@ -11,6 +9,11 @@ from statistics import median
 from typing import Dict, List, Optional, Sequence, Tuple
 
 from agentchat.benchmarks.metrics import percentile
+from agentchat.utils.message_budget import (
+    pair_messages as _shared_pair_messages,
+    pair_token_count,
+    split_messages_by_token as _shared_split_messages_by_token,
+)
 
 
 @dataclass
@@ -28,59 +31,21 @@ class TokenMessage:
 
 
 def pair_messages(messages: Sequence[TokenMessage]) -> List[Tuple[TokenMessage, TokenMessage]]:
-    """Group messages into consecutive user/assistant pairs."""
-    pairs: List[Tuple[TokenMessage, TokenMessage]] = []
-    index = 0
-    while index < len(messages) - 1:
-        if messages[index].role == "user" and messages[index + 1].role == "assistant":
-            pairs.append((messages[index], messages[index + 1]))
-            index += 2
-        else:
-            index += 1
-    return pairs
+    """Delegate grouping to the shared production helper."""
+    return _shared_pair_messages(messages)
 
 
 def pair_tokens(pair: Tuple[TokenMessage, TokenMessage]) -> int:
-    return pair[0].token_count() + pair[1].token_count()
+    """Delegate token counting to the shared production helper."""
+    return pair_token_count(pair)
 
 
 def split_messages_by_token(
     messages: Sequence[TokenMessage],
     cutoff_tokens: int,
 ) -> Tuple[List[TokenMessage], List[TokenMessage]]:
-    """Return ``(old_messages, kept_messages)`` or two empty lists.
-
-    A single pair that exceeds the cutoff is intentionally not summarized,
-    exactly like the production dialog summary path.
-    """
-    if not messages or cutoff_tokens <= 0:
-        return [], []
-
-    pairs = pair_messages(messages)
-    if not pairs:
-        return [], []
-
-    total_tokens = 0
-    kept_pairs: List[Tuple[TokenMessage, TokenMessage]] = []
-    for pair in reversed(pairs):
-        tokens = pair_tokens(pair)
-        if total_tokens + tokens > cutoff_tokens:
-            break
-        kept_pairs.append(pair)
-        total_tokens += tokens
-    kept_pairs = list(reversed(kept_pairs))
-
-    if not kept_pairs:
-        return [], []
-
-    cutoff_index = len(pairs) - len(kept_pairs)
-    old_pairs = pairs[:cutoff_index]
-    if not old_pairs:
-        return [], []
-
-    old_messages = [message for pair in old_pairs for message in pair]
-    new_messages = [message for pair in kept_pairs for message in pair]
-    return old_messages, new_messages
+    """Delegate splitting to the shared production helper."""
+    return _shared_split_messages_by_token(messages, cutoff_tokens)
 
 
 def build_long_conversation(pair_count: int = 40) -> List[TokenMessage]:
