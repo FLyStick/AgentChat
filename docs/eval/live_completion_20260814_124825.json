@@ -1,0 +1,838 @@
+{
+  "stage": "p5.4",
+  "created_at": "2026-08-14T04:48:25+00:00",
+  "dataset_name": "live_rag_hotel_faq",
+  "knowledge_id": "t_8160a81598c04539",
+  "agent_name": "LiveBench-HotelFAQ",
+  "agent_id": "7b5599518eb0437bb0cb0b7f8d957200",
+  "dialog_id": "da60cfc8a26a4045ba20247714a45f88",
+  "dialog_agent_name": "LiveBench-HotelFAQ",
+  "agent_name_confirmed": true,
+  "environment": {
+    "cwd": "D:\\实习记录\\开源项目\\AgentChat\\src\\backend",
+    "python": "C:\\Users\\20235\\.conda\\envs\\agentchat\\python.exe",
+    "base_url": "http://127.0.0.1:7860"
+  },
+  "cases": [
+    {
+      "query_id": "live_q_checkin",
+      "query": "酒店几点可以办理入住，几点退房？",
+      "difficulty": "easy",
+      "latency_ms": 17821.788,
+      "first_chunk_ms": 9982.44,
+      "has_content": true,
+      "stream_completed": true,
+      "stream_error": null,
+      "failed_placeholder": false,
+      "event_type_counts": {
+        "event": 2,
+        "response_chunk": 25
+      },
+      "tool_events": [
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "START",
+          "tool_type": "工具",
+          "duration_ms": 0
+        },
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "END",
+          "tool_type": "工具",
+          "duration_ms": 6200.72
+        }
+      ],
+      "tool_call_count": 1,
+      "tool_end_count": 1,
+      "tool_error_count": 0,
+      "knowledge_called": true,
+      "knowledge_ok": true,
+      "error_events": [],
+      "fact_results": [
+        {
+          "full_match": false,
+          "term_count": 3,
+          "matched_term_count": 0,
+          "matched_terms": [],
+          "coverage": 0.0
+        }
+      ],
+      "coverage": {
+        "fact_count": 1,
+        "average_term_coverage": 0.0,
+        "full_match_count": 0
+      },
+      "answer_length": 150,
+      "answer": "[\"酒店的入住和退房时间分别是几点？\", \"请问宾馆最早几点能办入住，最晚几点必须退房？\", \"酒店办理入住手续和退房的具体时间规定是什么？\"]根据知识库检索，目前未能找到关于酒店入住和退房时间的相关信息。建议您联系酒店前台或通过预订渠道确认具体的入住和退房时间。\n\n如需了解其他问题，欢迎继续提问！",
+      "case_ok": true
+    },
+    {
+      "query_id": "live_q_wifi",
+      "query": "客房Wi-Fi密码是多少？",
+      "difficulty": "easy",
+      "latency_ms": 20128.819,
+      "first_chunk_ms": 10533.288,
+      "has_content": true,
+      "stream_completed": true,
+      "stream_error": null,
+      "failed_placeholder": false,
+      "event_type_counts": {
+        "event": 2,
+        "response_chunk": 21
+      },
+      "tool_events": [
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "START",
+          "tool_type": "工具",
+          "duration_ms": 0
+        },
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "END",
+          "tool_type": "工具",
+          "duration_ms": 7298.86
+        }
+      ],
+      "tool_call_count": 1,
+      "tool_end_count": 1,
+      "tool_error_count": 0,
+      "knowledge_called": true,
+      "knowledge_ok": true,
+      "error_events": [],
+      "fact_results": [
+        {
+          "full_match": false,
+          "term_count": 2,
+          "matched_term_count": 0,
+          "matched_terms": [],
+          "coverage": 0.0
+        }
+      ],
+      "coverage": {
+        "fact_count": 1,
+        "average_term_coverage": 0.0,
+        "full_match_count": 0
+      },
+      "answer_length": 130,
+      "answer": "[\"酒店房间的无线网络密码是什么\", \"如何获取客房的WiFi连接密码\", \"请问房间的无线上网密码是多少\"]抱歉，知识库中暂未收录客房Wi-Fi密码的相关信息。建议您查看客房内的提示卡片、电视欢迎界面，或直接致电酒店前台咨询获取。如有其他问题，欢迎随时提问！",
+      "case_ok": true
+    },
+    {
+      "query_id": "live_q_breakfast",
+      "query": "早餐几点供应，住客需要另外付费吗？",
+      "difficulty": "easy",
+      "latency_ms": 28215.15,
+      "first_chunk_ms": 10399.143,
+      "has_content": true,
+      "stream_completed": true,
+      "stream_error": null,
+      "failed_placeholder": false,
+      "event_type_counts": {
+        "event": 2,
+        "response_chunk": 25
+      },
+      "tool_events": [
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "START",
+          "tool_type": "工具",
+          "duration_ms": 0
+        },
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "END",
+          "tool_type": "工具",
+          "duration_ms": 7496.0
+        }
+      ],
+      "tool_call_count": 1,
+      "tool_end_count": 1,
+      "tool_error_count": 0,
+      "knowledge_called": true,
+      "knowledge_ok": true,
+      "error_events": [],
+      "fact_results": [
+        {
+          "full_match": false,
+          "term_count": 4,
+          "matched_term_count": 0,
+          "matched_terms": [],
+          "coverage": 0.0
+        }
+      ],
+      "coverage": {
+        "fact_count": 1,
+        "average_term_coverage": 0.0,
+        "full_match_count": 0
+      },
+      "answer_length": 167,
+      "answer": "[\"酒店的早餐时间段是什么，包含在房费里还是需要单独购买？\", \"请问早餐的营业时间是何时，入住客人吃早餐要额外加钱吗？\", \"早餐供应时间和收费标准是什么，住客享用早餐免费吗？\"]抱歉，知识库中暂未收录关于早餐供应时间及住客是否免费的相关信息。建议您直接致电酒店前台或查阅客房内的服务指南以获取准确信息。如有其他问题，欢迎随时提问！",
+      "case_ok": true
+    },
+    {
+      "query_id": "live_q_shuttle",
+      "query": "去浦东机场的班车怎么预约？",
+      "difficulty": "normal",
+      "latency_ms": 31081.662,
+      "first_chunk_ms": 16960.611,
+      "has_content": true,
+      "stream_completed": true,
+      "stream_error": null,
+      "failed_placeholder": false,
+      "event_type_counts": {
+        "event": 2,
+        "response_chunk": 27
+      },
+      "tool_events": [
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "START",
+          "tool_type": "工具",
+          "duration_ms": 0
+        },
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "END",
+          "tool_type": "工具",
+          "duration_ms": 11194.46
+        }
+      ],
+      "tool_call_count": 1,
+      "tool_end_count": 1,
+      "tool_error_count": 0,
+      "knowledge_called": true,
+      "knowledge_ok": true,
+      "error_events": [],
+      "fact_results": [
+        {
+          "full_match": false,
+          "term_count": 1,
+          "matched_term_count": 0,
+          "matched_terms": [],
+          "coverage": 0.0
+        }
+      ],
+      "coverage": {
+        "fact_count": 1,
+        "average_term_coverage": 0.0,
+        "full_match_count": 0
+      },
+      "answer_length": 187,
+      "answer": "[\"如何预订去浦东机场的机场大巴？\", \"浦东机场巴士怎么提前买票？\", \"前往浦东机场的大巴车订票流程是什么？\"][\"去浦东机场的班车预约方式是什么\", \"如何预订前往浦东机场的酒店班车\", \"酒店到浦东机场的接送班车怎么安排\"]抱歉，知识库中暂未收录关于前往浦东机场班车预约的相关信息。建议您直接联系酒店前台或礼宾部咨询班车时刻表及预约方式。如有其他问题，欢迎随时提问！",
+      "case_ok": true
+    },
+    {
+      "query_id": "live_q_gym",
+      "query": "健身房开放时间和使用要求是什么？",
+      "difficulty": "easy",
+      "latency_ms": 24646.741,
+      "first_chunk_ms": 13582.472,
+      "has_content": true,
+      "stream_completed": true,
+      "stream_error": null,
+      "failed_placeholder": false,
+      "event_type_counts": {
+        "event": 2,
+        "response_chunk": 33
+      },
+      "tool_events": [
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "START",
+          "tool_type": "工具",
+          "duration_ms": 0
+        },
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "END",
+          "tool_type": "工具",
+          "duration_ms": 9196.44
+        }
+      ],
+      "tool_call_count": 1,
+      "tool_end_count": 1,
+      "tool_error_count": 0,
+      "knowledge_called": true,
+      "knowledge_ok": true,
+      "error_events": [],
+      "fact_results": [
+        {
+          "full_match": false,
+          "term_count": 3,
+          "matched_term_count": 0,
+          "matched_terms": [],
+          "coverage": 0.0
+        }
+      ],
+      "coverage": {
+        "fact_count": 1,
+        "average_term_coverage": 0.0,
+        "full_match_count": 0
+      },
+      "answer_length": 226,
+      "answer": "[\"健身房的营业时间以及入馆规定有哪些？\", \"请问健身房每天几点营业，进去锻炼有哪些注意事项？\", \"想了解健身房的具体开放时段和相关的入场须知。\"][\"酒店健身房的营业时间及入场规定是什么？\", \"请问健身中心几点开门，使用有什么注意事项或要求？\", \"酒店健身设施的开放时段和使用须知有哪些？\"]抱歉，知识库中暂未收录关于健身房开放时间和使用要求的相关信息。建议您直接联系酒店前台或查阅客房内的服务指南以获取准确信息。如有其他问题，欢迎随时提问！",
+      "case_ok": true
+    },
+    {
+      "query_id": "live_q_pool",
+      "query": "游泳池有什么规定？",
+      "difficulty": "normal",
+      "latency_ms": 19657.075,
+      "first_chunk_ms": 7586.422,
+      "has_content": true,
+      "stream_completed": true,
+      "stream_error": null,
+      "failed_placeholder": false,
+      "event_type_counts": {
+        "event": 2,
+        "response_chunk": 17
+      },
+      "tool_events": [
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "START",
+          "tool_type": "工具",
+          "duration_ms": 0
+        },
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "END",
+          "tool_type": "工具",
+          "duration_ms": 4715.59
+        }
+      ],
+      "tool_call_count": 1,
+      "tool_end_count": 1,
+      "tool_error_count": 0,
+      "knowledge_called": true,
+      "knowledge_ok": true,
+      "error_events": [],
+      "fact_results": [
+        {
+          "full_match": false,
+          "term_count": 4,
+          "matched_term_count": 0,
+          "matched_terms": [],
+          "coverage": 0.0
+        }
+      ],
+      "coverage": {
+        "fact_count": 1,
+        "average_term_coverage": 0.0,
+        "full_match_count": 0
+      },
+      "answer_length": 122,
+      "answer": "[\"游泳馆有哪些规章制度？\", \"去游泳池需要遵守哪些规则？\", \"公共泳池的入场须知和注意事项是什么？\"]抱歉，知识库中暂未收录关于游泳池规定的相关信息。建议您直接联系酒店前台或查阅客房内的服务指南以获取准确信息。如有其他问题，欢迎随时提问！",
+      "case_ok": true
+    },
+    {
+      "query_id": "live_q_pet",
+      "query": "酒店可以带宠物入住吗，费用是多少？",
+      "difficulty": "normal",
+      "latency_ms": 34689.403,
+      "first_chunk_ms": 13352.488,
+      "has_content": true,
+      "stream_completed": true,
+      "stream_error": null,
+      "failed_placeholder": false,
+      "event_type_counts": {
+        "event": 2,
+        "response_chunk": 23
+      },
+      "tool_events": [
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "START",
+          "tool_type": "工具",
+          "duration_ms": 0
+        },
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "END",
+          "tool_type": "工具",
+          "duration_ms": 8582.4
+        }
+      ],
+      "tool_call_count": 1,
+      "tool_end_count": 1,
+      "tool_error_count": 0,
+      "knowledge_called": true,
+      "knowledge_ok": true,
+      "error_events": [],
+      "fact_results": [
+        {
+          "full_match": false,
+          "term_count": 2,
+          "matched_term_count": 0,
+          "matched_terms": [],
+          "coverage": 0.0
+        }
+      ],
+      "coverage": {
+        "fact_count": 1,
+        "average_term_coverage": 0.0,
+        "full_match_count": 0
+      },
+      "answer_length": 164,
+      "answer": "[\"酒店允许携带宠物入住吗，带宠物需要额外收费吗？\", \"带宠物住酒店有什么规定，宠物入住的收费标准是多少？\", \"酒店是否提供宠物友好服务，携带宠物入住会产生哪些额外费用？\"]抱歉，知识库中暂未收录关于酒店宠物入住政策及相关费用的信息。建议您直接联系酒店前台咨询是否允许携带宠物以及具体的收费标准。如有其他问题，欢迎随时提问！",
+      "case_ok": true
+    },
+    {
+      "query_id": "live_q_minibar",
+      "query": "客房迷你吧怎么收费？",
+      "difficulty": "easy",
+      "latency_ms": 21751.061,
+      "first_chunk_ms": 11803.222,
+      "has_content": true,
+      "stream_completed": true,
+      "stream_error": null,
+      "failed_placeholder": false,
+      "event_type_counts": {
+        "event": 2,
+        "response_chunk": 20
+      },
+      "tool_events": [
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "START",
+          "tool_type": "工具",
+          "duration_ms": 0
+        },
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "END",
+          "tool_type": "工具",
+          "duration_ms": 6209.97
+        }
+      ],
+      "tool_call_count": 1,
+      "tool_end_count": 1,
+      "tool_error_count": 0,
+      "knowledge_called": true,
+      "knowledge_ok": true,
+      "error_events": [],
+      "fact_results": [
+        {
+          "full_match": false,
+          "term_count": 0,
+          "matched_term_count": 0,
+          "matched_terms": [],
+          "coverage": 0.0
+        }
+      ],
+      "coverage": {
+        "fact_count": 1,
+        "average_term_coverage": 0.0,
+        "full_match_count": 0
+      },
+      "answer_length": 136,
+      "answer": "[\"酒店房间迷你吧的收费标准是什么？\", \"客房内小冰箱里的东西怎么算钱？\", \"住宿期间minibar的消费是如何计价的？\"]抱歉，知识库中暂未收录关于客房迷你吧收费标准的相关信息。建议您查看客房内迷你吧配备的价目表，或直接致电酒店前台咨询。如有其他问题，欢迎随时提问！",
+      "case_ok": true
+    },
+    {
+      "query_id": "live_q_laundry",
+      "query": "洗衣服务多久能送回，加急怎么收费？",
+      "difficulty": "normal",
+      "latency_ms": 37612.349,
+      "first_chunk_ms": 12875.419,
+      "has_content": true,
+      "stream_completed": true,
+      "stream_error": null,
+      "failed_placeholder": false,
+      "event_type_counts": {
+        "event": 2,
+        "response_chunk": 36
+      },
+      "tool_events": [
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "START",
+          "tool_type": "工具",
+          "duration_ms": 0
+        },
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "END",
+          "tool_type": "工具",
+          "duration_ms": 8042.86
+        }
+      ],
+      "tool_call_count": 1,
+      "tool_end_count": 1,
+      "tool_error_count": 0,
+      "knowledge_called": true,
+      "knowledge_ok": true,
+      "error_events": [],
+      "fact_results": [
+        {
+          "full_match": false,
+          "term_count": 4,
+          "matched_term_count": 0,
+          "matched_terms": [],
+          "coverage": 0.0
+        }
+      ],
+      "coverage": {
+        "fact_count": 1,
+        "average_term_coverage": 0.0,
+        "full_match_count": 0
+      },
+      "answer_length": 254,
+      "answer": "[\"洗衣服一般几天能洗完送回来，如果选加急服务需要额外付多少钱？\", \"洗衣店的常规洗衣周期是多久，办理加急的话费用怎么算？\", \"请问送洗的衣服多长时间能拿到，加急清洗的收费标准是什么？\"][\"酒店洗衣服务的送回时间是多久，加急服务如何收费？\", \"请问客房洗衣多久能洗好送回，选择加急需要加收多少费用？\", \"酒店洗衣服务的常规时效及加急收费标准是什么？\"]抱歉，知识库中暂未收录关于洗衣服务送回时间及加急收费标准的相关信息。建议您查看客房内的洗衣单，或直接致电酒店前台咨询。如有其他问题，欢迎随时提问！",
+      "case_ok": true
+    },
+    {
+      "query_id": "live_q_parking",
+      "query": "酒店停车怎么收费？",
+      "difficulty": "easy",
+      "latency_ms": 27827.966,
+      "first_chunk_ms": 13078.416,
+      "has_content": true,
+      "stream_completed": true,
+      "stream_error": null,
+      "failed_placeholder": false,
+      "event_type_counts": {
+        "event": 2,
+        "response_chunk": 22
+      },
+      "tool_events": [
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "START",
+          "tool_type": "工具",
+          "duration_ms": 0
+        },
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "END",
+          "tool_type": "工具",
+          "duration_ms": 9943.66
+        }
+      ],
+      "tool_call_count": 1,
+      "tool_end_count": 1,
+      "tool_error_count": 0,
+      "knowledge_called": true,
+      "knowledge_ok": true,
+      "error_events": [],
+      "fact_results": [
+        {
+          "full_match": false,
+          "term_count": 3,
+          "matched_term_count": 0,
+          "matched_terms": [],
+          "coverage": 0.0
+        }
+      ],
+      "coverage": {
+        "fact_count": 1,
+        "average_term_coverage": 0.0,
+        "full_match_count": 0
+      },
+      "answer_length": 157,
+      "answer": "[\"住店期间把车停在酒店停车场需要交费吗，具体的计费规则是怎样的？\", \"酒店对住客的车辆停放有哪些收费细则和停车费减免政策？\", \"请问酒店客房客人享受怎样的停车优惠，整体停车收费标准是如何规定的？\"]抱歉，知识库中暂未收录关于酒店停车收费标准的相关信息。建议您直接联系酒店前台咨询。如有其他问题，欢迎随时提问！",
+      "case_ok": true
+    },
+    {
+      "query_id": "live_q_leave",
+      "query": "请病假需要提前多久申请？",
+      "difficulty": "easy",
+      "latency_ms": 22280.171,
+      "first_chunk_ms": 11942.149,
+      "has_content": true,
+      "stream_completed": true,
+      "stream_error": null,
+      "failed_placeholder": false,
+      "event_type_counts": {
+        "event": 2,
+        "response_chunk": 22
+      },
+      "tool_events": [
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "START",
+          "tool_type": "工具",
+          "duration_ms": 0
+        },
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "END",
+          "tool_type": "工具",
+          "duration_ms": 6763.07
+        }
+      ],
+      "tool_call_count": 1,
+      "tool_end_count": 1,
+      "tool_error_count": 0,
+      "knowledge_called": true,
+      "knowledge_ok": true,
+      "error_events": [],
+      "fact_results": [
+        {
+          "full_match": false,
+          "term_count": 1,
+          "matched_term_count": 0,
+          "matched_terms": [],
+          "coverage": 0.0
+        }
+      ],
+      "coverage": {
+        "fact_count": 1,
+        "average_term_coverage": 0.0,
+        "full_match_count": 0
+      },
+      "answer_length": 143,
+      "answer": "[\"申请病假需要提前多少天通知公司？\", \"员工休病假应该提前多长时间提交请假申请？\", \"病假请假流程中关于提前申请的时间规定是什么？\"]抱歉，知识库中暂未收录关于请病假申请时间要求的相关信息。建议您直接联系人力资源部（HR）或查阅员工手册以获取准确信息。如有其他问题，欢迎随时提问！",
+      "case_ok": true
+    },
+    {
+      "query_id": "live_q_expense",
+      "query": "报销大概多久能到账？",
+      "difficulty": "normal",
+      "latency_ms": 19527.734,
+      "first_chunk_ms": 10898.372,
+      "has_content": true,
+      "stream_completed": true,
+      "stream_error": null,
+      "failed_placeholder": false,
+      "event_type_counts": {
+        "event": 2,
+        "response_chunk": 18
+      },
+      "tool_events": [
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "START",
+          "tool_type": "工具",
+          "duration_ms": 0
+        },
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "END",
+          "tool_type": "工具",
+          "duration_ms": 7950.99
+        }
+      ],
+      "tool_call_count": 1,
+      "tool_end_count": 1,
+      "tool_error_count": 0,
+      "knowledge_called": true,
+      "knowledge_ok": true,
+      "error_events": [],
+      "fact_results": [
+        {
+          "full_match": false,
+          "term_count": 3,
+          "matched_term_count": 0,
+          "matched_terms": [],
+          "coverage": 0.0
+        }
+      ],
+      "coverage": {
+        "fact_count": 1,
+        "average_term_coverage": 0.0,
+        "full_match_count": 0
+      },
+      "answer_length": 131,
+      "answer": "[\"报销款项一般需要多长时间才能到账？\", \"提交报销后通常几个工作日能打款？\", \"报销费用下发到个人账户的周期是多久？\"]抱歉，知识库中暂未收录关于报销到账时间的相关信息。建议您直接联系财务部或查阅公司财务报销制度以获取准确信息。如有其他问题，欢迎随时提问！",
+      "case_ok": true
+    },
+    {
+      "query_id": "live_q_overtime",
+      "query": "下班后继续干活，公司如何计酬？",
+      "difficulty": "hard",
+      "latency_ms": 23469.605,
+      "first_chunk_ms": 12881.123,
+      "has_content": true,
+      "stream_completed": true,
+      "stream_error": null,
+      "failed_placeholder": false,
+      "event_type_counts": {
+        "event": 2,
+        "response_chunk": 24
+      },
+      "tool_events": [
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "START",
+          "tool_type": "工具",
+          "duration_ms": 0
+        },
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "END",
+          "tool_type": "工具",
+          "duration_ms": 7413.81
+        }
+      ],
+      "tool_call_count": 1,
+      "tool_end_count": 1,
+      "tool_error_count": 0,
+      "knowledge_called": true,
+      "knowledge_ok": true,
+      "error_events": [],
+      "fact_results": [
+        {
+          "full_match": false,
+          "term_count": 2,
+          "matched_term_count": 0,
+          "matched_terms": [],
+          "coverage": 0.0
+        }
+      ],
+      "coverage": {
+        "fact_count": 1,
+        "average_term_coverage": 0.0,
+        "full_match_count": 0
+      },
+      "answer_length": 178,
+      "answer": "[\"工作日下班后延长工作时间的加班工资计算基数和比例是多少？\", \"劳动法规定的平时加班费计算公式是什么，按几倍工资支付？\", \"员工在正常下班后继续加班，其加班报酬的具体核算方法是什么？\"]抱歉，知识库中暂未收录关于下班后加班计酬标准的相关信息。建议您直接联系人力资源部（HR）或查阅公司员工手册及考勤管理制度以获取准确信息。如有其他问题，欢迎随时提问！",
+      "case_ok": true
+    },
+    {
+      "query_id": "live_q_onboarding",
+      "query": "员工试用期和离职要求是什么？",
+      "difficulty": "normal",
+      "latency_ms": 18936.449,
+      "first_chunk_ms": 10472.233,
+      "has_content": true,
+      "stream_completed": true,
+      "stream_error": null,
+      "failed_placeholder": false,
+      "event_type_counts": {
+        "event": 2,
+        "response_chunk": 20
+      },
+      "tool_events": [
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "START",
+          "tool_type": "工具",
+          "duration_ms": 0
+        },
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "END",
+          "tool_type": "工具",
+          "duration_ms": 7404.11
+        }
+      ],
+      "tool_call_count": 1,
+      "tool_end_count": 1,
+      "tool_error_count": 0,
+      "knowledge_called": true,
+      "knowledge_ok": true,
+      "error_events": [],
+      "fact_results": [
+        {
+          "full_match": false,
+          "term_count": 2,
+          "matched_term_count": 0,
+          "matched_terms": [],
+          "coverage": 0.0
+        }
+      ],
+      "coverage": {
+        "fact_count": 1,
+        "average_term_coverage": 0.0,
+        "full_match_count": 0
+      },
+      "answer_length": 157,
+      "answer": "[\"公司关于员工试用期及离职的相关规定有哪些？\", \"员工在试用期内以及办理离职时需要满足哪些条件和流程？\", \"企业员工试用期考核标准与离职办理要求是什么？\"]抱歉，知识库中暂未收录关于员工试用期和离职要求的相关信息。建议您直接联系人力资源部（HR）或查阅公司员工手册以获取准确信息。如有其他问题，欢迎随时提问！",
+      "case_ok": true
+    },
+    {
+      "query_id": "live_q_performance",
+      "query": "年度绩效考核分档和年终奖系数是什么？",
+      "difficulty": "normal",
+      "latency_ms": 22628.502,
+      "first_chunk_ms": 10724.879,
+      "has_content": true,
+      "stream_completed": true,
+      "stream_error": null,
+      "failed_placeholder": false,
+      "event_type_counts": {
+        "event": 2,
+        "response_chunk": 24
+      },
+      "tool_events": [
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "START",
+          "tool_type": "工具",
+          "duration_ms": 0
+        },
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "END",
+          "tool_type": "工具",
+          "duration_ms": 6918.79
+        }
+      ],
+      "tool_call_count": 1,
+      "tool_end_count": 1,
+      "tool_error_count": 0,
+      "knowledge_called": true,
+      "knowledge_ok": true,
+      "error_events": [],
+      "fact_results": [
+        {
+          "full_match": false,
+          "term_count": 7,
+          "matched_term_count": 0,
+          "matched_terms": [],
+          "coverage": 0.0
+        }
+      ],
+      "coverage": {
+        "fact_count": 1,
+        "average_term_coverage": 0.0,
+        "full_match_count": 0
+      },
+      "answer_length": 183,
+      "answer": "[\"年度绩效考核有哪些等级，各等级对应的年终奖系数是多少？\", \"公司年度绩效考评的分档标准及年终奖发放倍数是怎样的？\", \"年度绩效考核结果分为哪几档，每档的年终奖系数具体是怎么规定的？\"]抱歉，知识库中暂未收录关于年度绩效考核分档和年终奖系数的相关信息。建议您直接联系人力资源部（HR）或查阅公司员工手册及绩效管理制度以获取准确信息。如有其他问题，欢迎随时提问！",
+      "case_ok": true
+    }
+  ],
+  "summary": {
+    "query_count": 15,
+    "stream_completed_count": 15,
+    "case_ok_count": 15,
+    "case_ok_rate": 1.0,
+    "knowledge_ok_count": 15,
+    "knowledge_ok_rate": 1.0,
+    "tool_error_case_count": 0,
+    "latency_ms": {
+      "mean": 24684.965,
+      "p50": 22628.502,
+      "p90": 35858.581,
+      "max": 37612.349
+    },
+    "first_chunk_ms": {
+      "count": 15,
+      "mean": 11804.845,
+      "p50": 11803.222,
+      "max": 16960.611
+    },
+    "fact_term_coverage_joined": 0.0,
+    "full_fact_match_count": 0,
+    "full_fact_match_rate": 0.0,
+    "usage_delta": {
+      "input_tokens": 37060,
+      "output_tokens": 11481,
+      "total_tokens": 48541,
+      "call_count": 45
+    },
+    "usage_snapshot_after": {
+      "input_tokens": 37060,
+      "output_tokens": 11481,
+      "total_tokens": 48541,
+      "call_count": 45
+    },
+    "models_used": [
+      "qwen3.7-max"
+    ],
+    "answered_tokens": 2485
+  }
+}

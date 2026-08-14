@@ -89,3 +89,67 @@ def test_retrieve_ranked_documents_top_k_none_keeps_all_results(monkeypatch):
     )
 
     assert result == "first\nsecond"
+
+
+def test_retrieve_ranked_documents_normalizes_string_knowledge_id(monkeypatch):
+    captured = {}
+
+    async def fake_retrieve(query_list, collection_names, search_field, index_names=None):
+        captured["query_list"] = query_list
+        captured["collection_names"] = collection_names
+        captured["search_field"] = search_field
+        return [make_doc(0.9, "hit")]
+
+    async def fake_rerank(query, documents):
+        return None
+
+    monkeypatch.setattr(RagHandler, "mix_retrival_documents", fake_retrieve)
+    monkeypatch.setattr(
+        "agentchat.services.rag.handler.Reranker.rerank_documents", fake_rerank
+    )
+
+    result = asyncio.run(
+        RagHandler.retrieve_ranked_documents(
+            "入住时间",
+            "kb_1",
+            min_score=0.0,
+            top_k=5,
+            needs_query_rewrite=False,
+        )
+    )
+
+    assert captured["collection_names"] == ["kb_1"]
+    assert result == "hit"
+
+
+def test_retrieve_ranked_documents_keeps_original_query_after_rewrite(monkeypatch):
+    captured = {}
+
+    async def fake_rewrite(query):
+        return ["改写候选"]
+
+    async def fake_retrieve(query_list, collection_names, search_field, index_names=None):
+        captured["query_list"] = query_list
+        return [make_doc(0.9, "hit")]
+
+    async def fake_rerank(query, documents):
+        return None
+
+    monkeypatch.setattr(RagHandler, "query_rewrite", fake_rewrite)
+    monkeypatch.setattr(RagHandler, "mix_retrival_documents", fake_retrieve)
+    monkeypatch.setattr(
+        "agentchat.services.rag.handler.Reranker.rerank_documents", fake_rerank
+    )
+
+    result = asyncio.run(
+        RagHandler.retrieve_ranked_documents(
+            "入住时间",
+            ["kb_1"],
+            min_score=0.0,
+            top_k=5,
+            needs_query_rewrite=True,
+        )
+    )
+
+    assert captured["query_list"] == ["入住时间", "改写候选"]
+    assert result == "hit"

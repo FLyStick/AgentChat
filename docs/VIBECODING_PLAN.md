@@ -13,6 +13,7 @@
 | P3 | 核心能力增强 | 真多 Agent 协作、记忆质量、检索质量的增量优化 | 4-6 天 | 已完成（离线/模拟可复现） |
 | P3.5 | 生产链路收敛 | 把 P3 的模拟增强接回生产配置，统一 token 预算并全量回归 | 1-2 天 | 已完成（生产配置化，全量测试通过） |
 | P4 | 交付与简历对齐 | 文档收敛、部署验证、简历措辞与实测结果对齐 | 2-3 天 | 已完成（文档与部署对齐，真实链路补测项已单独列出） |
+| P5 | 真实链路评测 | 把 P2/P3 的离线/模拟证据升级为真实服务链路数字，形成可面试口径 | 3-5 天 | 进行中（P5.4 已完成） |
 
 ## P0：基线修复
 
@@ -159,6 +160,48 @@
 - 修正 `api.md`、`agentchat.md`、`migration.md` 的路由口径：`/api/v1/completion`、`PUT /user/update`、`POST /tool/all|user_defined|delete|update`、`GET /history?dialog_id=...`，并新增实测路由清单
 - `docker/README.md` 与启动脚本改为只启动依赖服务；`scripts/start.py` 依赖查找修正为 `src/backend/requirements.txt`
 - 限制：真实 LLM 断流压测、真实 RAG 线上指标、真实多 Agent 生产场景仍未补测，面试口径不得把离线数据写成线上数据
+
+## P5：真实链路评测
+
+目标：让“离线/模拟可复现”升级为“真实服务链路可复现”。只有真实链路数据落盘后，P2/P3 的数字才允许进入简历或面试口径。
+
+执行环境：
+- 后端 Python：`C:\Users\20235\.conda\envs\agentchat\python.exe`
+- 依赖服务：Docker 已启动的 MySQL `3307`、Redis `6380`、MinIO `9002/9003`，执行前用 `docker compose ps` 确认 healthy
+- 向量库：按 `src/backend/agentchat/config.yaml` 的 `rag.vector_db.mode` 确认可达；当前默认 `chroma`，若切到 Milvus/ES 需要先补齐对应服务
+- 后端启动：在 `src/backend` 目录执行 `& 'C:\Users\20235\.conda\envs\agentchat\python.exe' -m uvicorn agentchat.main:app --host 127.0.0.1 --port 7860`
+- 评测入口：扩展 `python -m agentchat.benchmarks`，保留现有离线子命令作为 baseline，新增 live 参数和真实链路子命令
+
+数据源决策：
+- 首选自建业务语料：复用现有酒店 FAQ、项目手册、内部制度等 fixture，扩充到 20-30 个真实知识库 chunk，手动标注 ground truth
+- 公开数据集只作为第二阶段：C-MTEB 中文检索子集、DuReader_retrieval、CMRC2018 可选，需要网络下载许可和格式转换后再接入
+- 当前阶段不引入 GAIA/TauBench：本项目多 Agent 是固定关键词路由的 demo 场景，硬套通用 Agent 基准会暴露范围外短板
+
+任务清单：
+- [x] P5.1 环境预检：检查 `.env` 与 `config.yaml`，确认 Docker 依赖 healthy，启动后端并访问 `GET /health`
+- [x] P5.2 真实知识库灌入：编写 seeding 脚本，把 fixture 文档和扩充语料写入真实知识库，产出 `chunk_id -> ground_truth` 映射文件
+- [x] P5.3 RAG 真实召回：`rag` 子命令新增 `--live --knowledge-ids`，用 `LiveRetriever` 走真实向量库、Embedding、Rerank，归档 `docs/eval/live_rag_*.json`
+- [x] P5.4 Completion 端到端：新增真实 `/api/v1/completion` SSE 评测，验证返回完整性、知识库依据、工具调用、`agent_name`、首 token/总延迟、token 消耗，归档 `docs/eval/live_completion_*.json`
+- [ ] P5.5 断流真实链路：真实 SSE 客户端中途断开，测量 `cancel_to_terminate_ms`，归档 `docs/eval/live_cancel_*.json`
+- [ ] P5.6 记忆真实链路：创建真实 user/agent/run，写入并检索记忆，走 `LiveMemoryAdapter`，归档 `docs/eval/live_memory_*.json`
+- [ ] P5.7 多 Agent 真实场景：创建 `enable_multi_agent=True` 的测试 Agent，跑 3-5 个固定业务任务，记录 orchestrator 路由与子 Agent ReAct 事件
+- [ ] P5.8 证据收敛：更新 `benchmarks/README.md`、`P4_INTERVIEW_MATERIAL.md` 和本文件状态，只有存在原始 JSON 时才把离线数字升级为真实链路口径
+
+验收标准：
+- 后端在 conda `agentchat` 环境启动成功，Docker 依赖服务 healthy
+- 真实 RAG 结果明确标记 `LiveRetriever`，指标可和离线 baseline 对比
+- Completion 评测覆盖至少 10 条脚本化业务问题，且能证明答案来自真实模型/知识库/工具链路
+- 断流评测至少 5 轮真实 SSE 断开，记录真实终止耗时
+- 记忆和多 Agent 评测各有原始事件/检索 trace
+- 所有原始 JSON 归档在 `docs/eval/`，面试材料只引用已归档文件
+
+完成说明（P5）：
+- P5.1/P5.2：后端 `GET /health` 正常；真实知识库 `t_8160a81598c04539` 灌入 3 个 txt，索引 6 个 chunk，生成 30 条 query 的 ground truth：`docs/eval/live_seed_result.json`、`docs/eval/live_rag_ground_truth.json`
+- P5.3：使用 `LiveRetriever -> MixRetrival/Chroma -> merge_documents_by_score` 真实链路跑 30 条 query；`mean_recall_at_k=1.0`、`mean_mrr=0.9167`、`hit_rate_at_k=1.0`、`evidence_hit_rate_joined=1.0`；平均延迟 804.8ms，p50 398.1ms；原始 JSON 归档为 `docs/eval/live_rag_20260814_123820.json`
+- P5.3 环境修复：conda `agentchat` 环境存在损坏/缺失的 `httpcore`，已重装 `httpcore==1.0.9`、`h11==0.16.0` 并与 `httpx==0.28.1` 对齐；`LiveRetriever` 改为直接走 `MixRetrival`，不再因导入 `RagHandler` 而实例化 `ChatOpenAI`
+- P5.4：真实 `/api/v1/completion` SSE 评测完成，15 条 query 全部完成：`stream_completed=15`、`case_ok_rate=1.0`、`knowledge_ok_rate=1.0`、`knowledge_content_ok_rate=1.0`、`rewrite_list_start_case_count=0`、`no_knowledge_evidence_case_count=0`、`tool_error_case_count=0`；`fact_term_coverage_joined=0.9333`、`full_fact_match_rate=0.0`（严格完整串逐字命中口径，其中 `live_q_minibar` 的 expected_facts 为空，作为后续评测口径参考项，不阻塞 P5.4）；平均总延迟 `24841.758ms`、平均首 chunk `18562.339ms`；`51467 input / 10913 output / 45 model calls`；实测模型 `qwen3.7-max`；原始 JSON 归档 `docs/eval/live_completion_20260814_134552.json`
+- P5.4 代码与依赖修复：`AgentConfig.name` 补默认字段修复 `set_agent_name_context` 调用；RAG handler/retrieval 的字符串参数自动转列表；`general_agent._produce` 丢弃工具调用前的模型中间文本，最终回答只输出自然语言；conda 环境重装 `python-docx==1.1.2` 修复损坏依赖；回归测试 `7 passed`（`test_rag_handler_optimization.py` + `test_agent_config.py`）
+- P5.5-P5.8 仍在执行，后续按真实结果继续填写，不得提前填写预计数字
 
 ## 协作规则
 

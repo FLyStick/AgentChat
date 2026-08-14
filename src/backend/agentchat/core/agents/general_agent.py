@@ -44,6 +44,7 @@ class AgentConfig(BaseModel):
     system_prompt: str               # 系统提示词
     enable_memory: bool = False      # 记忆开关
     enable_multi_agent: bool = False # 多Agent开关
+    name: str = ""                   # Agent名称，来自agent表，供usage统计上下文使用
     
 
 
@@ -81,10 +82,28 @@ class EmitEventAgentMiddleware(AgentMiddleware):
         """包装模型调用：捕获异常并记录日志，避免调用失败导致流程中断。"""
         try:
             response = await handler(request)
+            self.write_model_call_event(response)
             return response
         except Exception as err:
             logger.error(f"Model call error: {err}")
             raise ValueError(err)
+
+    def write_model_call_event(self, response: ModelResponse) -> None:
+        """Emit a stream marker so the producer can hide pre-tool model text."""
+        writer = get_stream_writer()
+        result = getattr(response, "result", None) or []
+        last_message = result[-1] if result else None
+        has_tool_calls = bool(getattr(last_message, "tool_calls", None))
+        writer({
+            "status": "MODEL_CALL",
+            "title": "",
+            "message": "",
+            "tool_name": "",
+            "tool_type": "",
+            "display_tool_name": "",
+            "duration_ms": 0,
+            "stream_resolve": not has_tool_calls,
+        })
 
     async def awrap_tool_call(
         self,
@@ -341,13 +360,14 @@ class GeneralAgent:
         @tool(parse_docstring=True)
         async def retrival_knowledge(query: str) -> str:
             """
-            通过检索知识库来获取信息
+            仅检索知识库并返回命中原文，不做改写、解释或总结。
 
             Args:
                 query (str): 用户问题
 
             Returns:
-                str: 返回从知识库检索来的信息
+                str: 知识库命中的原文，多个片段以换行分隔；无结果时返回固定文本
+                "No relevant documents found."。不得返回检索过程、候选 query 列表或改写列表。
             """
             # 调用 RAG 处理器检索并重排文档
             knowledge_message = await RagHandler.retrieve_ranked_documents(
@@ -379,6 +399,8 @@ class GeneralAgent:
         async def _produce(queue: asyncio.Queue) -> None:
             """生产者：从 ReAct Agent 拉取流式输出并写入队列。"""
             producer_content = ""
+            pending_chunks = []
+            stream_state = "wait"  # wait | emit | discard
             async for token, metadata in self.react_agent.astream(
                     input={"messages": copy.deepcopy(messages), "model_call_count": 0, "user_id": self.agent_config.user_id},
                     config={"callbacks": [usage_metadata_callback]},
@@ -387,15 +409,36 @@ class GeneralAgent:
                 if self.stop_streaming:
                     break
                 if token == "custom":
+                    if metadata.get("status") == "MODEL_CALL":
+                        if metadata.get("stream_resolve"):
+                            if stream_state != "emit":
+                                for chunk in pending_chunks:
+                                    producer_content += chunk
+                                    queue.put_nowait(build_stream_event("response_chunk", {
+                                        "chunk": chunk,
+                                        "accumulated": producer_content,
+                                    }))
+                            stream_state = "emit"
+                        else:
+                            stream_state = "discard"
+                        pending_chunks = []
+                        continue
+                    if metadata.get("status") in ("START", "END"):
+                        pending_chunks = []
                     # 自定义事件（工具执行等）直接透传
                     queue.put_nowait(self.wrap_event(metadata))
                 elif isinstance(metadata[0], AIMessageChunk) and metadata[0].content:
-                    # 文本增量：累积后作为 response_chunk 输出
-                    producer_content += metadata[0].content
-                    queue.put_nowait(build_stream_event("response_chunk", {
-                        "chunk": metadata[0].content,
-                        "accumulated": producer_content,
-                    }))
+                    # 文本增量：仅有最终模型回答时透传，调用工具前的中间文本不展示
+                    if stream_state == "wait":
+                        pending_chunks.append(metadata[0].content)
+                    elif stream_state == "discard":
+                        pending_chunks.append(metadata[0].content)
+                    elif stream_state == "emit":
+                        producer_content += metadata[0].content
+                        queue.put_nowait(build_stream_event("response_chunk", {
+                            "chunk": metadata[0].content,
+                            "accumulated": producer_content,
+                        }))
 
         # 使用可取消流包装生产者，支持客户端主动中断
         stream = CancellableAsyncStream(_produce)

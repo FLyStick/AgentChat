@@ -2,6 +2,7 @@ import asyncio
 import json
 
 import aiohttp
+from loguru import logger
 from agentchat.settings import app_settings
 from agentchat.schemas.rerank import RerankResultModel
 
@@ -29,13 +30,17 @@ class Reranker:
             }
         }
 
-        async with aiohttp.ClientSession() as session:
-            async with session.post(url=app_settings.multi_models.rerank.base_url, headers=headers, data=json.dumps(payload)) as response:
-                if response.status == 200:
-                    result = await response.json()
-                    return result['output']['results']
-                else:
+        try:
+            timeout = aiohttp.ClientTimeout(total=15)
+            async with aiohttp.ClientSession(timeout=timeout) as session:
+                async with session.post(url=app_settings.multi_models.rerank.base_url, headers=headers, data=json.dumps(payload)) as response:
+                    if response.status == 200:
+                        result = await response.json()
+                        return result['output']['results']
                     response.raise_for_status()
+        except Exception as exc:
+            logger.warning("Rerank request failed, fallback to raw retrieval scores: {}", exc)
+            return None
 
     @classmethod
     async def rerank_documents(cls, query, documents):
@@ -43,6 +48,8 @@ class Reranker:
         original_documents = documents
 
         results = await cls.request_rerank(query, documents)
+        if results is None:
+            return None
 
         for result in results:
             result['document'] = original_documents[result['index']]

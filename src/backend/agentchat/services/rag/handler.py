@@ -10,6 +10,13 @@ from agentchat.settings import app_settings
 
 class RagHandler:
 
+    @staticmethod
+    def _normalize_rewritten_queries(query, rewritten_queries):
+        if isinstance(rewritten_queries, str):
+            rewritten_queries = [rewritten_queries]
+        rewritten_queries = list(rewritten_queries or [])
+        return list(dict.fromkeys([query, *rewritten_queries]))
+
     @classmethod
     async def query_rewrite(cls, query):
         query_list = await query_rewriter.rewrite(query)
@@ -17,6 +24,12 @@ class RagHandler:
 
     @classmethod
     async def _retrieve_field_results(cls, query_list, knowledges_id, search_field, index_names=None):
+        if isinstance(query_list, str):
+            query_list = [query_list]
+        if isinstance(knowledges_id, str):
+            knowledges_id = [knowledges_id]
+        if isinstance(index_names, str):
+            index_names = [index_names]
         if app_settings.rag.enable_elasticsearch:
             es_documents, milvus_documents = await MixRetrival.mix_retrival_documents(
                 query_list, knowledges_id, search_field, index_names
@@ -77,10 +90,15 @@ class RagHandler:
             top_k = app_settings.rag.retrival.get('top_k')
         if rerank_threshold is None:
             rerank_threshold = app_settings.rag.retrival.get('rerank_threshold')
+        if isinstance(knowledges_id, str):
+            knowledges_id = [knowledges_id]
 
         # 查询重写
         if needs_query_rewrite:
             rewritten_queries = await cls.query_rewrite(query)
+            rewritten_queries = cls._normalize_rewritten_queries(
+                query, rewritten_queries
+            )
         else:
             rewritten_queries = [query]
 
@@ -92,6 +110,15 @@ class RagHandler:
 
         # 文档重排序
         reranked_docs = await Reranker.rerank_documents(query, documents_to_rerank)
+
+        if reranked_docs is None:
+            logger.warning("Rerank unavailable, fallback to raw summary retrieval scores")
+            filtered_results = cls._filter_reranked_documents(
+                retrieved_documents, min_score, None, top_k
+            )
+            if not filtered_results:
+                return "No relevant documents found."
+            return "\n".join(result.content for result in filtered_results)
 
         # 确保top_k不为None
         actual_top_k = top_k if top_k is not None else len(reranked_docs)
@@ -138,10 +165,17 @@ class RagHandler:
             top_k = app_settings.rag.retrival.get('top_k')
         if rerank_threshold is None:
             rerank_threshold = app_settings.rag.retrival.get('rerank_threshold')
+        if isinstance(collection_names, str):
+            collection_names = [collection_names]
+        if isinstance(index_names, str):
+            index_names = [index_names]
 
         # 查询重写
         if needs_query_rewrite:
             rewritten_queries = await cls.query_rewrite(query)
+            rewritten_queries = cls._normalize_rewritten_queries(
+                query, rewritten_queries
+            )
         else:
             rewritten_queries = [query]
 
@@ -156,9 +190,15 @@ class RagHandler:
         # 文档重排序
         reranked_docs = await Reranker.rerank_documents(query, documents_to_rerank)
 
-        filtered_results = cls._filter_reranked_documents(
-            reranked_docs, min_score, rerank_threshold, top_k
-        )
+        if reranked_docs is None:
+            logger.warning("Rerank unavailable, fallback to raw content retrieval scores")
+            filtered_results = cls._filter_reranked_documents(
+                retrieved_documents, min_score, None, top_k
+            )
+        else:
+            filtered_results = cls._filter_reranked_documents(
+                reranked_docs, min_score, rerank_threshold, top_k
+            )
 
         # 处理空结果
         if not filtered_results:

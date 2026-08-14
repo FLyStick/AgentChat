@@ -1,0 +1,942 @@
+{
+  "stage": "p5.4",
+  "created_at": "2026-08-14T05:45:52+00:00",
+  "dataset_name": "live_rag_hotel_faq",
+  "knowledge_id": "t_8160a81598c04539",
+  "agent_name": "LiveBench-HotelFAQ-133839",
+  "agent_id": "a74ce7a9063741e483eadfb966a59548",
+  "dialog_id": "f599c3708fa443fdb6fd46bcbdaaca6a",
+  "dialog_agent_name": "LiveBench-HotelFAQ-133839",
+  "agent_name_confirmed": true,
+  "environment": {
+    "cwd": "D:\\实习记录\\开源项目\\AgentChat\\src\\backend",
+    "python": "C:\\Users\\20235\\.conda\\envs\\agentchat\\python.exe",
+    "base_url": "http://127.0.0.1:7860"
+  },
+  "cases": [
+    {
+      "query_id": "live_q_checkin",
+      "query": "酒店几点可以办理入住，几点退房？",
+      "difficulty": "easy",
+      "latency_ms": 22492.744,
+      "first_chunk_ms": 17192.407,
+      "has_content": true,
+      "stream_completed": true,
+      "stream_error": null,
+      "failed_placeholder": false,
+      "event_type_counts": {
+        "event": 2,
+        "response_chunk": 15
+      },
+      "tool_events": [
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "START",
+          "tool_type": "工具",
+          "duration_ms": 0
+        },
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "END",
+          "tool_type": "工具",
+          "duration_ms": 10151.64
+        }
+      ],
+      "tool_call_count": 1,
+      "tool_end_count": 1,
+      "tool_error_count": 0,
+      "knowledge_called": true,
+      "knowledge_ok": true,
+      "answer_starts_with_rewrite_list": false,
+      "no_knowledge_evidence": false,
+      "knowledge_content_ok": true,
+      "error_events": [],
+      "fact_results": [
+        {
+          "full_match": false,
+          "term_count": 3,
+          "matched_term_count": 3,
+          "matched_terms": [
+            "14:00",
+            "12:00",
+            "24"
+          ],
+          "coverage": 1.0
+        }
+      ],
+      "coverage": {
+        "fact_count": 1,
+        "average_term_coverage": 1.0,
+        "full_match_count": 0
+      },
+      "answer_length": 79,
+      "answer": "酒店的入住时间为**下午14:00**，退房时间为**中午12:00**。\n\n此外，酒店前台24小时值班，行李可以寄存；如需延迟退房，需提前联系前台确认房态。",
+      "case_ok": true
+    },
+    {
+      "query_id": "live_q_wifi",
+      "query": "客房Wi-Fi密码是多少？",
+      "difficulty": "easy",
+      "latency_ms": 22279.825,
+      "first_chunk_ms": 17716.332,
+      "has_content": true,
+      "stream_completed": true,
+      "stream_error": null,
+      "failed_placeholder": false,
+      "event_type_counts": {
+        "event": 2,
+        "response_chunk": 10
+      },
+      "tool_events": [
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "START",
+          "tool_type": "工具",
+          "duration_ms": 0
+        },
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "END",
+          "tool_type": "工具",
+          "duration_ms": 7752.91
+        }
+      ],
+      "tool_call_count": 1,
+      "tool_end_count": 1,
+      "tool_error_count": 0,
+      "knowledge_called": true,
+      "knowledge_ok": true,
+      "answer_starts_with_rewrite_list": false,
+      "no_knowledge_evidence": false,
+      "knowledge_content_ok": true,
+      "error_events": [],
+      "fact_results": [
+        {
+          "full_match": false,
+          "term_count": 2,
+          "matched_term_count": 2,
+          "matched_terms": [
+            "GrandHotel-Guest",
+            "CheckIn2026"
+          ],
+          "coverage": 1.0
+        }
+      ],
+      "coverage": {
+        "fact_count": 1,
+        "average_term_coverage": 1.0,
+        "full_match_count": 0
+      },
+      "answer_length": 81,
+      "answer": "客房无线网络名称为**GrandHotel-Guest**，密码为**CheckIn2026**。\n\n此外，公共区域可免费连接，行政楼层网络无需密码即可自动连接。",
+      "case_ok": true
+    },
+    {
+      "query_id": "live_q_breakfast",
+      "query": "早餐几点供应，住客需要另外付费吗？",
+      "difficulty": "easy",
+      "latency_ms": 21021.214,
+      "first_chunk_ms": 16521.659,
+      "has_content": true,
+      "stream_completed": true,
+      "stream_error": null,
+      "failed_placeholder": false,
+      "event_type_counts": {
+        "event": 2,
+        "response_chunk": 17
+      },
+      "tool_events": [
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "START",
+          "tool_type": "工具",
+          "duration_ms": 0
+        },
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "END",
+          "tool_type": "工具",
+          "duration_ms": 9456.53
+        }
+      ],
+      "tool_call_count": 1,
+      "tool_end_count": 1,
+      "tool_error_count": 0,
+      "knowledge_called": true,
+      "knowledge_ok": true,
+      "answer_starts_with_rewrite_list": false,
+      "no_knowledge_evidence": false,
+      "knowledge_content_ok": true,
+      "error_events": [],
+      "fact_results": [
+        {
+          "full_match": false,
+          "term_count": 4,
+          "matched_term_count": 4,
+          "matched_terms": [
+            "06:30",
+            "10:00",
+            "68",
+            "1.2"
+          ],
+          "coverage": 1.0
+        }
+      ],
+      "coverage": {
+        "fact_count": 1,
+        "average_term_coverage": 1.0,
+        "full_match_count": 0
+      },
+      "answer_length": 95,
+      "answer": "自助早餐供应时间为**06:30至10:00**，地点在二楼餐厅。\n\n住客**不需要另外付费**，房费内已包含双早；如需额外增加早餐，费用为**每人68元**，**1.2米以下儿童免费**。",
+      "case_ok": true
+    },
+    {
+      "query_id": "live_q_shuttle",
+      "query": "去浦东机场的班车怎么预约？",
+      "difficulty": "normal",
+      "latency_ms": 36066.303,
+      "first_chunk_ms": 20029.589,
+      "has_content": true,
+      "stream_completed": true,
+      "stream_error": null,
+      "failed_placeholder": false,
+      "event_type_counts": {
+        "event": 2,
+        "response_chunk": 14
+      },
+      "tool_events": [
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "START",
+          "tool_type": "工具",
+          "duration_ms": 0
+        },
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "END",
+          "tool_type": "工具",
+          "duration_ms": 12444.34
+        }
+      ],
+      "tool_call_count": 1,
+      "tool_end_count": 1,
+      "tool_error_count": 0,
+      "knowledge_called": true,
+      "knowledge_ok": true,
+      "answer_starts_with_rewrite_list": false,
+      "no_knowledge_evidence": false,
+      "knowledge_content_ok": true,
+      "error_events": [],
+      "fact_results": [
+        {
+          "full_match": false,
+          "term_count": 1,
+          "matched_term_count": 1,
+          "matched_terms": [
+            "30"
+          ],
+          "coverage": 1.0
+        }
+      ],
+      "coverage": {
+        "fact_count": 1,
+        "average_term_coverage": 1.0,
+        "full_match_count": 0
+      },
+      "answer_length": 80,
+      "answer": "酒店提供前往浦东机场的**免费班车**，发车时间为**每小时整点**，上车地点位于**酒店正门右侧**。\n\n如需乘坐，请**至少提前30分钟在前台预约座位**。",
+      "case_ok": true
+    },
+    {
+      "query_id": "live_q_gym",
+      "query": "健身房开放时间和使用要求是什么？",
+      "difficulty": "easy",
+      "latency_ms": 24112.85,
+      "first_chunk_ms": 19091.143,
+      "has_content": true,
+      "stream_completed": true,
+      "stream_error": null,
+      "failed_placeholder": false,
+      "event_type_counts": {
+        "event": 2,
+        "response_chunk": 16
+      },
+      "tool_events": [
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "START",
+          "tool_type": "工具",
+          "duration_ms": 0
+        },
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "END",
+          "tool_type": "工具",
+          "duration_ms": 10148.45
+        }
+      ],
+      "tool_call_count": 1,
+      "tool_end_count": 1,
+      "tool_error_count": 0,
+      "knowledge_called": true,
+      "knowledge_ok": true,
+      "answer_starts_with_rewrite_list": false,
+      "no_knowledge_evidence": false,
+      "knowledge_content_ok": true,
+      "error_events": [],
+      "fact_results": [
+        {
+          "full_match": false,
+          "term_count": 3,
+          "matched_term_count": 3,
+          "matched_terms": [
+            "06:00",
+            "22:00",
+            "18"
+          ],
+          "coverage": 1.0
+        }
+      ],
+      "coverage": {
+        "fact_count": 1,
+        "average_term_coverage": 1.0,
+        "full_match_count": 0
+      },
+      "answer_length": 96,
+      "answer": "健身房位于**三楼的玻璃房**，开放时间为**06:00至22:00**。\n\n使用要求如下：\n1. 住客需**凭房卡进入**；\n2. **18岁以下未成年人**必须在**监护人陪同下**使用。",
+      "case_ok": true
+    },
+    {
+      "query_id": "live_q_pool",
+      "query": "游泳池有什么规定？",
+      "difficulty": "normal",
+      "latency_ms": 19266.982,
+      "first_chunk_ms": 16011.045,
+      "has_content": true,
+      "stream_completed": true,
+      "stream_error": null,
+      "failed_placeholder": false,
+      "event_type_counts": {
+        "event": 2,
+        "response_chunk": 19
+      },
+      "tool_events": [
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "START",
+          "tool_type": "工具",
+          "duration_ms": 0
+        },
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "END",
+          "tool_type": "工具",
+          "duration_ms": 7380.74
+        }
+      ],
+      "tool_call_count": 1,
+      "tool_end_count": 1,
+      "tool_error_count": 0,
+      "knowledge_called": true,
+      "knowledge_ok": true,
+      "answer_starts_with_rewrite_list": false,
+      "no_knowledge_evidence": false,
+      "knowledge_content_ok": true,
+      "error_events": [],
+      "fact_results": [
+        {
+          "full_match": false,
+          "term_count": 4,
+          "matched_term_count": 4,
+          "matched_terms": [
+            "28",
+            "07:00",
+            "21:00",
+            "1.6"
+          ],
+          "coverage": 1.0
+        }
+      ],
+      "coverage": {
+        "fact_count": 1,
+        "average_term_coverage": 1.0,
+        "full_match_count": 0
+      },
+      "answer_length": 117,
+      "answer": "游泳池的相关规定及信息如下：\n\n1. **着装要求**：进入泳池区域**必须穿泳衣并佩戴泳帽**；\n2. **开放时间**：**07:00至21:00**；\n3. **其他信息**：水温恒定为**28度**，泳池最深**1.6米**。",
+      "case_ok": true
+    },
+    {
+      "query_id": "live_q_pet",
+      "query": "酒店可以带宠物入住吗，费用是多少？",
+      "difficulty": "normal",
+      "latency_ms": 24747.133,
+      "first_chunk_ms": 20177.089,
+      "has_content": true,
+      "stream_completed": true,
+      "stream_error": null,
+      "failed_placeholder": false,
+      "event_type_counts": {
+        "event": 2,
+        "response_chunk": 22
+      },
+      "tool_events": [
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "START",
+          "tool_type": "工具",
+          "duration_ms": 0
+        },
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "END",
+          "tool_type": "工具",
+          "duration_ms": 11766.7
+        }
+      ],
+      "tool_call_count": 1,
+      "tool_end_count": 1,
+      "tool_error_count": 0,
+      "knowledge_called": true,
+      "knowledge_ok": true,
+      "answer_starts_with_rewrite_list": false,
+      "no_knowledge_evidence": false,
+      "knowledge_content_ok": true,
+      "error_events": [],
+      "fact_results": [
+        {
+          "full_match": false,
+          "term_count": 2,
+          "matched_term_count": 2,
+          "matched_terms": [
+            "15",
+            "200"
+          ],
+          "coverage": 1.0
+        }
+      ],
+      "coverage": {
+        "fact_count": 1,
+        "average_term_coverage": 1.0,
+        "full_match_count": 0
+      },
+      "answer_length": 128,
+      "answer": "酒店**允许**携带宠物入住，具体要求及费用如下：\n\n1. **体重限制**：宠物体重不得超过**15公斤**；\n2. **费用**：每只宠物每晚加收清洁费**200元**（**导盲犬免费**）；\n3. **入住要求**：办理入住时需签署**宠物协议**。",
+      "case_ok": true
+    },
+    {
+      "query_id": "live_q_minibar",
+      "query": "客房迷你吧怎么收费？",
+      "difficulty": "easy",
+      "latency_ms": 23693.628,
+      "first_chunk_ms": 18960.149,
+      "has_content": true,
+      "stream_completed": true,
+      "stream_error": null,
+      "failed_placeholder": false,
+      "event_type_counts": {
+        "event": 2,
+        "response_chunk": 12
+      },
+      "tool_events": [
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "START",
+          "tool_type": "工具",
+          "duration_ms": 0
+        },
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "END",
+          "tool_type": "工具",
+          "duration_ms": 11740.16
+        }
+      ],
+      "tool_call_count": 1,
+      "tool_end_count": 1,
+      "tool_error_count": 0,
+      "knowledge_called": true,
+      "knowledge_ok": true,
+      "answer_starts_with_rewrite_list": false,
+      "no_knowledge_evidence": false,
+      "knowledge_content_ok": true,
+      "error_events": [],
+      "fact_results": [
+        {
+          "full_match": false,
+          "term_count": 0,
+          "matched_term_count": 0,
+          "matched_terms": [],
+          "coverage": 0.0
+        }
+      ],
+      "coverage": {
+        "fact_count": 1,
+        "average_term_coverage": 0.0,
+        "full_match_count": 0
+      },
+      "answer_length": 72,
+      "answer": "客房迷你吧**首轮免费**，包含**两瓶矿泉水**和**两罐软饮**。\n\n后续补充消费将**按价格表收费**，退房时前台会核对迷你吧的消费情况。",
+      "case_ok": true
+    },
+    {
+      "query_id": "live_q_laundry",
+      "query": "洗衣服务多久能送回，加急怎么收费？",
+      "difficulty": "normal",
+      "latency_ms": 22657.249,
+      "first_chunk_ms": 18007.727,
+      "has_content": true,
+      "stream_completed": true,
+      "stream_error": null,
+      "failed_placeholder": false,
+      "event_type_counts": {
+        "event": 2,
+        "response_chunk": 15
+      },
+      "tool_events": [
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "START",
+          "tool_type": "工具",
+          "duration_ms": 0
+        },
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "END",
+          "tool_type": "工具",
+          "duration_ms": 11069.15
+        }
+      ],
+      "tool_call_count": 1,
+      "tool_end_count": 1,
+      "tool_error_count": 0,
+      "knowledge_called": true,
+      "knowledge_ok": true,
+      "answer_starts_with_rewrite_list": false,
+      "no_knowledge_evidence": false,
+      "knowledge_content_ok": true,
+      "error_events": [],
+      "fact_results": [
+        {
+          "full_match": false,
+          "term_count": 4,
+          "matched_term_count": 4,
+          "matched_terms": [
+            "24",
+            "20:00",
+            "3",
+            "1.5"
+          ],
+          "coverage": 1.0
+        }
+      ],
+      "coverage": {
+        "fact_count": 1,
+        "average_term_coverage": 1.0,
+        "full_match_count": 0
+      },
+      "answer_length": 85,
+      "answer": "酒店提供**24小时洗衣服务**。\n\n- **普通洗衣**：当天**20:00前**送回；\n- **加急洗衣**：**3小时**内送回，收费为普通服务的**1.5倍**。",
+      "case_ok": true
+    },
+    {
+      "query_id": "live_q_parking",
+      "query": "酒店停车怎么收费？",
+      "difficulty": "easy",
+      "latency_ms": 26138.513,
+      "first_chunk_ms": 19523.791,
+      "has_content": true,
+      "stream_completed": true,
+      "stream_error": null,
+      "failed_placeholder": false,
+      "event_type_counts": {
+        "event": 2,
+        "response_chunk": 19
+      },
+      "tool_events": [
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "START",
+          "tool_type": "工具",
+          "duration_ms": 0
+        },
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "END",
+          "tool_type": "工具",
+          "duration_ms": 12402.57
+        }
+      ],
+      "tool_call_count": 1,
+      "tool_end_count": 1,
+      "tool_error_count": 0,
+      "knowledge_called": true,
+      "knowledge_ok": true,
+      "answer_starts_with_rewrite_list": false,
+      "no_knowledge_evidence": false,
+      "knowledge_content_ok": true,
+      "error_events": [],
+      "fact_results": [
+        {
+          "full_match": false,
+          "term_count": 3,
+          "matched_term_count": 3,
+          "matched_terms": [
+            "20",
+            "100",
+            "B2"
+          ],
+          "coverage": 1.0
+        }
+      ],
+      "coverage": {
+        "fact_count": 1,
+        "average_term_coverage": 1.0,
+        "full_match_count": 0
+      },
+      "answer_length": 112,
+      "answer": "酒店停车场共**三层**，收费及设施规定如下：\n\n1. **住客**：**免费停车**；\n2. **非住客**：**每小时20元**，每日封顶**100元**；\n3. **新能源车位**：位于**B2层**，并预留了充电桩。",
+      "case_ok": true
+    },
+    {
+      "query_id": "live_q_leave",
+      "query": "请病假需要提前多久申请？",
+      "difficulty": "easy",
+      "latency_ms": 25056.467,
+      "first_chunk_ms": 18985.189,
+      "has_content": true,
+      "stream_completed": true,
+      "stream_error": null,
+      "failed_placeholder": false,
+      "event_type_counts": {
+        "event": 2,
+        "response_chunk": 10
+      },
+      "tool_events": [
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "START",
+          "tool_type": "工具",
+          "duration_ms": 0
+        },
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "END",
+          "tool_type": "工具",
+          "duration_ms": 10829.68
+        }
+      ],
+      "tool_call_count": 1,
+      "tool_end_count": 1,
+      "tool_error_count": 0,
+      "knowledge_called": true,
+      "knowledge_ok": true,
+      "answer_starts_with_rewrite_list": false,
+      "no_knowledge_evidence": false,
+      "knowledge_content_ok": true,
+      "error_events": [],
+      "fact_results": [
+        {
+          "full_match": false,
+          "term_count": 1,
+          "matched_term_count": 1,
+          "matched_terms": [
+            "1"
+          ],
+          "coverage": 1.0
+        }
+      ],
+      "coverage": {
+        "fact_count": 1,
+        "average_term_coverage": 1.0,
+        "full_match_count": 0
+      },
+      "answer_length": 60,
+      "answer": "请病假可以**当日提交**申请，但需要附上**医院证明**，并由直属主管审批。（注：普通请假需提前1个工作日提交申请。）",
+      "case_ok": true
+    },
+    {
+      "query_id": "live_q_expense",
+      "query": "报销大概多久能到账？",
+      "difficulty": "normal",
+      "latency_ms": 25648.211,
+      "first_chunk_ms": 20447.57,
+      "has_content": true,
+      "stream_completed": true,
+      "stream_error": null,
+      "failed_placeholder": false,
+      "event_type_counts": {
+        "event": 2,
+        "response_chunk": 21
+      },
+      "tool_events": [
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "START",
+          "tool_type": "工具",
+          "duration_ms": 0
+        },
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "END",
+          "tool_type": "工具",
+          "duration_ms": 11556.53
+        }
+      ],
+      "tool_call_count": 1,
+      "tool_end_count": 1,
+      "tool_error_count": 0,
+      "knowledge_called": true,
+      "knowledge_ok": true,
+      "answer_starts_with_rewrite_list": false,
+      "no_knowledge_evidence": false,
+      "knowledge_content_ok": true,
+      "error_events": [],
+      "fact_results": [
+        {
+          "full_match": false,
+          "term_count": 3,
+          "matched_term_count": 3,
+          "matched_terms": [
+            "5",
+            "5000",
+            "50000"
+          ],
+          "coverage": 1.0
+        }
+      ],
+      "coverage": {
+        "fact_count": 1,
+        "average_term_coverage": 1.0,
+        "full_match_count": 0
+      },
+      "answer_length": 124,
+      "answer": "报销单在财务审核通过后，**5个工作日**内打款到账。\n\n**相关报销要求：**\n1. 报销单需附**原始发票**；\n2. 单笔金额超过**5000元**，需要**部门总监复核**；\n3. 单笔金额超过**50000元**，需要**总经理审批**。",
+      "case_ok": true
+    },
+    {
+      "query_id": "live_q_overtime",
+      "query": "下班后继续干活，公司如何计酬？",
+      "difficulty": "hard",
+      "latency_ms": 24866.735,
+      "first_chunk_ms": 17328.559,
+      "has_content": true,
+      "stream_completed": true,
+      "stream_error": null,
+      "failed_placeholder": false,
+      "event_type_counts": {
+        "event": 2,
+        "response_chunk": 19
+      },
+      "tool_events": [
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "START",
+          "tool_type": "工具",
+          "duration_ms": 0
+        },
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "END",
+          "tool_type": "工具",
+          "duration_ms": 9222.72
+        }
+      ],
+      "tool_call_count": 1,
+      "tool_end_count": 1,
+      "tool_error_count": 0,
+      "knowledge_called": true,
+      "knowledge_ok": true,
+      "answer_starts_with_rewrite_list": false,
+      "no_knowledge_evidence": false,
+      "knowledge_content_ok": true,
+      "error_events": [],
+      "fact_results": [
+        {
+          "full_match": false,
+          "term_count": 2,
+          "matched_term_count": 2,
+          "matched_terms": [
+            "1.5",
+            "3"
+          ],
+          "coverage": 1.0
+        }
+      ],
+      "coverage": {
+        "fact_count": 1,
+        "average_term_coverage": 1.0,
+        "full_match_count": 0
+      },
+      "answer_length": 109,
+      "answer": "下班后加班需要**提前申请**，公司的计酬规定如下：\n\n1. **工作日晚间加班**：按**1.5倍**时薪补偿；\n2. **周末加班**：优先安排**调休**；\n3. **法定节假日加班**：按**3倍**时薪补偿。",
+      "case_ok": true
+    },
+    {
+      "query_id": "live_q_onboarding",
+      "query": "员工试用期和离职要求是什么？",
+      "difficulty": "normal",
+      "latency_ms": 27988.968,
+      "first_chunk_ms": 18738.933,
+      "has_content": true,
+      "stream_completed": true,
+      "stream_error": null,
+      "failed_placeholder": false,
+      "event_type_counts": {
+        "event": 2,
+        "response_chunk": 22
+      },
+      "tool_events": [
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "START",
+          "tool_type": "工具",
+          "duration_ms": 0
+        },
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "END",
+          "tool_type": "工具",
+          "duration_ms": 13295.22
+        }
+      ],
+      "tool_call_count": 1,
+      "tool_end_count": 1,
+      "tool_error_count": 0,
+      "knowledge_called": true,
+      "knowledge_ok": true,
+      "answer_starts_with_rewrite_list": false,
+      "no_knowledge_evidence": false,
+      "knowledge_content_ok": true,
+      "error_events": [],
+      "fact_results": [
+        {
+          "full_match": false,
+          "term_count": 2,
+          "matched_term_count": 2,
+          "matched_terms": [
+            "3",
+            "30"
+          ],
+          "coverage": 1.0
+        }
+      ],
+      "coverage": {
+        "fact_count": 1,
+        "average_term_coverage": 1.0,
+        "full_match_count": 0
+      },
+      "answer_length": 130,
+      "answer": "关于员工试用期和离职要求：\n\n1. **试用期**：一般为**3个月**，入职当天签订劳动合同并领取工牌；\n\n2. **离职要求**：\n   - **试用期内**离职：需提前**3天**告知直属主管；\n   - **正式员工**离职：需提前**30天**告知。",
+      "case_ok": true
+    },
+    {
+      "query_id": "live_q_performance",
+      "query": "年度绩效考核分档和年终奖系数是什么？",
+      "difficulty": "normal",
+      "latency_ms": 26589.552,
+      "first_chunk_ms": 19703.899,
+      "has_content": true,
+      "stream_completed": true,
+      "stream_error": null,
+      "failed_placeholder": false,
+      "event_type_counts": {
+        "event": 2,
+        "response_chunk": 23
+      },
+      "tool_events": [
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "START",
+          "tool_type": "工具",
+          "duration_ms": 0
+        },
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "END",
+          "tool_type": "工具",
+          "duration_ms": 12126.33
+        }
+      ],
+      "tool_call_count": 1,
+      "tool_end_count": 1,
+      "tool_error_count": 0,
+      "knowledge_called": true,
+      "knowledge_ok": true,
+      "answer_starts_with_rewrite_list": false,
+      "no_knowledge_evidence": false,
+      "knowledge_content_ok": true,
+      "error_events": [],
+      "fact_results": [
+        {
+          "full_match": false,
+          "term_count": 7,
+          "matched_term_count": 7,
+          "matched_terms": [
+            "S",
+            "A",
+            "B",
+            "C",
+            "2.0",
+            "1.5",
+            "1.0"
+          ],
+          "coverage": 1.0
+        }
+      ],
+      "coverage": {
+        "fact_count": 1,
+        "average_term_coverage": 1.0,
+        "full_match_count": 0
+      },
+      "answer_length": 137,
+      "answer": "年度绩效考核分为**S、A、B、C**四档，对应的年终奖系数如下：\n\n- **S档**：年终奖系数为**2.0**；\n- **A档**：年终奖系数为**1.5**；\n- **B档**：年终奖系数为**1.0**；\n- **C档**：**无年终奖**，并进入**改进计划**。",
+      "case_ok": true
+    }
+  ],
+  "summary": {
+    "query_count": 15,
+    "stream_completed_count": 15,
+    "case_ok_count": 15,
+    "case_ok_rate": 1.0,
+    "knowledge_ok_count": 15,
+    "knowledge_ok_rate": 1.0,
+    "knowledge_content_ok_count": 15,
+    "knowledge_content_ok_rate": 1.0,
+    "rewrite_list_start_case_count": 0,
+    "no_knowledge_evidence_case_count": 0,
+    "tool_error_case_count": 0,
+    "latency_ms": {
+      "mean": 24841.758,
+      "p50": 24747.133,
+      "p90": 31219.902,
+      "max": 36066.303
+    },
+    "first_chunk_ms": {
+      "count": 15,
+      "mean": 18562.339,
+      "p50": 18960.149,
+      "max": 20447.57
+    },
+    "fact_term_coverage_joined": 0.9333,
+    "full_fact_match_count": 0,
+    "full_fact_match_rate": 0.0,
+    "usage_delta": {
+      "input_tokens": 51467,
+      "output_tokens": 10913,
+      "total_tokens": 62380,
+      "call_count": 45
+    },
+    "usage_snapshot_after": {
+      "input_tokens": 53748,
+      "output_tokens": 11655,
+      "total_tokens": 65403,
+      "call_count": 48
+    },
+    "models_used": [
+      "qwen3.7-max"
+    ],
+    "answered_tokens": 1505
+  }
+}

@@ -9,9 +9,14 @@ class MixRetrival:
         """从Milvus检索文档"""
         documents = []
         queries = query if isinstance(query, list) else [query]
+        knowledge_ids = (
+            knowledges_id
+            if isinstance(knowledges_id, list)
+            else [knowledges_id]
+        )
 
         for query in queries:
-            for knowledge_id in knowledges_id:
+            for knowledge_id in knowledge_ids:
                 if search_field == "summary":
                     documents += await milvus_client.search_summary(query, knowledge_id)
                 else:
@@ -26,6 +31,8 @@ class MixRetrival:
         queries = query if isinstance(query, list) else [query]
 
         es_knowledge_ids = index_names or knowledges_id
+        if isinstance(es_knowledge_ids, str):
+            es_knowledge_ids = [es_knowledge_ids]
         for query in queries:
             for knowledge_id in es_knowledge_ids:
                 if search_field == "summary":
@@ -39,8 +46,18 @@ class MixRetrival:
     async def mix_retrival_documents(cls, query_list, knowledges_id, search_field, index_names=None):
         es_documents = []
         milvus_documents = []
-        for query in query_list:
-            es_documents += await cls.retrival_es_documents(query, knowledges_id, search_field, index_names)
-            milvus_documents += await cls.retrival_milvus_documents(query, knowledges_id, search_field)
+        queries = query_list if isinstance(query_list, list) else [query_list]
+        knowledge_ids = (
+            knowledges_id
+            if isinstance(knowledges_id, list)
+            else [knowledges_id]
+        )
+        for query in queries:
+            es_documents += await cls.retrival_es_documents(
+                query, knowledge_ids, search_field, index_names
+            )
+            milvus_documents += await cls.retrival_milvus_documents(
+                query, knowledge_ids, search_field
+            )
 
         return es_documents, milvus_documents

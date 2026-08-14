@@ -1,0 +1,391 @@
+{
+  "dataset_name": "live_rag_hotel_faq",
+  "created_at": "2026-08-14T04:30:58+00:00",
+  "knowledge_id": "t_8160a81598c04539",
+  "vector_store": "chroma",
+  "source_files": [
+    "hotel_faq.txt",
+    "internal_policy.txt",
+    "project_manual.txt"
+  ],
+  "queries": [
+    {
+      "id": "live_q_checkin",
+      "query": "酒店几点可以办理入住，几点退房？",
+      "difficulty": "easy",
+      "expected_facts": [
+        "酒店入住时间为下午14:00，退房时间为中午12:00，前台24小时值班，行李可以寄存，延迟退房需提前联系前台确认房态。"
+      ],
+      "expected_chunk_ids": [
+        "hotel_3442b041fb914385a4a20cdad75825df"
+      ]
+    },
+    {
+      "id": "live_q_wifi",
+      "query": "客房Wi-Fi密码是多少？",
+      "difficulty": "easy",
+      "expected_facts": [
+        "客房无线网络名称为GrandHotel-Guest，密码为CheckIn2026，公共区域免费连接，行政楼层网络无需密码自动连接。"
+      ],
+      "expected_chunk_ids": [
+        "hotel_3442b041fb914385a4a20cdad75825df"
+      ]
+    },
+    {
+      "id": "live_q_breakfast",
+      "query": "早餐几点供应，住客需要另外付费吗？",
+      "difficulty": "easy",
+      "expected_facts": [
+        "自助早餐供应时间为06:30至10:00，地点在二楼餐厅，住客含双早，额外早餐每人68元，儿童1.2米以下免费。"
+      ],
+      "expected_chunk_ids": [
+        "hotel_3442b041fb914385a4a20cdad75825df"
+      ]
+    },
+    {
+      "id": "live_q_shuttle",
+      "query": "去浦东机场的班车怎么预约？",
+      "difficulty": "normal",
+      "expected_facts": [
+        "酒店提供浦东机场免费班车，发车时间为每小时整点，上车地点为酒店正门右侧，需要至少提前30分钟在前台预约座位。"
+      ],
+      "expected_chunk_ids": [
+        "hotel_3442b041fb914385a4a20cdad75825df"
+      ]
+    },
+    {
+      "id": "live_q_gym",
+      "query": "健身房开放时间和使用要求是什么？",
+      "difficulty": "easy",
+      "expected_facts": [
+        "健身房位于三楼的玻璃房，开放时间为06:00至22:00，住客凭房卡进入，18岁以下未成年人需要在监护人陪同下使用。"
+      ],
+      "expected_chunk_ids": [
+        "hotel_3442b041fb914385a4a20cdad75825df"
+      ]
+    },
+    {
+      "id": "live_q_pool",
+      "query": "游泳池有什么规定？",
+      "difficulty": "normal",
+      "expected_facts": [
+        "游泳池水温恒定为28度，开放时间为07:00至21:00，最深1.6米，进入泳池区域必须穿泳衣并佩戴泳帽。"
+      ],
+      "expected_chunk_ids": [
+        "hotel_3442b041fb914385a4a20cdad75825df"
+      ]
+    },
+    {
+      "id": "live_q_pet",
+      "query": "酒店可以带宠物入住吗，费用是多少？",
+      "difficulty": "normal",
+      "expected_facts": [
+        "酒店允许携带体重不超过15公斤的宠物入住，每只每晚加收清洁费200元，导盲犬免费，入住时需签署宠物协议。"
+      ],
+      "expected_chunk_ids": [
+        "hotel_3442b041fb914385a4a20cdad75825df"
+      ]
+    },
+    {
+      "id": "live_q_minibar",
+      "query": "客房迷你吧怎么收费？",
+      "difficulty": "easy",
+      "expected_facts": [
+        "客房迷你吧首轮免费，包含两瓶矿泉水和两罐软饮，补充消费按价格表收费，退房时前台会核对迷你吧消费。"
+      ],
+      "expected_chunk_ids": [
+        "hotel_3442b041fb914385a4a20cdad75825df",
+        "hotel_827f527eac3741d9ab2726db0d1d3d4b"
+      ]
+    },
+    {
+      "id": "live_q_laundry",
+      "query": "洗衣服务多久能送回，加急怎么收费？",
+      "difficulty": "normal",
+      "expected_facts": [
+        "酒店提供24小时洗衣服务，普通洗衣当天20:00前送回，加急洗衣3小时送回，收费为普通服务的1.5倍。"
+      ],
+      "expected_chunk_ids": [
+        "hotel_3442b041fb914385a4a20cdad75825df",
+        "hotel_827f527eac3741d9ab2726db0d1d3d4b"
+      ]
+    },
+    {
+      "id": "live_q_parking",
+      "query": "酒店停车怎么收费？",
+      "difficulty": "easy",
+      "expected_facts": [
+        "停车场共三层，住客免费停车，非住客每小时20元每日封顶100元，新能源车位位于B2层并预留充电桩。"
+      ],
+      "expected_chunk_ids": [
+        "hotel_827f527eac3741d9ab2726db0d1d3d4b"
+      ]
+    },
+    {
+      "id": "live_q_deploy",
+      "query": "项目后端启动命令是什么？",
+      "difficulty": "easy",
+      "expected_facts": [
+        "AgentChat后端启动命令是python -m uvicorn agentchat.main:app --host 0.0.0.0 --port 8000，启动前需要配置数据库和向量库环境变量。"
+      ],
+      "expected_chunk_ids": [
+        "project_7120a4f7c306456f94e94af0da9b2853"
+      ]
+    },
+    {
+      "id": "live_q_rag_chain",
+      "query": "RAG检索链路用到哪些组件？",
+      "difficulty": "normal",
+      "expected_facts": [
+        "知识库问答使用RAG链路：文档上传后切成固定长度分块，写入Chroma向量库，可选同步Elasticsearch关键词索引，检索后经过重排返回结果。"
+      ],
+      "expected_chunk_ids": [
+        "project_7120a4f7c306456f94e94af0da9b2853"
+      ]
+    },
+    {
+      "id": "live_q_docker_deps",
+      "query": "项目默认依赖哪些服务？",
+      "difficulty": "easy",
+      "expected_facts": [
+        "项目默认使用docker compose启动MySQL、Redis和MinIO三个依赖服务，后端配置通过config.yaml读取数据库、存储和模型凭证。"
+      ],
+      "expected_chunk_ids": [
+        "project_7120a4f7c306456f94e94af0da9b2853"
+      ]
+    },
+    {
+      "id": "live_q_completion_sse",
+      "query": "对话流式接口是怎么调用的？",
+      "difficulty": "normal",
+      "expected_facts": [
+        "对话流式接口为POST /api/v1/completion，请求体包含user_input和dialog_id，响应使用SSE格式逐块返回内容事件。"
+      ],
+      "expected_chunk_ids": [
+        "project_7120a4f7c306456f94e94af0da9b2853"
+      ]
+    },
+    {
+      "id": "live_q_multi_agent",
+      "query": "多Agent能力是怎么编排的？",
+      "difficulty": "normal",
+      "expected_facts": [
+        "多Agent能力由orchestrator编排，主Agent按固定关键词路由到客服、酒店和项目三个子Agent，每个子Agent持有独立ReAct链路。"
+      ],
+      "expected_chunk_ids": [
+        "project_7120a4f7c306456f94e94af0da9b2853"
+      ]
+    },
+    {
+      "id": "live_q_agent_create",
+      "query": "创建Agent接口支持哪些配置？",
+      "difficulty": "normal",
+      "expected_facts": [
+        "Agent创建接口为POST /api/v1/agent，支持配置工具、模型、知识库、MCP服务器、记忆开关和多Agent开关。"
+      ],
+      "expected_chunk_ids": [
+        "project_4f0ac271859a4c71a4bed0dd654855d9",
+        "project_7120a4f7c306456f94e94af0da9b2853"
+      ]
+    },
+    {
+      "id": "live_q_memory",
+      "query": "记忆模块区分哪些层次，各自的作用是什么？",
+      "difficulty": "hard",
+      "expected_facts": [
+        "记忆模块区分短期记忆、摘要记忆和长期记忆，短期窗口超出阈值后触发摘要，长期记忆只保存跨对话的关键事实。"
+      ],
+      "expected_chunk_ids": [
+        "project_4f0ac271859a4c71a4bed0dd654855d9"
+      ]
+    },
+    {
+      "id": "live_q_rewrite",
+      "query": "查询重写的作用是什么？",
+      "difficulty": "normal",
+      "expected_facts": [
+        "查询重写会将用户问题改写为多个候选query，再分别检索并合并结果，避免一次改写失败导致召回为空。"
+      ],
+      "expected_chunk_ids": [
+        "project_4f0ac271859a4c71a4bed0dd654855d9"
+      ]
+    },
+    {
+      "id": "live_q_rerank",
+      "query": "Rerank阶段如何过滤低相关文档？",
+      "difficulty": "normal",
+      "expected_facts": [
+        "Rerank阶段使用gte-rerank-v2对候选文档重排，可以通过min_score和rerank_threshold过滤低相关文档。"
+      ],
+      "expected_chunk_ids": [
+        "project_4f0ac271859a4c71a4bed0dd654855d9"
+      ]
+    },
+    {
+      "id": "live_q_cancel",
+      "query": "断流取消机制是怎么实现的？",
+      "difficulty": "hard",
+      "expected_facts": [
+        "断流取消由CancellableAsyncStream实现，前端调用stop_streaming_callback后触发request_cancel，终止正在进行的模型流式调用。"
+      ],
+      "expected_chunk_ids": [
+        "project_4f0ac271859a4c71a4bed0dd654855d9"
+      ]
+    },
+    {
+      "id": "live_q_leave",
+      "query": "请病假需要提前多久申请？",
+      "difficulty": "easy",
+      "expected_facts": [
+        "员工请假需提前1个工作日提交申请，病假可当日提交并附医院证明，请假由直属主管审批，婚假和产假需同时提交人事备案。"
+      ],
+      "expected_chunk_ids": [
+        "internal_6c70e433c090495f880c528c39242fc5"
+      ]
+    },
+    {
+      "id": "live_q_expense",
+      "query": "报销大概多久能到账？",
+      "difficulty": "normal",
+      "expected_facts": [
+        "报销单需附原始发票，财务审核通过后5个工作日内打款，单笔超过5000元需要部门总监复核，超过50000元需要总经理审批。"
+      ],
+      "expected_chunk_ids": [
+        "internal_6c70e433c090495f880c528c39242fc5"
+      ]
+    },
+    {
+      "id": "live_q_overtime",
+      "query": "下班后继续干活，公司如何计酬？",
+      "difficulty": "hard",
+      "expected_facts": [
+        "加班需提前申请，工作日晚间加班按1.5倍时薪补偿，周末加班优先安排调休，法定节假日加班按3倍时薪补偿。"
+      ],
+      "expected_chunk_ids": [
+        "internal_6c70e433c090495f880c528c39242fc5"
+      ]
+    },
+    {
+      "id": "live_q_onboarding",
+      "query": "员工试用期和离职要求是什么？",
+      "difficulty": "normal",
+      "expected_facts": [
+        "员工入职当天签订劳动合同并领取工牌，试用期一般为3个月，试用期内离职需提前3天告知直属主管，正式员工需提前30天。"
+      ],
+      "expected_chunk_ids": [
+        "internal_6c70e433c090495f880c528c39242fc5"
+      ]
+    },
+    {
+      "id": "live_q_performance",
+      "query": "年度绩效考核分档和年终奖系数是什么？",
+      "difficulty": "normal",
+      "expected_facts": [
+        "年度绩效考核分为S、A、B、C四档，S档年终奖系数为2.0，A档为1.5，B档为1.0，C档无年终奖并进入改进计划。"
+      ],
+      "expected_chunk_ids": [
+        "internal_6c70e433c090495f880c528c39242fc5"
+      ]
+    },
+    {
+      "id": "live_q_travel",
+      "query": "出差住宿标准是多少？",
+      "difficulty": "easy",
+      "expected_facts": [
+        "差旅住宿标准为一线城市每晚700元，其他城市每晚450元，出差需要提前在OA系统提交差旅申请并关联预算项目。"
+      ],
+      "expected_chunk_ids": [
+        "internal_6c70e433c090495f880c528c39242fc5"
+      ]
+    },
+    {
+      "id": "live_q_annual_leave",
+      "query": "年假怎么计算和顺延？",
+      "difficulty": "normal",
+      "expected_facts": [
+        "员工每年享有10天带薪年假，转正后按入职月份折算，未休完年假可顺延至次年3月31日，逾期视为自动放弃。"
+      ],
+      "expected_chunk_ids": [
+        "internal_6c70e433c090495f880c528c39242fc5"
+      ]
+    },
+    {
+      "id": "live_q_meeting",
+      "query": "会议室预约有哪些规则？",
+      "difficulty": "normal",
+      "expected_facts": [
+        "会议室使用需提前在OA预约，超过30分钟未到达自动释放，会议结束后需关闭投影并带走个人物品，违规三次取消本月预约权限。"
+      ],
+      "expected_chunk_ids": [
+        "internal_6c70e433c090495f880c528c39242fc5"
+      ]
+    },
+    {
+      "id": "live_q_allowance",
+      "query": "公司提供哪些补贴，怎么发放？",
+      "difficulty": "normal",
+      "expected_facts": [
+        "公司提供每月500元餐饮补贴和200元交通补贴，补贴随工资发放，离职当月按在职天数折算发放。"
+      ],
+      "expected_chunk_ids": [
+        "internal_0d8b52ca8eae483fb2eaf69d23870dda",
+        "internal_6c70e433c090495f880c528c39242fc5"
+      ]
+    },
+    {
+      "id": "live_q_flex_time",
+      "query": "弹性工作时间是什么？",
+      "difficulty": "easy",
+      "expected_facts": [
+        "弹性工作时间为上午9:30至下午18:30，核心协作时间为10:30至16:00，每日弹性申请需在当天上午9点前完成打卡备注。"
+      ],
+      "expected_chunk_ids": [
+        "internal_0d8b52ca8eae483fb2eaf69d23870dda"
+      ]
+    }
+  ],
+  "indexed_chunks": [
+    {
+      "chunk_id": "hotel_3442b041fb914385a4a20cdad75825df",
+      "file_id": "c8df98e24efb4f07ae97f2ff6fede22c",
+      "file_name": "hotel_faq_25251d3699.txt",
+      "knowledge_id": "t_8160a81598c04539",
+      "content": "酒店入住时间为下午14:00，退房时间为中午12:00，前台24小时值班，行李可以寄存，延迟退房需提前联系前台确认房态。\n客房无线网络名称为GrandHotel-Guest，密码为CheckIn2026，公共区域免费连接，行政楼层网络无需密码自动连接。\n自助早餐供应时间为06:30至10:00，地点在二楼餐厅，住客含双早，额外早餐每人68元，儿童1.2米以下免费。\n酒店提供浦东机场免费班车，发车时间为每小时整点，上车地点为酒店正门右侧，需要至少提前30分钟在前台预约座位。\n健身房位于三楼的玻璃房，开放时间为06:00至22:00，住客凭房卡进入，18岁以下未成年人需要在监护人陪同下使用。\n游泳池水温恒定为28度，开放时间为07:00至21:00，最深1.6米，进入泳池区域必须穿泳衣并佩戴泳帽。\n酒店允许携带体重不超过15公斤的宠物入住，每只每晚加收清洁费200元，导盲犬免费，入住时需签署宠物协议。\n客房迷你吧首轮免费，包含两瓶矿泉水和两罐软饮，补充消费按价格表收费，退房时前台会核对迷你吧消费。\n酒店提供24小时洗衣服务，普通洗衣当天20:00前送回，加急洗衣3小时送回，收费为普通服务的1.5倍。"
+    },
+    {
+      "chunk_id": "hotel_827f527eac3741d9ab2726db0d1d3d4b",
+      "file_id": "c8df98e24efb4f07ae97f2ff6fede22c",
+      "file_name": "hotel_faq_25251d3699.txt",
+      "knowledge_id": "t_8160a81598c04539",
+      "content": "客房迷你吧首轮免费，包含两瓶矿泉水和两罐软饮，补充消费按价格表收费，退房时前台会核对迷你吧消费。\n酒店提供24小时洗衣服务，普通洗衣当天20:00前送回，加急洗衣3小时送回，收费为普通服务的1.5倍。\n停车场共三层，住客免费停车，非住客每小时20元每日封顶100元，新能源车位位于B2层并预留充电桩。"
+    },
+    {
+      "chunk_id": "internal_6c70e433c090495f880c528c39242fc5",
+      "file_id": "5fea0564447845829fdd14d0021175f7",
+      "file_name": "internal_policy_d28703b52b.txt",
+      "knowledge_id": "t_8160a81598c04539",
+      "content": "员工请假需提前1个工作日提交申请，病假可当日提交并附医院证明，请假由直属主管审批，婚假和产假需同时提交人事备案。\n报销单需附原始发票，财务审核通过后5个工作日内打款，单笔超过5000元需要部门总监复核，超过50000元需要总经理审批。\n加班需提前申请，工作日晚间加班按1.5倍时薪补偿，周末加班优先安排调休，法定节假日加班按3倍时薪补偿。\n员工入职当天签订劳动合同并领取工牌，试用期一般为3个月，试用期内离职需提前3天告知直属主管，正式员工需提前30天。\n年度绩效考核分为S、A、B、C四档，S档年终奖系数为2.0，A档为1.5，B档为1.0，C档无年终奖并进入改进计划。\n差旅住宿标准为一线城市每晚700元，其他城市每晚450元，出差需要提前在OA系统提交差旅申请并关联预算项目。\n员工每年享有10天带薪年假，转正后按入职月份折算，未休完年假可顺延至次年3月31日，逾期视为自动放弃。\n会议室使用需提前在OA预约，超过30分钟未到达自动释放，会议结束后需关闭投影并带走个人物品，违规三次取消本月预约权限。\n公司提供每月500元餐饮补贴和200元交通补贴，补贴随工资发放，离职当月按在职天数折算发放。"
+    },
+    {
+      "chunk_id": "internal_0d8b52ca8eae483fb2eaf69d23870dda",
+      "file_id": "5fea0564447845829fdd14d0021175f7",
+      "file_name": "internal_policy_d28703b52b.txt",
+      "knowledge_id": "t_8160a81598c04539",
+      "content": "提前在OA预约，超过30分钟未到达自动释放，会议结束后需关闭投影并带走个人物品，违规三次取消本月预约权限。\n公司提供每月500元餐饮补贴和200元交通补贴，补贴随工资发放，离职当月按在职天数折算发放。\n弹性工作时间为上午9:30至下午18:30，核心协作时间为10:30至16:00，每日弹性申请需在当天上午9点前完成打卡备注。"
+    },
+    {
+      "chunk_id": "project_7120a4f7c306456f94e94af0da9b2853",
+      "file_id": "55dd6abb109f46c993deda6605989cd1",
+      "file_name": "project_manual_b25c9be7aa.txt",
+      "knowledge_id": "t_8160a81598c04539",
+      "content": "AgentChat后端启动命令是python -m uvicorn agentchat.main:app --host 0.0.0.0 --port 8000，启动前需要配置数据库和向量库环境变量。\n知识库问答使用RAG链路：文档上传后切成固定长度分块，写入Chroma向量库，可选同步Elasticsearch关键词索引，检索后经过重排返回结果。\n项目默认使用docker compose启动MySQL、Redis和MinIO三个依赖服务，后端配置通过config.yaml读取数据库、存储和模型凭证。\n对话流式接口为POST /api/v1/completion，请求体包含user_input和dialog_id，响应使用SSE格式逐块返回内容事件。\n多Agent能力由orchestrator编排，主Agent按固定关键词路由到客服、酒店和项目三个子Agent，每个子Agent持有独立ReAct链路。\nAgent创建接口为POST /api/v1/agent，支持配置工具、模型、知识库、MCP服务器、记忆开关和多Agent开关。"
+    },
+    {
+      "chunk_id": "project_4f0ac271859a4c71a4bed0dd654855d9",
+      "file_id": "55dd6abb109f46c993deda6605989cd1",
+      "file_name": "project_manual_b25c9be7aa.txt",
+      "knowledge_id": "t_8160a81598c04539",
+      "content": "、酒店和项目三个子Agent，每个子Agent持有独立ReAct链路。\nAgent创建接口为POST /api/v1/agent，支持配置工具、模型、知识库、MCP服务器、记忆开关和多Agent开关。\n记忆模块区分短期记忆、摘要记忆和长期记忆，短期窗口超出阈值后触发摘要，长期记忆只保存跨对话的关键事实。\n查询重写会将用户问题改写为多个候选query，再分别检索并合并结果，避免一次改写失败导致召回为空。\nRerank阶段使用gte-rerank-v2对候选文档重排，可以通过min_score和rerank_threshold过滤低相关文档。\n断流取消由CancellableAsyncStream实现，前端调用stop_streaming_callback后触发request_cancel，终止正在进行的模型流式调用。"
+    }
+  ]
+}

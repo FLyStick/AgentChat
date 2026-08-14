@@ -49,6 +49,14 @@ async def completion(
 
     # Prompt 构建
     system_prompt = agent_config.system_prompt.strip() or SYSTEM_PROMPT
+    if agent_config.knowledge_ids:
+        system_prompt += (
+            "\n\n【知识库工具约束】"
+            "\n当问题可以从知识库回答时，必须先调用 retrival_knowledge。"
+            "\n只能依据工具返回的原文回答，直接引用其中的事实；"
+            "\n不得输出查询改写过程、候选 query 列表或工具内部处理过程。"
+            "\n工具返回 No relevant documents found. 时，明确说明未检索到相关内容。"
+        )
 
     short_history = await HistoryService.get_short_term_messages(
         req.dialog_id, login_user.user_id

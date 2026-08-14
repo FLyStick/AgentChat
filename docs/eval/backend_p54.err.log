@@ -1,0 +1,290 @@
+INFO:     Started server process [29408]
+INFO:     Waiting for application startup.
+2026-08-14 13:38:17.935 | INFO     | agentchat.database:ensure_mysql_database:75 - Checking MySQL database `agentchat`
+2026-08-14 13:38:17.983 | SUCCESS  | agentchat.database:ensure_mysql_database:97 - MySQL database `agentchat` is ready
+2026-08-14 13:38:18.108 | SUCCESS  | agentchat.database.init_data:init_database:74 - MySQL tables are ready
+2026-08-14 13:38:18.272 | INFO     | agentchat.database.init_data:init_agentchat_system:54 - Existing system detected (16 agents), updating config...
+2026-08-14 13:38:18.311 | INFO     | agentchat.database.init_data:_update_exist_llm:159 - LLM config unchanged, skip update
+2026-08-14 13:38:18.311 | SUCCESS  | agentchat.database.init_data:init_agentchat_system:60 - agentchat runtime ready
+2026-08-14 13:38:23.984 | INFO     | agentchat.services.rag.vector_stores.chroma:_connect:24 - Successfully connected to Chroma
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:7860 (Press CTRL+C to quit)
+2026-08-14 13:38:33.948 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /health 200 time_cost=0.000ms
+2026-08-14 13:38:39.234 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/agent 200 time_cost=32.405ms
+2026-08-14 13:38:39.281 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/agent 200 time_cost=42.674ms
+2026-08-14 13:38:39.301 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/agent 200 time_cost=17.000ms
+2026-08-14 13:38:39.332 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/dialog 200 time_cost=27.519ms
+2026-08-14 13:38:39.384 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/dialog/list 200 time_cost=49.097ms
+2026-08-14 13:38:39.402 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/usage 200 time_cost=14.005ms
+2026-08-14 13:38:39.418 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/usage_count 200 time_cost=11.586ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 13:38:40.377 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/completion 200 time_cost=954.887ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 13:38:43.766 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 461, output tokens: 131
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 13:38:52.963 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 291, output tokens: 501
+2026-08-14 13:38:52.983 | DEBUG    | agentchat.services.rag.vector_stores.chroma:_get_collection_safe:36 - Collection 't_8160a81598c04539' retrieved and added to cache
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 13:38:54.950 | WARNING  | agentchat.services.rag.rerank:request_rerank:42 - Rerank request failed, fallback to raw retrieval scores: 403, message='Forbidden', url='https://dashscope.aliyuncs.com/api/v1/services/rerank/text-rerank/text-rerank'
+2026-08-14 13:38:54.950 | WARNING  | agentchat.services.rag.handler:retrieve_ranked_documents:194 - Rerank unavailable, fallback to raw content retrieval scores
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 13:38:58.716 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 1529, output tokens: 110
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] Total existing memories: 0
+2026-08-14 13:39:02.670 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/usage 200 time_cost=13.144ms
+2026-08-14 13:39:02.688 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/usage_count 200 time_cost=14.014ms
+2026-08-14 13:39:02.706 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/usage/models_list 200 time_cost=12.777ms
+2026-08-14 13:39:39.936 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/agent 200 time_cost=18.917ms
+2026-08-14 13:39:39.988 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/dialog/list 200 time_cost=47.825ms
+2026-08-14 13:39:40.036 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/dialog/list 200 time_cost=43.776ms
+2026-08-14 13:39:40.053 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/usage 200 time_cost=11.402ms
+2026-08-14 13:39:40.073 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/usage_count 200 time_cost=16.714ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 13:39:40.476 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/completion 200 time_cost=398.242ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 13:39:42.498 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 524, output tokens: 90
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 13:39:50.706 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 296, output tokens: 455
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 13:39:52.682 | WARNING  | agentchat.services.rag.rerank:request_rerank:42 - Rerank request failed, fallback to raw retrieval scores: 403, message='Forbidden', url='https://dashscope.aliyuncs.com/api/v1/services/rerank/text-rerank/text-rerank'
+2026-08-14 13:39:52.682 | WARNING  | agentchat.services.rag.handler:retrieve_ranked_documents:194 - Rerank unavailable, fallback to raw content retrieval scores
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 13:39:57.247 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 1597, output tokens: 167
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] Total existing memories: 0
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 13:40:03.065 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/completion 200 time_cost=490.533ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 13:40:06.665 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 588, output tokens: 124
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 13:40:12.641 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 292, output tokens: 285
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 13:40:14.438 | WARNING  | agentchat.services.rag.rerank:request_rerank:42 - Rerank request failed, fallback to raw retrieval scores: 403, message='Forbidden', url='https://dashscope.aliyuncs.com/api/v1/services/rerank/text-rerank/text-rerank'
+2026-08-14 13:40:14.438 | WARNING  | agentchat.services.rag.handler:retrieve_ranked_documents:194 - Rerank unavailable, fallback to raw content retrieval scores
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 13:40:20.270 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 1763, output tokens: 191
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] Total existing memories: 0
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 13:40:25.222 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/completion 200 time_cost=367.582ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 13:40:27.702 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 646, output tokens: 82
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 13:40:35.340 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 294, output tokens: 343
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 13:40:37.184 | WARNING  | agentchat.services.rag.rerank:request_rerank:42 - Rerank request failed, fallback to raw retrieval scores: 403, message='Forbidden', url='https://dashscope.aliyuncs.com/api/v1/services/rerank/text-rerank/text-rerank'
+2026-08-14 13:40:37.184 | WARNING  | agentchat.services.rag.handler:retrieve_ranked_documents:194 - Rerank unavailable, fallback to raw content retrieval scores
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 13:40:41.349 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 1765, output tokens: 208
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] Total existing memories: 0
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 13:40:46.248 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/completion 200 time_cost=372.204ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 13:40:48.683 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 726, output tokens: 102
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 13:40:59.471 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 294, output tokens: 583
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 13:41:01.156 | WARNING  | agentchat.services.rag.rerank:request_rerank:42 - Rerank request failed, fallback to raw retrieval scores: 403, message='Forbidden', url='https://dashscope.aliyuncs.com/api/v1/services/rerank/text-rerank/text-rerank'
+2026-08-14 13:41:01.156 | WARNING  | agentchat.services.rag.handler:retrieve_ranked_documents:194 - Rerank unavailable, fallback to raw content retrieval scores
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 13:41:05.881 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 1845, output tokens: 220
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] Total existing memories: 0
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 13:41:22.388 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/completion 200 time_cost=446.067ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 13:41:24.286 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 787, output tokens: 63
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 13:41:32.828 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 292, output tokens: 428
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 13:41:34.455 | WARNING  | agentchat.services.rag.rerank:request_rerank:42 - Rerank request failed, fallback to raw retrieval scores: 403, message='Forbidden', url='https://dashscope.aliyuncs.com/api/v1/services/rerank/text-rerank/text-rerank'
+2026-08-14 13:41:34.455 | WARNING  | agentchat.services.rag.handler:retrieve_ranked_documents:194 - Rerank unavailable, fallback to raw content retrieval scores
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 13:41:41.004 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 1856, output tokens: 242
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] Total existing memories: 0
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 13:41:46.465 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/completion 200 time_cost=410.541ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 13:41:48.876 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 858, output tokens: 79
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 13:41:54.410 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 289, output tokens: 296
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 13:41:56.286 | WARNING  | agentchat.services.rag.rerank:request_rerank:42 - Rerank request failed, fallback to raw retrieval scores: 403, message='Forbidden', url='https://dashscope.aliyuncs.com/api/v1/services/rerank/text-rerank/text-rerank'
+2026-08-14 13:41:56.286 | WARNING  | agentchat.services.rag.handler:retrieve_ranked_documents:194 - Rerank unavailable, fallback to raw content retrieval scores
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 13:42:02.044 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 1924, output tokens: 346
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] Total existing memories: 0
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 13:42:05.876 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/completion 200 time_cost=553.890ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 13:42:09.211 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 944, output tokens: 112
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 13:42:19.128 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 296, output tokens: 529
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 13:42:21.065 | WARNING  | agentchat.services.rag.rerank:request_rerank:42 - Rerank request failed, fallback to raw retrieval scores: 403, message='Forbidden', url='https://dashscope.aliyuncs.com/api/v1/services/rerank/text-rerank/text-rerank'
+2026-08-14 13:42:21.065 | WARNING  | agentchat.services.rag.handler:retrieve_ranked_documents:194 - Rerank unavailable, fallback to raw content retrieval scores
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 13:42:25.457 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 2017, output tokens: 213
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] Total existing memories: 0
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 13:42:30.526 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/completion 200 time_cost=455.355ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 13:42:33.587 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 1035, output tokens: 104
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 13:42:43.386 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 292, output tokens: 396
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 13:42:45.349 | WARNING  | agentchat.services.rag.rerank:request_rerank:42 - Rerank request failed, fallback to raw retrieval scores: 403, message='Forbidden', url='https://dashscope.aliyuncs.com/api/v1/services/rerank/text-rerank/text-rerank'
+2026-08-14 13:42:45.349 | WARNING  | agentchat.services.rag.handler:retrieve_ranked_documents:194 - Rerank unavailable, fallback to raw content retrieval scores
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 13:42:48.988 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 2104, output tokens: 170
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] Total existing memories: 0
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 13:42:54.221 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/completion 200 time_cost=457.127ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 13:42:56.475 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 1099, output tokens: 82
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 13:43:05.556 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 298, output tokens: 495
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 13:43:07.569 | WARNING  | agentchat.services.rag.rerank:request_rerank:42 - Rerank request failed, fallback to raw retrieval scores: 403, message='Forbidden', url='https://dashscope.aliyuncs.com/api/v1/services/rerank/text-rerank/text-rerank'
+2026-08-14 13:43:07.569 | WARNING  | agentchat.services.rag.handler:retrieve_ranked_documents:194 - Rerank unavailable, fallback to raw content retrieval scores
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 13:43:11.743 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 2174, output tokens: 162
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] Total existing memories: 0
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 13:43:16.893 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/completion 200 time_cost=472.313ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 13:43:19.234 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 1165, output tokens: 79
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 13:43:29.416 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 290, output tokens: 492
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 13:43:31.663 | WARNING  | agentchat.services.rag.rerank:request_rerank:42 - Rerank request failed, fallback to raw retrieval scores: 403, message='Forbidden', url='https://dashscope.aliyuncs.com/api/v1/services/rerank/text-rerank/text-rerank'
+2026-08-14 13:43:31.663 | WARNING  | agentchat.services.rag.handler:retrieve_ranked_documents:194 - Rerank unavailable, fallback to raw content retrieval scores
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 13:43:35.923 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 2232, output tokens: 189
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] Total existing memories: 0
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 13:43:43.134 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/completion 200 time_cost=574.577ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 13:43:47.166 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 1248, output tokens: 146
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 13:43:55.864 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 292, output tokens: 360
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 13:43:58.023 | WARNING  | agentchat.services.rag.rerank:request_rerank:42 - Rerank request failed, fallback to raw retrieval scores: 403, message='Forbidden', url='https://dashscope.aliyuncs.com/api/v1/services/rerank/text-rerank/text-rerank'
+2026-08-14 13:43:58.023 | WARNING  | agentchat.services.rag.handler:retrieve_ranked_documents:194 - Rerank unavailable, fallback to raw content retrieval scores
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 13:44:01.517 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 2317, output tokens: 156
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] Total existing memories: 0
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 13:44:08.113 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/completion 200 time_cost=496.982ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 13:44:10.950 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 1297, output tokens: 89
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 13:44:20.619 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 292, output tokens: 429
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 13:44:22.535 | WARNING  | agentchat.services.rag.rerank:request_rerank:42 - Rerank request failed, fallback to raw retrieval scores: 403, message='Forbidden', url='https://dashscope.aliyuncs.com/api/v1/services/rerank/text-rerank/text-rerank'
+2026-08-14 13:44:22.536 | WARNING  | agentchat.services.rag.handler:retrieve_ranked_documents:194 - Rerank unavailable, fallback to raw content retrieval scores
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 13:44:28.035 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 2366, output tokens: 233
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] Total existing memories: 0
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 13:44:33.773 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/completion 200 time_cost=508.835ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 13:44:37.061 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 1395, output tokens: 133
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 13:44:44.333 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 297, output tokens: 347
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 13:44:46.310 | WARNING  | agentchat.services.rag.rerank:request_rerank:42 - Rerank request failed, fallback to raw retrieval scores: 403, message='Forbidden', url='https://dashscope.aliyuncs.com/api/v1/services/rerank/text-rerank/text-rerank'
+2026-08-14 13:44:46.310 | WARNING  | agentchat.services.rag.handler:retrieve_ranked_documents:194 - Rerank unavailable, fallback to raw content retrieval scores
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 13:44:50.565 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 2469, output tokens: 225
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] Total existing memories: 0
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 13:44:58.584 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/completion 200 time_cost=453.411ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 13:45:00.811 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 1472, output tokens: 70
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 13:45:12.020 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 292, output tokens: 458
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 13:45:14.149 | WARNING  | agentchat.services.rag.rerank:request_rerank:42 - Rerank request failed, fallback to raw retrieval scores: 403, message='Forbidden', url='https://dashscope.aliyuncs.com/api/v1/services/rerank/text-rerank/text-rerank'
+2026-08-14 13:45:14.149 | WARNING  | agentchat.services.rag.handler:retrieve_ranked_documents:194 - Rerank unavailable, fallback to raw content retrieval scores
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 13:45:16.842 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 2541, output tokens: 138
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] Total existing memories: 0
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 13:45:26.575 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/completion 200 time_cost=454.086ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 13:45:28.990 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 1565, output tokens: 72
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 13:45:39.257 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 294, output tokens: 494
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 13:45:41.138 | WARNING  | agentchat.services.rag.rerank:request_rerank:42 - Rerank request failed, fallback to raw retrieval scores: 403, message='Forbidden', url='https://dashscope.aliyuncs.com/api/v1/services/rerank/text-rerank/text-rerank'
+2026-08-14 13:45:41.138 | WARNING  | agentchat.services.rag.handler:retrieve_ranked_documents:194 - Rerank unavailable, fallback to raw content retrieval scores
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 13:45:45.801 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 2748, output tokens: 236
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] Total existing memories: 0
+2026-08-14 13:45:52.729 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/usage 200 time_cost=18.521ms
+2026-08-14 13:45:52.754 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/usage_count 200 time_cost=20.806ms
+2026-08-14 13:45:52.772 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/usage/models_list 200 time_cost=14.220ms
+2026-08-14 13:46:38.135 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /health 200 time_cost=0.999ms
+2026-08-14 13:47:36.742 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET / 404 time_cost=3.001ms
+2026-08-14 13:47:37.454 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /favicon.ico 404 time_cost=1.002ms

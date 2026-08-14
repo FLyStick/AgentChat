@@ -45,36 +45,6 @@ def _build_parser() -> argparse.ArgumentParser:
     cancel.add_argument("--output", type=Path, help="将结果写入指定 JSON 文件")
     cancel.set_defaults(func=_run_cancel)
 
-    # --- token 预算校准 ---
-    token = subparsers.add_parser("token", help="运行长对话 token 预算校准")
-    token.add_argument("--pairs", type=int, default=40, help="模拟对话轮数（user/assistant 对）")
-    token.add_argument(
-        "--cutoffs",
-        type=int,
-        nargs="+",
-        default=[1000, 2000, 3000, 4000, 5000],
-        help="token 截断阈值列表",
-    )
-    token.add_argument("--output", type=Path, help="将结果写入指定 JSON 文件")
-    token.set_defaults(func=_run_token)
-
-    # --- RAG 优化前后对比 ---
-    rag_optimizer = subparsers.add_parser("rag-optimizer", help="运行 RAG 优化前后对比")
-    rag_optimizer.add_argument("--top-k", type=int, default=5, help="返回前 K 个召回结果参与评测")
-    rag_optimizer.add_argument(
-        "--threshold",
-        type=float,
-        default=0.08,
-        help="重排阈值，低于该词法分数的结果会被过滤",
-    )
-    rag_optimizer.add_argument("--output", type=Path, help="将结果写入指定 JSON 文件")
-    rag_optimizer.set_defaults(func=_run_rag_optimizer)
-
-    # --- 记忆去重与失败兜底 ---
-    memory_duplicate = subparsers.add_parser("memory-duplicate", help="运行记忆去重与失败兜底基准")
-    memory_duplicate.add_argument("--output", type=Path, help="将结果写入指定 JSON 文件")
-    memory_duplicate.set_defaults(func=_run_memory_duplicate)
-
     return parser
 
 
@@ -115,33 +85,6 @@ async def _run_cancel(args) -> dict:
         cancel_after_ms=args.cancel_after_ms,
         threshold_ms=args.threshold_ms,
     )
-
-
-async def _run_token(args) -> dict:
-    """执行长对话 token 预算校准，输出不同阈值下的摘要触发点。"""
-    from agentchat.benchmarks.token_budget import run_token_budget_benchmark
-
-    return run_token_budget_benchmark(
-        pair_count=args.pairs,
-        cutoffs=tuple(args.cutoffs),
-    )
-
-
-async def _run_rag_optimizer(args) -> dict:
-    """执行 RAG 优化前后对比，输出 hard query 排名变化。"""
-    from agentchat.benchmarks.rag_optimizer import run_rag_optimizer_benchmark
-
-    return await run_rag_optimizer_benchmark(
-        top_k=args.top_k,
-        rerank_threshold=args.threshold,
-    )
-
-
-async def _run_memory_duplicate(args) -> dict:
-    """执行记忆去重与写入失败兜底 benchmark。"""
-    from agentchat.benchmarks.memory_duplicate import run_memory_duplicate_benchmark
-
-    return run_memory_duplicate_benchmark()
 
 
 def _emit(result: dict, output: Optional[Path]) -> None:

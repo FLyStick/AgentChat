@@ -1,0 +1,117 @@
+{
+  "stage": "p5.4",
+  "created_at": "2026-08-14T05:12:22+00:00",
+  "dataset_name": "live_rag_hotel_faq",
+  "knowledge_id": "t_8160a81598c04539",
+  "agent_name": "LiveBench-HotelFAQ-131203",
+  "agent_id": "59319f49d3db464d807ec4cb0664ce41",
+  "dialog_id": "93fdd22e0bb54f44b054b0b68a8d3632",
+  "dialog_agent_name": "LiveBench-HotelFAQ-131203",
+  "agent_name_confirmed": true,
+  "environment": {
+    "cwd": "D:\\实习记录\\开源项目\\AgentChat\\src\\backend",
+    "python": "C:\\Users\\20235\\.conda\\envs\\agentchat\\python.exe",
+    "base_url": "http://127.0.0.1:7860"
+  },
+  "cases": [
+    {
+      "query_id": "live_q_checkin",
+      "query": "酒店几点可以办理入住，几点退房？",
+      "difficulty": "easy",
+      "latency_ms": 17966.456,
+      "first_chunk_ms": 10466.76,
+      "has_content": true,
+      "stream_completed": true,
+      "stream_error": null,
+      "failed_placeholder": false,
+      "event_type_counts": {
+        "event": 2,
+        "response_chunk": 14
+      },
+      "tool_events": [
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "START",
+          "tool_type": "工具",
+          "duration_ms": 0
+        },
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "END",
+          "tool_type": "工具",
+          "duration_ms": 5584.73
+        }
+      ],
+      "tool_call_count": 1,
+      "tool_end_count": 1,
+      "tool_error_count": 0,
+      "knowledge_called": true,
+      "knowledge_ok": true,
+      "answer_starts_with_rewrite_list": true,
+      "no_knowledge_evidence": false,
+      "knowledge_content_ok": false,
+      "error_events": [],
+      "fact_results": [
+        {
+          "full_match": false,
+          "term_count": 3,
+          "matched_term_count": 0,
+          "matched_terms": [],
+          "coverage": 0.0
+        }
+      ],
+      "coverage": {
+        "fact_count": 1,
+        "average_term_coverage": 0.0,
+        "full_match_count": 0
+      },
+      "answer_length": 93,
+      "answer": "[\"酒店一般几点可以办理入住和退房？\", \"宾馆的入住登记和退房时间规定是什么？\", \"住酒店通常的入住和退房时间分别是几点？\"]抱歉，知识库中未检索到关于酒店入住和退房时间的相关内容。",
+      "case_ok": true
+    }
+  ],
+  "summary": {
+    "query_count": 1,
+    "stream_completed_count": 1,
+    "case_ok_count": 1,
+    "case_ok_rate": 1.0,
+    "knowledge_ok_count": 1,
+    "knowledge_ok_rate": 1.0,
+    "knowledge_content_ok_count": 0,
+    "knowledge_content_ok_rate": 0.0,
+    "rewrite_list_start_case_count": 1,
+    "no_knowledge_evidence_case_count": 0,
+    "tool_error_case_count": 0,
+    "latency_ms": {
+      "mean": 17966.456,
+      "p50": 17966.456,
+      "p90": 17966.456,
+      "max": 17966.456
+    },
+    "first_chunk_ms": {
+      "count": 1,
+      "mean": 10466.76,
+      "p50": 10466.76,
+      "max": 10466.76
+    },
+    "fact_term_coverage_joined": 0.0,
+    "full_fact_match_count": 0,
+    "full_fact_match_rate": 0.0,
+    "usage_delta": {
+      "input_tokens": 1266,
+      "output_tokens": 503,
+      "total_tokens": 1769,
+      "call_count": 3
+    },
+    "usage_snapshot_after": {
+      "input_tokens": 1266,
+      "output_tokens": 503,
+      "total_tokens": 1769,
+      "call_count": 3
+    },
+    "models_used": [
+      "qwen3.7-max"
+    ],
+    "answered_tokens": 93
+  }
+}
