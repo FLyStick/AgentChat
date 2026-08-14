@@ -288,3 +288,4 @@ INFO:     Uvicorn running on http://127.0.0.1:7860 (Press CTRL+C to quit)
 2026-08-14 13:46:38.135 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /health 200 time_cost=0.999ms
 2026-08-14 13:47:36.742 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET / 404 time_cost=3.001ms
 2026-08-14 13:47:37.454 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /favicon.ico 404 time_cost=1.002ms
+2026-08-14 14:11:19.791 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /health 200 time_cost=16.616ms

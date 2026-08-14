@@ -2,6 +2,8 @@ import asyncio
 import time
 from typing import Any, Awaitable, Callable, Dict, Optional
 
+import anyio
+
 from agentchat.utils.events import current_trace_id
 
 
@@ -53,12 +55,18 @@ class CancellableAsyncStream:
             return
         self._reason = reason
         self._finished_at = time.perf_counter()
+        if self._started_at is None:
+            self._started_at = self._finished_at
         if self._run_task is not None and not self._run_task.done():
             self._run_task.cancel()
             try:
                 await self._run_task
             except asyncio.CancelledError:
                 pass
+
+    async def finish_cancelled(self) -> None:
+        """Finalize the stream as cancelled before the calling task is torn down."""
+        await self._finish("cancelled")
 
     def __aiter__(self) -> "CancellableAsyncStream":
         self.start()
@@ -68,29 +76,38 @@ class CancellableAsyncStream:
         if self._run_task is None:
             self.start()
 
-        while True:
-            get_task = asyncio.create_task(self._queue.get())
-            cancel_task = asyncio.create_task(self._cancel_event.wait())
-            done, pending = await asyncio.wait(
-                {get_task, cancel_task},
-                return_when=asyncio.FIRST_COMPLETED,
-            )
-            for task in pending:
-                task.cancel()
-            await asyncio.gather(*pending, return_exceptions=True)
+        try:
+            while True:
+                get_task = asyncio.create_task(self._queue.get())
+                cancel_task = asyncio.create_task(self._cancel_event.wait())
+                done, pending = await asyncio.wait(
+                    {get_task, cancel_task},
+                    return_when=asyncio.FIRST_COMPLETED,
+                )
+                for task in pending:
+                    task.cancel()
+                await asyncio.gather(*pending, return_exceptions=True)
 
-            if cancel_task in done and self._cancel_event.is_set():
-                await self._finish("cancelled")
-                raise StopAsyncIteration
-
-            if get_task in done:
-                item = get_task.result()
-                if item is self._sentinel:
-                    await self._finish("completed")
-                    if self._error is not None:
-                        raise self._error
+                if cancel_task in done and self._cancel_event.is_set():
+                    await self._finish("cancelled")
                     raise StopAsyncIteration
-                return item
+
+                if get_task in done:
+                    item = get_task.result()
+                    if item is self._sentinel:
+                        await self._finish("completed")
+                        if self._error is not None:
+                            raise self._error
+                        raise StopAsyncIteration
+                    return item
+        except asyncio.CancelledError:
+            # A task-group cancellation may interrupt __anext__ before the
+            # cancel event is observed. Finish the stream so the caller can
+            # persist an accurate cancellation summary.
+            if self._cancel_event.is_set() and self._finished_at is None:
+                with anyio.CancelScope(shield=True):
+                    await self._finish("cancelled")
+            raise
 
     def summary(self) -> Optional[Dict[str, Any]]:
         if self._finished_at is None:

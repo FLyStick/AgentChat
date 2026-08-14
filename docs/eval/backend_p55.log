@@ -1,0 +1,94 @@
+Consider using the pymupdf_layout package for a greatly improved page layout analysis.
+    ___                    __     ________          __ 
+   /   | ____ ____  ____  / /_   / ____/ /_  ____ _/ /_
+  / /| |/ __ `/ _ \/ __ \/ __/  / /   / __ \/ __ `/ __/
+ / ___ / /_/ /  __/ / / / /_   / /___/ / / / /_/ / /_  
+/_/  |_\__, /\___/_/ /_/\__/   \____/_/ /_/\__,_/\__/  
+      /____/                                           
+
+INFO:     127.0.0.1:61411 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49222 - "GET /api/v1/agent HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49222 - "POST /api/v1/agent HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49222 - "GET /api/v1/agent HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49222 - "POST /api/v1/dialog HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49222 - "POST /api/v1/completion HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55144 - "GET /api/v1/history?dialog_id=69ba3ab5a35b407c97918db3c535854c HTTP/1.1" 200 OK

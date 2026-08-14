@@ -1,0 +1,265 @@
+INFO:     Started server process [20912]
+INFO:     Waiting for application startup.
+2026-08-14 15:10:29.159 | INFO     | agentchat.database:ensure_mysql_database:75 - Checking MySQL database `agentchat`
+2026-08-14 15:10:29.198 | SUCCESS  | agentchat.database:ensure_mysql_database:97 - MySQL database `agentchat` is ready
+2026-08-14 15:10:29.320 | SUCCESS  | agentchat.database.init_data:init_database:74 - MySQL tables are ready
+2026-08-14 15:10:29.480 | INFO     | agentchat.database.init_data:init_agentchat_system:54 - Existing system detected (18 agents), updating config...
+2026-08-14 15:10:29.516 | INFO     | agentchat.database.init_data:_update_exist_llm:159 - LLM config unchanged, skip update
+2026-08-14 15:10:29.516 | SUCCESS  | agentchat.database.init_data:init_agentchat_system:60 - agentchat runtime ready
+2026-08-14 15:10:35.474 | INFO     | agentchat.services.rag.vector_stores.chroma:_connect:24 - Successfully connected to Chroma
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:7860 (Press CTRL+C to quit)
+2026-08-14 15:10:41.378 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /health 200 time_cost=3.047ms
+2026-08-14 15:10:47.191 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/agent 200 time_cost=25.111ms
+2026-08-14 15:10:47.236 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/dialog 200 time_cost=40.842ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 15:10:48.470 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/completion 200 time_cost=1231.700ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 15:10:50.707 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 419, output tokens: 82
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 15:11:01.233 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 291, output tokens: 544
+2026-08-14 15:11:01.257 | DEBUG    | agentchat.services.rag.vector_stores.chroma:_get_collection_safe:36 - Collection 't_8160a81598c04539' retrieved and added to cache
+2026-08-14 15:11:01.316 | INFO     | agentchat.api.responses.streaming:listen_for_disconnect:54 - http.disconnect. stop task and streaming. trace_id=36ca775d-540a-47d0-8495-a321def2c43b
+2026-08-14 15:11:01.320 | INFO     | agentchat.core.agents.general_agent:astream:474 - Stream cancelled. total_duration_ms=12850.656 cancel_to_terminate_ms=0.669 trace_id=36ca775d-540a-47d0-8495-a321def2c43b
+2026-08-14 15:11:01.320 | INFO     | agentchat.api.v1.completion:stream:109 - Completion stream finalizing.
+2026-08-14 15:11:01.320 | INFO     | agentchat.api.v1.completion:stream:116 - Completion agent stream finalized.
+2026-08-14 15:11:01.364 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=24.366ms
+2026-08-14 15:11:01.585 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=17.092ms
+2026-08-14 15:11:01.813 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=19.120ms
+2026-08-14 15:11:02.038 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=21.964ms
+2026-08-14 15:11:02.260 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=18.191ms
+2026-08-14 15:11:02.483 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=18.415ms
+2026-08-14 15:11:02.707 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=20.229ms
+2026-08-14 15:11:02.928 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=17.283ms
+2026-08-14 15:11:03.151 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=19.187ms
+2026-08-14 15:11:03.381 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=24.747ms
+2026-08-14 15:11:03.607 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=20.863ms
+2026-08-14 15:11:03.830 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=18.798ms
+2026-08-14 15:11:04.052 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=18.642ms
+2026-08-14 15:11:04.273 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=17.457ms
+2026-08-14 15:11:04.497 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=18.706ms
+2026-08-14 15:11:04.724 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=21.445ms
+2026-08-14 15:11:04.946 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=17.718ms
+2026-08-14 15:11:05.170 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=19.345ms
+2026-08-14 15:11:05.395 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=20.359ms
+2026-08-14 15:11:05.620 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=20.976ms
+2026-08-14 15:11:05.844 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=20.230ms
+2026-08-14 15:11:06.068 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=19.343ms
+2026-08-14 15:11:06.292 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=20.203ms
+2026-08-14 15:11:06.516 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=19.325ms
+2026-08-14 15:11:06.740 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=20.164ms
+2026-08-14 15:11:06.964 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=19.675ms
+2026-08-14 15:11:07.188 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=19.943ms
+2026-08-14 15:11:07.414 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=21.754ms
+2026-08-14 15:11:07.638 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=20.067ms
+2026-08-14 15:11:07.861 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=17.566ms
+2026-08-14 15:11:08.084 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=20.176ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] Total existing memories: 0
+2026-08-14 15:11:08.245 | INFO     | agentchat.api.responses.streaming:stream_response:79 - Finalizing streaming body after disconnect. trace_id=36ca775d-540a-47d0-8495-a321def2c43b
+2026-08-14 15:11:08.245 | INFO     | agentchat.api.responses.streaming:stream_response:85 - Streaming body generator closed.
+2026-08-14 15:11:08.318 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=24.851ms
+2026-08-14 15:11:52.024 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/agent 200 time_cost=24.081ms
+2026-08-14 15:11:52.056 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/dialog 200 time_cost=28.847ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 15:11:52.504 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/completion 200 time_cost=426.650ms
+2026-08-14 15:11:52.709 | INFO     | agentchat.api.responses.streaming:listen_for_disconnect:54 - http.disconnect. stop task and streaming. trace_id=3331417b-3c49-47a4-8e8d-35b32f55ddfe
+2026-08-14 15:11:52.712 | INFO     | agentchat.core.agents.general_agent:astream:474 - Stream cancelled. total_duration_ms=204.904 cancel_to_terminate_ms=0.191 trace_id=3331417b-3c49-47a4-8e8d-35b32f55ddfe
+2026-08-14 15:11:52.712 | INFO     | agentchat.api.v1.completion:stream:109 - Completion stream finalizing.
+2026-08-14 15:11:52.712 | INFO     | agentchat.api.v1.completion:stream:116 - Completion agent stream finalized.
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] Total existing memories: 0
+2026-08-14 15:11:56.803 | INFO     | agentchat.api.responses.streaming:stream_response:79 - Finalizing streaming body after disconnect. trace_id=3331417b-3c49-47a4-8e8d-35b32f55ddfe
+2026-08-14 15:11:56.804 | INFO     | agentchat.api.responses.streaming:stream_response:85 - Streaming body generator closed.
+2026-08-14 15:12:16.408 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/agent 200 time_cost=23.139ms
+2026-08-14 15:12:16.445 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/dialog 200 time_cost=28.927ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 15:12:16.882 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/completion 200 time_cost=434.800ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 15:12:19.267 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 419, output tokens: 72
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 15:12:29.419 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 293, output tokens: 522
+2026-08-14 15:12:29.521 | INFO     | agentchat.api.responses.streaming:listen_for_disconnect:54 - http.disconnect. stop task and streaming. trace_id=f9bb3f30-4259-4821-af3e-d7e27ff9e6b3
+2026-08-14 15:12:29.536 | INFO     | agentchat.core.agents.general_agent:astream:474 - Stream cancelled. total_duration_ms=12640.188 cancel_to_terminate_ms=0.613 trace_id=f9bb3f30-4259-4821-af3e-d7e27ff9e6b3
+2026-08-14 15:12:29.537 | INFO     | agentchat.api.v1.completion:stream:109 - Completion stream finalizing.
+2026-08-14 15:12:29.537 | INFO     | agentchat.api.v1.completion:stream:116 - Completion agent stream finalized.
+2026-08-14 15:12:29.552 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=34.614ms
+2026-08-14 15:12:29.780 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=22.884ms
+2026-08-14 15:12:30.009 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=22.465ms
+2026-08-14 15:12:30.232 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=18.980ms
+2026-08-14 15:12:30.463 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=24.973ms
+2026-08-14 15:12:30.693 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=25.709ms
+2026-08-14 15:12:30.929 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=27.406ms
+2026-08-14 15:12:31.170 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=34.565ms
+2026-08-14 15:12:31.397 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=22.794ms
+2026-08-14 15:12:31.634 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=30.685ms
+2026-08-14 15:12:31.860 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=20.968ms
+2026-08-14 15:12:32.091 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=25.986ms
+2026-08-14 15:12:32.316 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=20.143ms
+2026-08-14 15:12:32.541 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=20.750ms
+2026-08-14 15:12:32.766 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=19.709ms
+2026-08-14 15:12:33.021 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=46.043ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] Total existing memories: 0
+2026-08-14 15:12:33.114 | INFO     | agentchat.api.responses.streaming:stream_response:79 - Finalizing streaming body after disconnect. trace_id=f9bb3f30-4259-4821-af3e-d7e27ff9e6b3
+2026-08-14 15:12:33.114 | INFO     | agentchat.api.responses.streaming:stream_response:85 - Streaming body generator closed.
+2026-08-14 15:12:33.243 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=17.957ms
+2026-08-14 15:13:15.841 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/agent 200 time_cost=19.104ms
+2026-08-14 15:13:15.874 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/dialog 200 time_cost=28.934ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 15:13:16.296 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/completion 200 time_cost=418.367ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 15:13:18.485 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 419, output tokens: 81
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 15:13:27.207 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 293, output tokens: 410
+2026-08-14 15:13:27.292 | INFO     | agentchat.api.responses.streaming:listen_for_disconnect:54 - http.disconnect. stop task and streaming. trace_id=ff0221c0-7dfa-4441-9458-b87be5ae4eef
+2026-08-14 15:13:27.303 | INFO     | agentchat.core.agents.general_agent:astream:474 - Stream cancelled. total_duration_ms=10995.568 cancel_to_terminate_ms=0.299 trace_id=ff0221c0-7dfa-4441-9458-b87be5ae4eef
+2026-08-14 15:13:27.303 | INFO     | agentchat.api.v1.completion:stream:109 - Completion stream finalizing.
+2026-08-14 15:13:27.304 | INFO     | agentchat.api.v1.completion:stream:116 - Completion agent stream finalized.
+2026-08-14 15:13:27.315 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=25.698ms
+2026-08-14 15:13:27.548 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=23.245ms
+2026-08-14 15:13:27.769 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=17.266ms
+2026-08-14 15:13:28.000 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=21.977ms
+2026-08-14 15:13:28.225 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=21.055ms
+2026-08-14 15:13:28.452 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=22.800ms
+2026-08-14 15:13:28.673 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=17.337ms
+2026-08-14 15:13:28.895 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=19.058ms
+2026-08-14 15:13:29.118 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=18.873ms
+2026-08-14 15:13:29.344 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=21.882ms
+2026-08-14 15:13:29.565 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=17.546ms
+2026-08-14 15:13:29.788 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=17.620ms
+2026-08-14 15:13:30.013 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=19.161ms
+2026-08-14 15:13:30.236 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=18.008ms
+2026-08-14 15:13:30.463 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=22.099ms
+2026-08-14 15:13:30.689 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=22.594ms
+2026-08-14 15:13:30.911 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=17.510ms
+2026-08-14 15:13:31.165 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=45.098ms
+2026-08-14 15:13:31.403 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=29.752ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] Total existing memories: 0
+2026-08-14 15:13:31.630 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=23.058ms
+2026-08-14 15:13:31.666 | INFO     | agentchat.api.responses.streaming:stream_response:79 - Finalizing streaming body after disconnect. trace_id=ff0221c0-7dfa-4441-9458-b87be5ae4eef
+2026-08-14 15:13:31.666 | INFO     | agentchat.api.responses.streaming:stream_response:85 - Streaming body generator closed.
+2026-08-14 15:13:31.853 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=19.561ms
+2026-08-14 15:13:31.880 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/dialog 200 time_cost=23.332ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 15:13:32.300 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/completion 200 time_cost=417.832ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 15:13:34.309 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 421, output tokens: 68
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 15:13:41.156 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 296, output tokens: 383
+2026-08-14 15:13:41.236 | INFO     | agentchat.api.responses.streaming:listen_for_disconnect:54 - http.disconnect. stop task and streaming. trace_id=51303c23-32d6-4e65-afbe-9c3704e8a6c2
+2026-08-14 15:13:41.248 | INFO     | agentchat.core.agents.general_agent:astream:474 - Stream cancelled. total_duration_ms=8936.42 cancel_to_terminate_ms=0.277 trace_id=51303c23-32d6-4e65-afbe-9c3704e8a6c2
+2026-08-14 15:13:41.248 | INFO     | agentchat.api.v1.completion:stream:109 - Completion stream finalizing.
+2026-08-14 15:13:41.248 | INFO     | agentchat.api.v1.completion:stream:116 - Completion agent stream finalized.
+2026-08-14 15:13:41.260 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=26.572ms
+2026-08-14 15:13:41.482 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=18.325ms
+2026-08-14 15:13:41.704 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=17.648ms
+2026-08-14 15:13:41.925 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=16.048ms
+2026-08-14 15:13:42.152 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=22.732ms
+2026-08-14 15:13:42.374 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=18.530ms
+2026-08-14 15:13:42.598 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=19.973ms
+2026-08-14 15:13:42.822 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=19.305ms
+2026-08-14 15:13:43.046 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=19.349ms
+2026-08-14 15:13:43.278 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=27.153ms
+2026-08-14 15:13:43.513 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=28.176ms
+2026-08-14 15:13:43.742 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=22.487ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] Total existing memories: 0
+2026-08-14 15:13:43.913 | INFO     | agentchat.api.responses.streaming:stream_response:79 - Finalizing streaming body after disconnect. trace_id=51303c23-32d6-4e65-afbe-9c3704e8a6c2
+2026-08-14 15:13:43.913 | INFO     | agentchat.api.responses.streaming:stream_response:85 - Streaming body generator closed.
+2026-08-14 15:13:43.971 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=23.333ms
+2026-08-14 15:13:44.004 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/dialog 200 time_cost=28.310ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 15:13:44.474 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/completion 200 time_cost=467.144ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 15:13:47.139 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 418, output tokens: 74
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 15:13:54.905 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 292, output tokens: 386
+2026-08-14 15:13:54.985 | INFO     | agentchat.api.responses.streaming:listen_for_disconnect:54 - http.disconnect. stop task and streaming. trace_id=b9212646-d13f-4918-b756-d610eb37af20
+2026-08-14 15:13:54.996 | INFO     | agentchat.core.agents.general_agent:astream:474 - Stream cancelled. total_duration_ms=10511.161 cancel_to_terminate_ms=0.271 trace_id=b9212646-d13f-4918-b756-d610eb37af20
+2026-08-14 15:13:54.996 | INFO     | agentchat.api.v1.completion:stream:109 - Completion stream finalizing.
+2026-08-14 15:13:54.996 | INFO     | agentchat.api.v1.completion:stream:116 - Completion agent stream finalized.
+2026-08-14 15:13:55.008 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=25.334ms
+2026-08-14 15:13:55.231 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=19.063ms
+2026-08-14 15:13:55.454 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=18.764ms
+2026-08-14 15:13:55.685 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=21.879ms
+2026-08-14 15:13:55.908 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=18.300ms
+2026-08-14 15:13:56.136 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=22.697ms
+2026-08-14 15:13:56.366 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=24.837ms
+2026-08-14 15:13:56.591 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=20.435ms
+2026-08-14 15:13:56.820 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=23.451ms
+2026-08-14 15:13:57.043 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=18.780ms
+2026-08-14 15:13:57.265 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=18.161ms
+2026-08-14 15:13:57.490 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=19.812ms
+2026-08-14 15:13:57.712 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=18.489ms
+2026-08-14 15:13:57.938 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=21.861ms
+2026-08-14 15:13:58.160 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=18.091ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] Total existing memories: 0
+2026-08-14 15:13:58.387 | INFO     | agentchat.api.responses.streaming:stream_response:79 - Finalizing streaming body after disconnect. trace_id=b9212646-d13f-4918-b756-d610eb37af20
+2026-08-14 15:13:58.387 | INFO     | agentchat.api.responses.streaming:stream_response:85 - Streaming body generator closed.
+2026-08-14 15:13:58.394 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=27.796ms
+2026-08-14 15:13:58.442 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/dialog 200 time_cost=42.907ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 15:13:58.889 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/completion 200 time_cost=441.738ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 15:14:01.134 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 420, output tokens: 96
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 15:14:12.077 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 294, output tokens: 547
+2026-08-14 15:14:12.241 | INFO     | agentchat.api.responses.streaming:listen_for_disconnect:54 - http.disconnect. stop task and streaming. trace_id=71301a71-9a6b-461c-a7c9-9b90570b1ef1
+2026-08-14 15:14:12.261 | INFO     | agentchat.core.agents.general_agent:astream:474 - Stream cancelled. total_duration_ms=13354.285 cancel_to_terminate_ms=1.356 trace_id=71301a71-9a6b-461c-a7c9-9b90570b1ef1
+2026-08-14 15:14:12.261 | INFO     | agentchat.api.v1.completion:stream:109 - Completion stream finalizing.
+2026-08-14 15:14:12.261 | INFO     | agentchat.api.v1.completion:stream:116 - Completion agent stream finalized.
+2026-08-14 15:14:12.278 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=41.575ms
+2026-08-14 15:14:12.567 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=54.891ms
+2026-08-14 15:14:12.798 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=25.306ms
+2026-08-14 15:14:13.029 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=23.821ms
+2026-08-14 15:14:13.261 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=25.677ms
+2026-08-14 15:14:13.486 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=21.159ms
+2026-08-14 15:14:13.711 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=20.320ms
+2026-08-14 15:14:13.938 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=21.951ms
+2026-08-14 15:14:14.161 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=19.222ms
+2026-08-14 15:14:14.388 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=23.248ms
+2026-08-14 15:14:14.616 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=22.355ms
+2026-08-14 15:14:14.844 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=23.169ms
+2026-08-14 15:14:15.070 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=20.800ms
+2026-08-14 15:14:15.294 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=19.773ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] Total existing memories: 0
+2026-08-14 15:14:15.426 | INFO     | agentchat.api.responses.streaming:stream_response:79 - Finalizing streaming body after disconnect. trace_id=71301a71-9a6b-461c-a7c9-9b90570b1ef1
+2026-08-14 15:14:15.427 | INFO     | agentchat.api.responses.streaming:stream_response:85 - Streaming body generator closed.
+2026-08-14 15:14:15.517 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=19.116ms
+2026-08-14 15:14:15.546 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/dialog 200 time_cost=25.279ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 15:14:15.974 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/completion 200 time_cost=423.572ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 15:14:18.480 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 417, output tokens: 81
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 15:14:26.864 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 291, output tokens: 414
+2026-08-14 15:14:26.944 | INFO     | agentchat.api.responses.streaming:listen_for_disconnect:54 - http.disconnect. stop task and streaming. trace_id=b9135a5d-f26a-4c18-9d31-f3e6c6832d1b
+2026-08-14 15:14:26.954 | INFO     | agentchat.core.agents.general_agent:astream:474 - Stream cancelled. total_duration_ms=10969.744 cancel_to_terminate_ms=0.224 trace_id=b9135a5d-f26a-4c18-9d31-f3e6c6832d1b
+2026-08-14 15:14:26.954 | INFO     | agentchat.api.v1.completion:stream:109 - Completion stream finalizing.
+2026-08-14 15:14:26.955 | INFO     | agentchat.api.v1.completion:stream:116 - Completion agent stream finalized.
+2026-08-14 15:14:26.967 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=25.649ms
+2026-08-14 15:14:27.188 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=18.324ms
+2026-08-14 15:14:27.410 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=18.739ms
+2026-08-14 15:14:27.632 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=17.823ms
+2026-08-14 15:14:27.860 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=24.019ms
+2026-08-14 15:14:28.085 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=20.364ms
+2026-08-14 15:14:28.314 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=20.287ms
+2026-08-14 15:14:28.536 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=17.135ms
+2026-08-14 15:14:28.760 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=19.495ms
+2026-08-14 15:14:28.984 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=20.633ms
+2026-08-14 15:14:29.206 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=17.241ms
+2026-08-14 15:14:29.429 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=18.788ms
+2026-08-14 15:14:29.655 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=21.793ms
+2026-08-14 15:14:29.878 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=18.580ms
+2026-08-14 15:14:30.100 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=17.584ms
+2026-08-14 15:14:30.322 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=18.589ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] Total existing memories: 0
+2026-08-14 15:14:30.555 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=28.083ms
+2026-08-14 15:14:30.566 | INFO     | agentchat.api.responses.streaming:stream_response:79 - Finalizing streaming body after disconnect. trace_id=b9135a5d-f26a-4c18-9d31-f3e6c6832d1b
+2026-08-14 15:14:30.566 | INFO     | agentchat.api.responses.streaming:stream_response:85 - Streaming body generator closed.
+2026-08-14 15:16:04.290 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /health 200 time_cost=1.536ms

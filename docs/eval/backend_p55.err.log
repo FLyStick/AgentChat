@@ -1,0 +1,113 @@
+INFO:     Started server process [3728]
+INFO:     Waiting for application startup.
+2026-08-14 14:16:36.001 | INFO     | agentchat.database:ensure_mysql_database:75 - Checking MySQL database `agentchat`
+2026-08-14 14:16:36.181 | SUCCESS  | agentchat.database:ensure_mysql_database:97 - MySQL database `agentchat` is ready
+2026-08-14 14:16:36.387 | SUCCESS  | agentchat.database.init_data:init_database:74 - MySQL tables are ready
+2026-08-14 14:16:36.782 | INFO     | agentchat.database.init_data:init_agentchat_system:54 - Existing system detected (17 agents), updating config...
+2026-08-14 14:16:37.008 | INFO     | agentchat.database.init_data:_update_exist_llm:159 - LLM config unchanged, skip update
+2026-08-14 14:16:37.009 | SUCCESS  | agentchat.database.init_data:init_agentchat_system:60 - agentchat runtime ready
+2026-08-14 14:17:01.365 | INFO     | agentchat.services.rag.vector_stores.chroma:_connect:24 - Successfully connected to Chroma
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:7860 (Press CTRL+C to quit)
+2026-08-14 14:17:31.730 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /health 200 time_cost=203.080ms
+2026-08-14 14:17:57.618 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/agent 200 time_cost=62.580ms
+2026-08-14 14:17:57.755 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/agent 200 time_cost=125.363ms
+2026-08-14 14:17:57.810 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/agent 200 time_cost=41.750ms
+2026-08-14 14:17:58.022 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/dialog 200 time_cost=196.354ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 14:18:00.881 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/completion 200 time_cost=2837.642ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 14:18:03.678 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 419, output tokens: 95
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 14:18:13.596 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 293, output tokens: 477
+2026-08-14 14:18:13.632 | DEBUG    | agentchat.services.rag.vector_stores.chroma:_get_collection_safe:36 - Collection 't_8160a81598c04539' retrieved and added to cache
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 14:18:16.226 | WARNING  | agentchat.services.rag.rerank:request_rerank:42 - Rerank request failed, fallback to raw retrieval scores: 403, message='Forbidden', url='https://dashscope.aliyuncs.com/api/v1/services/rerank/text-rerank/text-rerank'
+2026-08-14 14:18:16.226 | WARNING  | agentchat.services.rag.handler:retrieve_ranked_documents:194 - Rerank unavailable, fallback to raw content retrieval scores
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 14:18:18.868 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 1382, output tokens: 112
+2026-08-14 14:18:19.027 | INFO     | agentchat.api.responses.streaming:listen_for_disconnect:29 - http.disconnect. stop task and streaming. trace_id=7b822c16-60c7-457c-8c87-08afdffa1d02
+2026-08-14 14:18:19.091 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=39.932ms
+2026-08-14 14:18:19.353 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=46.525ms
+2026-08-14 14:18:19.597 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=29.103ms
+2026-08-14 14:18:19.841 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=35.577ms
+2026-08-14 14:18:20.083 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=31.129ms
+2026-08-14 14:18:20.319 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=30.493ms
+2026-08-14 14:18:20.564 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=38.658ms
+2026-08-14 14:18:20.795 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=26.209ms
+2026-08-14 14:18:21.071 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=57.163ms
+2026-08-14 14:18:21.343 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=62.171ms
+2026-08-14 14:18:21.584 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=33.135ms
+2026-08-14 14:18:21.818 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=28.840ms
+2026-08-14 14:18:22.055 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=31.802ms
+2026-08-14 14:18:22.298 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=29.775ms
+2026-08-14 14:18:22.555 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=44.895ms
+2026-08-14 14:18:22.823 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=59.436ms
+2026-08-14 14:18:23.082 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=30.676ms
+2026-08-14 14:18:23.368 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=77.069ms
+2026-08-14 14:18:23.604 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=29.366ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 14:18:23.890 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=59.895ms
+2026-08-14 14:18:24.132 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=28.968ms
+2026-08-14 14:18:24.373 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=31.248ms
+2026-08-14 14:18:24.613 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=32.935ms
+2026-08-14 14:18:24.854 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=35.772ms
+2026-08-14 14:18:25.091 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=29.732ms
+2026-08-14 14:18:25.329 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=29.800ms
+2026-08-14 14:18:25.584 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=44.118ms
+2026-08-14 14:18:25.840 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=50.240ms
+2026-08-14 14:18:26.079 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=30.021ms
+2026-08-14 14:18:26.317 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=31.007ms
+2026-08-14 14:18:26.583 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=38.481ms
+2026-08-14 14:18:26.821 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=32.631ms
+2026-08-14 14:18:27.062 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=34.734ms
+2026-08-14 14:18:27.304 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=26.099ms
+2026-08-14 14:18:27.541 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=27.867ms
+2026-08-14 14:18:27.782 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=29.837ms
+2026-08-14 14:18:28.018 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=31.141ms
+2026-08-14 14:18:28.262 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=34.299ms
+2026-08-14 14:18:28.510 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=41.221ms
+2026-08-14 14:18:28.748 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=31.736ms
+2026-08-14 14:18:28.986 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=24.929ms
+2026-08-14 14:18:29.222 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=24.476ms
+2026-08-14 14:18:29.454 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=26.417ms
+2026-08-14 14:18:29.737 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=25.046ms
+2026-08-14 14:18:29.985 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=31.523ms
+2026-08-14 14:18:30.247 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=47.157ms
+2026-08-14 14:18:30.484 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=30.575ms
+2026-08-14 14:18:30.738 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=28.890ms
+2026-08-14 14:18:30.996 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=37.174ms
+2026-08-14 14:18:31.246 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=26.959ms
+2026-08-14 14:18:31.485 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=30.618ms
+2026-08-14 14:18:31.720 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=26.993ms
+2026-08-14 14:18:31.953 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=26.670ms
+2026-08-14 14:18:32.192 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=31.743ms
+2026-08-14 14:18:32.428 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=29.130ms
+2026-08-14 14:18:32.668 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=31.690ms
+2026-08-14 14:18:32.902 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=26.776ms
+2026-08-14 14:18:33.148 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=32.724ms
+2026-08-14 14:18:33.383 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=29.356ms
+2026-08-14 14:18:33.632 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=36.697ms
+2026-08-14 14:18:33.877 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=30.780ms
+2026-08-14 14:18:34.206 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=72.092ms
+2026-08-14 14:18:34.438 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=26.228ms
+2026-08-14 14:18:34.674 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=29.837ms
+2026-08-14 14:18:34.930 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=46.832ms
+2026-08-14 14:18:35.177 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=40.593ms
+2026-08-14 14:18:35.475 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=92.988ms
+2026-08-14 14:18:35.778 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=96.432ms
+2026-08-14 14:18:36.056 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=72.682ms
+2026-08-14 14:18:36.297 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=36.512ms
+2026-08-14 14:18:36.546 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=33.864ms
+2026-08-14 14:18:36.791 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=40.098ms
+2026-08-14 14:18:37.057 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=60.513ms
+2026-08-14 14:18:37.303 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=36.264ms
+2026-08-14 14:18:37.544 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=30.588ms
+2026-08-14 14:18:37.811 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=60.378ms
+2026-08-14 14:18:38.092 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=61.158ms
+2026-08-14 14:18:38.360 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=51.222ms
+2026-08-14 14:18:38.598 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=30.701ms
+2026-08-14 14:18:38.843 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/history 200 time_cost=30.789ms

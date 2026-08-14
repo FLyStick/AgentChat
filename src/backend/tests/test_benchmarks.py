@@ -130,6 +130,23 @@ def test_cancellable_stream_records_real_cancel_latency():
     assert len(received) > 0
 
 
+def test_cancellable_stream_finish_cancelled_finalizes_summary():
+    async def producer(queue):
+        await asyncio.sleep(0.02)
+        queue.put_nowait("chunk-0")
+
+    async def run():
+        stream = CancellableAsyncStream(producer)
+        stream.request_cancel()
+        await stream.finish_cancelled()
+        return stream.summary()
+
+    summary = asyncio.run(run())
+    assert summary is not None
+    assert summary["cancelled"] is True
+    assert summary["cancel_to_terminate_ms"] is not None
+
+
 def test_cancel_stress_reports_pass_rate():
     result = asyncio.run(
         run_cancel_stress(

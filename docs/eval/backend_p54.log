@@ -44,3 +44,4 @@ INFO:     127.0.0.1:62732 - "GET /api/v1/usage/models_list HTTP/1.1" 200 OK
 INFO:     127.0.0.1:60970 - "GET /health HTTP/1.1" 200 OK
 INFO:     127.0.0.1:54045 - "GET / HTTP/1.1" 404 Not Found
 INFO:     127.0.0.1:54045 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51703 - "GET /health HTTP/1.1" 200 OK

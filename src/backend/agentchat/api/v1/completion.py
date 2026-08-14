@@ -1,6 +1,8 @@
 import json
 from typing import List, Callable
+import anyio
 from fastapi import APIRouter, Depends
+from loguru import logger
 from langchain_core.messages import HumanMessage, SystemMessage, BaseMessage
 
 from agentchat.core.agents.general_agent import GeneralAgent, AgentConfig
@@ -13,6 +15,7 @@ from agentchat.schemas.completion import CompletionReq
 from agentchat.services.memory.client import memory_client
 from agentchat.utils.common import count_tokens_usage
 from agentchat.utils.contexts import set_user_id_context, set_agent_name_context
+from agentchat.utils.events import build_stream_event
 from agentchat.utils.helpers import build_completion_system_prompt, build_completion_user_input
 
 router = APIRouter(tags=["Completion"])
@@ -89,9 +92,10 @@ async def completion(
     events: list = []
 
     async def stream():
+        agent_stream = chat_agent.astream(messages)
         response_content = " "
         try:
-            async for event in chat_agent.astream(messages):
+            async for event in agent_stream:
 
                 if event.get("type") == "response_chunk":
                     chunk = event["data"].get("chunk", "")
@@ -102,28 +106,43 @@ async def completion(
                 yield f"data: {json.dumps(event)}\n\n"
 
         finally:
-            if agent_config.enable_memory:
-                await memory_client.add(
-                    messages=[
-                        {"role": "user", "content": raw_input},
-                        {"role": "assistant", "content": response_content}
-                    ],
-                    run_id=req.dialog_id
+            with anyio.CancelScope(shield=True):
+                try:
+                    active_stream = getattr(chat_agent, "cancellable_stream", None)
+                    if active_stream is not None and active_stream.is_cancelled():
+                        await active_stream.finish_cancelled()
+                    await agent_stream.aclose()
+                except BaseException as exc:
+                    logger.warning(
+                        f"Failed to finalize agent stream on disconnect: {type(exc).__name__}: {exc}"
+                    )
+
+                cancel_summary = getattr(chat_agent, "last_stream_summary", None)
+                if cancel_summary is not None and cancel_summary.get("cancelled"):
+                    events.append(build_stream_event("stream_cancel", cancel_summary))
+
+                if agent_config.enable_memory:
+                    await memory_client.add(
+                        messages=[
+                            {"role": "user", "content": raw_input},
+                            {"role": "assistant", "content": response_content}
+                        ],
+                        run_id=req.dialog_id
+                    )
+
+                await HistoryService.save_chat_history(
+                    role="assistant",
+                    content=response_content,
+                    events=events,
+                    dialog_id=req.dialog_id,
+                    token_usage=count_tokens_usage(response_content),
+                    memory_enable=agent_config.enable_memory
                 )
 
-            await HistoryService.save_chat_history(
-                role="assistant",
-                content=response_content,
-                events=events,
-                dialog_id=req.dialog_id,
-                token_usage=count_tokens_usage(response_content),
-                memory_enable=agent_config.enable_memory
-            )
-
-            await DialogService.update_dialog_summary(
-                dialog_id=req.dialog_id,
-                user_id=login_user.user_id,
-            )
+                await DialogService.update_dialog_summary(
+                    dialog_id=req.dialog_id,
+                    user_id=login_user.user_id,
+                )
 
     # 用户消息先落库
     await HistoryService.save_chat_history(

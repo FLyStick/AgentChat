@@ -13,7 +13,7 @@
 | P3 | 核心能力增强 | 真多 Agent 协作、记忆质量、检索质量的增量优化 | 4-6 天 | 已完成（离线/模拟可复现） |
 | P3.5 | 生产链路收敛 | 把 P3 的模拟增强接回生产配置，统一 token 预算并全量回归 | 1-2 天 | 已完成（生产配置化，全量测试通过） |
 | P4 | 交付与简历对齐 | 文档收敛、部署验证、简历措辞与实测结果对齐 | 2-3 天 | 已完成（文档与部署对齐，真实链路补测项已单独列出） |
-| P5 | 真实链路评测 | 把 P2/P3 的离线/模拟证据升级为真实服务链路数字，形成可面试口径 | 3-5 天 | 进行中（P5.4 已完成） |
+| P5 | 真实链路评测 | 把 P2/P3 的离线/模拟证据升级为真实服务链路数字，形成可面试口径 | 3-5 天 | 进行中（P5.5 已完成） |
 
 ## P0：基线修复
 
@@ -182,7 +182,7 @@
 - [x] P5.2 真实知识库灌入：编写 seeding 脚本，把 fixture 文档和扩充语料写入真实知识库，产出 `chunk_id -> ground_truth` 映射文件
 - [x] P5.3 RAG 真实召回：`rag` 子命令新增 `--live --knowledge-ids`，用 `LiveRetriever` 走真实向量库、Embedding、Rerank，归档 `docs/eval/live_rag_*.json`
 - [x] P5.4 Completion 端到端：新增真实 `/api/v1/completion` SSE 评测，验证返回完整性、知识库依据、工具调用、`agent_name`、首 token/总延迟、token 消耗，归档 `docs/eval/live_completion_*.json`
-- [ ] P5.5 断流真实链路：真实 SSE 客户端中途断开，测量 `cancel_to_terminate_ms`，归档 `docs/eval/live_cancel_*.json`
+- [x] P5.5 断流真实链路：真实 SSE 客户端中途断开，测量 `cancel_to_terminate_ms`，归档 `docs/eval/live_cancel_*.json`
 - [ ] P5.6 记忆真实链路：创建真实 user/agent/run，写入并检索记忆，走 `LiveMemoryAdapter`，归档 `docs/eval/live_memory_*.json`
 - [ ] P5.7 多 Agent 真实场景：创建 `enable_multi_agent=True` 的测试 Agent，跑 3-5 个固定业务任务，记录 orchestrator 路由与子 Agent ReAct 事件
 - [ ] P5.8 证据收敛：更新 `benchmarks/README.md`、`P4_INTERVIEW_MATERIAL.md` 和本文件状态，只有存在原始 JSON 时才把离线数字升级为真实链路口径
@@ -201,7 +201,21 @@
 - P5.3 环境修复：conda `agentchat` 环境存在损坏/缺失的 `httpcore`，已重装 `httpcore==1.0.9`、`h11==0.16.0` 并与 `httpx==0.28.1` 对齐；`LiveRetriever` 改为直接走 `MixRetrival`，不再因导入 `RagHandler` 而实例化 `ChatOpenAI`
 - P5.4：真实 `/api/v1/completion` SSE 评测完成，15 条 query 全部完成：`stream_completed=15`、`case_ok_rate=1.0`、`knowledge_ok_rate=1.0`、`knowledge_content_ok_rate=1.0`、`rewrite_list_start_case_count=0`、`no_knowledge_evidence_case_count=0`、`tool_error_case_count=0`；`fact_term_coverage_joined=0.9333`、`full_fact_match_rate=0.0`（严格完整串逐字命中口径，其中 `live_q_minibar` 的 expected_facts 为空，作为后续评测口径参考项，不阻塞 P5.4）；平均总延迟 `24841.758ms`、平均首 chunk `18562.339ms`；`51467 input / 10913 output / 45 model calls`；实测模型 `qwen3.7-max`；原始 JSON 归档 `docs/eval/live_completion_20260814_134552.json`
 - P5.4 代码与依赖修复：`AgentConfig.name` 补默认字段修复 `set_agent_name_context` 调用；RAG handler/retrieval 的字符串参数自动转列表；`general_agent._produce` 丢弃工具调用前的模型中间文本，最终回答只输出自然语言；conda 环境重装 `python-docx==1.1.2` 修复损坏依赖；回归测试 `7 passed`（`test_rag_handler_optimization.py` + `test_agent_config.py`）
-- P5.5-P5.8 仍在执行，后续按真实结果继续填写，不得提前填写预计数字
+- P5.5：真实 SSE 断流链路已完成。验证链路为裸 socket SSE 客户端在约 `5000ms` 时断开 -> 服务端收到 `http.disconnect` -> 触发 `request_cancel` -> `CancellableAsyncStream` 在 `CancelScope(shield=True)` 内完成 `finish_cancelled()` -> 生成 `stream_cancel` 历史事件并落库。正式 5 轮结果：`pass_rate=1.0`、`cancel_summary_found=5/5`、`server_cancelled=5/5`、`terminated_ok=5/5`；`cancel_to_terminate_ms` 均值 `0.485ms`、p50 `0.277ms`、p90 `0.933ms`、p95 `1.145ms`、max `1.356ms`，全部满足 `<=500ms` 阈值；每轮均在关闭前未收到首 chunk（`closed_before_first_chunk=true`），证明取消发生在真实模型生成链路中。原始 JSON 归档 `docs/eval/live_cancel_20260814_151430.json`，路径相对 `src/backend` 执行目录，绝对路径为 `src/backend/docs/eval/live_cancel_20260814_151430.json`
+- P5.5 手动复现（从 `src/backend` 执行）：
+
+  ```powershell
+  # 1. 单轮冒烟
+  & 'C:\Users\20235\.conda\envs\agentchat\python.exe' -m agentchat.benchmarks.live_cancel --rounds 1 --query-ids live_q_cancel --close-after-ms 5000 --history-timeout-ms 20000 --output-dir docs/eval
+
+  # 2. 正式 5 轮（可重复执行，每次生成新的时间戳 JSON）
+  & 'C:\Users\20235\.conda\envs\agentchat\python.exe' -m agentchat.benchmarks.live_cancel --rounds 5 --close-after-ms 5000 --history-timeout-ms 30000 --output-dir docs/eval
+
+  # 3. 查看最新归档
+  Get-ChildItem docs/eval/live_cancel_*.json | Sort-Object LastWriteTime -Descending | Select-Object -First 1
+  ```
+
+- P5.6-P5.8 尚未执行，后续按真实结果继续填写，不得提前填写预计数字
 
 ## 协作规则
 

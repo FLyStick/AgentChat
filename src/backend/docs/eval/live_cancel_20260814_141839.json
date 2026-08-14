@@ -1,0 +1,97 @@
+{
+  "stage": "p5.5",
+  "created_at": "2026-08-14T06:18:39+00:00",
+  "dataset_name": "live_rag_hotel_faq",
+  "knowledge_id": "t_8160a81598c04539",
+  "agent_name": "LiveBench-CancelAgent",
+  "agent_id": "eeb6f18d604c46238a020bbe47f603de",
+  "environment": {
+    "cwd": "D:\\实习记录\\开源项目\\AgentChat\\src\\backend",
+    "python": "C:\\Users\\20235\\.conda\\envs\\agentchat\\python.exe",
+    "base_url": "http://127.0.0.1:7860"
+  },
+  "settings": {
+    "rounds": 1,
+    "query_ids": [
+      "live_q_cancel"
+    ],
+    "hold_ms": 100.0,
+    "first_chunk_timeout_ms": 120000.0,
+    "history_timeout_ms": 20000.0,
+    "threshold_ms": 500.0
+  },
+  "cases": [
+    {
+      "query_id": "live_q_cancel",
+      "query": "断流取消机制是怎么实现的？",
+      "difficulty": "hard",
+      "dialog_id": "69ba3ab5a35b407c97918db3c535854c",
+      "first_chunk_ms": 20898.412,
+      "client_close_ms": 20999.506,
+      "hold_ms": 100.0,
+      "hold_ms_actual": 101.094,
+      "first_chunk_preview": "断流",
+      "stream_error": null,
+      "event_type_counts": {
+        "event": 2,
+        "response_chunk": 1
+      },
+      "tool_events": [
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "START",
+          "tool_type": "工具",
+          "duration_ms": 0
+        },
+        {
+          "tool_name": "retrival_knowledge",
+          "status": "END",
+          "tool_type": "工具",
+          "duration_ms": 12448.91
+        }
+      ],
+      "tool_call_count": 1,
+      "tool_end_count": 1,
+      "tool_error_count": 0,
+      "cancel_summary": null,
+      "cancel_summary_found": false,
+      "server_cancelled": false,
+      "cancel_to_terminate_ms": null,
+      "total_duration_ms": null,
+      "terminated_ok": false,
+      "case_ok": false
+    }
+  ],
+  "summary": {
+    "rounds": 1,
+    "cancel_summary_found_count": 0,
+    "server_cancelled_count": 0,
+    "terminated_ok_count": 0,
+    "pass_count": 0,
+    "pass_rate": 0.0,
+    "threshold_ms": 500.0,
+    "cancel_to_terminate_ms": {
+      "mean_ms": 0.0,
+      "p50_ms": 0.0,
+      "p90_ms": 0.0,
+      "p95_ms": 0.0,
+      "max_ms": 0.0
+    },
+    "first_chunk_ms": {
+      "mean_ms": 20898.412,
+      "p50_ms": 20898.412,
+      "p90_ms": 20898.412,
+      "p95_ms": 20898.412,
+      "max_ms": 20898.412
+    },
+    "total_duration_ms": {
+      "mean_ms": 0.0,
+      "p50_ms": 0.0,
+      "p90_ms": 0.0,
+      "p95_ms": 0.0,
+      "max_ms": 0.0
+    },
+    "tool_call_count": 1,
+    "tool_error_count": 0
+  }
+}
