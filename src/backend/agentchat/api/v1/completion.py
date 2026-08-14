@@ -34,6 +34,7 @@ async def completion(
     db_config = await DialogService.get_agent_by_dialog_id(req.dialog_id)
     agent_config = AgentConfig(**db_config)
     agent_config.user_id = login_user.user_id
+    agent_config.agent_id = str(db_config.get("id") or db_config.get("agent_id") or "")
 
     # 设置上下文信息
     set_user_id_context(login_user.user_id)
@@ -70,7 +71,8 @@ async def completion(
     if agent_config.enable_memory:
         memories = await memory_client.search(
             query=raw_input,
-            run_id=req.dialog_id
+            user_id=login_user.user_id,
+            agent_id=agent_config.agent_id,
         )
         long_memory = "\n".join(
             m.get("memory", "") for m in memories.get("results", [])
@@ -127,7 +129,9 @@ async def completion(
                             {"role": "user", "content": raw_input},
                             {"role": "assistant", "content": response_content}
                         ],
-                        run_id=req.dialog_id
+                        user_id=login_user.user_id,
+                        agent_id=agent_config.agent_id,
+                        run_id=req.dialog_id,
                     )
 
                 await HistoryService.save_chat_history(

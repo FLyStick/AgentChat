@@ -1,0 +1,272 @@
+{
+  "stage": "p5.7",
+  "created_at": "2026-08-14T07:51:10+00:00",
+  "agent_name": "LiveBench-MultiAgent-20260814_155008",
+  "agent_id": "478b26f635ed46a6b09f84b6127c2b17",
+  "environment": {
+    "cwd": "D:\\实习记录\\开源项目\\AgentChat\\src\\backend",
+    "python": "C:\\Users\\20235\\.conda\\envs\\agentchat\\python.exe",
+    "base_url": "http://127.0.0.1:7860"
+  },
+  "settings": {
+    "enable_multi_agent": true,
+    "case_count": 5,
+    "case_ids": [
+      "ma_leave",
+      "ma_hotel_checkin",
+      "ma_project_deploy",
+      "ma_expense",
+      "ma_wifi"
+    ],
+    "orchestrator": "build_demo_orchestrator"
+  },
+  "cases": [
+    {
+      "case_id": "ma_leave",
+      "query": "请病假需要提前多久申请？",
+      "expected_routes": [
+        "policy_agent"
+      ],
+      "latency_ms": 14245.994,
+      "first_chunk_ms": 7074.328,
+      "routes": [
+        "policy_agent"
+      ],
+      "route_ok": true,
+      "started_subagents": [
+        "policy_agent"
+      ],
+      "ended_subagents": [
+        "policy_agent"
+      ],
+      "sub_agent_pair_ok": true,
+      "has_response_chunk": true,
+      "lifecycle_ok": true,
+      "response_ok": true,
+      "stream_error": null,
+      "error_event_count": 0,
+      "error_events": [],
+      "tool_start_count": 1,
+      "tool_end_count": 1,
+      "sub_agent_tool_calls": [
+        1
+      ],
+      "sub_agent_tool_calls_total": 1,
+      "event_type_counts": {
+        "agent_start": 1,
+        "agent_plan": 1,
+        "sub_agent_start": 1,
+        "sub_agent_end": 1,
+        "agent_end": 1,
+        "agent_event": 6
+      },
+      "answer_length": 84,
+      "answer": "【制度 Agent】\n根据制度规定：\n\n**病假可以当日提交申请**，但需要附上医院证明。\n\n作为参考，普通请假需提前1个工作日提交申请。所有请假申请都由直属主管审批。",
+      "case_ok": true,
+      "dialog_id": "3d25c5eaf3c74b4eacd187ac9646b4b5"
+    },
+    {
+      "case_id": "ma_hotel_checkin",
+      "query": "酒店几点可以办理入住和退房？",
+      "expected_routes": [
+        "hotel_agent"
+      ],
+      "latency_ms": 13982.103,
+      "first_chunk_ms": 6965.27,
+      "routes": [
+        "hotel_agent"
+      ],
+      "route_ok": true,
+      "started_subagents": [
+        "hotel_agent"
+      ],
+      "ended_subagents": [
+        "hotel_agent"
+      ],
+      "sub_agent_pair_ok": true,
+      "has_response_chunk": true,
+      "lifecycle_ok": true,
+      "response_ok": true,
+      "stream_error": null,
+      "error_event_count": 0,
+      "error_events": [],
+      "tool_start_count": 1,
+      "tool_end_count": 1,
+      "sub_agent_tool_calls": [
+        1
+      ],
+      "sub_agent_tool_calls_total": 1,
+      "event_type_counts": {
+        "agent_start": 1,
+        "agent_plan": 1,
+        "sub_agent_start": 1,
+        "sub_agent_end": 1,
+        "agent_end": 1,
+        "agent_event": 6
+      },
+      "answer_length": 55,
+      "answer": "【酒店 Agent】\n酒店入住时间为下午14:00，退房时间为中午12:00。前台24小时值班，行李可以寄存。",
+      "case_ok": true,
+      "dialog_id": "3f67ae3d5c8e43b1896611115c9ce566"
+    },
+    {
+      "case_id": "ma_project_deploy",
+      "query": "项目后端启动命令是什么？",
+      "expected_routes": [
+        "project_agent"
+      ],
+      "latency_ms": 13181.989,
+      "first_chunk_ms": 7552.124,
+      "routes": [
+        "project_agent"
+      ],
+      "route_ok": true,
+      "started_subagents": [
+        "project_agent"
+      ],
+      "ended_subagents": [
+        "project_agent"
+      ],
+      "sub_agent_pair_ok": true,
+      "has_response_chunk": true,
+      "lifecycle_ok": true,
+      "response_ok": true,
+      "stream_error": null,
+      "error_event_count": 0,
+      "error_events": [],
+      "tool_start_count": 1,
+      "tool_end_count": 1,
+      "sub_agent_tool_calls": [
+        1
+      ],
+      "sub_agent_tool_calls_total": 1,
+      "event_type_counts": {
+        "agent_start": 1,
+        "agent_plan": 1,
+        "sub_agent_start": 1,
+        "sub_agent_end": 1,
+        "agent_end": 1,
+        "agent_event": 6
+      },
+      "answer_length": 148,
+      "answer": "【项目 Agent】\n根据查询到的部署信息，项目后端的启动命令如下：\n\n```bash\npython -m uvicorn agentchat.main:app --host 0.0.0.0 --port 8000\n```\n\n**注意**：在启动之前，您需要先配置好数据库和向量库的相关环境变量。",
+      "case_ok": true,
+      "dialog_id": "7a2ece0d61294eae905c5998e01c8c20"
+    },
+    {
+      "case_id": "ma_expense",
+      "query": "报销多久能到账？",
+      "expected_routes": [
+        "policy_agent"
+      ],
+      "latency_ms": 9874.212,
+      "first_chunk_ms": 5494.644,
+      "routes": [
+        "policy_agent"
+      ],
+      "route_ok": true,
+      "started_subagents": [
+        "policy_agent"
+      ],
+      "ended_subagents": [
+        "policy_agent"
+      ],
+      "sub_agent_pair_ok": true,
+      "has_response_chunk": true,
+      "lifecycle_ok": true,
+      "response_ok": true,
+      "stream_error": null,
+      "error_event_count": 0,
+      "error_events": [],
+      "tool_start_count": 1,
+      "tool_end_count": 1,
+      "sub_agent_tool_calls": [
+        1
+      ],
+      "sub_agent_tool_calls_total": 1,
+      "event_type_counts": {
+        "agent_start": 1,
+        "agent_plan": 1,
+        "sub_agent_start": 1,
+        "sub_agent_end": 1,
+        "agent_end": 1,
+        "agent_event": 6
+      },
+      "answer_length": 66,
+      "answer": "【制度 Agent】\n根据制度规定：报销单需附原始发票，财务审核通过后**5个工作日**内打款；单笔超过5000元需要部门总监复核。",
+      "case_ok": true,
+      "dialog_id": "4418f90518fe49989675bf894fce9217"
+    },
+    {
+      "case_id": "ma_wifi",
+      "query": "客房Wi-Fi密码是多少？",
+      "expected_routes": [
+        "hotel_agent"
+      ],
+      "latency_ms": 10189.484,
+      "first_chunk_ms": 5986.56,
+      "routes": [
+        "hotel_agent"
+      ],
+      "route_ok": true,
+      "started_subagents": [
+        "hotel_agent"
+      ],
+      "ended_subagents": [
+        "hotel_agent"
+      ],
+      "sub_agent_pair_ok": true,
+      "has_response_chunk": true,
+      "lifecycle_ok": true,
+      "response_ok": true,
+      "stream_error": null,
+      "error_event_count": 0,
+      "error_events": [],
+      "tool_start_count": 1,
+      "tool_end_count": 1,
+      "sub_agent_tool_calls": [
+        1
+      ],
+      "sub_agent_tool_calls_total": 1,
+      "event_type_counts": {
+        "agent_start": 1,
+        "agent_plan": 1,
+        "sub_agent_start": 1,
+        "sub_agent_end": 1,
+        "agent_end": 1,
+        "agent_event": 6
+      },
+      "answer_length": 61,
+      "answer": "【酒店 Agent】\n客房无线网络名称为GrandHotel-Guest，密码为CheckIn2026，公共区域免费连接。",
+      "case_ok": true,
+      "dialog_id": "7cf199c7509d4c9cb6a0e7766a08185f"
+    }
+  ],
+  "summary": {
+    "case_count": 5,
+    "pass_count": 5,
+    "pass_rate": 1.0,
+    "route_match_count": 5,
+    "route_match_rate": 1.0,
+    "sub_agent_pair_count": 5,
+    "response_ok_count": 5,
+    "error_case_count": 0,
+    "tool_start_count": 5,
+    "tool_end_count": 5,
+    "sub_agent_tool_calls_total": 5,
+    "latency_ms": {
+      "mean_ms": 12294.756,
+      "p50_ms": 13181.989,
+      "p90_ms": 14140.438,
+      "p95_ms": 14193.216,
+      "max_ms": 14245.994
+    },
+    "first_chunk_ms": {
+      "mean_ms": 6614.585,
+      "p50_ms": 6965.27,
+      "p90_ms": 7361.006,
+      "p95_ms": 7456.565,
+      "max_ms": 7552.124
+    }
+  }
+}

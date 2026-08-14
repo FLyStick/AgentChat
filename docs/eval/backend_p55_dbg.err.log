@@ -263,3 +263,166 @@ INFO:     Uvicorn running on http://127.0.0.1:7860 (Press CTRL+C to quit)
 2026-08-14 15:14:30.566 | INFO     | agentchat.api.responses.streaming:stream_response:79 - Finalizing streaming body after disconnect. trace_id=b9135a5d-f26a-4c18-9d31-f3e6c6832d1b
 2026-08-14 15:14:30.566 | INFO     | agentchat.api.responses.streaming:stream_response:85 - Streaming body generator closed.
 2026-08-14 15:16:04.290 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /health 200 time_cost=1.536ms
+2026-08-14 15:36:37.353 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /health 200 time_cost=1.997ms
+2026-08-14 15:40:17.954 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/agent 200 time_cost=38.661ms
+2026-08-14 15:40:18.010 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/agent 200 time_cost=50.904ms
+2026-08-14 15:40:18.033 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/agent 200 time_cost=18.794ms
+2026-08-14 15:40:18.069 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/dialog 200 time_cost=33.012ms
+2026-08-14 15:40:18.104 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/dialog 200 time_cost=30.168ms
+2026-08-14 15:41:41.427 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/agent 200 time_cost=20.132ms
+2026-08-14 15:41:41.465 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/agent 200 time_cost=32.757ms
+2026-08-14 15:41:41.486 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/agent 200 time_cost=17.558ms
+2026-08-14 15:41:41.512 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/dialog 200 time_cost=22.881ms
+2026-08-14 15:41:41.540 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/dialog 200 time_cost=22.873ms
+2026-08-14 15:42:32.392 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/agent 200 time_cost=29.426ms
+2026-08-14 15:42:32.431 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/agent 200 time_cost=33.831ms
+2026-08-14 15:42:32.454 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/agent 200 time_cost=19.980ms
+2026-08-14 15:42:32.482 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/dialog 200 time_cost=23.146ms
+2026-08-14 15:42:32.512 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/dialog 200 time_cost=27.313ms
+2026-08-14 15:43:04.113 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/agent 200 time_cost=19.728ms
+2026-08-14 15:43:04.149 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/agent 200 time_cost=31.366ms
+2026-08-14 15:43:04.175 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/agent 200 time_cost=21.948ms
+2026-08-14 15:43:04.208 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/dialog 200 time_cost=29.560ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 15:43:04.770 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/completion 200 time_cost=557.147ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 15:43:07.047 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 469, output tokens: 88
+2026-08-14 15:43:07.075 | INFO     | agentchat.core.agents.react_agent:_execute_tool_node:206 - Tool query_leave_policy executed. Args: {'question': '请病假需要提前多久申请？'}, Result: 员工请假需提前1个工作日提交申请，病假可当日提交并附医院证明；请假由直属主管审批。
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 15:43:10.012 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 542, output tokens: 104
+2026-08-14 15:43:10.040 | INFO     | agentchat.api.v1.completion:stream:109 - Completion stream finalizing.
+2026-08-14 15:43:10.040 | INFO     | agentchat.api.v1.completion:stream:116 - Completion agent stream finalized.
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] Total existing memories: 0
+2026-08-14 15:43:17.289 | INFO     | agentchat.api.responses.streaming:stream_response:79 - Finalizing streaming body after disconnect. trace_id=3b1e1bce-b57d-4e4e-b046-16e19677cef9
+2026-08-14 15:43:17.290 | INFO     | agentchat.api.responses.streaming:stream_response:85 - Streaming body generator closed.
+2026-08-14 15:43:17.317 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/dialog 200 time_cost=23.889ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 15:43:17.769 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/completion 200 time_cost=448.472ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 15:43:24.817 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 461, output tokens: 84
+2026-08-14 15:43:24.838 | INFO     | agentchat.core.agents.react_agent:_execute_tool_node:206 - Tool query_hotel_checkin executed. Args: {'question': '酒店几点可以办理入住和退房？'}, Result: 酒店入住时间为下午14:00，退房时间为中午12:00。前台24小时值班，行李可以寄存。
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 15:43:27.252 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 543, output tokens: 95
+2026-08-14 15:43:27.275 | INFO     | agentchat.api.v1.completion:stream:109 - Completion stream finalizing.
+2026-08-14 15:43:27.275 | INFO     | agentchat.api.v1.completion:stream:116 - Completion agent stream finalized.
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] Total existing memories: 0
+2026-08-14 15:43:32.284 | INFO     | agentchat.api.responses.streaming:stream_response:79 - Finalizing streaming body after disconnect. trace_id=566b1315-f7fb-4d94-aa52-c4079dee0ad6
+2026-08-14 15:43:32.284 | INFO     | agentchat.api.responses.streaming:stream_response:85 - Streaming body generator closed.
+2026-08-14 15:43:32.319 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/dialog 200 time_cost=31.386ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 15:43:32.813 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/completion 200 time_cost=489.903ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 15:43:35.058 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 390, output tokens: 81
+2026-08-14 15:43:35.087 | INFO     | agentchat.core.agents.react_agent:_execute_tool_node:206 - Tool query_deploy_command executed. Args: {'question': '项目后端启动命令是什么？'}, Result: 后端启动命令：python -m uvicorn agentchat.main:app --host 0.0.0.0 --port 8000；启动前需要配置数据库和向量库环境变量。
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 15:43:38.566 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 481, output tokens: 137
+2026-08-14 15:43:38.588 | INFO     | agentchat.api.v1.completion:stream:109 - Completion stream finalizing.
+2026-08-14 15:43:38.589 | INFO     | agentchat.api.v1.completion:stream:116 - Completion agent stream finalized.
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] Total existing memories: 0
+2026-08-14 15:43:45.445 | INFO     | agentchat.api.responses.streaming:stream_response:79 - Finalizing streaming body after disconnect. trace_id=4c63216e-997d-426b-96ad-fbf6b1957653
+2026-08-14 15:43:45.445 | INFO     | agentchat.api.responses.streaming:stream_response:85 - Streaming body generator closed.
+2026-08-14 15:43:45.475 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/dialog 200 time_cost=26.840ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 15:43:45.971 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/completion 200 time_cost=492.065ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 15:43:48.416 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 468, output tokens: 86
+2026-08-14 15:43:48.449 | INFO     | agentchat.core.agents.react_agent:_execute_tool_node:206 - Tool query_expense_policy executed. Args: {'question': '报销多久能到账？'}, Result: 报销单需附原始发票，财务审核通过后5个工作日内打款；单笔超过5000元需要部门总监复核。
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 15:43:52.058 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 544, output tokens: 153
+2026-08-14 15:43:52.084 | INFO     | agentchat.api.v1.completion:stream:109 - Completion stream finalizing.
+2026-08-14 15:43:52.085 | INFO     | agentchat.api.v1.completion:stream:116 - Completion agent stream finalized.
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] Total existing memories: 0
+2026-08-14 15:43:56.465 | INFO     | agentchat.api.responses.streaming:stream_response:79 - Finalizing streaming body after disconnect. trace_id=d5422a6e-03f2-4938-8067-48565cc3615c
+2026-08-14 15:43:56.465 | INFO     | agentchat.api.responses.streaming:stream_response:85 - Streaming body generator closed.
+2026-08-14 15:43:56.497 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/dialog 200 time_cost=26.628ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 15:43:56.952 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/completion 200 time_cost=452.017ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 15:43:59.370 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 459, output tokens: 81
+2026-08-14 15:43:59.394 | INFO     | agentchat.core.agents.react_agent:_execute_tool_node:206 - Tool query_hotel_wifi executed. Args: {'question': '客房Wi-Fi密码是多少？'}, Result: 客房无线网络名称为GrandHotel-Guest，密码为CheckIn2026，公共区域免费连接。
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 15:44:01.792 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 532, output tokens: 106
+2026-08-14 15:44:01.821 | INFO     | agentchat.api.v1.completion:stream:109 - Completion stream finalizing.
+2026-08-14 15:44:01.821 | INFO     | agentchat.api.v1.completion:stream:116 - Completion agent stream finalized.
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] Total existing memories: 0
+2026-08-14 15:44:06.638 | INFO     | agentchat.api.responses.streaming:stream_response:79 - Finalizing streaming body after disconnect. trace_id=0f92ec31-ab88-4692-be11-80087b7bf545
+2026-08-14 15:44:06.639 | INFO     | agentchat.api.responses.streaming:stream_response:85 - Streaming body generator closed.
+2026-08-14 15:50:02.209 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /health 200 time_cost=1.016ms
+2026-08-14 15:50:08.393 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/agent 200 time_cost=33.941ms
+2026-08-14 15:50:08.432 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/agent 200 time_cost=33.923ms
+2026-08-14 15:50:08.453 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/agent 200 time_cost=18.252ms
+2026-08-14 15:50:08.482 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/dialog 200 time_cost=25.711ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 15:50:08.947 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/completion 200 time_cost=460.554ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 15:50:11.169 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 469, output tokens: 88
+2026-08-14 15:50:11.192 | INFO     | agentchat.core.agents.react_agent:_execute_tool_node:206 - Tool query_leave_policy executed. Args: {'question': '请病假需要提前多久申请？'}, Result: 员工请假需提前1个工作日提交申请，病假可当日提交并附医院证明；请假由直属主管审批。
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 15:50:15.532 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 542, output tokens: 159
+2026-08-14 15:50:15.557 | INFO     | agentchat.api.v1.completion:stream:109 - Completion stream finalizing.
+2026-08-14 15:50:15.557 | INFO     | agentchat.api.v1.completion:stream:116 - Completion agent stream finalized.
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] Total existing memories: 0
+2026-08-14 15:50:22.728 | INFO     | agentchat.api.responses.streaming:stream_response:79 - Finalizing streaming body after disconnect. trace_id=06d5aff9-6b0a-4827-8549-1ad1e71cf331
+2026-08-14 15:50:22.729 | INFO     | agentchat.api.responses.streaming:stream_response:85 - Streaming body generator closed.
+2026-08-14 15:50:22.783 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/dialog 200 time_cost=47.099ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 15:50:23.326 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/completion 200 time_cost=536.749ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 15:50:25.645 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 461, output tokens: 97
+2026-08-14 15:50:25.679 | INFO     | agentchat.core.agents.react_agent:_execute_tool_node:206 - Tool query_hotel_checkin executed. Args: {'question': '酒店几点可以办理入住和退房？'}, Result: 酒店入住时间为下午14:00，退房时间为中午12:00。前台24小时值班，行李可以寄存。
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 15:50:29.718 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 543, output tokens: 210
+2026-08-14 15:50:29.750 | INFO     | agentchat.api.v1.completion:stream:109 - Completion stream finalizing.
+2026-08-14 15:50:29.751 | INFO     | agentchat.api.v1.completion:stream:116 - Completion agent stream finalized.
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] Total existing memories: 0
+2026-08-14 15:50:36.766 | INFO     | agentchat.api.responses.streaming:stream_response:79 - Finalizing streaming body after disconnect. trace_id=22dd63d3-9592-4a94-b939-ec1930af115e
+2026-08-14 15:50:36.766 | INFO     | agentchat.api.responses.streaming:stream_response:85 - Streaming body generator closed.
+2026-08-14 15:50:36.799 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/dialog 200 time_cost=29.172ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 15:50:37.272 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/completion 200 time_cost=468.650ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 15:50:39.655 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 390, output tokens: 74
+2026-08-14 15:50:39.677 | INFO     | agentchat.core.agents.react_agent:_execute_tool_node:206 - Tool query_deploy_command executed. Args: {'question': '项目后端启动命令是什么？'}, Result: 后端启动命令：python -m uvicorn agentchat.main:app --host 0.0.0.0 --port 8000；启动前需要配置数据库和向量库环境变量。
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 15:50:44.295 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 481, output tokens: 147
+2026-08-14 15:50:44.352 | INFO     | agentchat.api.v1.completion:stream:109 - Completion stream finalizing.
+2026-08-14 15:50:44.352 | INFO     | agentchat.api.v1.completion:stream:116 - Completion agent stream finalized.
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] Total existing memories: 0
+2026-08-14 15:50:49.982 | INFO     | agentchat.api.responses.streaming:stream_response:79 - Finalizing streaming body after disconnect. trace_id=49809f10-c944-4279-bdff-cff31faba8b5
+2026-08-14 15:50:49.982 | INFO     | agentchat.api.responses.streaming:stream_response:85 - Streaming body generator closed.
+2026-08-14 15:50:50.012 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/dialog 200 time_cost=25.805ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 15:50:50.453 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/completion 200 time_cost=437.581ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 15:50:52.901 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 468, output tokens: 96
+2026-08-14 15:50:52.925 | INFO     | agentchat.core.agents.react_agent:_execute_tool_node:206 - Tool query_expense_policy executed. Args: {'question': '报销多久能到账？'}, Result: 报销单需附原始发票，财务审核通过后5个工作日内打款；单笔超过5000元需要部门总监复核。
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 15:50:55.477 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 544, output tokens: 99
+2026-08-14 15:50:55.506 | INFO     | agentchat.api.v1.completion:stream:109 - Completion stream finalizing.
+2026-08-14 15:50:55.507 | INFO     | agentchat.api.v1.completion:stream:116 - Completion agent stream finalized.
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] Total existing memories: 0
+2026-08-14 15:50:59.886 | INFO     | agentchat.api.responses.streaming:stream_response:79 - Finalizing streaming body after disconnect. trace_id=87ae00bf-3921-41ba-9adf-1ea0dd9b8675
+2026-08-14 15:50:59.886 | INFO     | agentchat.api.responses.streaming:stream_response:85 - Streaming body generator closed.
+2026-08-14 15:50:59.918 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/dialog 200 time_cost=27.776ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 15:51:00.413 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/completion 200 time_cost=492.065ms
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 15:51:02.760 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 459, output tokens: 76
+2026-08-14 15:51:02.807 | INFO     | agentchat.core.agents.react_agent:_execute_tool_node:206 - Tool query_hotel_wifi executed. Args: {'question': '客房Wi-Fi密码是多少？'}, Result: 客房无线网络名称为GrandHotel-Guest，密码为CheckIn2026，公共区域免费连接。
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+2026-08-14 15:51:05.864 | INFO     | agentchat.core.callbacks.usage_metadata:record_token_usage:72 - qwen3.7-max cost input tokens: 532, output tokens: 124
+2026-08-14 15:51:05.903 | INFO     | agentchat.api.v1.completion:stream:109 - Completion stream finalizing.
+2026-08-14 15:51:05.905 | INFO     | agentchat.api.v1.completion:stream:116 - Completion agent stream finalized.
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions "HTTP/1.1 200 OK"
+[INFO] Total existing memories: 0
+2026-08-14 15:51:10.107 | INFO     | agentchat.api.responses.streaming:stream_response:79 - Finalizing streaming body after disconnect. trace_id=cdf99c5d-1104-408b-a5f2-1e119bffe66d
+2026-08-14 15:51:10.108 | INFO     | agentchat.api.responses.streaming:stream_response:85 - Streaming body generator closed.

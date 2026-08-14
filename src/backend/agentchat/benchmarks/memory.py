@@ -135,19 +135,34 @@ def run_offline_memory_benchmark(
 
 
 class LiveMemoryAdapter:
-    """可选的在线记忆适配器，用于未来接入真实 memory client。"""
+    """真实 memory_client 的在线适配器，按 user/agent/run 作用域读写记忆。"""
 
-    def __init__(self, run_id: str, user_id: str = "benchmark"):
+    def __init__(self, run_id: str, user_id: str = "benchmark", agent_id: str = ""):
         self.run_id = run_id
         self.user_id = user_id
+        self.agent_id = agent_id
 
-    async def search(self, query: str, top_k: int = 3):
-        """调用真实的 memory_client 进行在线记忆检索。"""
+    async def add(self, messages, infer: bool = False):
+        """写入真实向量记忆；infer=False 时不经过 LLM 事实抽取。"""
+        from agentchat.services.memory.client import memory_client
+
+        return await memory_client.add(
+            messages=messages,
+            user_id=self.user_id,
+            agent_id=self.agent_id,
+            run_id=self.run_id,
+            infer=infer,
+        )
+
+    async def search(self, query: str, top_k: int = 3, run_id: str | None = None):
+        """调用真实的 memory_client 进行在线记忆检索；run_id 为空时跨对话检索。"""
         from agentchat.services.memory.client import memory_client
 
         result = await memory_client.search(
             query=query,
-            run_id=self.run_id,
+            user_id=self.user_id,
+            agent_id=self.agent_id,
+            run_id=run_id,
             limit=top_k,
         )
-        return [memory.get("memory", "") for memory in result.get("results", [])]
+        return result.get("results", [])

@@ -23,4 +23,5 @@ def test_agent_config_keeps_agent_table_name():
 
     config = AgentConfig(**db_config)
 
+    assert config.agent_id == "agent_1"
     assert config.name == "policy_agent"

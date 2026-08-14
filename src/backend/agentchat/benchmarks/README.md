@@ -78,6 +78,13 @@ benchmarks/
 ├── token_budget.py      # token 预算校准
 ├── rag_optimizer.py     # RAG 优化前后对比
 ├── memory_duplicate.py  # 记忆去重与失败兜底
+├── live_utils.py        # 真实链路 API/状态/SSE 客户端
+├── live_seed.py         # 知识库与用户/Agent 灌入
+├── live_rag.py          # 真实 RAG 召回
+├── live_completion.py   # 真实 Completion SSE 评测
+├── live_cancel.py       # 真实 SSE 断流评测
+├── live_memory.py       # 真实记忆链路评测
+├── live_multi_agent.py  # 真实多 Agent 评测
 └── fixtures/
     ├── rag/dataset.json
     └── memory/cases.json
@@ -85,6 +92,38 @@ benchmarks/
 
 P3 原始 JSON 归档在 `docs/eval/token_budget_p3.json`、`docs/eval/rag_p3_before_after.json`、`docs/eval/memory_dedup_p3.json`。
 
-## 真实链路接入
+## 真实链路评测（P5）
 
-`rag.LiveRetriever` 和 `memory.LiveMemoryAdapter` 已预留生产适配器入口，分别对接 `RagHandler.mix_retrival_documents` 和 `memory_client.search`。CLI 暂未暴露 `--live`，等 P4 服务链路可用后接入，并补齐真实 RAG、记忆与 LLM 断流数据。
+真实链路脚本默认读取 `%TEMP%\agentchat_live_bench_state.json`（由 `live_seed.py` 生成），需要后端已启动、Docker 依赖 healthy，且状态文件里的 token 未过期。全部命令在 `src/backend` 目录执行：
+
+```powershell
+# 0. 灌入知识库/用户/Agent（首次或状态文件过期时）
+& 'C:\Users\20235\.conda\envs\agentchat\python.exe' -m agentchat.benchmarks.live_seed --output-dir ..\..\docs\eval
+
+# 1. RAG 真实召回（30 条 ground truth）
+& 'C:\Users\20235\.conda\envs\agentchat\python.exe' -m agentchat.benchmarks.live_rag --output-dir ..\..\docs\eval
+
+# 2. Completion 端到端（默认 15 条）
+& 'C:\Users\20235\.conda\envs\agentchat\python.exe' -m agentchat.benchmarks.live_completion --output-dir ..\..\docs\eval
+
+# 3. SSE 断流（正式 5 轮）
+& 'C:\Users\20235\.conda\envs\agentchat\python.exe' -m agentchat.benchmarks.live_cancel --rounds 5 --output-dir ..\..\docs\eval
+
+# 4. 记忆真实链路
+& 'C:\Users\20235\.conda\envs\agentchat\python.exe' -m agentchat.benchmarks.live_memory --output-dir ..\..\docs\eval
+
+# 5. 多 Agent 真实链路（5 个固定业务任务）
+& 'C:\Users\20235\.conda\envs\agentchat\python.exe' -m agentchat.benchmarks.live_multi_agent --output-dir ..\..\docs\eval
+```
+
+已落盘的真实链路结果：
+
+| 评测 | 结果 | 原始 JSON |
+| --- | --- | --- |
+| RAG | 30 queries，`mean_recall_at_k=1.0`、`mean_mrr=0.9167`、`hit_rate_at_k=1.0`，平均延迟 804.8ms | `docs/eval/live_rag_20260814_123820.json` |
+| Completion | 15 queries，`case_ok_rate=1.0`、`knowledge_ok_rate=1.0`、`tool_error_case_count=0`；平均 total 24841.758ms | `docs/eval/live_completion_20260814_134552.json` |
+| Cancel | 5 rounds，`pass_rate=1.0`，`cancel_to_terminate_ms` 均值 0.485ms、max 1.356ms | `src/backend/docs/eval/live_cancel_20260814_151430.json`（运行目录 `src/backend`） |
+| Memory | 5 facts，same run 5/5、cross run 5/5，`hit_rate=1.0`、`mean_mrr=1.0` | `docs/eval/live_memory_20260814_154252.json` |
+| Multi-Agent | 5 cases，`pass_rate=1.0`、`route_match_rate=1.0`、`sub_agent_pair_count=5/5`、`tool_calls=5` | `docs/eval/live_multi_agent_20260814_155110.json` |
+
+要点：`live_seed.py` 会新建/复用评测用户；`live_completion.py`、`live_cancel.py`、`live_memory.py`、`live_multi_agent.py` 每次运行都会创建新的测试 Agent/Dialog，结果写入新的时间戳 JSON，不会覆盖历史归档。真实链路数字只用于 P5 面试口径，离线数字继续作为可复现 baseline 保留。

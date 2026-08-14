@@ -13,7 +13,7 @@
 | P3 | 核心能力增强 | 真多 Agent 协作、记忆质量、检索质量的增量优化 | 4-6 天 | 已完成（离线/模拟可复现） |
 | P3.5 | 生产链路收敛 | 把 P3 的模拟增强接回生产配置，统一 token 预算并全量回归 | 1-2 天 | 已完成（生产配置化，全量测试通过） |
 | P4 | 交付与简历对齐 | 文档收敛、部署验证、简历措辞与实测结果对齐 | 2-3 天 | 已完成（文档与部署对齐，真实链路补测项已单独列出） |
-| P5 | 真实链路评测 | 把 P2/P3 的离线/模拟证据升级为真实服务链路数字，形成可面试口径 | 3-5 天 | 进行中（P5.5 已完成） |
+| P5 | 真实链路评测 | 把 P2/P3 的离线/模拟证据升级为真实服务链路数字，形成可面试口径 | 3-5 天 | 已完成 |
 
 ## P0：基线修复
 
@@ -183,9 +183,9 @@
 - [x] P5.3 RAG 真实召回：`rag` 子命令新增 `--live --knowledge-ids`，用 `LiveRetriever` 走真实向量库、Embedding、Rerank，归档 `docs/eval/live_rag_*.json`
 - [x] P5.4 Completion 端到端：新增真实 `/api/v1/completion` SSE 评测，验证返回完整性、知识库依据、工具调用、`agent_name`、首 token/总延迟、token 消耗，归档 `docs/eval/live_completion_*.json`
 - [x] P5.5 断流真实链路：真实 SSE 客户端中途断开，测量 `cancel_to_terminate_ms`，归档 `docs/eval/live_cancel_*.json`
-- [ ] P5.6 记忆真实链路：创建真实 user/agent/run，写入并检索记忆，走 `LiveMemoryAdapter`，归档 `docs/eval/live_memory_*.json`
-- [ ] P5.7 多 Agent 真实场景：创建 `enable_multi_agent=True` 的测试 Agent，跑 3-5 个固定业务任务，记录 orchestrator 路由与子 Agent ReAct 事件
-- [ ] P5.8 证据收敛：更新 `benchmarks/README.md`、`P4_INTERVIEW_MATERIAL.md` 和本文件状态，只有存在原始 JSON 时才把离线数字升级为真实链路口径
+- [x] P5.6 记忆真实链路：创建真实 user/agent/run，写入并检索记忆，走 `LiveMemoryAdapter`，归档 `docs/eval/live_memory_*.json`
+- [x] P5.7 多 Agent 真实场景：创建 `enable_multi_agent=True` 的测试 Agent，跑 3-5 个固定业务任务，记录 orchestrator 路由与子 Agent ReAct 事件
+- [x] P5.8 证据收敛：更新 `benchmarks/README.md`、`P4_INTERVIEW_MATERIAL.md` 和本文件状态，只有存在原始 JSON 时才把离线数字升级为真实链路口径
 
 验收标准：
 - 后端在 conda `agentchat` 环境启动成功，Docker 依赖服务 healthy
@@ -215,7 +215,24 @@
   Get-ChildItem docs/eval/live_cancel_*.json | Sort-Object LastWriteTime -Descending | Select-Object -First 1
   ```
 
-- P5.6-P5.8 尚未执行，后续按真实结果继续填写，不得提前填写预计数字
+- P5.6：真实记忆链路已完成。通过真实 `LiveMemoryAdapter` + Chroma + DashScope Embedding + 真实 user/agent/run 写入 5 条显式事实，写入前跨 run 检索结果为 0，写入后返回 5 条且 ID 唯一；同会话检索 `5/5`、跨会话检索 `5/5`，`same_run_hit_rate=1.0`、`cross_run_hit_rate=1.0`、`mean_recall_at_k=1.0`、`mean_mrr=1.0`，检索延迟均值 `250.09ms`。原始 JSON 归档 `docs/eval/live_memory_20260814_154252.json`
+- P5.6 配套修改：`live_memory.py` 增加 `init_app_settings()` 初始化；记忆作用域按 user/agent/run 三层归档，`AgentConfig` 增加 `agent_id`，completion 记忆检索使用真实用户/Agent/会话作用域
+- P5.7：真实多 Agent 链路已完成。创建 `enable_multi_agent=True` 的测试 Agent，跑制度、酒店、项目 5 个固定业务任务：`pass_rate=1.0`、`route_match_rate=1.0`、`sub_agent_pair_count=5/5`、`response_ok_count=5/5`、`error_case_count=0`；5 个子 Agent 均完成工具调用，`tool_start_count=5`、`tool_end_count=5`、`sub_agent_tool_calls_total=5`；总延迟均值 `12294.756ms`、首 chunk 均值 `6614.585ms`。原始 JSON 归档 `docs/eval/live_multi_agent_20260814_155110.json`
+- P5.7 配套修改：修复 `live_multi_agent.py` 汇总逻辑对 `sub_agent_tool_calls` 字段的强依赖，新增标量 `sub_agent_tool_calls_total` 再汇总，避免运行时 KeyError
+- P5.8：`benchmarks/README.md`、`docs/delivery/P4_INTERVIEW_MATERIAL.md` 与本文件状态已更新，P5 全部任务勾选完成；面试材料中的 RAG、Completion、断流、记忆、多 Agent 数字均有 `docs/eval/` 真实链路原始 JSON 支撑
+
+P5.6/P5.7 手动复现（从 `src/backend` 执行，先确认后端已启动且 Docker 依赖 healthy）：
+
+  ```powershell
+  # 1. 记忆真实链路（可重复执行，每次生成新的时间戳 JSON）
+  & 'C:\Users\20235\.conda\envs\agentchat\python.exe' -m agentchat.benchmarks.live_memory --output-dir ..\..\docs\eval
+
+  # 2. 多 Agent 真实链路（可重复执行，每次生成新的时间戳 JSON）
+  & 'C:\Users\20235\.conda\envs\agentchat\python.exe' -m agentchat.benchmarks.live_multi_agent --output-dir ..\..\docs\eval
+
+  # 3. 查看最新归档
+  Get-ChildItem ..\..\docs\eval\live_memory_*.json, ..\..\docs\eval\live_multi_agent_*.json | Sort-Object LastWriteTime -Descending | Select-Object -First 2
+  ```
 
 ## 协作规则
 

@@ -2,7 +2,7 @@ import copy
 import time
 import asyncio
 from loguru import logger
-from pydantic import BaseModel
+from pydantic import BaseModel, model_validator
 from typing import List, Dict, Any, AsyncGenerator, Callable, NotRequired
 from langgraph.runtime import Runtime
 from langgraph.types import Command
@@ -36,6 +36,7 @@ class StreamAgentState(AgentState):
 
 class AgentConfig(BaseModel):
     user_id: str                     # 用户标识
+    agent_id: str = ""               # Agent ID，供记忆跨会话作用域使用
     llm_id: str                      # 模型ID
     mcp_ids: List[str]               # MCP服务器列表
     knowledge_ids: List[str]         # 知识库ID列表
@@ -45,6 +46,13 @@ class AgentConfig(BaseModel):
     enable_memory: bool = False      # 记忆开关
     enable_multi_agent: bool = False # 多Agent开关
     name: str = ""                   # Agent名称，来自agent表，供usage统计上下文使用
+
+    @model_validator(mode="before")
+    @classmethod
+    def map_id_to_agent_id(cls, data: Any) -> Any:
+        if isinstance(data, dict) and not data.get("agent_id") and data.get("id"):
+            data = {**data, "agent_id": data["id"]}
+        return data
     
 
 

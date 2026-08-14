@@ -1,0 +1,552 @@
+{
+  "stage": "p5.6",
+  "created_at": "2026-08-14T07:42:52+00:00",
+  "user_id": "2",
+  "agent_name": "LiveBench-MemoryAgent-20260814_154232",
+  "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+  "run_a_dialog_id": "44080edb914e4b0d920130b8615fdf87",
+  "run_b_dialog_id": "59920c959005405caf4b2eec3e5d032f",
+  "environment": {
+    "cwd": "D:\\实习记录\\开源项目\\AgentChat\\src\\backend",
+    "python": "C:\\Users\\20235\\.conda\\envs\\agentchat\\python.exe",
+    "base_url": "http://127.0.0.1:7860"
+  },
+  "settings": {
+    "top_k": 5,
+    "case_count": 5,
+    "infer": false,
+    "vector_db": "chroma"
+  },
+  "before_write": {
+    "cross_run_result_count": 0,
+    "results": []
+  },
+  "write": {
+    "requested_facts": [
+      "用户偏好高层酒店房间，并希望房间朝南。",
+      "用户对鸡蛋过敏，早餐需要特别备注。",
+      "用户的差旅报销通常走公司统一账户。",
+      "用户常用 WiFi 设备是 MacBook Pro。",
+      "用户喜欢在工作日早晨安排会议。"
+    ],
+    "returned_item_count": 5,
+    "inserted_ids": [
+      "d0dc1fe6-762a-48c8-90c7-310aa3ac0feb",
+      "65ae4905-3dcc-4cb9-abdc-b648459db080",
+      "99ec41e2-3784-4be4-8a22-24aa8ce66d6e",
+      "fe54a1d0-6548-43d9-a864-2f6fa81b09f8",
+      "bfacf485-bda2-46f4-8eec-00d34cbbca5e"
+    ],
+    "unique_ids": 5,
+    "items": [
+      {
+        "memory": "用户偏好高层酒店房间，并希望房间朝南。",
+        "event": "ADD",
+        "id": "d0dc1fe6-762a-48c8-90c7-310aa3ac0feb",
+        "role": "user"
+      },
+      {
+        "memory": "用户对鸡蛋过敏，早餐需要特别备注。",
+        "event": "ADD",
+        "id": "65ae4905-3dcc-4cb9-abdc-b648459db080",
+        "role": "user"
+      },
+      {
+        "memory": "用户的差旅报销通常走公司统一账户。",
+        "event": "ADD",
+        "id": "99ec41e2-3784-4be4-8a22-24aa8ce66d6e",
+        "role": "user"
+      },
+      {
+        "memory": "用户常用 WiFi 设备是 MacBook Pro。",
+        "event": "ADD",
+        "id": "fe54a1d0-6548-43d9-a864-2f6fa81b09f8",
+        "role": "user"
+      },
+      {
+        "memory": "用户喜欢在工作日早晨安排会议。",
+        "event": "ADD",
+        "id": "bfacf485-bda2-46f4-8eec-00d34cbbca5e",
+        "role": "user"
+      }
+    ],
+    "latency_ms": 7951.689
+  },
+  "searches": {
+    "same_run": [
+      {
+        "run_scope": "same_run",
+        "query": "住酒店时我喜欢住在高层还是低层？",
+        "expected": "高层",
+        "hit": true,
+        "results": [
+          {
+            "memory": "用户偏好高层酒店房间，并希望房间朝南。",
+            "score": 0.5981981158256531,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          },
+          {
+            "memory": "用户喜欢在工作日早晨安排会议。",
+            "score": 1.3139525651931763,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          },
+          {
+            "memory": "用户对鸡蛋过敏，早餐需要特别备注。",
+            "score": 1.471912145614624,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          },
+          {
+            "memory": "用户常用 WiFi 设备是 MacBook Pro。",
+            "score": 1.4855138063430786,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          },
+          {
+            "memory": "用户的差旅报销通常走公司统一账户。",
+            "score": 1.498919129371643,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          }
+        ],
+        "result_count": 5,
+        "latency_ms": 260.861
+      },
+      {
+        "run_scope": "same_run",
+        "query": "我早餐有什么饮食禁忌？",
+        "expected": "鸡蛋",
+        "hit": true,
+        "results": [
+          {
+            "memory": "用户对鸡蛋过敏，早餐需要特别备注。",
+            "score": 0.6961775422096252,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          },
+          {
+            "memory": "用户喜欢在工作日早晨安排会议。",
+            "score": 1.1966866254806519,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          },
+          {
+            "memory": "用户偏好高层酒店房间，并希望房间朝南。",
+            "score": 1.5079989433288574,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          },
+          {
+            "memory": "用户常用 WiFi 设备是 MacBook Pro。",
+            "score": 1.6100506782531738,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          },
+          {
+            "memory": "用户的差旅报销通常走公司统一账户。",
+            "score": 1.6665289402008057,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          }
+        ],
+        "result_count": 5,
+        "latency_ms": 263.414
+      },
+      {
+        "run_scope": "same_run",
+        "query": "我的报销款一般打到哪个账户？",
+        "expected": "统一账户",
+        "hit": true,
+        "results": [
+          {
+            "memory": "用户的差旅报销通常走公司统一账户。",
+            "score": 0.5900107622146606,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          },
+          {
+            "memory": "用户偏好高层酒店房间，并希望房间朝南。",
+            "score": 1.4433097839355469,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          },
+          {
+            "memory": "用户对鸡蛋过敏，早餐需要特别备注。",
+            "score": 1.4610698223114014,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          },
+          {
+            "memory": "用户常用 WiFi 设备是 MacBook Pro。",
+            "score": 1.4682062864303589,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          },
+          {
+            "memory": "用户喜欢在工作日早晨安排会议。",
+            "score": 1.5147212743759155,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          }
+        ],
+        "result_count": 5,
+        "latency_ms": 263.397
+      },
+      {
+        "run_scope": "same_run",
+        "query": "我平时用什么设备连 WiFi？",
+        "expected": "MacBook Pro",
+        "hit": true,
+        "results": [
+          {
+            "memory": "用户常用 WiFi 设备是 MacBook Pro。",
+            "score": 0.5160956382751465,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          },
+          {
+            "memory": "用户的差旅报销通常走公司统一账户。",
+            "score": 1.3378820419311523,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          },
+          {
+            "memory": "用户喜欢在工作日早晨安排会议。",
+            "score": 1.3860666751861572,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          },
+          {
+            "memory": "用户偏好高层酒店房间，并希望房间朝南。",
+            "score": 1.4267706871032715,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          },
+          {
+            "memory": "用户对鸡蛋过敏，早餐需要特别备注。",
+            "score": 1.4587947130203247,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          }
+        ],
+        "result_count": 5,
+        "latency_ms": 203.512
+      },
+      {
+        "run_scope": "same_run",
+        "query": "我的会议偏好安排在什么时间段？",
+        "expected": "工作日",
+        "hit": true,
+        "results": [
+          {
+            "memory": "用户喜欢在工作日早晨安排会议。",
+            "score": 0.5392817258834839,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          },
+          {
+            "memory": "用户偏好高层酒店房间，并希望房间朝南。",
+            "score": 1.0167131423950195,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          },
+          {
+            "memory": "用户对鸡蛋过敏，早餐需要特别备注。",
+            "score": 1.2941577434539795,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          },
+          {
+            "memory": "用户常用 WiFi 设备是 MacBook Pro。",
+            "score": 1.388822078704834,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          },
+          {
+            "memory": "用户的差旅报销通常走公司统一账户。",
+            "score": 1.405015468597412,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          }
+        ],
+        "result_count": 5,
+        "latency_ms": 238.977
+      }
+    ],
+    "cross_run": [
+      {
+        "run_scope": "cross_run",
+        "query": "住酒店时我喜欢住在高层还是低层？",
+        "expected": "高层",
+        "hit": true,
+        "results": [
+          {
+            "memory": "用户偏好高层酒店房间，并希望房间朝南。",
+            "score": 0.5981509685516357,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          },
+          {
+            "memory": "用户喜欢在工作日早晨安排会议。",
+            "score": 1.3139511346817017,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          },
+          {
+            "memory": "用户对鸡蛋过敏，早餐需要特别备注。",
+            "score": 1.4715816974639893,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          },
+          {
+            "memory": "用户常用 WiFi 设备是 MacBook Pro。",
+            "score": 1.4853003025054932,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          },
+          {
+            "memory": "用户的差旅报销通常走公司统一账户。",
+            "score": 1.4986799955368042,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          }
+        ],
+        "result_count": 5,
+        "latency_ms": 261.249
+      },
+      {
+        "run_scope": "cross_run",
+        "query": "我早餐有什么饮食禁忌？",
+        "expected": "鸡蛋",
+        "hit": true,
+        "results": [
+          {
+            "memory": "用户对鸡蛋过敏，早餐需要特别备注。",
+            "score": 0.6963568925857544,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          },
+          {
+            "memory": "用户喜欢在工作日早晨安排会议。",
+            "score": 1.1967332363128662,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          },
+          {
+            "memory": "用户偏好高层酒店房间，并希望房间朝南。",
+            "score": 1.5078400373458862,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          },
+          {
+            "memory": "用户常用 WiFi 设备是 MacBook Pro。",
+            "score": 1.6098558902740479,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          },
+          {
+            "memory": "用户的差旅报销通常走公司统一账户。",
+            "score": 1.6664252281188965,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          }
+        ],
+        "result_count": 5,
+        "latency_ms": 255.128
+      },
+      {
+        "run_scope": "cross_run",
+        "query": "我的报销款一般打到哪个账户？",
+        "expected": "统一账户",
+        "hit": true,
+        "results": [
+          {
+            "memory": "用户的差旅报销通常走公司统一账户。",
+            "score": 0.5897877216339111,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          },
+          {
+            "memory": "用户偏好高层酒店房间，并希望房间朝南。",
+            "score": 1.4431703090667725,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          },
+          {
+            "memory": "用户对鸡蛋过敏，早餐需要特别备注。",
+            "score": 1.4608676433563232,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          },
+          {
+            "memory": "用户常用 WiFi 设备是 MacBook Pro。",
+            "score": 1.4680432081222534,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          },
+          {
+            "memory": "用户喜欢在工作日早晨安排会议。",
+            "score": 1.5145288705825806,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          }
+        ],
+        "result_count": 5,
+        "latency_ms": 269.71
+      },
+      {
+        "run_scope": "cross_run",
+        "query": "我平时用什么设备连 WiFi？",
+        "expected": "MacBook Pro",
+        "hit": true,
+        "results": [
+          {
+            "memory": "用户常用 WiFi 设备是 MacBook Pro。",
+            "score": 0.5160956382751465,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          },
+          {
+            "memory": "用户的差旅报销通常走公司统一账户。",
+            "score": 1.3378820419311523,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          },
+          {
+            "memory": "用户喜欢在工作日早晨安排会议。",
+            "score": 1.3860666751861572,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          },
+          {
+            "memory": "用户偏好高层酒店房间，并希望房间朝南。",
+            "score": 1.4267706871032715,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          },
+          {
+            "memory": "用户对鸡蛋过敏，早餐需要特别备注。",
+            "score": 1.4587947130203247,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          }
+        ],
+        "result_count": 5,
+        "latency_ms": 216.953
+      },
+      {
+        "run_scope": "cross_run",
+        "query": "我的会议偏好安排在什么时间段？",
+        "expected": "工作日",
+        "hit": true,
+        "results": [
+          {
+            "memory": "用户喜欢在工作日早晨安排会议。",
+            "score": 0.5392817258834839,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          },
+          {
+            "memory": "用户偏好高层酒店房间，并希望房间朝南。",
+            "score": 1.0167131423950195,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          },
+          {
+            "memory": "用户对鸡蛋过敏，早餐需要特别备注。",
+            "score": 1.2941577434539795,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          },
+          {
+            "memory": "用户常用 WiFi 设备是 MacBook Pro。",
+            "score": 1.388822078704834,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          },
+          {
+            "memory": "用户的差旅报销通常走公司统一账户。",
+            "score": 1.405015468597412,
+            "run_id": "44080edb914e4b0d920130b8615fdf87",
+            "agent_id": "37a64856e3524ecfb23fb9835827f68e",
+            "user_id": "2"
+          }
+        ],
+        "result_count": 5,
+        "latency_ms": 267.701
+      }
+    ]
+  },
+  "summary": {
+    "case_count": 5,
+    "write_count": 5,
+    "search_count": 10,
+    "before_write_result_count": 0,
+    "same_run_hit_count": 5,
+    "same_run_hit_rate": 1.0,
+    "cross_run_hit_count": 5,
+    "cross_run_hit_rate": 1.0,
+    "pass_count": 5,
+    "pass_rate": 1.0,
+    "mean_recall_at_k": 1.0,
+    "mean_mrr": 1.0,
+    "latency_ms": {
+      "mean_ms": 250.09,
+      "p50_ms": 261.055,
+      "p90_ms": 267.902,
+      "p95_ms": 268.806,
+      "max_ms": 269.71
+    }
+  }
+}
