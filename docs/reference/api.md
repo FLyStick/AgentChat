@@ -2,6 +2,8 @@
 
 # AgentChat API 文档 v1.0
 
+> 精确路由以运行中 Swagger `/docs` 为准；本文件已按当前源码实测清单校对（2026-08-14）。
+
 本文档整理了 AgentChat 系统 v1 版本的所有 API 接口，包含接口 URL、请求方法、请求参数和返回参数。
 
 ## 目录
@@ -23,7 +25,7 @@
 ## 对话相关 API
 
 ### 1. 对话接口
-- **接口 URL**: `/api/v1/chat`
+- **接口 URL**: `/api/v1/completion`
 - **请求方法**: `POST`
 - **请求参数**:
   ```json
@@ -298,11 +300,12 @@
   ```
 
 ### 3. 更新用户信息
-- **接口 URL**: `/api/v1/user/login`
-- **请求方法**: `POST`
+- **接口 URL**: `/api/v1/user/update`
+- **请求方法**: `PUT`
 - **请求参数**:
   ```json
   {
+    "user_id": "string",            // 用户ID
     "user_avatar": "string",        // 用户上传头像或选择头像的链接
     "user_description": "string"    // 用户的描述，默认就是：该用户很懒，没有留下一片云彩
   }
@@ -359,6 +362,48 @@
 
 ### 2. 获取所有工具
 - **接口 URL**: `/api/v1/tool/all`
+- **请求方法**: `POST`
+- **请求参数**: 无
+- **返回参数**:
+  ```json
+  {
+    "code": 200,
+    "message": "success",
+    "data": [
+      {
+        "tool_id": "string",
+        "zh_name": "string",
+        "en_name": "string",
+        "description": "string",
+        "logo_url": "string"
+      }
+    ]
+  }
+  ```
+
+### 3. 获取用户自定义工具
+- **接口 URL**: `/api/v1/tool/user_defined`
+- **请求方法**: `POST`
+- **请求参数**: 无
+- **返回参数**:
+  ```json
+  {
+    "code": 200,
+    "message": "success",
+    "data": [
+      {
+        "tool_id": "string",
+        "zh_name": "string",
+        "en_name": "string",
+        "description": "string",
+        "logo_url": "string"
+      }
+    ]
+  }
+  ```
+
+### 4. 获取工具默认图标
+- **接口 URL**: `/api/v1/tool/default_logo`
 - **请求方法**: `GET`
 - **请求参数**: 无
 - **返回参数**:
@@ -366,63 +411,15 @@
   {
     "code": 200,
     "message": "success",
-    "data": [
-      {
-        "tool_id": "string",
-        "zh_name": "string",
-        "en_name": "string",
-        "description": "string",
-        "logo_url": "string"
-      }
-    ]
-  }
-  ```
-
-### 3. 获取个人工具
-- **接口 URL**: `/api/v1/tool/own`
-- **请求方法**: `POST`
-- **请求参数**: 无
-- **返回参数**:
-  ```json
-  {
-    "code": 200,
-    "message": "success",
-    "data": [
-      {
-        "tool_id": "string",
-        "zh_name": "string",
-        "en_name": "string",
-        "description": "string",
-        "logo_url": "string"
-      }
-    ]
-  }
-  ```
-
-### 4. 获取可见工具
-- **接口 URL**: `/api/v1/tool/visible`
-- **请求方法**: `POST`
-- **请求参数**: 无
-- **返回参数**:
-  ```json
-  {
-    "code": 200,
-    "message": "success",
-    "data": [
-      {
-        "tool_id": "string",
-        "zh_name": "string",
-        "en_name": "string",
-        "description": "string",
-        "logo_url": "string"
-      }
-    ]
+    "data": {
+      "logo_url": "string"
+    }
   }
   ```
 
 ### 5. 删除工具
 - **接口 URL**: `/api/v1/tool/delete`
-- **请求方法**: `DELETE`
+- **请求方法**: `POST`
 - **请求参数**:
   ```json
   {
@@ -440,7 +437,7 @@
 
 ### 6. 更新工具
 - **接口 URL**: `/api/v1/tool/update`
-- **请求方法**: `PUT`
+- **请求方法**: `POST`
 - **请求参数**:
   ```json
   {
@@ -975,13 +972,9 @@
 
 ### 1. 获取对话历史
 - **接口 URL**: `/api/v1/history`
-- **请求方法**: `POST`
+- **请求方法**: `GET`
 - **请求参数**:
-  ```json
-  {
-    "dialog_id": "string"         // 对话ID
-  }
-  ```
+  - `dialog_id`: 对话ID (Query参数)
 - **返回参数**:
   ```json
   {
@@ -1043,6 +1036,135 @@
 
 ---
 
+## 实测路由清单
+
+以下路由来自当前 `src/backend/agentchat/api/` 源码。接口前缀为 `/api/v1`，MCP Proxy 前缀为 `/mcp`。
+
+### 对话与上传
+
+- `POST /api/v1/completion`：对话主链路，SSE 流式响应
+- `POST /api/v1/upload`：文件上传
+
+### 用户
+
+- `POST /user/register`
+- `POST /user/login`
+- `PUT /user/update`
+- `GET /user/icons`
+- `GET /user/info`
+
+### 工具
+
+- `POST /tool/create`
+- `POST /tool/all`
+- `POST /tool/user_defined`
+- `POST /tool/delete`
+- `POST /tool/update`
+- `GET /tool/default_logo`
+
+### 智能体与 Skill
+
+- `POST /agent`
+- `GET /agent`
+- `DELETE /agent`
+- `PUT /agent`
+- `POST /agent/search`
+- `POST /agent_skill/create`
+- `POST /agent_skill/delete`
+- `GET /agent_skill/all`
+- `POST /agent_skill/file/update`
+- `POST /agent_skill/file/add`
+- `POST /agent_skill/file/upload`
+- `POST /agent_skill/file/delete`
+
+### 对话框与历史
+
+- `GET /dialog/list`
+- `POST /dialog`
+- `DELETE /dialog`
+- `GET /history?dialog_id=...`
+
+### 知识库
+
+- `POST /knowledge/create`
+- `GET /knowledge/select`
+- `PUT /knowledge/update`
+- `DELETE /knowledge/delete`
+- `POST /knowledge/retrieval`
+- `POST /knowledge_file/create`
+- `GET /knowledge_file/select`
+- `DELETE /knowledge_file/delete`
+- `GET /knowledge_file/status`
+
+### 大模型
+
+- `POST /llm/create`
+- `DELETE /llm/delete`
+- `PUT /llm/update`
+- `GET /llm/all`
+- `POST /llm/personal`
+- `POST /llm/visible`
+- `POST /llm/search`
+- `GET /llm/agent/models`
+- `GET /llm/schema`
+
+### MCP 管理与代理
+
+- `POST /mcp_server`
+- `GET /mcp_server`
+- `DELETE /mcp_server`
+- `PUT /mcp_server`
+- `GET /mcp_tools`
+- `GET /mcp_server/logo`
+- `POST /mcp_user_config/create`
+- `GET /mcp_user_config/{config_id}`
+- `PUT /mcp_user_config/update`
+- `DELETE /mcp_user_config/delete`
+- `GET /mcp_user_config`
+- `POST /mcp/register`
+- `GET /mcp/register/list`
+- `POST /mcp/register/completion`
+- `POST /mcp/register/completion/hitl/approve`
+- `POST /mcp/register/completion/hitl/reject`
+- `GET /mcp/register/task/list`
+- `POST /mcp/register/task/create`
+- `POST /mcp/register/task/delete`
+- `POST /mcp/{server_key}`
+- `GET /mcp/{server_key}`
+- `DELETE /mcp/{server_key}`
+- `GET /mcp/{server_key}/sse`
+- `GET /mcp/{server_key}/health`
+- `POST /mcp/{server_key}/message`
+
+### 工作区、灵寻与 Mars
+
+- `GET /workspace/plugins`
+- `GET /workspace/session`
+- `POST /workspace/session`
+- `POST /workspace/session/{session_id}`
+- `DELETE /workspace/session`
+- `POST /workspace/simple/chat`
+- `POST /workspace/lingseek/guide_prompt`
+- `POST /workspace/lingseek/guide_prompt/feedback`
+- `POST /workspace/lingseek/task`
+- `POST /workspace/lingseek/task_start`
+- `POST /mars/chat`
+- `POST /mars/example`
+
+### 用量、反馈、微信与健康
+
+- `POST /usage`
+- `POST /usage_count`
+- `GET /usage/models_list`
+- `GET /usage/agents_list`
+- `POST /message/like`
+- `POST /message/down`
+- `GET /wechat`
+- `POST /wechat`
+- `GET /health`
+
+---
+
 ## 通用返回格式
 
 所有接口的返回格式都遵循统一的响应模型：
@@ -1076,4 +1198,4 @@
 - `401`: 未认证或认证失败
 - `403`: 权限不足
 - `404`: 资源不存在
-- `500`: 服务器内部错误 
+- `500`: 服务器内部错误

@@ -631,7 +631,7 @@ cd src/backend
 uvicorn agentchat.main:app --port 7860
 
 # 测试 API 接口
-curl -X POST "http://localhost:7860/api/v1/chat" \
+curl -X POST "http://localhost:7860/api/v1/completion" \
   -H "Content-Type: application/json" \
   -d '{"dialog_id": "test", "user_input": "Hello"}'
 ```

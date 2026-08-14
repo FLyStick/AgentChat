@@ -1,5 +1,7 @@
 # AgentChat 技术文档
 
+> 文档中的路由与部署口径以 P4 实测为准：对话接口是 `/api/v1/completion`；Docker Compose 只启动依赖服务。精确路由见 `docs/reference/api.md` 的“实测路由清单”。
+
 ## 概述
 
 AgentChat 是一个功能强大的企业级智能对话系统，集成了先进的人工智能技术、多模态处理能力、知识库管理、工具集成等核心功能。本文档为客户提供完整的技术参考，涵盖系统架构、API接口、数据库设计、核心服务等各个方面。
@@ -47,7 +49,7 @@ AgentChat 提供完整的 RESTful API 接口，支持用户管理、智能体配
 ## 对话相关接口
 
 ### 1. 智能对话接口
-- **接口 URL**: `/api/v1/chat`
+- **接口 URL**: `/api/v1/completion`
 - **请求方法**: `POST`
 - **功能描述**: 核心对话接口，支持流式响应和多模态输入
 - **请求参数**:
@@ -149,11 +151,12 @@ AgentChat 提供完整的 RESTful API 接口，支持用户管理、智能体配
 
 ### 3. 用户信息更新
 - **接口 URL**: `/api/v1/user/update`
-- **请求方法**: `POST`
+- **请求方法**: `PUT`
 - **功能描述**: 更新用户个人信息
 - **请求参数**:
   ```json
   {
+    "user_id": "string",            // 用户ID
     "user_avatar": "string",        // 用户头像URL
     "user_description": "string"    // 用户描述
   }
@@ -378,11 +381,11 @@ AgentChat 提供完整的 RESTful API 接口，支持用户管理、智能体配
 
 ### 2. 获取工具列表
 - **接口 URL**: `/api/v1/tool/all`
-- **请求方法**: `GET`
+- **请求方法**: `POST`
 - **功能描述**: 获取所有可用工具
 
-### 3. 获取个人工具
-- **接口 URL**: `/api/v1/tool/own`
+### 3. 获取用户自定义工具
+- **接口 URL**: `/api/v1/tool/user_defined`
 - **请求方法**: `POST`
 - **功能描述**: 获取用户创建的工具
 
@@ -470,14 +473,10 @@ AgentChat 提供完整的 RESTful API 接口，支持用户管理、智能体配
   ```#
 ## 3. 获取对话历史
 - **接口 URL**: `/api/v1/history`
-- **请求方法**: `POST`
+- **请求方法**: `GET`
 - **功能描述**: 获取指定对话的历史消息
 - **请求参数**:
-  ```json
-  {
-    "dialog_id": "string"         // 对话ID
-  }
-  ```
+  - `dialog_id`: 对话ID (Query参数)
 - **返回参数**:
   ```json
   {
@@ -1472,95 +1471,37 @@ AgentChat 系统采用 MySQL 数据库，使用 SQLModel 作为 ORM 框架。数
 
 ## 系统架构
 
-AgentChat 采用微服务架构，支持Docker容器化部署，提供高可用性和可扩展性。
+AgentChat 现阶段使用前后端分离：后端 FastAPI + Python，前端 Vue 3 + Vite。Docker Compose 只负责 MySQL、Redis、MinIO 三个依赖服务，后端和前端在宿主机本地运行。
 
 ### 核心组件
-- **前端服务**: React + TypeScript 构建的现代化Web界面
-- **后端服务**: FastAPI + Python 构建的高性能API服务
-- **数据库**: MySQL 8.0 提供数据持久化
-- **缓存**: Redis 提供高性能缓存
-- **向量数据库**: Milvus 提供语义检索能力
-- **搜索引擎**: Elasticsearch 提供全文检索
-- **对象存储**: 阿里云OSS 提供文件存储
+- **后端**: FastAPI + Python + LangChain/LangGraph
+- **前端**: Vue 3 + Vite + TypeScript
+- **数据库**: MySQL 8.0
+- **缓存**: Redis
+- **向量库**: 默认 Chroma，可配置 Milvus
+- **检索**: Elasticsearch 可选，默认关闭
+- **对象存储**: 默认 MinIO，可配置阿里云 OSS
 
 ### 部署方式
 
-#### Docker Compose 部署
+仓库提供 `docker/Dockerfile` 与 `docker/Dockerfile.frontend`，但 `docker-compose.yml` 只启动依赖服务，不要执行 `docker-compose up --build -d` 来获得完整平台。推荐流程：
 
-```yaml
-version: '3.8'
-services:
-  frontend:
-    build:
-      context: ..
-      dockerfile: docker/Dockerfile.frontend
-    ports:
-      - "3000:3000"
+1. 在 `docker/` 下用 `docker compose up -d` 启动 MySQL/Redis/MinIO；
+2. 在 `src/backend` 使用 conda 环境启动 `uvicorn agentchat.main:app --port 7860`；
+3. 在 `src/frontend` 执行 `npm run dev`。
 
-  backend:
-    build:
-      context: ..
-      dockerfile: docker/Dockerfile
-    ports:
-      - "8000:8000"
-    depends_on:
-      - mysql
-      - redis
-
-  mysql:
-    image: mysql:8.0
-    environment:
-      MYSQL_ROOT_PASSWORD: root123
-      MYSQL_DATABASE: agentchat
-      MYSQL_USER: agentchat_user
-      MYSQL_PASSWORD: 123456
-
-  redis:
-    image: redis:7-alpine
-    ports:
-      - "6379:6379"
-```
-
-#### 生产环境部署
-```bash
-# 启动生产环境
-docker-compose -f docker/docker-compose.prod.yml up -d
-
-# 停止服务
-./docker/stop.sh
-
-# 启动服务
-./docker/start_linux.sh
-```
+完整命令和配置示例见 `docs/delivery/DEPLOYMENT.md`。
 
 ## 环境配置
 
 ### 环境变量配置
-```bash
-# 数据库配置
-DATABASE_URL=mysql://agentchat_user:123456@mysql:3306/agentchat
 
-# Redis配置
-REDIS_URL=redis://redis:6379/0
-
-# 对象存储配置
-OSS_ACCESS_KEY_ID=your_access_key
-OSS_ACCESS_KEY_SECRET=your_secret_key
-OSS_BUCKET_NAME=your_bucket_name
-OSS_ENDPOINT=your_endpoint
-
-# 模型配置
-OPENAI_API_KEY=your_openai_key
-OPENAI_BASE_URL=https://api.openai.com/v1
-
-# 搜索配置
-TAVILY_API_KEY=your_tavily_key
-```
+实际环境变量以项目根 `.env.example` 为准，配置加载逻辑见 `src/backend/agentchat/settings.py`。本地运行需要把 `.env.example` 复制为根目录 `.env`，并把 `src/backend/agentchat/config.yaml.example` 复制为 `config.yaml`。
 
 ### 配置文件
 系统支持多种配置方式：
 - 环境变量配置
-- 配置文件 (config.yaml)
+- 配置文件 (`src/backend/agentchat/config.yaml`)
 - 数据库配置存储
 - 运行时动态配置
 

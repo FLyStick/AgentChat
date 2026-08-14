@@ -99,7 +99,7 @@ AgentChat 是一个现代化的智能对话系统，基于大语言模型构建�
 
 ### 1. 核心亮点
 
-- 智能Agent: 支持Sub-Agents协作，具备推理和决策能力
+- 智能Agent: AgentConfig 声明式组装工具，可选开启多 Agent 编排
 - 知识库检索: RAG技术实现精准知识检索和问答
 - 工具生态: 内置多种实用工具，支持自定义扩展
 - MCP集成: 支持Model Context Protocol服务器
@@ -188,7 +188,7 @@ AI驱动的图像生成服务
 ### 1. 核心功能模块
 
 - AI对话引擎: 支持多模型生态、流式响应、上下文记忆、思考可视化。
-- 智能Agent系统: 多Agent协作、任务自动化、工作流编排、目标导向。
+- 智能Agent系统: AgentConfig 驱动的工具组装，配置开启后的多 Agent 编排。
 - 知识库系统: 多格式支持、语义分块、向量检索、RAG问答。
 - 工具生态: 内置10+实用工具，支持自定义上传与扩展。
 
@@ -217,20 +217,20 @@ AI驱动的图像生成服务
 - MySQL 8.0+, Redis 7.0+
 - Docker 20.10+
 
-### 2. Docker一键部署
+### 2. 依赖服务一键启动
+
+Docker Compose 只启动 MySQL、Redis、MinIO；后端和前端在本地运行。完整步骤见 [部署说明](docs/delivery/DEPLOYMENT.md)。
 
 ```bash
-# 1. 克隆项目
-git clone https://github.com/Shy2593666979/AgentChat.git
-cd AgentChat
-
-# 2. 编辑配置文件
-vim docker/docker_config.yaml
-
-# 3. 启动
+# 1. 进入 docker 目录并准备环境变量
 cd docker
-docker-compose up --build -d
-````
+cp ../.env.example .env
+# 编辑 .env，填写数据库与 MinIO 密码
+
+# 2. 启动依赖服务
+docker compose up -d
+docker compose ps
+```
 
 ### 3. 本地一键部署
 
@@ -274,6 +274,8 @@ npm run dev
 ## 八、文档
 
   - API文档: [AgentChat Document](https://www.google.com/search?q=docs/reference/agentchat.md)
+  - 面试材料: [P4 面试口径与证据](docs/delivery/P4_INTERVIEW_MATERIAL.md)
+  - 部署说明: [AgentChat 部署说明](docs/delivery/DEPLOYMENT.md)
   - 开发指南: 启动后端后访问 /docs 查看 Swagger 文档。
 
 -----

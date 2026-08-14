@@ -23,20 +23,14 @@ processes = []
 
 
 def install_dependencies():
-    """第一步：在根目录查找 requestment.txt 并安装"""
+    """第一步：在 src/backend 查找 requirements.txt 并安装"""
     print(f"📂 项目根目录定位为: {PROJECT_ROOT}")
     print(f"🚀 [Step 1] 正在查找依赖文件...")
 
-    # --- 修改点：现在去 PROJECT_ROOT (根目录) 找文件，而不是 src 下 ---
-    # 匹配 requestment.txt, requirements.txt, request.txt 等
-    req_files = glob.glob(os.path.join(PROJECT_ROOT, "request*.txt"))
-
-    # 如果找不到 request*，再试一次 requirements.txt (防止名字完全不匹配)
-    if not req_files:
-        req_files = glob.glob(os.path.join(PROJECT_ROOT, "requirements.txt"))
+    req_files = glob.glob(os.path.join(BACKEND_DIR, "requirements.txt"))
 
     if not req_files:
-        print(f"⚠️ 警告：在项目根目录 {PROJECT_ROOT} 下未找到 request*.txt 或 requirements.txt")
+        print(f"⚠️ 警告：在 {BACKEND_DIR} 下未找到 requirements.txt")
         print("跳过依赖安装，尝试直接启动服务...")
         return
 
