@@ -30,10 +30,16 @@ from agentchat.benchmarks.live_utils import (
 
 REPO_ROOT = Path(__file__).resolve().parents[4]
 DEFAULT_SOURCES_DIR = Path(__file__).resolve().parent / "fixtures" / "rag_live" / "sources"
-DEFAULT_OUTPUT_DIR = REPO_ROOT / "docs" / "eval"
+DEFAULT_AB_SOURCES_DIR = Path(__file__).resolve().parent / "fixtures" / "rag_live_ab" / "sources"
+DEFAULT_AB_QUERIES_FILE = DEFAULT_AB_SOURCES_DIR.parent / "queries.json"
+DEFAULT_OUTPUT_DIR = REPO_ROOT / "docs" / "eval" / "live"
+DEFAULT_AB_STATE_PATH = REPO_ROOT / "docs" / "eval" / "live" / "live_rag_ab_state.json"
 DEFAULT_USER_NAME = "live_bench_0814"
+DEFAULT_AB_KNOWLEDGE_NAME = "RagAb0814"
+DEFAULT_AB_DATASET_NAME = "live_rag_ab_20260814"
 
 KNOWLEDGE_DESC = "用于AgentChat真实链路RAG评测的酒店FAQ、项目手册与内部制度语料。"
+AB_KNOWLEDGE_DESC = "用于P5.9 RAG真实A/B评测的21份业务语料：酒店服务、企业制度、项目运维与项目FAQ。"
 
 
 QUERY_SPECS = [
@@ -232,6 +238,17 @@ def _build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--email", default=None, help="评测用户邮箱")
     parser.add_argument("--knowledge-name", default=DEFAULT_KNOWLEDGE_NAME, help="知识库名称")
     parser.add_argument("--sources-dir", type=Path, default=DEFAULT_SOURCES_DIR, help="fixture 目录")
+    parser.add_argument(
+        "--queries-file",
+        type=Path,
+        default=None,
+        help="query/ground truth 标注文件；默认使用内置 30 条 specs，P5.9 推荐传入 rag_live_ab/queries.json",
+    )
+    parser.add_argument(
+        "--dataset-name",
+        default=None,
+        help="ground truth 数据集名称，如 live_rag_ab_20260814",
+    )
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR, help="评测产物目录")
     parser.add_argument("--wait-timeout", type=float, default=180.0, help="每个文件索引成功的最长等待秒数")
     return parser
@@ -262,6 +279,8 @@ async def _build_ground_truth(
     knowledge_id: str,
     seed_time: str,
     source_files: List[str],
+    query_specs: List[Dict[str, Any]],
+    dataset_name: str,
 ) -> Dict[str, Any]:
     from agentchat.services.rag.vector_stores import milvus_client
 
@@ -291,29 +310,39 @@ async def _build_ground_truth(
         raise LiveBenchError(f"知识库 {knowledge_id} 中未读取到任何真实索引块")
 
     queries: List[Dict[str, Any]] = []
-    for spec in QUERY_SPECS:
+    for spec in query_specs:
         expected_ids = []
         for fact in spec["facts"]:
             matched = [chunk["chunk_id"] for chunk in chunks if fact in chunk["content"]]
             if not matched:
                 raise LiveBenchError(f"ground truth fact 未命中任何索引块: {fact[:50]}")
             expected_ids.extend(matched)
+        expected_chunk_ids = sorted(set(expected_ids))
+        if not expected_chunk_ids:
+            raise LiveBenchError(f"query {spec['id']} 没有可用的 expected_chunk_ids")
         queries.append(
             {
                 "id": spec["id"],
                 "query": spec["query"],
                 "difficulty": spec["difficulty"],
                 "expected_facts": spec["facts"],
-                "expected_chunk_ids": sorted(set(expected_ids)),
+                "expected_chunk_ids": expected_chunk_ids,
             }
         )
 
     return {
-        "dataset_name": "live_rag_hotel_faq",
+        "dataset_name": dataset_name,
         "created_at": seed_time,
         "knowledge_id": knowledge_id,
         "vector_store": "chroma",
         "source_files": source_files,
+        "source_file_count": len(source_files),
+        "indexed_chunk_count": len(chunks),
+        "query_count": len(queries),
+        "difficulty_counts": {
+            difficulty: sum(1 for query in queries if query["difficulty"] == difficulty)
+            for difficulty in sorted({query["difficulty"] for query in queries})
+        },
         "queries": queries,
         "indexed_chunks": chunks,
     }
@@ -329,10 +358,35 @@ async def run_seed(args: argparse.Namespace) -> Dict[str, Any]:
     if not sources:
         raise LiveBenchError(f"fixture 目录没有 txt 文件: {sources_dir}")
 
+    ab_mode = args.queries_file is not None or args.dataset_name is not None
+    if ab_mode:
+        if args.state == DEFAULT_STATE_PATH:
+            args.state = DEFAULT_AB_STATE_PATH
+        if args.sources_dir == DEFAULT_SOURCES_DIR:
+            sources_dir = DEFAULT_AB_SOURCES_DIR.expanduser().resolve()
+            sources = sorted(sources_dir.glob("*.txt"))
+        if args.queries_file is None:
+            args.queries_file = DEFAULT_AB_QUERIES_FILE
+
+    query_specs = QUERY_SPECS
+    if args.queries_file is not None:
+        queries_path = Path(args.queries_file).expanduser().resolve()
+        if not queries_path.is_file():
+            raise LiveBenchError(f"queries 文件不存在: {queries_path}")
+        loaded = json.loads(queries_path.read_text(encoding="utf-8"))
+        if not isinstance(loaded, list) or not loaded:
+            raise LiveBenchError(f"queries 文件不是非空列表: {queries_path}")
+        query_specs = loaded
+
     state = load_state(args.state)
     user_name = args.user_name or state.get("user_name") or DEFAULT_USER_NAME
     password = args.password or state.get("password") or generate_password()
-    knowledge_name = args.knowledge_name or state.get("knowledge_name") or DEFAULT_KNOWLEDGE_NAME
+    if ab_mode and args.knowledge_name == DEFAULT_KNOWLEDGE_NAME:
+        knowledge_name = DEFAULT_AB_KNOWLEDGE_NAME
+    else:
+        knowledge_name = args.knowledge_name or state.get("knowledge_name") or DEFAULT_KNOWLEDGE_NAME
+    knowledge_desc = AB_KNOWLEDGE_DESC if ab_mode else KNOWLEDGE_DESC
+    dataset_name = args.dataset_name or (DEFAULT_AB_DATASET_NAME if ab_mode else "live_rag_hotel_faq")
     seed_time = utcnow_iso()
 
     state.update(
@@ -354,7 +408,7 @@ async def run_seed(args: argparse.Namespace) -> Dict[str, Any]:
         state["user_id"] = user_data.get("user_id", "")
         save_state(args.state, state)
 
-        knowledge = api.find_or_create_knowledge(knowledge_name, KNOWLEDGE_DESC)
+        knowledge = api.find_or_create_knowledge(knowledge_name, knowledge_desc)
         knowledge_id = knowledge["id"]
         state["knowledge_id"] = knowledge_id
         save_state(args.state, state)
@@ -409,29 +463,38 @@ async def run_seed(args: argparse.Namespace) -> Dict[str, Any]:
         knowledge_id,
         seed_time,
         [source.name for source in sources],
+        query_specs,
+        dataset_name,
     )
     output_dir = Path(args.output_dir).expanduser().resolve()
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    ground_truth_path = output_dir / "live_rag_ground_truth.json"
+    ground_truth_file_name = (
+        "live_rag_ab_ground_truth.json" if ab_mode else "live_rag_ground_truth.json"
+    )
+    ground_truth_path = output_dir / ground_truth_file_name
     ground_truth_path.write_text(
         json.dumps(ground_truth, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
 
     result = {
-        "stage": "p5.2",
+        "stage": "p5.9" if ab_mode else "p5.2",
         "created_at": seed_time,
         "base_url": args.base_url,
         "user_name": user_name,
         "knowledge_id": knowledge_id,
         "knowledge_name": knowledge_name,
+        "dataset_name": dataset_name,
         "files": uploaded_files,
         "chunk_count": len(ground_truth["indexed_chunks"]),
+        "source_count": len(sources),
         "query_count": len(ground_truth["queries"]),
+        "difficulty_counts": ground_truth["difficulty_counts"],
+        "queries_file": str(args.queries_file) if args.queries_file else None,
         "ground_truth_file": str(ground_truth_path),
     }
-    result_path = output_dir / "live_seed_result.json"
+    result_path = output_dir / ("live_seed_ab_result.json" if ab_mode else "live_seed_result.json")
     result_path.write_text(
         json.dumps(result, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",

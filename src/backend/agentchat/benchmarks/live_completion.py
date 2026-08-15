@@ -24,8 +24,8 @@ from agentchat.benchmarks.live_utils import (
 
 
 REPO_ROOT = Path(__file__).resolve().parents[4]
-DEFAULT_GROUND_TRUTH = REPO_ROOT / "docs" / "eval" / "live_rag_ground_truth.json"
-DEFAULT_OUTPUT_DIR = REPO_ROOT / "docs" / "eval"
+DEFAULT_GROUND_TRUTH = REPO_ROOT / "docs" / "eval" / "live" / "live_rag_ground_truth.json"
+DEFAULT_OUTPUT_DIR = REPO_ROOT / "docs" / "eval" / "live"
 DEFAULT_AGENT_NAME = "LiveBench-HotelFAQ"
 DEFAULT_DIALOG_NAME = "LiveBench-HotelFAQ-Dialog"
 

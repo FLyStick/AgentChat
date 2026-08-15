@@ -1,0 +1,61 @@
+AgentChat 本地开发排障手册
+
+一、启动与依赖
+运行环境中缺少httpcore或httpx版本不匹配时，会在调用OpenAI兼容接口时出现ConnectError，建议按requirements.txt重装httpx与httpcore。
+启动报错pydantic相关AttributeError时，优先检查pydantic版本与config.yaml中的模型配置字段是否一致。
+如果日志中出现model config字段不存在，说明config.yaml中的multi_models结构与代码版本不匹配。
+启动后健康检查返回404时，先确认是否在src/backend目录启动，再确认端口没有被其他进程占用。
+
+二、向量库与文件解析
+向量库切换为chroma后会在src/backend目录生成vector_db目录，删除该目录前需要先停止后端。
+知识库文件解析失败时，先检查文件编码是否为UTF-8，再检查每行长度是否超过500字符。
+上传后文件状态长时间停留在processing时，检查Redis任务队列和后端工作线程是否正常。
+Chroma集合不存在时，检索接口会返回空数组而不是报错，排查时先确认knowledge_id是否正确。
+
+三、流式与取消
+断流取消由CancellableAsyncStream实现，前端调用stop_streaming_callback后触发request_cancel，终止正在进行的模型流式调用。
+SSE客户端收到done事件后应立即关闭连接，避免服务端继续向已断开连接写入。
+如果取消后模型还在产出，先确认前端是否发送了stop事件，再检查服务端是否进入cancel scope。
+流式事件乱序时检查网络代理是否缓冲响应，本地测试建议跳过代理。
+
+四、模型与 Embedding
+Embedding请求超时通常是网络代理或DashScope接口限流导致，可以检查.env中的base_url与api_key。
+大批量向量化会按每批10条并发执行，若持续限流可以降低并发批次或增加重试。
+Rerank接口返回空结果时，先检查候选文档是否为空，再检查rerank base_url与鉴权头。
+查询改写返回非JSON时，系统会退回到原始query，此时检索指标不应归因于改写模块。
+
+五、多 Agent 调试
+调试多Agent路由时，先看stream事件中的agent_plan和sub_agent_start，确认关键词是否命中orchestrator规则。
+子Agent没有触发时，检查enable_multi_agent是否为true，以及主Agent是否绑定了正确的子Agent配置。
+子Agent回答为空时，先单独调用该子Agent的工具，确认工具返回没有被上下文截断。
+路由命中率统计以sub_agent_start事件为准，不要用最终回答文本反推路由结果。
+
+六、日志与性能
+每个请求都有trace_id，完整链路排查从trace_id开始，按时间顺序过滤日志。
+本地性能测试前先预热embedding和模型连接，避免首调用延迟污染统计。
+生产环境日志分级建议为INFO，debug会输出完整prompt和向量候选，不适合长期开启。
+排查偶发慢请求时，同时记录网络延迟、LLM响应时间和向量检索时间，未拆分的总耗时不足以定位瓶颈。
+
+七、评测与基准
+评测脚本位于agentchat.benchmarks目录，离线脚本只依赖标准库，真实链路脚本需要后端和外部模型。
+离线RAG基准使用固定9条query，真实链路基准使用灌入向量库后的ground truth文件。
+每次真实评测生成带时间戳的JSON，结果文件包含环境、配置、每条query的检索候选和指标。
+评测口径变更时，需要同步更新benchmarks/README.md和docs/eval/README.md，避免新旧数字混用。
+
+八、状态文件与账号
+live_seed.py会把测试用户、密码和knowledge_id写入%TEMP%下的状态JSON。
+状态文件中的token过期后，需要重新执行live_seed.py获取新token，脚本会自动复用已有知识库。
+测试用户创建后会保留在数据库中，重新执行时使用相同用户名和密码登录。
+评测产生的Agent和Dialog会按时间戳命名，避免与手动测试数据混淆。
+
+九、向量库数据一致性
+Chroma集合与数据库中的知识库记录可能不同步，删除文件后需要确认集合中对应的file_id已清理。
+切换向量库模式前，先确认旧模式的collection已经备份，再修改config.yaml并重启后端。
+同一knowledge_id重复灌入同名文件时，系统会生成新的file_id，旧chunk不会被覆盖。
+批量删除知识库文件时，建议停止评测任务，避免检索期间出现集合为空的结果。
+
+十、安全与密钥
+仓库内不应提交明文API Key，config.yaml.example只保留环境变量占位符。
+评测脚本使用测试用户和测试密钥，生产密钥不能写入benchmark fixture或评测JSON。
+日志中可能包含query原文，导出日志前需要按脱敏规则处理手机号、邮箱和身份证信息。
+数据库密码、MinIO密钥和模型API Key发生变化时，需要同步更新.env和运行容器的环境变量。

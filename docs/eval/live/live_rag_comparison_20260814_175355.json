@@ -1,0 +1,617 @@
+{
+  "stage": "p5.9",
+  "created_at": "2026-08-14T09:53:55+00:00",
+  "dataset_name": "live_rag_ab_20260814",
+  "knowledge_id": "t_2aadac46967e4487",
+  "vector_store": "chroma",
+  "ground_truth_file": "D:\\实习记录\\开源项目\\AgentChat\\docs\\eval\\live\\live_rag_ab_ground_truth.json",
+  "top_k": 5,
+  "mode": "all",
+  "query_count": 5,
+  "paired_query_count": 5,
+  "hard_query_count": 0,
+  "config": {
+    "min_score": 0.2,
+    "rerank_threshold": null,
+    "enable_summary": false,
+    "enable_elasticsearch": false,
+    "split": {
+      "chunk_size": 500,
+      "overlap_size": 100
+    },
+    "rerank_model": "gte-rerank-v2",
+    "rewrite_model": "deepseek-v4-flash"
+  },
+  "arms": {
+    "baseline": "raw_query -> MixRetrival(content) -> merge_documents_by_score -> top_k",
+    "optimized": "query_rewrite -> content+summary -> merge -> Rerank -> min_score/rerank_threshold -> top_k"
+  },
+  "environment": {
+    "cwd": "D:\\实习记录\\开源项目\\AgentChat\\src\\backend",
+    "python": "C:\\Users\\20235\\.conda\\envs\\agentchat\\python.exe"
+  },
+  "summary": {
+    "overall": {
+      "baseline": {
+        "case_count": 5,
+        "top_k": 5,
+        "mean_recall_at_k": 0.0,
+        "mean_mrr": 0.0,
+        "hit_rate_at_k": 0.0,
+        "median_recall_at_k": 0.0,
+        "latency_ms": {
+          "mean_ms": 5620.794,
+          "p50_ms": 1434.515,
+          "p90_ms": 14119.702,
+          "p95_ms": 18338.052,
+          "max_ms": 22556.402
+        },
+        "evidence_hit_rate_single_doc": 0.0,
+        "evidence_hit_rate_joined": 0.0,
+        "availability_counts": {
+          "query_rewrite": 0,
+          "summary": 0,
+          "rerank": 0
+        }
+      },
+      "optimized": {
+        "case_count": 5,
+        "top_k": 5,
+        "mean_recall_at_k": 0.0,
+        "mean_mrr": 0.0,
+        "hit_rate_at_k": 0.0,
+        "median_recall_at_k": 0.0,
+        "latency_ms": {
+          "mean_ms": 2665.411,
+          "p50_ms": 2712.192,
+          "p90_ms": 2745.037,
+          "p95_ms": 2751.95,
+          "max_ms": 2758.863
+        },
+        "evidence_hit_rate_single_doc": 0.0,
+        "evidence_hit_rate_joined": 0.0,
+        "availability_counts": {
+          "query_rewrite": 0,
+          "summary": 0,
+          "rerank": 5
+        }
+      },
+      "delta": {
+        "recall_at_k": 0.0,
+        "mrr_at_k": 0.0,
+        "hit_at_k": 0.0,
+        "latency_ms": {
+          "mean_ms": -2955.383,
+          "p50_ms": 1277.677,
+          "p95_ms": -15586.102
+        }
+      }
+    },
+    "hard": {
+      "query_count": 0,
+      "baseline": {
+        "case_count": 0,
+        "top_k": 5,
+        "mean_recall_at_k": 0.0,
+        "mean_mrr": 0.0,
+        "hit_rate_at_k": 0.0,
+        "latency_ms": {
+          "mean_ms": 0.0,
+          "p50_ms": 0.0,
+          "p90_ms": 0.0,
+          "p95_ms": 0.0,
+          "max_ms": 0.0
+        },
+        "evidence_hit_rate_single_doc": 0.0,
+        "evidence_hit_rate_joined": 0.0,
+        "availability_counts": {
+          "query_rewrite": 0,
+          "summary": 0,
+          "rerank": 0
+        }
+      },
+      "optimized": {
+        "case_count": 0,
+        "top_k": 5,
+        "mean_recall_at_k": 0.0,
+        "mean_mrr": 0.0,
+        "hit_rate_at_k": 0.0,
+        "latency_ms": {
+          "mean_ms": 0.0,
+          "p50_ms": 0.0,
+          "p90_ms": 0.0,
+          "p95_ms": 0.0,
+          "max_ms": 0.0
+        },
+        "evidence_hit_rate_single_doc": 0.0,
+        "evidence_hit_rate_joined": 0.0,
+        "availability_counts": {
+          "query_rewrite": 0,
+          "summary": 0,
+          "rerank": 0
+        }
+      },
+      "delta": {
+        "recall_at_k": 0.0,
+        "mrr_at_k": 0.0,
+        "hit_at_k": 0.0,
+        "latency_ms": {
+          "mean_ms": 0.0,
+          "p50_ms": 0.0,
+          "p95_ms": 0.0
+        }
+      }
+    },
+    "easy_normal": {
+      "query_count": 5,
+      "baseline": {
+        "case_count": 5,
+        "top_k": 5,
+        "mean_recall_at_k": 0.0,
+        "mean_mrr": 0.0,
+        "hit_rate_at_k": 0.0,
+        "median_recall_at_k": 0.0,
+        "latency_ms": {
+          "mean_ms": 5620.794,
+          "p50_ms": 1434.515,
+          "p90_ms": 14119.702,
+          "p95_ms": 18338.052,
+          "max_ms": 22556.402
+        },
+        "evidence_hit_rate_single_doc": 0.0,
+        "evidence_hit_rate_joined": 0.0,
+        "availability_counts": {
+          "query_rewrite": 0,
+          "summary": 0,
+          "rerank": 0
+        }
+      },
+      "optimized": {
+        "case_count": 5,
+        "top_k": 5,
+        "mean_recall_at_k": 0.0,
+        "mean_mrr": 0.0,
+        "hit_rate_at_k": 0.0,
+        "median_recall_at_k": 0.0,
+        "latency_ms": {
+          "mean_ms": 2665.411,
+          "p50_ms": 2712.192,
+          "p90_ms": 2745.037,
+          "p95_ms": 2751.95,
+          "max_ms": 2758.863
+        },
+        "evidence_hit_rate_single_doc": 0.0,
+        "evidence_hit_rate_joined": 0.0,
+        "availability_counts": {
+          "query_rewrite": 0,
+          "summary": 0,
+          "rerank": 5
+        }
+      },
+      "delta": {
+        "recall_at_k": 0.0,
+        "mrr_at_k": 0.0,
+        "hit_at_k": 0.0,
+        "latency_ms": {
+          "mean_ms": -2955.383,
+          "p50_ms": 1277.677,
+          "p95_ms": -15586.102
+        }
+      }
+    }
+  },
+  "cases": [
+    {
+      "query_id": "live_ab_h_checkin",
+      "query": "酒店几点可以办理入住，几点退房？",
+      "difficulty": "easy",
+      "baseline": {
+        "expected_chunk_ids": [
+          "hotel_871f885e868f4ff28a482d916d3a1a62"
+        ],
+        "retrieved_chunk_ids": [],
+        "matched_expected_chunk_ids": [],
+        "recall_at_k": 0.0,
+        "mrr_at_k": 0.0,
+        "hit_at_k": 0.0,
+        "evidence": {
+          "fact_count": 1,
+          "matched_single_doc_count": 0,
+          "matched_joined_count": 0,
+          "fact_results": [
+            {
+              "fact": "酒店入住时间为下午14:00，退房时间为中午12:00，前台24小时值班，行李可以寄存，延迟退房需提前联系前台确认房态。",
+              "matched_single_doc": false,
+              "matched_joined": false
+            }
+          ]
+        },
+        "retrieved_documents": [],
+        "latency_ms": 22556.402,
+        "timings": {
+          "total_ms": 22556.402
+        },
+        "availability": {
+          "query_rewrite": false,
+          "summary": false,
+          "rerank": false,
+          "candidate_count": 0
+        }
+      },
+      "optimized": {
+        "expected_chunk_ids": [
+          "hotel_871f885e868f4ff28a482d916d3a1a62"
+        ],
+        "retrieved_chunk_ids": [],
+        "matched_expected_chunk_ids": [],
+        "recall_at_k": 0.0,
+        "mrr_at_k": 0.0,
+        "hit_at_k": 0.0,
+        "evidence": {
+          "fact_count": 1,
+          "matched_single_doc_count": 0,
+          "matched_joined_count": 0,
+          "fact_results": [
+            {
+              "fact": "酒店入住时间为下午14:00，退房时间为中午12:00，前台24小时值班，行李可以寄存，延迟退房需提前联系前台确认房态。",
+              "matched_single_doc": false,
+              "matched_joined": false
+            }
+          ]
+        },
+        "retrieved_documents": [],
+        "latency_ms": 2712.192,
+        "timings": {
+          "query_rewrite_ms": 1356.307,
+          "retrieval_ms": 1355.872,
+          "rerank_ms": 0.013,
+          "total_ms": 2712.192
+        },
+        "availability": {
+          "query_rewrite": false,
+          "summary": false,
+          "rerank": true,
+          "candidate_count": 0
+        }
+      },
+      "delta": {
+        "recall_at_k": 0.0,
+        "mrr_at_k": 0.0,
+        "hit_at_k": 0.0,
+        "latency_ms": -19844.21
+      }
+    },
+    {
+      "query_id": "live_ab_h_wifi",
+      "query": "客房Wi-Fi密码是多少？",
+      "difficulty": "easy",
+      "baseline": {
+        "expected_chunk_ids": [
+          "hotel_d1f6a24e183f494ea0f35bba9c993eb2"
+        ],
+        "retrieved_chunk_ids": [],
+        "matched_expected_chunk_ids": [],
+        "recall_at_k": 0.0,
+        "mrr_at_k": 0.0,
+        "hit_at_k": 0.0,
+        "evidence": {
+          "fact_count": 1,
+          "matched_single_doc_count": 0,
+          "matched_joined_count": 0,
+          "fact_results": [
+            {
+              "fact": "客房无线网络名称为GrandHotel-Guest，密码为CheckIn2026，公共区域免费连接，行政楼层网络无需密码自动连接。",
+              "matched_single_doc": false,
+              "matched_joined": false
+            }
+          ]
+        },
+        "retrieved_documents": [],
+        "latency_ms": 1306.17,
+        "timings": {
+          "total_ms": 1306.17
+        },
+        "availability": {
+          "query_rewrite": false,
+          "summary": false,
+          "rerank": false,
+          "candidate_count": 0
+        }
+      },
+      "optimized": {
+        "expected_chunk_ids": [
+          "hotel_d1f6a24e183f494ea0f35bba9c993eb2"
+        ],
+        "retrieved_chunk_ids": [],
+        "matched_expected_chunk_ids": [],
+        "recall_at_k": 0.0,
+        "mrr_at_k": 0.0,
+        "hit_at_k": 0.0,
+        "evidence": {
+          "fact_count": 1,
+          "matched_single_doc_count": 0,
+          "matched_joined_count": 0,
+          "fact_results": [
+            {
+              "fact": "客房无线网络名称为GrandHotel-Guest，密码为CheckIn2026，公共区域免费连接，行政楼层网络无需密码自动连接。",
+              "matched_single_doc": false,
+              "matched_joined": false
+            }
+          ]
+        },
+        "retrieved_documents": [],
+        "latency_ms": 2498.957,
+        "timings": {
+          "query_rewrite_ms": 1221.589,
+          "retrieval_ms": 1277.353,
+          "rerank_ms": 0.015,
+          "total_ms": 2498.957
+        },
+        "availability": {
+          "query_rewrite": false,
+          "summary": false,
+          "rerank": true,
+          "candidate_count": 0
+        }
+      },
+      "delta": {
+        "recall_at_k": 0.0,
+        "mrr_at_k": 0.0,
+        "hit_at_k": 0.0,
+        "latency_ms": 1192.787
+      }
+    },
+    {
+      "query_id": "live_ab_h_breakfast",
+      "query": "早餐几点供应，住客需要另外付费吗？",
+      "difficulty": "easy",
+      "baseline": {
+        "expected_chunk_ids": [
+          "hotel_f6e3bfbce8aa43f3af32a0b1fdbf90ad"
+        ],
+        "retrieved_chunk_ids": [],
+        "matched_expected_chunk_ids": [],
+        "recall_at_k": 0.0,
+        "mrr_at_k": 0.0,
+        "hit_at_k": 0.0,
+        "evidence": {
+          "fact_count": 1,
+          "matched_single_doc_count": 0,
+          "matched_joined_count": 0,
+          "fact_results": [
+            {
+              "fact": "自助早餐供应时间为06:30至10:00，地点在二楼餐厅，住客含双早，额外早餐每人68元，儿童1.2米以下免费。",
+              "matched_single_doc": false,
+              "matched_joined": false
+            }
+          ]
+        },
+        "retrieved_documents": [],
+        "latency_ms": 1434.515,
+        "timings": {
+          "total_ms": 1434.515
+        },
+        "availability": {
+          "query_rewrite": false,
+          "summary": false,
+          "rerank": false,
+          "candidate_count": 0
+        }
+      },
+      "optimized": {
+        "expected_chunk_ids": [
+          "hotel_f6e3bfbce8aa43f3af32a0b1fdbf90ad"
+        ],
+        "retrieved_chunk_ids": [],
+        "matched_expected_chunk_ids": [],
+        "recall_at_k": 0.0,
+        "mrr_at_k": 0.0,
+        "hit_at_k": 0.0,
+        "evidence": {
+          "fact_count": 1,
+          "matched_single_doc_count": 0,
+          "matched_joined_count": 0,
+          "fact_results": [
+            {
+              "fact": "自助早餐供应时间为06:30至10:00，地点在二楼餐厅，住客含双早，额外早餐每人68元，儿童1.2米以下免费。",
+              "matched_single_doc": false,
+              "matched_joined": false
+            }
+          ]
+        },
+        "retrieved_documents": [],
+        "latency_ms": 2632.743,
+        "timings": {
+          "query_rewrite_ms": 1330.879,
+          "retrieval_ms": 1301.852,
+          "rerank_ms": 0.012,
+          "total_ms": 2632.743
+        },
+        "availability": {
+          "query_rewrite": false,
+          "summary": false,
+          "rerank": true,
+          "candidate_count": 0
+        }
+      },
+      "delta": {
+        "recall_at_k": 0.0,
+        "mrr_at_k": 0.0,
+        "hit_at_k": 0.0,
+        "latency_ms": 1198.228
+      }
+    },
+    {
+      "query_id": "live_ab_h_shuttle",
+      "query": "去浦东机场的班车怎么预约？",
+      "difficulty": "normal",
+      "baseline": {
+        "expected_chunk_ids": [
+          "hotel_8e2e4938b09e47cdbd2c71f5415f41d3"
+        ],
+        "retrieved_chunk_ids": [],
+        "matched_expected_chunk_ids": [],
+        "recall_at_k": 0.0,
+        "mrr_at_k": 0.0,
+        "hit_at_k": 0.0,
+        "evidence": {
+          "fact_count": 1,
+          "matched_single_doc_count": 0,
+          "matched_joined_count": 0,
+          "fact_results": [
+            {
+              "fact": "酒店提供浦东机场免费班车，发车时间为每小时整点，上车地点为酒店正门右侧，需要至少提前30分钟在前台预约座位。",
+              "matched_single_doc": false,
+              "matched_joined": false
+            }
+          ]
+        },
+        "retrieved_documents": [],
+        "latency_ms": 1464.652,
+        "timings": {
+          "total_ms": 1464.652
+        },
+        "availability": {
+          "query_rewrite": false,
+          "summary": false,
+          "rerank": false,
+          "candidate_count": 0
+        }
+      },
+      "optimized": {
+        "expected_chunk_ids": [
+          "hotel_8e2e4938b09e47cdbd2c71f5415f41d3"
+        ],
+        "retrieved_chunk_ids": [],
+        "matched_expected_chunk_ids": [],
+        "recall_at_k": 0.0,
+        "mrr_at_k": 0.0,
+        "hit_at_k": 0.0,
+        "evidence": {
+          "fact_count": 1,
+          "matched_single_doc_count": 0,
+          "matched_joined_count": 0,
+          "fact_results": [
+            {
+              "fact": "酒店提供浦东机场免费班车，发车时间为每小时整点，上车地点为酒店正门右侧，需要至少提前30分钟在前台预约座位。",
+              "matched_single_doc": false,
+              "matched_joined": false
+            }
+          ]
+        },
+        "retrieved_documents": [],
+        "latency_ms": 2758.863,
+        "timings": {
+          "query_rewrite_ms": 1413.99,
+          "retrieval_ms": 1344.864,
+          "rerank_ms": 0.009,
+          "total_ms": 2758.863
+        },
+        "availability": {
+          "query_rewrite": false,
+          "summary": false,
+          "rerank": true,
+          "candidate_count": 0
+        }
+      },
+      "delta": {
+        "recall_at_k": 0.0,
+        "mrr_at_k": 0.0,
+        "hit_at_k": 0.0,
+        "latency_ms": 1294.211
+      }
+    },
+    {
+      "query_id": "live_ab_h_gym_pool",
+      "query": "健身房和游泳池的开放时间有什么区别？",
+      "difficulty": "normal",
+      "baseline": {
+        "expected_chunk_ids": [
+          "hotel_21e6a0909c534d4799cd8513bc45335a",
+          "hotel_f00bdc13993d49b3ab7b74850d91ef7e"
+        ],
+        "retrieved_chunk_ids": [],
+        "matched_expected_chunk_ids": [],
+        "recall_at_k": 0.0,
+        "mrr_at_k": 0.0,
+        "hit_at_k": 0.0,
+        "evidence": {
+          "fact_count": 2,
+          "matched_single_doc_count": 0,
+          "matched_joined_count": 0,
+          "fact_results": [
+            {
+              "fact": "健身房位于三楼的玻璃房，开放时间为06:00至22:00，住客凭房卡进入，18岁以下未成年人需要在监护人陪同下使用。",
+              "matched_single_doc": false,
+              "matched_joined": false
+            },
+            {
+              "fact": "游泳池水温恒定为28度，开放时间为07:00至21:00，最深1.6米，进入泳池区域必须穿泳衣并佩戴泳帽。",
+              "matched_single_doc": false,
+              "matched_joined": false
+            }
+          ]
+        },
+        "retrieved_documents": [],
+        "latency_ms": 1342.233,
+        "timings": {
+          "total_ms": 1342.233
+        },
+        "availability": {
+          "query_rewrite": false,
+          "summary": false,
+          "rerank": false,
+          "candidate_count": 0
+        }
+      },
+      "optimized": {
+        "expected_chunk_ids": [
+          "hotel_21e6a0909c534d4799cd8513bc45335a",
+          "hotel_f00bdc13993d49b3ab7b74850d91ef7e"
+        ],
+        "retrieved_chunk_ids": [],
+        "matched_expected_chunk_ids": [],
+        "recall_at_k": 0.0,
+        "mrr_at_k": 0.0,
+        "hit_at_k": 0.0,
+        "evidence": {
+          "fact_count": 2,
+          "matched_single_doc_count": 0,
+          "matched_joined_count": 0,
+          "fact_results": [
+            {
+              "fact": "健身房位于三楼的玻璃房，开放时间为06:00至22:00，住客凭房卡进入，18岁以下未成年人需要在监护人陪同下使用。",
+              "matched_single_doc": false,
+              "matched_joined": false
+            },
+            {
+              "fact": "游泳池水温恒定为28度，开放时间为07:00至21:00，最深1.6米，进入泳池区域必须穿泳衣并佩戴泳帽。",
+              "matched_single_doc": false,
+              "matched_joined": false
+            }
+          ]
+        },
+        "retrieved_documents": [],
+        "latency_ms": 2724.299,
+        "timings": {
+          "query_rewrite_ms": 1325.8,
+          "retrieval_ms": 1398.463,
+          "rerank_ms": 0.036,
+          "total_ms": 2724.299
+        },
+        "availability": {
+          "query_rewrite": false,
+          "summary": false,
+          "rerank": true,
+          "candidate_count": 0
+        }
+      },
+      "delta": {
+        "recall_at_k": 0.0,
+        "mrr_at_k": 0.0,
+        "hit_at_k": 0.0,
+        "latency_ms": 1382.066
+      }
+    }
+  ]
+}

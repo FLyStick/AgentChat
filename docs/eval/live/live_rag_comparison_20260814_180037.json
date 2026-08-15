@@ -1,0 +1,984 @@
+{
+  "stage": "p5.9",
+  "created_at": "2026-08-14T10:00:37+00:00",
+  "dataset_name": "live_rag_ab_20260814",
+  "knowledge_id": "t_2aadac46967e4487",
+  "vector_store": "chroma",
+  "ground_truth_file": "D:\\实习记录\\开源项目\\AgentChat\\docs\\eval\\live\\live_rag_ab_ground_truth.json",
+  "top_k": 5,
+  "mode": "all",
+  "query_count": 5,
+  "paired_query_count": 5,
+  "hard_query_count": 0,
+  "config": {
+    "min_score": 0.2,
+    "rerank_threshold": null,
+    "enable_summary": false,
+    "enable_elasticsearch": false,
+    "split": {
+      "chunk_size": 500,
+      "overlap_size": 100
+    },
+    "rerank_model": "gte-rerank-v2",
+    "rewrite_model": "deepseek-v4-flash"
+  },
+  "arms": {
+    "baseline": "raw_query -> MixRetrival(content) -> merge_documents_by_score -> top_k",
+    "optimized": "query_rewrite -> content+summary -> merge -> Rerank -> min_score/rerank_threshold -> top_k"
+  },
+  "environment": {
+    "cwd": "D:\\实习记录\\开源项目\\AgentChat\\src\\backend",
+    "python": "C:\\Users\\20235\\.conda\\envs\\agentchat\\python.exe"
+  },
+  "summary": {
+    "overall": {
+      "baseline": {
+        "case_count": 5,
+        "top_k": 5,
+        "mean_recall_at_k": 1.0,
+        "mean_mrr": 0.8,
+        "hit_rate_at_k": 1.0,
+        "median_recall_at_k": 1.0,
+        "latency_ms": {
+          "mean_ms": 3238.131,
+          "p50_ms": 467.326,
+          "p90_ms": 8869.415,
+          "p95_ms": 11663.287,
+          "max_ms": 14457.159
+        },
+        "evidence_hit_rate_single_doc": 1.0,
+        "evidence_hit_rate_joined": 1.0,
+        "availability_counts": {
+          "query_rewrite": 0,
+          "summary": 0,
+          "rerank": 0
+        }
+      },
+      "optimized": {
+        "case_count": 5,
+        "top_k": 5,
+        "mean_recall_at_k": 0.8,
+        "mean_mrr": 0.7,
+        "hit_rate_at_k": 0.8,
+        "median_recall_at_k": 1.0,
+        "latency_ms": {
+          "mean_ms": 10637.005,
+          "p50_ms": 9114.045,
+          "p90_ms": 13861.75,
+          "p95_ms": 14092.367,
+          "max_ms": 14322.985
+        },
+        "evidence_hit_rate_single_doc": 0.8,
+        "evidence_hit_rate_joined": 0.8,
+        "availability_counts": {
+          "query_rewrite": 5,
+          "summary": 0,
+          "rerank": 5
+        }
+      },
+      "delta": {
+        "recall_at_k": -0.2,
+        "mrr_at_k": -0.1,
+        "hit_at_k": -0.2,
+        "latency_ms": {
+          "mean_ms": 7398.874,
+          "p50_ms": 8646.719,
+          "p95_ms": 2429.08
+        }
+      }
+    },
+    "hard": {
+      "query_count": 0,
+      "baseline": {
+        "case_count": 0,
+        "top_k": 5,
+        "mean_recall_at_k": 0.0,
+        "mean_mrr": 0.0,
+        "hit_rate_at_k": 0.0,
+        "latency_ms": {
+          "mean_ms": 0.0,
+          "p50_ms": 0.0,
+          "p90_ms": 0.0,
+          "p95_ms": 0.0,
+          "max_ms": 0.0
+        },
+        "evidence_hit_rate_single_doc": 0.0,
+        "evidence_hit_rate_joined": 0.0,
+        "availability_counts": {
+          "query_rewrite": 0,
+          "summary": 0,
+          "rerank": 0
+        }
+      },
+      "optimized": {
+        "case_count": 0,
+        "top_k": 5,
+        "mean_recall_at_k": 0.0,
+        "mean_mrr": 0.0,
+        "hit_rate_at_k": 0.0,
+        "latency_ms": {
+          "mean_ms": 0.0,
+          "p50_ms": 0.0,
+          "p90_ms": 0.0,
+          "p95_ms": 0.0,
+          "max_ms": 0.0
+        },
+        "evidence_hit_rate_single_doc": 0.0,
+        "evidence_hit_rate_joined": 0.0,
+        "availability_counts": {
+          "query_rewrite": 0,
+          "summary": 0,
+          "rerank": 0
+        }
+      },
+      "delta": {
+        "recall_at_k": 0.0,
+        "mrr_at_k": 0.0,
+        "hit_at_k": 0.0,
+        "latency_ms": {
+          "mean_ms": 0.0,
+          "p50_ms": 0.0,
+          "p95_ms": 0.0
+        }
+      }
+    },
+    "easy_normal": {
+      "query_count": 5,
+      "baseline": {
+        "case_count": 5,
+        "top_k": 5,
+        "mean_recall_at_k": 1.0,
+        "mean_mrr": 0.8,
+        "hit_rate_at_k": 1.0,
+        "median_recall_at_k": 1.0,
+        "latency_ms": {
+          "mean_ms": 3238.131,
+          "p50_ms": 467.326,
+          "p90_ms": 8869.415,
+          "p95_ms": 11663.287,
+          "max_ms": 14457.159
+        },
+        "evidence_hit_rate_single_doc": 1.0,
+        "evidence_hit_rate_joined": 1.0,
+        "availability_counts": {
+          "query_rewrite": 0,
+          "summary": 0,
+          "rerank": 0
+        }
+      },
+      "optimized": {
+        "case_count": 5,
+        "top_k": 5,
+        "mean_recall_at_k": 0.8,
+        "mean_mrr": 0.7,
+        "hit_rate_at_k": 0.8,
+        "median_recall_at_k": 1.0,
+        "latency_ms": {
+          "mean_ms": 10637.005,
+          "p50_ms": 9114.045,
+          "p90_ms": 13861.75,
+          "p95_ms": 14092.367,
+          "max_ms": 14322.985
+        },
+        "evidence_hit_rate_single_doc": 0.8,
+        "evidence_hit_rate_joined": 0.8,
+        "availability_counts": {
+          "query_rewrite": 5,
+          "summary": 0,
+          "rerank": 5
+        }
+      },
+      "delta": {
+        "recall_at_k": -0.2,
+        "mrr_at_k": -0.1,
+        "hit_at_k": -0.2,
+        "latency_ms": {
+          "mean_ms": 7398.874,
+          "p50_ms": 8646.719,
+          "p95_ms": 2429.08
+        }
+      }
+    }
+  },
+  "cases": [
+    {
+      "query_id": "live_ab_h_checkin",
+      "query": "酒店几点可以办理入住，几点退房？",
+      "difficulty": "easy",
+      "baseline": {
+        "expected_chunk_ids": [
+          "hotel_871f885e868f4ff28a482d916d3a1a62"
+        ],
+        "retrieved_chunk_ids": [
+          "hotel_871f885e868f4ff28a482d916d3a1a62",
+          "hotel_7e23186d1c7f4c0b8f6c7ef61057a76c",
+          "hotel_dc82bcda573e454d9dd263c2a09069cc",
+          "hotel_9a3e103061d148cea194f23d353ac257",
+          "hotel_c2d50b8045a44ef2b8bf2b3243033e3b"
+        ],
+        "matched_expected_chunk_ids": [
+          "hotel_871f885e868f4ff28a482d916d3a1a62"
+        ],
+        "recall_at_k": 1.0,
+        "mrr_at_k": 1.0,
+        "hit_at_k": 1.0,
+        "evidence": {
+          "fact_count": 1,
+          "matched_single_doc_count": 1,
+          "matched_joined_count": 1,
+          "fact_results": [
+            {
+              "fact": "酒店入住时间为下午14:00，退房时间为中午12:00，前台24小时值班，行李可以寄存，延迟退房需提前联系前台确认房态。",
+              "matched_single_doc": true,
+              "matched_joined": true
+            }
+          ]
+        },
+        "retrieved_documents": [
+          {
+            "chunk_id": "hotel_871f885e868f4ff28a482d916d3a1a62",
+            "content": "酒店前台服务手册（2026版）\n\n一、入住与退房\n酒店入住时间为下午14:00，退房时间为中午12:00，前台24小时值班，行李可以寄存，延迟退房需提前联系前台确认房态。\n提前到店且房态允许时，前台会优先安排立即入住；如果客房尚未准备好，客人可以在大堂休息区等待。\n免费取消截止时间为入住日前一天18:00，超过该时间取消将收取首晚房费。\n身份证件信息不一致时，前台需要重新核对预订人姓名并联系订单渠道确认。\n退房时如果房间内迷你吧、洗衣或客房用餐有未结账项，前台会先与客人确认金额再完成结算。\n住客希望保留房间到下午再离开时，可申请延迟退房；金卡会员最晚可延至14:00，白金卡会员最晚可延至16:00。\n\n二、行李寄存与外送\n行李寄存时间为06:00至23:00，贵重物品建议放入客房保险箱，入住前寄存的行李由礼宾部登记并发放寄存牌。\n客人凭寄存牌取回行李，寄存牌遗失时需要出示身份证件并签署声明。\n外卖和快递统一放置在一层外卖柜，酒店不代收生鲜冷链食品。\n客人离店后如需补寄物品，前台会登记收件地址并告知邮费到付。\n大型行李、滑雪板和婴儿车可以存放在礼宾部储物间，存放时间不超过7天。\n\n三、发票与账单",
+            "score": 0.6922953128814697,
+            "summary": "",
+            "file_id": "94257c96c9864ceaba03f0ddc3fe97db",
+            "file_name": "hotel_front_desk_393a2df631.txt",
+            "knowledge_id": "t_2aadac46967e4487",
+            "update_time": "2026-08-14T17:19:06.225721"
+          },
+          {
+            "chunk_id": "hotel_7e23186d1c7f4c0b8f6c7ef61057a76c",
+            "content": "中发起，客房部确认迷你吧、毛巾和遥控器齐全后释放房间。\n客人离店后遗留物品由客房部登记保管30天，贵重物品移交礼宾部保管90天。\n退房高峰为11:00至12:30，建议提前在前台或小程序办理快速退房。\n快速退房不需要现场查房，但保留后补账单的权利，账单差异在离店后7天内联系客人确认。",
+            "score": 0.6415735483169556,
+            "summary": "",
+            "file_id": "725f0cd5a5644f4d84e1f5f71fda78bb",
+            "file_name": "hotel_rooms_facilities_fcc36b8d39.txt",
+            "knowledge_id": "t_2aadac46967e4487",
+            "update_time": "2026-08-14T17:19:09.151188"
+          },
+          {
+            "chunk_id": "hotel_dc82bcda573e454d9dd263c2a09069cc",
+            "content": "使用率不作为客房考核指标。\n客房冰箱内的收费饮料会在退房时由前台人工核对，夜间消费记录同步到客房账单。\n\n八、门禁与安全\n客房电子门锁使用磁卡和手机NFC两种方式，退房后门锁权限在30分钟内自动关闭。\n客人报失房卡后，前台会立即注销旧卡并补发新卡，报失前发生的房间消费仍由客人核实。\n安全门链只允许住客本人使用，访客进入客房需要在1楼登记身份信息。\n客房内禁止使用大功率电器，电热水壶以外的大功率设备需要提交前台审批。\n\n九、清洁与维修\n客房日常清扫时间为10:00至15:00，请勿打扰状态超过6小时时客房部会在系统中标记。\n维修报修分为加急和普通两类，加急维修在2小时内响应，普通维修在当日营业结束前响应。\n空调、电视和马桶故障属于加急维修，灯泡更换和衣架补充属于普通维修。\n维修人员进入客房前会先敲门并说明来意，房间有贵重物品时建议放入保险箱后再离开。\n\n十、退房与查房\n退房查房由前台在系统中发起，客房部确认迷你吧、毛巾和遥控器齐全后释放房间。\n客人离店后遗留物品由客房部登记保管30天，贵重物品移交礼宾部保管90天。\n退房高峰为11:00至12:30，建议提前在前台或小程序办理快速退房。",
+            "score": 0.5815062522888184,
+            "summary": "",
+            "file_id": "725f0cd5a5644f4d84e1f5f71fda78bb",
+            "file_name": "hotel_rooms_facilities_fcc36b8d39.txt",
+            "knowledge_id": "t_2aadac46967e4487",
+            "update_time": "2026-08-14T17:19:09.151188"
+          },
+          {
+            "chunk_id": "hotel_9a3e103061d148cea194f23d353ac257",
+            "content": "待人员应用该偏好。\n协议价房间不可与其他会员优惠叠加，但会员积分照常累积。\n\n九、前台交接班\n早班交接时间为07:30，晚班交接时间为19:30，交接内容包括在住客人、待办事项、房态异常和未完成投诉。\n交接后出现责任不清的情况时，以交班记录中的备注和系统日志为准。\n前台领班每天抽查10%的入住登记单，发现证件信息不完整时在当天营业报表中记录并整改。\n每班最后一名员工需要检查备用金、发票库存和门禁卡数量，并在交接表上签字确认。",
+            "score": 0.5592788457870483,
+            "summary": "",
+            "file_id": "94257c96c9864ceaba03f0ddc3fe97db",
+            "file_name": "hotel_front_desk_393a2df631.txt",
+            "knowledge_id": "t_2aadac46967e4487",
+            "update_time": "2026-08-14T17:19:06.225721"
+          },
+          {
+            "chunk_id": "hotel_c2d50b8045a44ef2b8bf2b3243033e3b",
+            "content": "、维修和预离四类房态。\n所有手工改单操作必须填写备注，备注内容包括操作原因、操作人和审批人。\n\n七、多住客与房间分配\n同一订单包含多间房时，前台会按入住人姓名分别建立客人档案，避免积分和账单归属混淆。\n两间房由同一人结算时，可以在入住时登记统一结算，并在账单备注中写明另一间房号。\n相邻房、高楼层、安静楼层等偏好只能备注，不保证实际分配；确认房源时会优先考虑会员等级。\n房间更换需要重新核验身份证件，换房后原房卡立即失效，新房卡在换房完成后30分钟内发放。\n团体入住超过10间房时，需要提前一天发送入住名单，前台按名单分批办理，单批不超过30人。\n\n八、常客与公司协议\n公司协议价仅对签订了年度住房协议的客户生效，入住时必须出示公司员工证件或确认邮件。\n协议客人可以申请发票月结，月结账单每月5日前发送到协议联系人邮箱。\n前台在协议客人首次入住时会备注默认偏好，之后每次入住自动提醒接待人员应用该偏好。\n协议价房间不可与其他会员优惠叠加，但会员积分照常累积。\n\n九、前台交接班\n早班交接时间为07:30，晚班交接时间为19:30，交接内容包括在住客人、待办事项、房态异常和未完成投诉。",
+            "score": 0.5483357310295105,
+            "summary": "",
+            "file_id": "94257c96c9864ceaba03f0ddc3fe97db",
+            "file_name": "hotel_front_desk_393a2df631.txt",
+            "knowledge_id": "t_2aadac46967e4487",
+            "update_time": "2026-08-14T17:19:06.225721"
+          }
+        ],
+        "latency_ms": 14457.159,
+        "timings": {
+          "total_ms": 14457.159
+        },
+        "availability": {
+          "query_rewrite": false,
+          "summary": false,
+          "rerank": false,
+          "candidate_count": 5
+        }
+      },
+      "optimized": {
+        "expected_chunk_ids": [
+          "hotel_871f885e868f4ff28a482d916d3a1a62"
+        ],
+        "retrieved_chunk_ids": [
+          "hotel_871f885e868f4ff28a482d916d3a1a62"
+        ],
+        "matched_expected_chunk_ids": [
+          "hotel_871f885e868f4ff28a482d916d3a1a62"
+        ],
+        "recall_at_k": 1.0,
+        "mrr_at_k": 1.0,
+        "hit_at_k": 1.0,
+        "evidence": {
+          "fact_count": 1,
+          "matched_single_doc_count": 1,
+          "matched_joined_count": 1,
+          "fact_results": [
+            {
+              "fact": "酒店入住时间为下午14:00，退房时间为中午12:00，前台24小时值班，行李可以寄存，延迟退房需提前联系前台确认房态。",
+              "matched_single_doc": true,
+              "matched_joined": true
+            }
+          ]
+        },
+        "retrieved_documents": [
+          {
+            "chunk_id": "hotel_871f885e868f4ff28a482d916d3a1a62",
+            "content": "酒店前台服务手册（2026版）\n\n一、入住与退房\n酒店入住时间为下午14:00，退房时间为中午12:00，前台24小时值班，行李可以寄存，延迟退房需提前联系前台确认房态。\n提前到店且房态允许时，前台会优先安排立即入住；如果客房尚未准备好，客人可以在大堂休息区等待。\n免费取消截止时间为入住日前一天18:00，超过该时间取消将收取首晚房费。\n身份证件信息不一致时，前台需要重新核对预订人姓名并联系订单渠道确认。\n退房时如果房间内迷你吧、洗衣或客房用餐有未结账项，前台会先与客人确认金额再完成结算。\n住客希望保留房间到下午再离开时，可申请延迟退房；金卡会员最晚可延至14:00，白金卡会员最晚可延至16:00。\n\n二、行李寄存与外送\n行李寄存时间为06:00至23:00，贵重物品建议放入客房保险箱，入住前寄存的行李由礼宾部登记并发放寄存牌。\n客人凭寄存牌取回行李，寄存牌遗失时需要出示身份证件并签署声明。\n外卖和快递统一放置在一层外卖柜，酒店不代收生鲜冷链食品。\n客人离店后如需补寄物品，前台会登记收件地址并告知邮费到付。\n大型行李、滑雪板和婴儿车可以存放在礼宾部储物间，存放时间不超过7天。\n\n三、发票与账单",
+            "summary": "",
+            "file_id": "94257c96c9864ceaba03f0ddc3fe97db",
+            "file_name": "hotel_front_desk_393a2df631.txt",
+            "knowledge_id": "t_2aadac46967e4487",
+            "update_time": "2026-08-14T17:19:06.225721",
+            "score": 0.633105412335295
+          }
+        ],
+        "latency_ms": 7643.014,
+        "timings": {
+          "query_rewrite_ms": 5448.686,
+          "retrieval_ms": 1736.215,
+          "rerank_ms": 458.113,
+          "total_ms": 7643.014
+        },
+        "availability": {
+          "query_rewrite": true,
+          "summary": false,
+          "rerank": true,
+          "candidate_count": 10
+        }
+      },
+      "delta": {
+        "recall_at_k": 0.0,
+        "mrr_at_k": 0.0,
+        "hit_at_k": 0.0,
+        "latency_ms": -6814.145
+      }
+    },
+    {
+      "query_id": "live_ab_h_wifi",
+      "query": "客房Wi-Fi密码是多少？",
+      "difficulty": "easy",
+      "baseline": {
+        "expected_chunk_ids": [
+          "hotel_d1f6a24e183f494ea0f35bba9c993eb2"
+        ],
+        "retrieved_chunk_ids": [
+          "hotel_d1f6a24e183f494ea0f35bba9c993eb2",
+          "hotel_dc82bcda573e454d9dd263c2a09069cc",
+          "hotel_f077973ea332401897451d981b1119f1",
+          "hotel_9a3e103061d148cea194f23d353ac257",
+          "hotel_7e23186d1c7f4c0b8f6c7ef61057a76c"
+        ],
+        "matched_expected_chunk_ids": [
+          "hotel_d1f6a24e183f494ea0f35bba9c993eb2"
+        ],
+        "recall_at_k": 1.0,
+        "mrr_at_k": 1.0,
+        "hit_at_k": 1.0,
+        "evidence": {
+          "fact_count": 1,
+          "matched_single_doc_count": 1,
+          "matched_joined_count": 1,
+          "fact_results": [
+            {
+              "fact": "客房无线网络名称为GrandHotel-Guest，密码为CheckIn2026，公共区域免费连接，行政楼层网络无需密码自动连接。",
+              "matched_single_doc": true,
+              "matched_joined": true
+            }
+          ]
+        },
+        "retrieved_documents": [
+          {
+            "chunk_id": "hotel_d1f6a24e183f494ea0f35bba9c993eb2",
+            "content": "酒店客房与设施手册（2026版）\n\n一、无线网络\n客房无线网络名称为GrandHotel-Guest，密码为CheckIn2026，公共区域免费连接，行政楼层网络无需密码自动连接。\n连接WiFi后请选择公共登录页并勾选同意条款，普通住客可同时连接两台设备。\n商务客人在预订时勾选商务套餐，可申请独立访客网络并最多连接五台设备。\n网络故障时请先关闭WiFi重新连接，仍无法使用时拨打前台分机0转网络维护。\n\n二、客房配置\n标准客房面积38平方米，配置1.8米大床、65英寸电视、独立卫浴和胶囊咖啡机。\n客房迷你吧首轮免费，包含两瓶矿泉水和两罐软饮，补充消费按价格表收费，退房时前台会核对迷你吧消费。\n客房空调默认温度为24度，如需调整可拨打前台分机0。\n行政楼层客房额外提供熨烫机、蓝牙音响和浴袍，入住时前台会逐一说明设施位置。\n每间客房配有保险箱和冰箱，保险箱初始密码由客人自行设置。\n\n三、洗衣服务\n酒店提供24小时洗衣服务，普通洗衣当天20:00前送回，加急洗衣3小时送回，收费为普通服务的1.5倍。\n洗衣袋和洗衣单放在衣柜下层，填写房间号后拨0通知客房部取件。\n西装和礼服建议使用挂烫服务，挂烫服务不参与普通洗衣的加急条款。",
+            "score": 0.6515432596206665,
+            "summary": "",
+            "file_id": "725f0cd5a5644f4d84e1f5f71fda78bb",
+            "file_name": "hotel_rooms_facilities_fcc36b8d39.txt",
+            "knowledge_id": "t_2aadac46967e4487",
+            "update_time": "2026-08-14T17:19:09.151188"
+          },
+          {
+            "chunk_id": "hotel_dc82bcda573e454d9dd263c2a09069cc",
+            "content": "使用率不作为客房考核指标。\n客房冰箱内的收费饮料会在退房时由前台人工核对，夜间消费记录同步到客房账单。\n\n八、门禁与安全\n客房电子门锁使用磁卡和手机NFC两种方式，退房后门锁权限在30分钟内自动关闭。\n客人报失房卡后，前台会立即注销旧卡并补发新卡，报失前发生的房间消费仍由客人核实。\n安全门链只允许住客本人使用，访客进入客房需要在1楼登记身份信息。\n客房内禁止使用大功率电器，电热水壶以外的大功率设备需要提交前台审批。\n\n九、清洁与维修\n客房日常清扫时间为10:00至15:00，请勿打扰状态超过6小时时客房部会在系统中标记。\n维修报修分为加急和普通两类，加急维修在2小时内响应，普通维修在当日营业结束前响应。\n空调、电视和马桶故障属于加急维修，灯泡更换和衣架补充属于普通维修。\n维修人员进入客房前会先敲门并说明来意，房间有贵重物品时建议放入保险箱后再离开。\n\n十、退房与查房\n退房查房由前台在系统中发起，客房部确认迷你吧、毛巾和遥控器齐全后释放房间。\n客人离店后遗留物品由客房部登记保管30天，贵重物品移交礼宾部保管90天。\n退房高峰为11:00至12:30，建议提前在前台或小程序办理快速退房。",
+            "score": 0.5315181612968445,
+            "summary": "",
+            "file_id": "725f0cd5a5644f4d84e1f5f71fda78bb",
+            "file_name": "hotel_rooms_facilities_fcc36b8d39.txt",
+            "knowledge_id": "t_2aadac46967e4487",
+            "update_time": "2026-08-14T17:19:09.151188"
+          },
+          {
+            "chunk_id": "hotel_f077973ea332401897451d981b1119f1",
+            "content": "客房电话确认餐品，餐车请放置门外走廊，由客房部统一回收。\n酒类送餐需要出示有效身份证件，身份核验通过后才会出餐。\n\n四、下午茶与行政酒廊\n大堂下午茶供应时间为14:00至17:00，双人套餐168元。\n行政酒廊开放时间为15:00至23:00，行政楼层住客可免费使用，欢乐时光为17:30至20:00。\n行政酒廊同时提供会议室租用和打印服务，入住期间免费打印20页。\n下午茶套餐每份包含三层点心、两份饮品和当季水果。\n\n五、特殊饮食\n酒店支持清真餐、素食和无麸质餐，请提前24小时联系餐饮部确认。\n宴会用餐按每桌10人配置，菜单更换需提前3日确认。\n对坚果、蛋奶和麸质过敏的客人，餐厅会在下单时单独备注并调整餐具流程。\n宗教节日期间，清真餐厅会临时调整供货渠道并公示菜单。\n\n六、会议与宴会餐饮\n宴会厅可容纳200人，配备LED屏和同声传译接口，下午场和晚场分开预订。\n宴会茶歇按每人48元计费，预订满20桌可赠送贵宾休息室。\n自助晚宴按每人238元计费，含两道饮品，酒水按实际开瓶数结算。\n宴会菜单确认后如需临时增加桌数，需要在开餐前24小时通知宴会销售。\n\n七、餐厅预订与候位",
+            "score": 0.467645525932312,
+            "summary": "",
+            "file_id": "50a83992a96743cab421be3af94d94c0",
+            "file_name": "hotel_food_beverage_a51c62903f.txt",
+            "knowledge_id": "t_2aadac46967e4487",
+            "update_time": "2026-08-14T17:19:05.322359"
+          },
+          {
+            "chunk_id": "hotel_9a3e103061d148cea194f23d353ac257",
+            "content": "待人员应用该偏好。\n协议价房间不可与其他会员优惠叠加，但会员积分照常累积。\n\n九、前台交接班\n早班交接时间为07:30，晚班交接时间为19:30，交接内容包括在住客人、待办事项、房态异常和未完成投诉。\n交接后出现责任不清的情况时，以交班记录中的备注和系统日志为准。\n前台领班每天抽查10%的入住登记单，发现证件信息不完整时在当天营业报表中记录并整改。\n每班最后一名员工需要检查备用金、发票库存和门禁卡数量，并在交接表上签字确认。",
+            "score": 0.4602838158607483,
+            "summary": "",
+            "file_id": "94257c96c9864ceaba03f0ddc3fe97db",
+            "file_name": "hotel_front_desk_393a2df631.txt",
+            "knowledge_id": "t_2aadac46967e4487",
+            "update_time": "2026-08-14T17:19:06.225721"
+          },
+          {
+            "chunk_id": "hotel_7e23186d1c7f4c0b8f6c7ef61057a76c",
+            "content": "中发起，客房部确认迷你吧、毛巾和遥控器齐全后释放房间。\n客人离店后遗留物品由客房部登记保管30天，贵重物品移交礼宾部保管90天。\n退房高峰为11:00至12:30，建议提前在前台或小程序办理快速退房。\n快速退房不需要现场查房，但保留后补账单的权利，账单差异在离店后7天内联系客人确认。",
+            "score": 0.45952725410461426,
+            "summary": "",
+            "file_id": "725f0cd5a5644f4d84e1f5f71fda78bb",
+            "file_name": "hotel_rooms_facilities_fcc36b8d39.txt",
+            "knowledge_id": "t_2aadac46967e4487",
+            "update_time": "2026-08-14T17:19:09.151188"
+          }
+        ],
+        "latency_ms": 467.326,
+        "timings": {
+          "total_ms": 467.326
+        },
+        "availability": {
+          "query_rewrite": false,
+          "summary": false,
+          "rerank": false,
+          "candidate_count": 5
+        }
+      },
+      "optimized": {
+        "expected_chunk_ids": [
+          "hotel_d1f6a24e183f494ea0f35bba9c993eb2"
+        ],
+        "retrieved_chunk_ids": [
+          "hotel_d1f6a24e183f494ea0f35bba9c993eb2"
+        ],
+        "matched_expected_chunk_ids": [
+          "hotel_d1f6a24e183f494ea0f35bba9c993eb2"
+        ],
+        "recall_at_k": 1.0,
+        "mrr_at_k": 1.0,
+        "hit_at_k": 1.0,
+        "evidence": {
+          "fact_count": 1,
+          "matched_single_doc_count": 1,
+          "matched_joined_count": 1,
+          "fact_results": [
+            {
+              "fact": "客房无线网络名称为GrandHotel-Guest，密码为CheckIn2026，公共区域免费连接，行政楼层网络无需密码自动连接。",
+              "matched_single_doc": true,
+              "matched_joined": true
+            }
+          ]
+        },
+        "retrieved_documents": [
+          {
+            "chunk_id": "hotel_d1f6a24e183f494ea0f35bba9c993eb2",
+            "content": "酒店客房与设施手册（2026版）\n\n一、无线网络\n客房无线网络名称为GrandHotel-Guest，密码为CheckIn2026，公共区域免费连接，行政楼层网络无需密码自动连接。\n连接WiFi后请选择公共登录页并勾选同意条款，普通住客可同时连接两台设备。\n商务客人在预订时勾选商务套餐，可申请独立访客网络并最多连接五台设备。\n网络故障时请先关闭WiFi重新连接，仍无法使用时拨打前台分机0转网络维护。\n\n二、客房配置\n标准客房面积38平方米，配置1.8米大床、65英寸电视、独立卫浴和胶囊咖啡机。\n客房迷你吧首轮免费，包含两瓶矿泉水和两罐软饮，补充消费按价格表收费，退房时前台会核对迷你吧消费。\n客房空调默认温度为24度，如需调整可拨打前台分机0。\n行政楼层客房额外提供熨烫机、蓝牙音响和浴袍，入住时前台会逐一说明设施位置。\n每间客房配有保险箱和冰箱，保险箱初始密码由客人自行设置。\n\n三、洗衣服务\n酒店提供24小时洗衣服务，普通洗衣当天20:00前送回，加急洗衣3小时送回，收费为普通服务的1.5倍。\n洗衣袋和洗衣单放在衣柜下层，填写房间号后拨0通知客房部取件。\n西装和礼服建议使用挂烫服务，挂烫服务不参与普通洗衣的加急条款。",
+            "summary": "",
+            "file_id": "725f0cd5a5644f4d84e1f5f71fda78bb",
+            "file_name": "hotel_rooms_facilities_fcc36b8d39.txt",
+            "knowledge_id": "t_2aadac46967e4487",
+            "update_time": "2026-08-14T17:19:09.151188",
+            "score": 0.29849021906273987
+          }
+        ],
+        "latency_ms": 9114.045,
+        "timings": {
+          "query_rewrite_ms": 7224.822,
+          "retrieval_ms": 1523.5,
+          "rerank_ms": 365.723,
+          "total_ms": 9114.045
+        },
+        "availability": {
+          "query_rewrite": true,
+          "summary": false,
+          "rerank": true,
+          "candidate_count": 10
+        }
+      },
+      "delta": {
+        "recall_at_k": 0.0,
+        "mrr_at_k": 0.0,
+        "hit_at_k": 0.0,
+        "latency_ms": 8646.719
+      }
+    },
+    {
+      "query_id": "live_ab_h_breakfast",
+      "query": "早餐几点供应，住客需要另外付费吗？",
+      "difficulty": "easy",
+      "baseline": {
+        "expected_chunk_ids": [
+          "hotel_f6e3bfbce8aa43f3af32a0b1fdbf90ad"
+        ],
+        "retrieved_chunk_ids": [
+          "hotel_f6e3bfbce8aa43f3af32a0b1fdbf90ad",
+          "hotel_8e2e4938b09e47cdbd2c71f5415f41d3",
+          "hotel_52d79465102949c3b0aff738ad13935e",
+          "hotel_91d400f930c0410b9c7797486bd76fab",
+          "hotel_f00bdc13993d49b3ab7b74850d91ef7e"
+        ],
+        "matched_expected_chunk_ids": [
+          "hotel_f6e3bfbce8aa43f3af32a0b1fdbf90ad"
+        ],
+        "recall_at_k": 1.0,
+        "mrr_at_k": 1.0,
+        "hit_at_k": 1.0,
+        "evidence": {
+          "fact_count": 1,
+          "matched_single_doc_count": 1,
+          "matched_joined_count": 1,
+          "fact_results": [
+            {
+              "fact": "自助早餐供应时间为06:30至10:00，地点在二楼餐厅，住客含双早，额外早餐每人68元，儿童1.2米以下免费。",
+              "matched_single_doc": true,
+              "matched_joined": true
+            }
+          ]
+        },
+        "retrieved_documents": [
+          {
+            "chunk_id": "hotel_f6e3bfbce8aa43f3af32a0b1fdbf90ad",
+            "content": "酒店餐饮服务手册（2026版）\n\n一、自助早餐\n自助早餐供应时间为06:30至10:00，地点在二楼餐厅，住客含双早，额外早餐每人68元，儿童1.2米以下免费。\n早餐高峰期建议错峰用餐，周六周日延长至10:30。\n早餐支持打包，打包餐盒需在前台领取，仅限堂食客人使用。\n自助早餐提供中式粥品、西式面包、现煮面档和水果沙拉，每日更换三款热菜。\n\n二、中餐与西餐\n中餐厅午市营业时间为11:30至14:00，晚市为17:30至21:30，主打江浙菜。\n西餐厅提供零点菜单和主厨套餐，海鲜过敏等饮食需求可提前一天备注。\n餐厅在大众点评和酒店小程序开放预订，高峰时段保留位子15分钟。\n包间低消为每人268元，包间服务费为消费金额的15%。\n\n三、客房送餐\n客房送餐服务时间为06:00至23:30，送餐费为每单30元，晚间加收10%。\n送餐订单可通过客房电话拨2下单，也可以在前台小程序下单。\n送餐员离开后会通过客房电话确认餐品，餐车请放置门外走廊，由客房部统一回收。\n酒类送餐需要出示有效身份证件，身份核验通过后才会出餐。\n\n四、下午茶与行政酒廊\n大堂下午茶供应时间为14:00至17:00，双人套餐168元。",
+            "score": 0.6455609202384949,
+            "summary": "",
+            "file_id": "50a83992a96743cab421be3af94d94c0",
+            "file_name": "hotel_food_beverage_a51c62903f.txt",
+            "knowledge_id": "t_2aadac46967e4487",
+            "update_time": "2026-08-14T17:19:05.322359"
+          },
+          {
+            "chunk_id": "hotel_8e2e4938b09e47cdbd2c71f5415f41d3",
+            "content": "有4次免费升房券和2次行政酒廊全天使用权。\n会员专属价仅在官网、小程序和客服热线预订时生效，第三方平台订单一律不适用。\n\n四、会议与宴会\n会议套餐包含投影、音响、白板和茶水，全天半日价12000元起。\n宴会预订需支付30%定金，提前7天取消可全额退还定金。\n会议场地布置需要在活动前一日22:00前完成，超时布置按每小时3000元收费。\n年会套餐根据桌数分为三档，30桌以上可赠送舞台灯光和主持人。\n\n五、机场班车\n酒店提供浦东机场免费班车，发车时间为每小时整点，上车地点为酒店正门右侧，需要至少提前30分钟在前台预约座位。\n虹桥机场班车每天06:00至22:00每两小时一班，单程收费80元。\n班车准点发车，错过班车的客人需要自行改乘后续班次，不单独等待。\n携带轮椅和大型行李的客人预约时需要提前告知，礼宾会预留无障碍座位。\n\n六、礼宾服务\n礼宾部提供景点门票代订、餐厅预订和鲜花布置服务。\n住店客人可免费借用雨伞、充电宝和儿童推车，借用时间不超过24小时。\n贵重物品寄存使用客房保险箱，礼宾部不代为保管现金和证件原件。\n礼宾团队可以提供城市地图、当日天气和交通建议，所有推荐内容均标注第三方信息。\n\n七、会员活动与促销",
+            "score": 0.5151751637458801,
+            "summary": "",
+            "file_id": "ed00b92e1e4e4e4d9eafae6921a399f8",
+            "file_name": "hotel_membership_promo_c7e08286b3.txt",
+            "knowledge_id": "t_2aadac46967e4487",
+            "update_time": "2026-08-14T17:19:07.325546"
+          },
+          {
+            "chunk_id": "hotel_52d79465102949c3b0aff738ad13935e",
+            "content": "关食材。\n\n九、外卖与打包\n酒店餐厅不提供外卖配送服务，但客人可以自行在餐厅自提打包菜品。\n自助早餐打包餐盒仅限堂食客人使用，每人限领两个。\n蛋糕类产品需要提前24小时预订，预订后不支持当日取消退款。\n餐厅垃圾处理按干湿分类，餐厨垃圾每天22:00前由指定回收商清运。\n\n十、酒水服务\n餐厅酒水单按季度更新，价格包含税费和服务费。\n自带酒水每瓶收取开瓶费100元，包间客人自带酒水开瓶费为每瓶150元。\n饮酒客人离开时需要确认是否由代驾接送，前台可以协助联系合作代驾公司。\n未成年人和醉酒状态客人不得进入酒吧区域，酒吧工作人员有权拒绝继续供酒。",
+            "score": 0.5033376812934875,
+            "summary": "",
+            "file_id": "50a83992a96743cab421be3af94d94c0",
+            "file_name": "hotel_food_beverage_a51c62903f.txt",
+            "knowledge_id": "t_2aadac46967e4487",
+            "update_time": "2026-08-14T17:19:05.322359"
+          },
+          {
+            "chunk_id": "hotel_91d400f930c0410b9c7797486bd76fab",
+            "content": "价格不叠加早餐券、升房券等会员权益，除非合同另有约定。协议公司可设置月结账户，月结账单每月5日生成，15日前完成付款。连续三个月月结逾期，酒店有权暂停协议价格，恢复前需结清欠款。\n\n5. 商务中心服务\n商务中心位于一楼靠近大堂，开放时间为08:00至22:00。提供打印、复印、扫描、国际长途、视频会议和翻译服务。打印黑白单面每页2元，彩色每页5元，身份证复印免费。视频会议室可容纳8人，使用需提前2小时预约，酒店住客每日可免费使用1小时，超出部分按每小时100元收费。\n\n6. 宴会厅与多功能厅\n酒店共有12个会议及宴会空间。一楼大宴会厅可容纳400人剧院式、240人圆桌宴会，三层多功能厅可容纳160人剧场式，另有六间中小会议室。所有宴会场地均配备投影、音响和有线无线网络，舞台、灯光和同声传译设备需单独报价。场地使用时间默认白天档09:00至17:00，晚间档18:00至23:00。\n\n7. 会议套餐与茶歇",
+            "score": 0.500240683555603,
+            "summary": "",
+            "file_id": "93d8d005a57649098e97e131fdce57ea",
+            "file_name": "hotel_booking_events_1ff39c831e.txt",
+            "knowledge_id": "t_2aadac46967e4487",
+            "update_time": "2026-08-14T17:19:04.383413"
+          },
+          {
+            "chunk_id": "hotel_f00bdc13993d49b3ab7b74850d91ef7e",
+            "content": "通洗衣当天20:00前送回，加急洗衣3小时送回，收费为普通服务的1.5倍。\n洗衣袋和洗衣单放在衣柜下层，填写房间号后拨0通知客房部取件。\n西装和礼服建议使用挂烫服务，挂烫服务不参与普通洗衣的加急条款。\n洗衣账单会同步至客房账上，退房时统一结算，支持微信、支付宝和信用卡。\n\n四、停车场\n停车场共三层，住客免费停车，非住客每小时20元每日封顶100元，新能源车位位于B2层并预留充电桩。\n住客车辆登记后可在入住期间自由进出，离店时无需再次缴费。\n超长车辆建议停放在B1层货车位，车位宽度3.5米，高度限高2.2米。\n充电桩使用高峰为18:00至22:00，充电完成后请及时移车。\n\n五、健身与泳池\n健身房位于三楼的玻璃房，开放时间为06:00至22:00，住客凭房卡进入，18岁以下未成年人需要在监护人陪同下使用。\n健身房提供跑步机、椭圆机、自由重量区和瑜伽垫，私教课程需要提前2小时预约。\n游泳池水温恒定为28度，开放时间为07:00至21:00，最深1.6米，进入泳池区域必须穿泳衣并佩戴泳帽。\n泳池禁止跳水、奔跑和携带玻璃器皿，儿童下水需要家长全程陪同。\n\n六、宠物与特殊需求",
+            "score": 0.49966341257095337,
+            "summary": "",
+            "file_id": "725f0cd5a5644f4d84e1f5f71fda78bb",
+            "file_name": "hotel_rooms_facilities_fcc36b8d39.txt",
+            "knowledge_id": "t_2aadac46967e4487",
+            "update_time": "2026-08-14T17:19:09.151188"
+          }
+        ],
+        "latency_ms": 332.962,
+        "timings": {
+          "total_ms": 332.962
+        },
+        "availability": {
+          "query_rewrite": false,
+          "summary": false,
+          "rerank": false,
+          "candidate_count": 5
+        }
+      },
+      "optimized": {
+        "expected_chunk_ids": [
+          "hotel_f6e3bfbce8aa43f3af32a0b1fdbf90ad"
+        ],
+        "retrieved_chunk_ids": [
+          "hotel_f6e3bfbce8aa43f3af32a0b1fdbf90ad"
+        ],
+        "matched_expected_chunk_ids": [
+          "hotel_f6e3bfbce8aa43f3af32a0b1fdbf90ad"
+        ],
+        "recall_at_k": 1.0,
+        "mrr_at_k": 1.0,
+        "hit_at_k": 1.0,
+        "evidence": {
+          "fact_count": 1,
+          "matched_single_doc_count": 1,
+          "matched_joined_count": 1,
+          "fact_results": [
+            {
+              "fact": "自助早餐供应时间为06:30至10:00，地点在二楼餐厅，住客含双早，额外早餐每人68元，儿童1.2米以下免费。",
+              "matched_single_doc": true,
+              "matched_joined": true
+            }
+          ]
+        },
+        "retrieved_documents": [
+          {
+            "chunk_id": "hotel_f6e3bfbce8aa43f3af32a0b1fdbf90ad",
+            "content": "酒店餐饮服务手册（2026版）\n\n一、自助早餐\n自助早餐供应时间为06:30至10:00，地点在二楼餐厅，住客含双早，额外早餐每人68元，儿童1.2米以下免费。\n早餐高峰期建议错峰用餐，周六周日延长至10:30。\n早餐支持打包，打包餐盒需在前台领取，仅限堂食客人使用。\n自助早餐提供中式粥品、西式面包、现煮面档和水果沙拉，每日更换三款热菜。\n\n二、中餐与西餐\n中餐厅午市营业时间为11:30至14:00，晚市为17:30至21:30，主打江浙菜。\n西餐厅提供零点菜单和主厨套餐，海鲜过敏等饮食需求可提前一天备注。\n餐厅在大众点评和酒店小程序开放预订，高峰时段保留位子15分钟。\n包间低消为每人268元，包间服务费为消费金额的15%。\n\n三、客房送餐\n客房送餐服务时间为06:00至23:30，送餐费为每单30元，晚间加收10%。\n送餐订单可通过客房电话拨2下单，也可以在前台小程序下单。\n送餐员离开后会通过客房电话确认餐品，餐车请放置门外走廊，由客房部统一回收。\n酒类送餐需要出示有效身份证件，身份核验通过后才会出餐。\n\n四、下午茶与行政酒廊\n大堂下午茶供应时间为14:00至17:00，双人套餐168元。",
+            "summary": "",
+            "file_id": "50a83992a96743cab421be3af94d94c0",
+            "file_name": "hotel_food_beverage_a51c62903f.txt",
+            "knowledge_id": "t_2aadac46967e4487",
+            "update_time": "2026-08-14T17:19:05.322359",
+            "score": 0.3848680891071432
+          }
+        ],
+        "latency_ms": 14322.985,
+        "timings": {
+          "query_rewrite_ms": 12363.559,
+          "retrieval_ms": 1539.275,
+          "rerank_ms": 420.151,
+          "total_ms": 14322.985
+        },
+        "availability": {
+          "query_rewrite": true,
+          "summary": false,
+          "rerank": true,
+          "candidate_count": 10
+        }
+      },
+      "delta": {
+        "recall_at_k": 0.0,
+        "mrr_at_k": 0.0,
+        "hit_at_k": 0.0,
+        "latency_ms": 13990.023
+      }
+    },
+    {
+      "query_id": "live_ab_h_shuttle",
+      "query": "去浦东机场的班车怎么预约？",
+      "difficulty": "normal",
+      "baseline": {
+        "expected_chunk_ids": [
+          "hotel_8e2e4938b09e47cdbd2c71f5415f41d3"
+        ],
+        "retrieved_chunk_ids": [
+          "hotel_89a9d3032b3045008ad9e24e6f6bb057",
+          "hotel_8e2e4938b09e47cdbd2c71f5415f41d3",
+          "hotel_3b3042e3803245b4ab6f5f4d3baf3951",
+          "hotel_f6e3bfbce8aa43f3af32a0b1fdbf90ad",
+          "hotel_dcb20a3424a54dd78b22f9bbe34cef2f"
+        ],
+        "matched_expected_chunk_ids": [
+          "hotel_8e2e4938b09e47cdbd2c71f5415f41d3"
+        ],
+        "recall_at_k": 1.0,
+        "mrr_at_k": 0.5,
+        "hit_at_k": 1.0,
+        "evidence": {
+          "fact_count": 1,
+          "matched_single_doc_count": 1,
+          "matched_joined_count": 1,
+          "fact_results": [
+            {
+              "fact": "酒店提供浦东机场免费班车，发车时间为每小时整点，上车地点为酒店正门右侧，需要至少提前30分钟在前台预约座位。",
+              "matched_single_doc": true,
+              "matched_joined": true
+            }
+          ]
+        },
+        "retrieved_documents": [
+          {
+            "chunk_id": "hotel_89a9d3032b3045008ad9e24e6f6bb057",
+            "content": "酒店交通与康体服务手册 V2.3\n适用范围：Grand Hotel 各部门运营、前台、礼宾、康体中心\n更新日期：2026-05-10\n\n1. 机场及高铁接送服务\n酒店与浦东机场、虹桥机场、上海虹桥站保持固定班车合作。浦东机场班车每小时整点从酒店正门右侧发车，全程约50分钟；虹桥枢纽班车每两小时一班，上车位置同样在正门右侧。班车免费对住客开放，非住客单程收费80元。机场班车座位有限，需要至少提前30分钟在前台预约；取消预约需在发车前2小时通知礼宾，否则计入爽约记录。\n\n2. 预约与改签规则\n住客可以通过前台电话、礼宾专线和酒店小程序预约接送。预约时需提供姓名、房号、航班号和预计出发时间。改签只允许在发车前1小时办理，同一订单最多改签两次。接机服务以航班实际落地时间为准，司机可免费等待60分钟，超过60分钟按每小时50元收取等待费。凌晨00:00至05:00之间到达的航班，接机需要提前一天预约。\n\n3. 自驾与代客泊车",
+            "score": 0.7142786383628845,
+            "summary": "",
+            "file_id": "6c9dc14cf6a5405ea0dd3f51645177f1",
+            "file_name": "hotel_transport_wellness_6c30ef4f4a.txt",
+            "knowledge_id": "t_2aadac46967e4487",
+            "update_time": "2026-08-14T17:19:10.211002"
+          },
+          {
+            "chunk_id": "hotel_8e2e4938b09e47cdbd2c71f5415f41d3",
+            "content": "有4次免费升房券和2次行政酒廊全天使用权。\n会员专属价仅在官网、小程序和客服热线预订时生效，第三方平台订单一律不适用。\n\n四、会议与宴会\n会议套餐包含投影、音响、白板和茶水，全天半日价12000元起。\n宴会预订需支付30%定金，提前7天取消可全额退还定金。\n会议场地布置需要在活动前一日22:00前完成，超时布置按每小时3000元收费。\n年会套餐根据桌数分为三档，30桌以上可赠送舞台灯光和主持人。\n\n五、机场班车\n酒店提供浦东机场免费班车，发车时间为每小时整点，上车地点为酒店正门右侧，需要至少提前30分钟在前台预约座位。\n虹桥机场班车每天06:00至22:00每两小时一班，单程收费80元。\n班车准点发车，错过班车的客人需要自行改乘后续班次，不单独等待。\n携带轮椅和大型行李的客人预约时需要提前告知，礼宾会预留无障碍座位。\n\n六、礼宾服务\n礼宾部提供景点门票代订、餐厅预订和鲜花布置服务。\n住店客人可免费借用雨伞、充电宝和儿童推车，借用时间不超过24小时。\n贵重物品寄存使用客房保险箱，礼宾部不代为保管现金和证件原件。\n礼宾团队可以提供城市地图、当日天气和交通建议，所有推荐内容均标注第三方信息。\n\n七、会员活动与促销",
+            "score": 0.6475486755371094,
+            "summary": "",
+            "file_id": "ed00b92e1e4e4e4d9eafae6921a399f8",
+            "file_name": "hotel_membership_promo_c7e08286b3.txt",
+            "knowledge_id": "t_2aadac46967e4487",
+            "update_time": "2026-08-14T17:19:07.325546"
+          },
+          {
+            "chunk_id": "hotel_3b3042e3803245b4ab6f5f4d3baf3951",
+            "content": "订单最多改签两次。接机服务以航班实际落地时间为准，司机可免费等待60分钟，超过60分钟按每小时50元收取等待费。凌晨00:00至05:00之间到达的航班，接机需要提前一天预约。\n\n3. 自驾与代客泊车\n酒店地下停车场共三层，P1层为住客长期停放区，P2层为临时访客车位，B2层为新能源车专用区并预留240个充电桩。住客凭房卡免费停车并可在离店前领取离场券；非住客前两小时免费，之后每小时20元，单日封顶100元。代客泊车服务时间为07:00至23:00，贵重物品请自行携带，酒店对车内物品丢失不承担责任。\n\n4. 周边出行建议\n酒店礼宾可协助叫车，出租车候车点位于正门右侧。地铁11号线三林站步行约12分钟，酒店每天08:00至20:00提供地铁口摆渡车，每30分钟一班。如需租车，礼宾推荐持证合作租车行，并可在酒店完成车辆交接；租车人需年满23周岁且持有效驾驶证满一年。共享单车与网约车停放区位于侧门，不得占用正门消防通道。\n\n5. 康体俱乐部开放时间",
+            "score": 0.5835114121437073,
+            "summary": "",
+            "file_id": "6c9dc14cf6a5405ea0dd3f51645177f1",
+            "file_name": "hotel_transport_wellness_6c30ef4f4a.txt",
+            "knowledge_id": "t_2aadac46967e4487",
+            "update_time": "2026-08-14T17:19:10.211002"
+          },
+          {
+            "chunk_id": "hotel_f6e3bfbce8aa43f3af32a0b1fdbf90ad",
+            "content": "酒店餐饮服务手册（2026版）\n\n一、自助早餐\n自助早餐供应时间为06:30至10:00，地点在二楼餐厅，住客含双早，额外早餐每人68元，儿童1.2米以下免费。\n早餐高峰期建议错峰用餐，周六周日延长至10:30。\n早餐支持打包，打包餐盒需在前台领取，仅限堂食客人使用。\n自助早餐提供中式粥品、西式面包、现煮面档和水果沙拉，每日更换三款热菜。\n\n二、中餐与西餐\n中餐厅午市营业时间为11:30至14:00，晚市为17:30至21:30，主打江浙菜。\n西餐厅提供零点菜单和主厨套餐，海鲜过敏等饮食需求可提前一天备注。\n餐厅在大众点评和酒店小程序开放预订，高峰时段保留位子15分钟。\n包间低消为每人268元，包间服务费为消费金额的15%。\n\n三、客房送餐\n客房送餐服务时间为06:00至23:30，送餐费为每单30元，晚间加收10%。\n送餐订单可通过客房电话拨2下单，也可以在前台小程序下单。\n送餐员离开后会通过客房电话确认餐品，餐车请放置门外走廊，由客房部统一回收。\n酒类送餐需要出示有效身份证件，身份核验通过后才会出餐。\n\n四、下午茶与行政酒廊\n大堂下午茶供应时间为14:00至17:00，双人套餐168元。",
+            "score": 0.4615436792373657,
+            "summary": "",
+            "file_id": "50a83992a96743cab421be3af94d94c0",
+            "file_name": "hotel_food_beverage_a51c62903f.txt",
+            "knowledge_id": "t_2aadac46967e4487",
+            "update_time": "2026-08-14T17:19:05.322359"
+          },
+          {
+            "chunk_id": "hotel_dcb20a3424a54dd78b22f9bbe34cef2f",
+            "content": "宝和儿童推车，借用时间不超过24小时。\n贵重物品寄存使用客房保险箱，礼宾部不代为保管现金和证件原件。\n礼宾团队可以提供城市地图、当日天气和交通建议，所有推荐内容均标注第三方信息。\n\n七、会员活动与促销\n会员日活动为每月8日，当日入住可累计双倍积分，餐饮消费按每8元累计1积分。\n新会员注册后30天内首次入住，可获得一张升级券，用于当次入住免费升一级房型。\n预售套餐分周末、节假日和连住三档，购买后需提前48小时预约，改期次数不超过1次。\n促销价订单不参与延迟退房和免费升房权益，积分规则以订单页面说明为准。\n\n八、积分兑换细则\n积分兑换免费房晚后，该晚房费不再累计积分，也不再计入会员升级间夜数。\n积分兑换的餐饮代金券自发放之日起30天内有效，过期积分退回原账户。\n积分转让仅限直系亲属，需要双方身份证件到前台办理，每次转让不超过50000积分。\n会员账户连续18个月无有效消费时，积分会被清零，清零前30天短信提醒。\n\n九、会议与宴会增值\n酒店为会议客户提供免费会场WiFi、签到桌和桌卡打印服务。\n会议当天临时增加陪同人员时，按每人每天80元收取场地标准。\n会议结束后需要在2小时内完成结算，月结客户按协议账期执行。",
+            "score": 0.4491720199584961,
+            "summary": "",
+            "file_id": "ed00b92e1e4e4e4d9eafae6921a399f8",
+            "file_name": "hotel_membership_promo_c7e08286b3.txt",
+            "knowledge_id": "t_2aadac46967e4487",
+            "update_time": "2026-08-14T17:19:07.325546"
+          }
+        ],
+        "latency_ms": 445.407,
+        "timings": {
+          "total_ms": 445.407
+        },
+        "availability": {
+          "query_rewrite": false,
+          "summary": false,
+          "rerank": false,
+          "candidate_count": 5
+        }
+      },
+      "optimized": {
+        "expected_chunk_ids": [
+          "hotel_8e2e4938b09e47cdbd2c71f5415f41d3"
+        ],
+        "retrieved_chunk_ids": [
+          "hotel_89a9d3032b3045008ad9e24e6f6bb057",
+          "hotel_8e2e4938b09e47cdbd2c71f5415f41d3"
+        ],
+        "matched_expected_chunk_ids": [
+          "hotel_8e2e4938b09e47cdbd2c71f5415f41d3"
+        ],
+        "recall_at_k": 1.0,
+        "mrr_at_k": 0.5,
+        "hit_at_k": 1.0,
+        "evidence": {
+          "fact_count": 1,
+          "matched_single_doc_count": 1,
+          "matched_joined_count": 1,
+          "fact_results": [
+            {
+              "fact": "酒店提供浦东机场免费班车，发车时间为每小时整点，上车地点为酒店正门右侧，需要至少提前30分钟在前台预约座位。",
+              "matched_single_doc": true,
+              "matched_joined": true
+            }
+          ]
+        },
+        "retrieved_documents": [
+          {
+            "chunk_id": "hotel_89a9d3032b3045008ad9e24e6f6bb057",
+            "content": "酒店交通与康体服务手册 V2.3\n适用范围：Grand Hotel 各部门运营、前台、礼宾、康体中心\n更新日期：2026-05-10\n\n1. 机场及高铁接送服务\n酒店与浦东机场、虹桥机场、上海虹桥站保持固定班车合作。浦东机场班车每小时整点从酒店正门右侧发车，全程约50分钟；虹桥枢纽班车每两小时一班，上车位置同样在正门右侧。班车免费对住客开放，非住客单程收费80元。机场班车座位有限，需要至少提前30分钟在前台预约；取消预约需在发车前2小时通知礼宾，否则计入爽约记录。\n\n2. 预约与改签规则\n住客可以通过前台电话、礼宾专线和酒店小程序预约接送。预约时需提供姓名、房号、航班号和预计出发时间。改签只允许在发车前1小时办理，同一订单最多改签两次。接机服务以航班实际落地时间为准，司机可免费等待60分钟，超过60分钟按每小时50元收取等待费。凌晨00:00至05:00之间到达的航班，接机需要提前一天预约。\n\n3. 自驾与代客泊车",
+            "summary": "",
+            "file_id": "6c9dc14cf6a5405ea0dd3f51645177f1",
+            "file_name": "hotel_transport_wellness_6c30ef4f4a.txt",
+            "knowledge_id": "t_2aadac46967e4487",
+            "update_time": "2026-08-14T17:19:10.211002",
+            "score": 0.5712753846731141
+          },
+          {
+            "chunk_id": "hotel_8e2e4938b09e47cdbd2c71f5415f41d3",
+            "content": "有4次免费升房券和2次行政酒廊全天使用权。\n会员专属价仅在官网、小程序和客服热线预订时生效，第三方平台订单一律不适用。\n\n四、会议与宴会\n会议套餐包含投影、音响、白板和茶水，全天半日价12000元起。\n宴会预订需支付30%定金，提前7天取消可全额退还定金。\n会议场地布置需要在活动前一日22:00前完成，超时布置按每小时3000元收费。\n年会套餐根据桌数分为三档，30桌以上可赠送舞台灯光和主持人。\n\n五、机场班车\n酒店提供浦东机场免费班车，发车时间为每小时整点，上车地点为酒店正门右侧，需要至少提前30分钟在前台预约座位。\n虹桥机场班车每天06:00至22:00每两小时一班，单程收费80元。\n班车准点发车，错过班车的客人需要自行改乘后续班次，不单独等待。\n携带轮椅和大型行李的客人预约时需要提前告知，礼宾会预留无障碍座位。\n\n六、礼宾服务\n礼宾部提供景点门票代订、餐厅预订和鲜花布置服务。\n住店客人可免费借用雨伞、充电宝和儿童推车，借用时间不超过24小时。\n贵重物品寄存使用客房保险箱，礼宾部不代为保管现金和证件原件。\n礼宾团队可以提供城市地图、当日天气和交通建议，所有推荐内容均标注第三方信息。\n\n七、会员活动与促销",
+            "summary": "",
+            "file_id": "ed00b92e1e4e4e4d9eafae6921a399f8",
+            "file_name": "hotel_membership_promo_c7e08286b3.txt",
+            "knowledge_id": "t_2aadac46967e4487",
+            "update_time": "2026-08-14T17:19:07.325546",
+            "score": 0.26455145901187677
+          }
+        ],
+        "latency_ms": 13169.897,
+        "timings": {
+          "query_rewrite_ms": 10939.203,
+          "retrieval_ms": 1817.97,
+          "rerank_ms": 412.724,
+          "total_ms": 13169.897
+        },
+        "availability": {
+          "query_rewrite": true,
+          "summary": false,
+          "rerank": true,
+          "candidate_count": 10
+        }
+      },
+      "delta": {
+        "recall_at_k": 0.0,
+        "mrr_at_k": 0.0,
+        "hit_at_k": 0.0,
+        "latency_ms": 12724.49
+      }
+    },
+    {
+      "query_id": "live_ab_h_gym_pool",
+      "query": "健身房和游泳池的开放时间有什么区别？",
+      "difficulty": "normal",
+      "baseline": {
+        "expected_chunk_ids": [
+          "hotel_21e6a0909c534d4799cd8513bc45335a",
+          "hotel_f00bdc13993d49b3ab7b74850d91ef7e"
+        ],
+        "retrieved_chunk_ids": [
+          "hotel_5c6b6dee19ec4d41b0d92a8f1ec4c033",
+          "hotel_21e6a0909c534d4799cd8513bc45335a",
+          "hotel_78889ce5144c4e119353ba9150230bba",
+          "hotel_f00bdc13993d49b3ab7b74850d91ef7e",
+          "hotel_d7c4500b30914e01bf2c8e4028a81baa"
+        ],
+        "matched_expected_chunk_ids": [
+          "hotel_21e6a0909c534d4799cd8513bc45335a",
+          "hotel_f00bdc13993d49b3ab7b74850d91ef7e"
+        ],
+        "recall_at_k": 1.0,
+        "mrr_at_k": 0.5,
+        "hit_at_k": 1.0,
+        "evidence": {
+          "fact_count": 2,
+          "matched_single_doc_count": 2,
+          "matched_joined_count": 2,
+          "fact_results": [
+            {
+              "fact": "健身房位于三楼的玻璃房，开放时间为06:00至22:00，住客凭房卡进入，18岁以下未成年人需要在监护人陪同下使用。",
+              "matched_single_doc": true,
+              "matched_joined": true
+            },
+            {
+              "fact": "游泳池水温恒定为28度，开放时间为07:00至21:00，最深1.6米，进入泳池区域必须穿泳衣并佩戴泳帽。",
+              "matched_single_doc": true,
+              "matched_joined": true
+            }
+          ]
+        },
+        "retrieved_documents": [
+          {
+            "chunk_id": "hotel_5c6b6dee19ec4d41b0d92a8f1ec4c033",
+            "content": "，每30分钟一班。如需租车，礼宾推荐持证合作租车行，并可在酒店完成车辆交接；租车人需年满23周岁且持有效驾驶证满一年。共享单车与网约车停放区位于侧门，不得占用正门消防通道。\n\n5. 康体俱乐部开放时间\n康体俱乐部位于三楼和四楼，包含健身房、恒温泳池、桑拿房、瑜伽房和私教区。健身房开放时间为06:00至22:00，泳池开放时间为07:00至21:00，桑拿房开放时间为10:00至22:00。住客凭房卡免费进入，非住客可购买单次票或月卡。进入泳池必须穿泳衣并佩戴泳帽，未成年人进入泳池须由家长陪同。\n\n6. 成人及儿童游泳规则\n泳池水深最浅0.8米，最深1.6米，水温恒定28度。身高不足1.2米的儿童必须穿救生衣，救生衣可向泳池服务台免费借用。泳池区域禁止携带玻璃器皿和含糖饮料，禁止跳水、追逐和潜水。每日13:00至14:00为泳道维护时间，仅开放浅水区。健身房内18岁以下未成年人需要在监护人陪同下使用，且不得使用大重量器械。\n\n7. 私教与健康评估",
+            "score": 0.6305295825004578,
+            "summary": "",
+            "file_id": "6c9dc14cf6a5405ea0dd3f51645177f1",
+            "file_name": "hotel_transport_wellness_6c30ef4f4a.txt",
+            "knowledge_id": "t_2aadac46967e4487",
+            "update_time": "2026-08-14T17:19:10.211002"
+          },
+          {
+            "chunk_id": "hotel_21e6a0909c534d4799cd8513bc45335a",
+            "content": "时预约。\n游泳池水温恒定为28度，开放时间为07:00至21:00，最深1.6米，进入泳池区域必须穿泳衣并佩戴泳帽。\n泳池禁止跳水、奔跑和携带玻璃器皿，儿童下水需要家长全程陪同。\n\n六、宠物与特殊需求\n酒店允许携带体重不超过15公斤的宠物入住，每只每晚加收清洁费200元，导盲犬免费，入住时需签署宠物协议。\n宠物不得进入餐厅、泳池和健身房，客房清扫时会放置宠物免打扰牌。\n加床费用为每晚300元，婴儿床免费，每间客房最多加一张床。\n儿童早餐免费政策为1.2米以下免费，1.2米至1.4米按半价收费。\n无障碍客房位于四层，提供轮椅通行空间和低位开关，预订时可直接选择无障碍房型。\n\n七、客房用品与补充\n客房备品包含浴巾四件套、洗漱用品、拖鞋、茶包和矿泉水，每日清洁时按标准补齐。\n客人需要加床被子、枕头或转换插头时，拨打前台分机0登记，客房部在30分钟内送达。\n一次性拖鞋和牙刷不进入退房库存清点，重复使用率不作为客房考核指标。\n客房冰箱内的收费饮料会在退房时由前台人工核对，夜间消费记录同步到客房账单。\n\n八、门禁与安全\n客房电子门锁使用磁卡和手机NFC两种方式，退房后门锁权限在30分钟内自动关闭。",
+            "score": 0.5678972005844116,
+            "summary": "",
+            "file_id": "725f0cd5a5644f4d84e1f5f71fda78bb",
+            "file_name": "hotel_rooms_facilities_fcc36b8d39.txt",
+            "knowledge_id": "t_2aadac46967e4487",
+            "update_time": "2026-08-14T17:19:09.151188"
+          },
+          {
+            "chunk_id": "hotel_78889ce5144c4e119353ba9150230bba",
+            "content": "止携带玻璃器皿和含糖饮料，禁止跳水、追逐和潜水。每日13:00至14:00为泳道维护时间，仅开放浅水区。健身房内18岁以下未成年人需要在监护人陪同下使用，且不得使用大重量器械。\n\n7. 私教与健康评估\n私教课程按课时计费，单次课60分钟，价格分为基础拉伸、减脂塑形和游泳教学三类。首次购买私教课可免费进行体测，体测报告包含体脂率、围度和心肺指数。老会员购买10节课以上可享9折，康体俱乐部月卡住客价598元，非住客价798元。私教课程如需取消，需提前12小时通知，逾期按课时扣除。\n\n8. 桑拿与健康餐饮\n桑拿房男女分区，提供干蒸、湿蒸和冷水池，建议单次使用不超过15分钟。高血压、心脏病和孕妇不建议使用桑拿。康体吧台提供电解质水、香蕉和低糖能量棒，住客凭房卡免费领取两瓶饮品。酒店健康套餐在二楼餐厅供应，包含高蛋白早餐碗和轻食晚餐，菜单每周更新。\n\n9. 康体常见问题",
+            "score": 0.5565564036369324,
+            "summary": "",
+            "file_id": "6c9dc14cf6a5405ea0dd3f51645177f1",
+            "file_name": "hotel_transport_wellness_6c30ef4f4a.txt",
+            "knowledge_id": "t_2aadac46967e4487",
+            "update_time": "2026-08-14T17:19:10.211002"
+          },
+          {
+            "chunk_id": "hotel_f00bdc13993d49b3ab7b74850d91ef7e",
+            "content": "通洗衣当天20:00前送回，加急洗衣3小时送回，收费为普通服务的1.5倍。\n洗衣袋和洗衣单放在衣柜下层，填写房间号后拨0通知客房部取件。\n西装和礼服建议使用挂烫服务，挂烫服务不参与普通洗衣的加急条款。\n洗衣账单会同步至客房账上，退房时统一结算，支持微信、支付宝和信用卡。\n\n四、停车场\n停车场共三层，住客免费停车，非住客每小时20元每日封顶100元，新能源车位位于B2层并预留充电桩。\n住客车辆登记后可在入住期间自由进出，离店时无需再次缴费。\n超长车辆建议停放在B1层货车位，车位宽度3.5米，高度限高2.2米。\n充电桩使用高峰为18:00至22:00，充电完成后请及时移车。\n\n五、健身与泳池\n健身房位于三楼的玻璃房，开放时间为06:00至22:00，住客凭房卡进入，18岁以下未成年人需要在监护人陪同下使用。\n健身房提供跑步机、椭圆机、自由重量区和瑜伽垫，私教课程需要提前2小时预约。\n游泳池水温恒定为28度，开放时间为07:00至21:00，最深1.6米，进入泳池区域必须穿泳衣并佩戴泳帽。\n泳池禁止跳水、奔跑和携带玻璃器皿，儿童下水需要家长全程陪同。\n\n六、宠物与特殊需求",
+            "score": 0.5113511681556702,
+            "summary": "",
+            "file_id": "725f0cd5a5644f4d84e1f5f71fda78bb",
+            "file_name": "hotel_rooms_facilities_fcc36b8d39.txt",
+            "knowledge_id": "t_2aadac46967e4487",
+            "update_time": "2026-08-14T17:19:09.151188"
+          },
+          {
+            "chunk_id": "hotel_d7c4500b30914e01bf2c8e4028a81baa",
+            "content": "钟。高血压、心脏病和孕妇不建议使用桑拿。康体吧台提供电解质水、香蕉和低糖能量棒，住客凭房卡免费领取两瓶饮品。酒店健康套餐在二楼餐厅供应，包含高蛋白早餐碗和轻食晚餐，菜单每周更新。\n\n9. 康体常见问题\n问：非住客可以预约游泳私教吗？答：可以，私教课按门市价收费，并需提前一天预约。问：健身卡可以冻结吗？答：月卡和季卡提供一次免费冻结，冻结周期最长30天，半年卡每年可冻结两次。问：酒店有适合长者的课程吗？答：每周二、四上午安排太极和拉伸课，65岁以上住客免费参加。\n\n10. 投诉与保障\n如对班车时间、康体设施或服务人员不满意，可在前台填写意见单或拨打客房服务热线。设施设备故障导致服务中断超过30分钟，酒店将退还单次收费项目费用或顺延会员卡有效期。礼宾和康体中心每日营业前会检查设施安全，检查记录保留30天。",
+            "score": 0.48584890365600586,
+            "summary": "",
+            "file_id": "6c9dc14cf6a5405ea0dd3f51645177f1",
+            "file_name": "hotel_transport_wellness_6c30ef4f4a.txt",
+            "knowledge_id": "t_2aadac46967e4487",
+            "update_time": "2026-08-14T17:19:10.211002"
+          }
+        ],
+        "latency_ms": 487.799,
+        "timings": {
+          "total_ms": 487.799
+        },
+        "availability": {
+          "query_rewrite": false,
+          "summary": false,
+          "rerank": false,
+          "candidate_count": 5
+        }
+      },
+      "optimized": {
+        "expected_chunk_ids": [
+          "hotel_21e6a0909c534d4799cd8513bc45335a",
+          "hotel_f00bdc13993d49b3ab7b74850d91ef7e"
+        ],
+        "retrieved_chunk_ids": [],
+        "matched_expected_chunk_ids": [],
+        "recall_at_k": 0.0,
+        "mrr_at_k": 0.0,
+        "hit_at_k": 0.0,
+        "evidence": {
+          "fact_count": 2,
+          "matched_single_doc_count": 0,
+          "matched_joined_count": 0,
+          "fact_results": [
+            {
+              "fact": "健身房位于三楼的玻璃房，开放时间为06:00至22:00，住客凭房卡进入，18岁以下未成年人需要在监护人陪同下使用。",
+              "matched_single_doc": false,
+              "matched_joined": false
+            },
+            {
+              "fact": "游泳池水温恒定为28度，开放时间为07:00至21:00，最深1.6米，进入泳池区域必须穿泳衣并佩戴泳帽。",
+              "matched_single_doc": false,
+              "matched_joined": false
+            }
+          ]
+        },
+        "retrieved_documents": [],
+        "latency_ms": 8935.084,
+        "timings": {
+          "query_rewrite_ms": 6565.357,
+          "retrieval_ms": 2029.421,
+          "rerank_ms": 340.306,
+          "total_ms": 8935.084
+        },
+        "availability": {
+          "query_rewrite": true,
+          "summary": false,
+          "rerank": true,
+          "candidate_count": 10
+        }
+      },
+      "delta": {
+        "recall_at_k": -1.0,
+        "mrr_at_k": -0.5,
+        "hit_at_k": -1.0,
+        "latency_ms": 8447.285
+      }
+    }
+  ]
+}

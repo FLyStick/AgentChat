@@ -426,3 +426,206 @@ INFO:     Uvicorn running on http://127.0.0.1:7860 (Press CTRL+C to quit)
 [INFO] Total existing memories: 0
 2026-08-14 15:51:10.107 | INFO     | agentchat.api.responses.streaming:stream_response:79 - Finalizing streaming body after disconnect. trace_id=cdf99c5d-1104-408b-a5f2-1e119bffe66d
 2026-08-14 15:51:10.108 | INFO     | agentchat.api.responses.streaming:stream_response:85 - Streaming body generator closed.
+2026-08-14 17:17:40.125 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /health 200 time_cost=16.027ms
+2026-08-14 17:17:49.584 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/user/login 200 time_cost=129.798ms
+2026-08-14 17:17:49.604 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/user/register 500 time_cost=14.865ms
+2026-08-14 17:17:54.709 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/user/login 200 time_cost=23.776ms
+2026-08-14 17:17:54.881 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/user/register 200 time_cost=167.001ms
+2026-08-14 17:17:54.937 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/user/login 200 time_cost=51.508ms
+2026-08-14 17:17:54.969 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/knowledge/select 200 time_cost=22.044ms
+2026-08-14 17:17:54.987 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/knowledge/create 422 time_cost=9.715ms
+2026-08-14 17:18:47.681 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/user/login 200 time_cost=54.616ms
+2026-08-14 17:18:47.729 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/knowledge/select 200 time_cost=22.813ms
+2026-08-14 17:18:47.804 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/knowledge/create 200 time_cost=67.381ms
+2026-08-14 17:18:48.090 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/knowledge/select 200 time_cost=278.968ms
+2026-08-14 17:18:48.211 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/knowledge_file/select 200 time_cost=94.565ms
+2026-08-14 17:18:49.318 | INFO     | agentchat.services.storage.minio:upload_file:31 - File uploaded successfully: files/2026-8-14/txt/agentchat_agent_builder_877c0a614e.txt
+2026-08-14 17:18:49.319 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/upload 200 time_cost=1097.332ms
+2026-08-14 17:18:49.401 | INFO     | agentchat.services.storage.minio:download_file:62 - File files/2026-8-14/txt/agentchat_agent_builder_877c0a614e.txt downloaded successfully to C:\Users\20235\AppData\Local\Temp\tmpw8wp22rs\agentchat_agent_builder_877c0a614e.txt
+2026-08-14 17:18:49.761 | INFO     | agentchat.services.rag.vector_stores.chroma:create_collection:67 - Successfully created collection: t_2aadac46967e4487
+2026-08-14 17:18:49.761 | INFO     | agentchat.services.rag.vector_stores.chroma:insert:247 - Generating embeddings for 6 documents...
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 17:18:51.026 | DEBUG    | agentchat.services.rag.vector_stores.chroma:insert:270 - Inserted batch 1: 6 items
+2026-08-14 17:18:51.026 | INFO     | agentchat.services.rag.vector_stores.chroma:insert:272 - Successfully inserted 6 chunks into collection 't_2aadac46967e4487'
+2026-08-14 17:18:51.046 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/knowledge_file/create 200 time_cost=1717.785ms
+2026-08-14 17:18:51.074 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/knowledge_file/select 200 time_cost=20.179ms
+2026-08-14 17:18:51.190 | INFO     | agentchat.services.storage.minio:upload_file:31 - File uploaded successfully: files/2026-8-14/txt/agentchat_api_error_faq_9feab117fd.txt
+2026-08-14 17:18:51.191 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/upload 200 time_cost=107.201ms
+2026-08-14 17:18:51.261 | INFO     | agentchat.services.storage.minio:download_file:62 - File files/2026-8-14/txt/agentchat_api_error_faq_9feab117fd.txt downloaded successfully to C:\Users\20235\AppData\Local\Temp\tmpqnxor__0\agentchat_api_error_faq_9feab117fd.txt
+2026-08-14 17:18:51.345 | INFO     | agentchat.services.rag.vector_stores.chroma:insert:247 - Generating embeddings for 5 documents...
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 17:18:52.443 | DEBUG    | agentchat.services.rag.vector_stores.chroma:insert:270 - Inserted batch 1: 5 items
+2026-08-14 17:18:52.443 | INFO     | agentchat.services.rag.vector_stores.chroma:insert:272 - Successfully inserted 5 chunks into collection 't_2aadac46967e4487'
+2026-08-14 17:18:52.457 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/knowledge_file/create 200 time_cost=1260.872ms
+2026-08-14 17:18:52.487 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/knowledge_file/select 200 time_cost=23.139ms
+2026-08-14 17:18:52.588 | INFO     | agentchat.services.storage.minio:upload_file:31 - File uploaded successfully: files/2026-8-14/txt/agentchat_deploy_quickstart_29e92e8d20.txt
+2026-08-14 17:18:52.589 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/upload 200 time_cost=93.858ms
+2026-08-14 17:18:52.685 | INFO     | agentchat.services.storage.minio:download_file:62 - File files/2026-8-14/txt/agentchat_deploy_quickstart_29e92e8d20.txt downloaded successfully to C:\Users\20235\AppData\Local\Temp\tmp110tlzf_\agentchat_deploy_quickstart_29e92e8d20.txt
+2026-08-14 17:18:52.747 | INFO     | agentchat.services.rag.vector_stores.chroma:insert:247 - Generating embeddings for 7 documents...
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 17:18:53.633 | DEBUG    | agentchat.services.rag.vector_stores.chroma:insert:270 - Inserted batch 1: 7 items
+2026-08-14 17:18:53.633 | INFO     | agentchat.services.rag.vector_stores.chroma:insert:272 - Successfully inserted 7 chunks into collection 't_2aadac46967e4487'
+2026-08-14 17:18:53.659 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/knowledge_file/create 200 time_cost=1065.267ms
+2026-08-14 17:18:53.692 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/knowledge_file/select 200 time_cost=24.279ms
+2026-08-14 17:18:53.799 | INFO     | agentchat.services.storage.minio:upload_file:31 - File uploaded successfully: files/2026-8-14/txt/agentchat_developer_faq_58c2e0ad96.txt
+2026-08-14 17:18:53.800 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/upload 200 time_cost=99.516ms
+2026-08-14 17:18:53.879 | INFO     | agentchat.services.storage.minio:download_file:62 - File files/2026-8-14/txt/agentchat_developer_faq_58c2e0ad96.txt downloaded successfully to C:\Users\20235\AppData\Local\Temp\tmpn0b7402_\agentchat_developer_faq_58c2e0ad96.txt
+2026-08-14 17:18:53.937 | INFO     | agentchat.services.rag.vector_stores.chroma:insert:247 - Generating embeddings for 6 documents...
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 17:18:54.715 | DEBUG    | agentchat.services.rag.vector_stores.chroma:insert:270 - Inserted batch 1: 6 items
+2026-08-14 17:18:54.715 | INFO     | agentchat.services.rag.vector_stores.chroma:insert:272 - Successfully inserted 6 chunks into collection 't_2aadac46967e4487'
+2026-08-14 17:18:54.728 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/knowledge_file/create 200 time_cost=920.128ms
+2026-08-14 17:18:54.752 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/knowledge_file/select 200 time_cost=20.778ms
+2026-08-14 17:18:54.850 | INFO     | agentchat.services.storage.minio:upload_file:31 - File uploaded successfully: files/2026-8-14/txt/agentchat_rag_parameters_2951cb2da6.txt
+2026-08-14 17:18:54.851 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/upload 200 time_cost=89.806ms
+2026-08-14 17:18:54.923 | INFO     | agentchat.services.storage.minio:download_file:62 - File files/2026-8-14/txt/agentchat_rag_parameters_2951cb2da6.txt downloaded successfully to C:\Users\20235\AppData\Local\Temp\tmpxxqm7oea\agentchat_rag_parameters_2951cb2da6.txt
+2026-08-14 17:18:54.975 | INFO     | agentchat.services.rag.vector_stores.chroma:insert:247 - Generating embeddings for 6 documents...
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 17:18:55.958 | DEBUG    | agentchat.services.rag.vector_stores.chroma:insert:270 - Inserted batch 1: 6 items
+2026-08-14 17:18:55.958 | INFO     | agentchat.services.rag.vector_stores.chroma:insert:272 - Successfully inserted 6 chunks into collection 't_2aadac46967e4487'
+2026-08-14 17:18:55.976 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/knowledge_file/create 200 time_cost=1109.406ms
+2026-08-14 17:18:56.012 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/knowledge_file/select 200 time_cost=29.844ms
+2026-08-14 17:18:56.123 | INFO     | agentchat.services.storage.minio:upload_file:31 - File uploaded successfully: files/2026-8-14/txt/agentchat_workspace_deploy_87ed9f4c67.txt
+2026-08-14 17:18:56.124 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/upload 200 time_cost=104.224ms
+2026-08-14 17:18:56.189 | INFO     | agentchat.services.storage.minio:download_file:62 - File files/2026-8-14/txt/agentchat_workspace_deploy_87ed9f4c67.txt downloaded successfully to C:\Users\20235\AppData\Local\Temp\tmpvp93tcs1\agentchat_workspace_deploy_87ed9f4c67.txt
+2026-08-14 17:18:56.249 | INFO     | agentchat.services.rag.vector_stores.chroma:insert:247 - Generating embeddings for 7 documents...
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 17:18:57.418 | DEBUG    | agentchat.services.rag.vector_stores.chroma:insert:270 - Inserted batch 1: 7 items
+2026-08-14 17:18:57.418 | INFO     | agentchat.services.rag.vector_stores.chroma:insert:272 - Successfully inserted 7 chunks into collection 't_2aadac46967e4487'
+2026-08-14 17:18:57.463 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/knowledge_file/create 200 time_cost=1333.147ms
+2026-08-14 17:18:57.508 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/knowledge_file/select 200 time_cost=38.327ms
+2026-08-14 17:18:57.720 | INFO     | agentchat.services.storage.minio:upload_file:31 - File uploaded successfully: files/2026-8-14/txt/corp_attendance_leave_78a7171ada.txt
+2026-08-14 17:18:57.720 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/upload 200 time_cost=195.942ms
+2026-08-14 17:18:57.870 | INFO     | agentchat.services.storage.minio:download_file:62 - File files/2026-8-14/txt/corp_attendance_leave_78a7171ada.txt downloaded successfully to C:\Users\20235\AppData\Local\Temp\tmptni55ai2\corp_attendance_leave_78a7171ada.txt
+2026-08-14 17:18:57.924 | INFO     | agentchat.services.rag.vector_stores.chroma:insert:247 - Generating embeddings for 4 documents...
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 17:18:58.833 | DEBUG    | agentchat.services.rag.vector_stores.chroma:insert:270 - Inserted batch 1: 4 items
+2026-08-14 17:18:58.835 | INFO     | agentchat.services.rag.vector_stores.chroma:insert:272 - Successfully inserted 4 chunks into collection 't_2aadac46967e4487'
+2026-08-14 17:18:58.852 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/knowledge_file/create 200 time_cost=1127.002ms
+2026-08-14 17:18:58.881 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/knowledge_file/select 200 time_cost=24.945ms
+2026-08-14 17:18:59.007 | INFO     | agentchat.services.storage.minio:upload_file:31 - File uploaded successfully: files/2026-8-14/txt/corp_expense_travel_048369cef3.txt
+2026-08-14 17:18:59.008 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/upload 200 time_cost=120.676ms
+2026-08-14 17:18:59.058 | INFO     | agentchat.services.storage.minio:download_file:62 - File files/2026-8-14/txt/corp_expense_travel_048369cef3.txt downloaded successfully to C:\Users\20235\AppData\Local\Temp\tmpbn75id8d\corp_expense_travel_048369cef3.txt
+2026-08-14 17:18:59.103 | INFO     | agentchat.services.rag.vector_stores.chroma:insert:247 - Generating embeddings for 4 documents...
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 17:18:59.788 | DEBUG    | agentchat.services.rag.vector_stores.chroma:insert:270 - Inserted batch 1: 4 items
+2026-08-14 17:18:59.788 | INFO     | agentchat.services.rag.vector_stores.chroma:insert:272 - Successfully inserted 4 chunks into collection 't_2aadac46967e4487'
+2026-08-14 17:18:59.803 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/knowledge_file/create 200 time_cost=790.298ms
+2026-08-14 17:18:59.828 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/knowledge_file/select 200 time_cost=21.127ms
+2026-08-14 17:18:59.925 | INFO     | agentchat.services.storage.minio:upload_file:31 - File uploaded successfully: files/2026-8-14/txt/corp_it_access_audit_edd64218b5.txt
+2026-08-14 17:18:59.926 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/upload 200 time_cost=92.829ms
+2026-08-14 17:19:00.002 | INFO     | agentchat.services.storage.minio:download_file:62 - File files/2026-8-14/txt/corp_it_access_audit_edd64218b5.txt downloaded successfully to C:\Users\20235\AppData\Local\Temp\tmpjtbfoqbl\corp_it_access_audit_edd64218b5.txt
+2026-08-14 17:19:00.062 | INFO     | agentchat.services.rag.vector_stores.chroma:insert:247 - Generating embeddings for 5 documents...
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 17:19:00.975 | DEBUG    | agentchat.services.rag.vector_stores.chroma:insert:270 - Inserted batch 1: 5 items
+2026-08-14 17:19:00.975 | INFO     | agentchat.services.rag.vector_stores.chroma:insert:272 - Successfully inserted 5 chunks into collection 't_2aadac46967e4487'
+2026-08-14 17:19:00.993 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/knowledge_file/create 200 time_cost=1056.791ms
+2026-08-14 17:19:01.023 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/knowledge_file/select 200 time_cost=23.492ms
+2026-08-14 17:19:01.120 | INFO     | agentchat.services.storage.minio:upload_file:31 - File uploaded successfully: files/2026-8-14/txt/corp_performance_pay_b86a42d8ba.txt
+2026-08-14 17:19:01.121 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/upload 200 time_cost=92.402ms
+2026-08-14 17:19:01.187 | INFO     | agentchat.services.storage.minio:download_file:62 - File files/2026-8-14/txt/corp_performance_pay_b86a42d8ba.txt downloaded successfully to C:\Users\20235\AppData\Local\Temp\tmp7lpm3t4y\corp_performance_pay_b86a42d8ba.txt
+2026-08-14 17:19:01.243 | INFO     | agentchat.services.rag.vector_stores.chroma:insert:247 - Generating embeddings for 4 documents...
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 17:19:02.045 | DEBUG    | agentchat.services.rag.vector_stores.chroma:insert:270 - Inserted batch 1: 4 items
+2026-08-14 17:19:02.045 | INFO     | agentchat.services.rag.vector_stores.chroma:insert:272 - Successfully inserted 4 chunks into collection 't_2aadac46967e4487'
+2026-08-14 17:19:02.057 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/knowledge_file/create 200 time_cost=931.759ms
+2026-08-14 17:19:02.082 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/knowledge_file/select 200 time_cost=20.805ms
+2026-08-14 17:19:02.173 | INFO     | agentchat.services.storage.minio:upload_file:31 - File uploaded successfully: files/2026-8-14/txt/corp_recruitment_labor_857bed4a95.txt
+2026-08-14 17:19:02.174 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/upload 200 time_cost=87.142ms
+2026-08-14 17:19:02.238 | INFO     | agentchat.services.storage.minio:download_file:62 - File files/2026-8-14/txt/corp_recruitment_labor_857bed4a95.txt downloaded successfully to C:\Users\20235\AppData\Local\Temp\tmp77h_kfg7\corp_recruitment_labor_857bed4a95.txt
+2026-08-14 17:19:02.284 | INFO     | agentchat.services.rag.vector_stores.chroma:insert:247 - Generating embeddings for 4 documents...
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 17:19:02.977 | DEBUG    | agentchat.services.rag.vector_stores.chroma:insert:270 - Inserted batch 1: 4 items
+2026-08-14 17:19:02.977 | INFO     | agentchat.services.rag.vector_stores.chroma:insert:272 - Successfully inserted 4 chunks into collection 't_2aadac46967e4487'
+2026-08-14 17:19:02.990 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/knowledge_file/create 200 time_cost=809.330ms
+2026-08-14 17:19:03.016 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/knowledge_file/select 200 time_cost=21.777ms
+2026-08-14 17:19:03.129 | INFO     | agentchat.services.storage.minio:upload_file:31 - File uploaded successfully: files/2026-8-14/txt/corp_security_compliance_75c6698300.txt
+2026-08-14 17:19:03.129 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/upload 200 time_cost=103.811ms
+2026-08-14 17:19:03.261 | INFO     | agentchat.services.storage.minio:download_file:62 - File files/2026-8-14/txt/corp_security_compliance_75c6698300.txt downloaded successfully to C:\Users\20235\AppData\Local\Temp\tmpfed_cx1x\corp_security_compliance_75c6698300.txt
+2026-08-14 17:19:03.304 | INFO     | agentchat.services.rag.vector_stores.chroma:insert:247 - Generating embeddings for 4 documents...
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 17:19:04.135 | DEBUG    | agentchat.services.rag.vector_stores.chroma:insert:270 - Inserted batch 1: 4 items
+2026-08-14 17:19:04.135 | INFO     | agentchat.services.rag.vector_stores.chroma:insert:272 - Successfully inserted 4 chunks into collection 't_2aadac46967e4487'
+2026-08-14 17:19:04.153 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/knowledge_file/create 200 time_cost=1017.642ms
+2026-08-14 17:19:04.179 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/knowledge_file/select 200 time_cost=21.223ms
+2026-08-14 17:19:04.270 | INFO     | agentchat.services.storage.minio:upload_file:31 - File uploaded successfully: files/2026-8-14/txt/hotel_booking_events_1ff39c831e.txt
+2026-08-14 17:19:04.271 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/upload 200 time_cost=87.142ms
+2026-08-14 17:19:04.331 | INFO     | agentchat.services.storage.minio:download_file:62 - File files/2026-8-14/txt/hotel_booking_events_1ff39c831e.txt downloaded successfully to C:\Users\20235\AppData\Local\Temp\tmp66e4rc1a\hotel_booking_events_1ff39c831e.txt
+2026-08-14 17:19:04.383 | INFO     | agentchat.services.rag.vector_stores.chroma:insert:247 - Generating embeddings for 5 documents...
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 17:19:05.063 | DEBUG    | agentchat.services.rag.vector_stores.chroma:insert:270 - Inserted batch 1: 5 items
+2026-08-14 17:19:05.063 | INFO     | agentchat.services.rag.vector_stores.chroma:insert:272 - Successfully inserted 5 chunks into collection 't_2aadac46967e4487'
+2026-08-14 17:19:05.080 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/knowledge_file/create 200 time_cost=803.707ms
+2026-08-14 17:19:05.109 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/knowledge_file/select 200 time_cost=25.397ms
+2026-08-14 17:19:05.223 | INFO     | agentchat.services.storage.minio:upload_file:31 - File uploaded successfully: files/2026-8-14/txt/hotel_food_beverage_a51c62903f.txt
+2026-08-14 17:19:05.224 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/upload 200 time_cost=109.941ms
+2026-08-14 17:19:05.276 | INFO     | agentchat.services.storage.minio:download_file:62 - File files/2026-8-14/txt/hotel_food_beverage_a51c62903f.txt downloaded successfully to C:\Users\20235\AppData\Local\Temp\tmpzo3r4kae\hotel_food_beverage_a51c62903f.txt
+2026-08-14 17:19:05.322 | INFO     | agentchat.services.rag.vector_stores.chroma:insert:247 - Generating embeddings for 4 documents...
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 17:19:05.972 | DEBUG    | agentchat.services.rag.vector_stores.chroma:insert:270 - Inserted batch 1: 4 items
+2026-08-14 17:19:05.972 | INFO     | agentchat.services.rag.vector_stores.chroma:insert:272 - Successfully inserted 4 chunks into collection 't_2aadac46967e4487'
+2026-08-14 17:19:05.989 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/knowledge_file/create 200 time_cost=760.045ms
+2026-08-14 17:19:06.014 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/knowledge_file/select 200 time_cost=21.234ms
+2026-08-14 17:19:06.117 | INFO     | agentchat.services.storage.minio:upload_file:31 - File uploaded successfully: files/2026-8-14/txt/hotel_front_desk_393a2df631.txt
+2026-08-14 17:19:06.118 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/upload 200 time_cost=96.583ms
+2026-08-14 17:19:06.179 | INFO     | agentchat.services.storage.minio:download_file:62 - File files/2026-8-14/txt/hotel_front_desk_393a2df631.txt downloaded successfully to C:\Users\20235\AppData\Local\Temp\tmpca42lxkc\hotel_front_desk_393a2df631.txt
+2026-08-14 17:19:06.225 | INFO     | agentchat.services.rag.vector_stores.chroma:insert:247 - Generating embeddings for 5 documents...
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 17:19:07.009 | DEBUG    | agentchat.services.rag.vector_stores.chroma:insert:270 - Inserted batch 1: 5 items
+2026-08-14 17:19:07.009 | INFO     | agentchat.services.rag.vector_stores.chroma:insert:272 - Successfully inserted 5 chunks into collection 't_2aadac46967e4487'
+2026-08-14 17:19:07.022 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/knowledge_file/create 200 time_cost=899.840ms
+2026-08-14 17:19:07.047 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/knowledge_file/select 200 time_cost=20.691ms
+2026-08-14 17:19:07.233 | INFO     | agentchat.services.storage.minio:upload_file:31 - File uploaded successfully: files/2026-8-14/txt/hotel_membership_promo_c7e08286b3.txt
+2026-08-14 17:19:07.234 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/upload 200 time_cost=182.156ms
+2026-08-14 17:19:07.286 | INFO     | agentchat.services.storage.minio:download_file:62 - File files/2026-8-14/txt/hotel_membership_promo_c7e08286b3.txt downloaded successfully to C:\Users\20235\AppData\Local\Temp\tmptwi7n0i1\hotel_membership_promo_c7e08286b3.txt
+2026-08-14 17:19:07.325 | INFO     | agentchat.services.rag.vector_stores.chroma:insert:247 - Generating embeddings for 4 documents...
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 17:19:08.039 | DEBUG    | agentchat.services.rag.vector_stores.chroma:insert:270 - Inserted batch 1: 4 items
+2026-08-14 17:19:08.039 | INFO     | agentchat.services.rag.vector_stores.chroma:insert:272 - Successfully inserted 4 chunks into collection 't_2aadac46967e4487'
+2026-08-14 17:19:08.052 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/knowledge_file/create 200 time_cost=813.516ms
+2026-08-14 17:19:08.076 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/knowledge_file/select 200 time_cost=20.842ms
+2026-08-14 17:19:08.159 | INFO     | agentchat.services.storage.minio:upload_file:31 - File uploaded successfully: files/2026-8-14/txt/hotel_room_service_extra_704caf9c0f.txt
+2026-08-14 17:19:08.159 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/upload 200 time_cost=78.713ms
+2026-08-14 17:19:08.208 | INFO     | agentchat.services.storage.minio:download_file:62 - File files/2026-8-14/txt/hotel_room_service_extra_704caf9c0f.txt downloaded successfully to C:\Users\20235\AppData\Local\Temp\tmpswhrp7zl\hotel_room_service_extra_704caf9c0f.txt
+2026-08-14 17:19:08.250 | INFO     | agentchat.services.rag.vector_stores.chroma:insert:247 - Generating embeddings for 4 documents...
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 17:19:08.902 | DEBUG    | agentchat.services.rag.vector_stores.chroma:insert:270 - Inserted batch 1: 4 items
+2026-08-14 17:19:08.902 | INFO     | agentchat.services.rag.vector_stores.chroma:insert:272 - Successfully inserted 4 chunks into collection 't_2aadac46967e4487'
+2026-08-14 17:19:08.918 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/knowledge_file/create 200 time_cost=754.593ms
+2026-08-14 17:19:08.953 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/knowledge_file/select 200 time_cost=30.072ms
+2026-08-14 17:19:09.051 | INFO     | agentchat.services.storage.minio:upload_file:31 - File uploaded successfully: files/2026-8-14/txt/hotel_rooms_facilities_fcc36b8d39.txt
+2026-08-14 17:19:09.053 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/upload 200 time_cost=93.738ms
+2026-08-14 17:19:09.109 | INFO     | agentchat.services.storage.minio:download_file:62 - File files/2026-8-14/txt/hotel_rooms_facilities_fcc36b8d39.txt downloaded successfully to C:\Users\20235\AppData\Local\Temp\tmpcdu15h5_\hotel_rooms_facilities_fcc36b8d39.txt
+2026-08-14 17:19:09.152 | INFO     | agentchat.services.rag.vector_stores.chroma:insert:247 - Generating embeddings for 5 documents...
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 17:19:10.007 | DEBUG    | agentchat.services.rag.vector_stores.chroma:insert:270 - Inserted batch 1: 5 items
+2026-08-14 17:19:10.007 | INFO     | agentchat.services.rag.vector_stores.chroma:insert:272 - Successfully inserted 5 chunks into collection 't_2aadac46967e4487'
+2026-08-14 17:19:10.020 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/knowledge_file/create 200 time_cost=961.477ms
+2026-08-14 17:19:10.042 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/knowledge_file/select 200 time_cost=16.621ms
+2026-08-14 17:19:10.125 | INFO     | agentchat.services.storage.minio:upload_file:31 - File uploaded successfully: files/2026-8-14/txt/hotel_transport_wellness_6c30ef4f4a.txt
+2026-08-14 17:19:10.125 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/upload 200 time_cost=78.834ms
+2026-08-14 17:19:10.173 | INFO     | agentchat.services.storage.minio:download_file:62 - File files/2026-8-14/txt/hotel_transport_wellness_6c30ef4f4a.txt downloaded successfully to C:\Users\20235\AppData\Local\Temp\tmpfzvsy_yh\hotel_transport_wellness_6c30ef4f4a.txt
+2026-08-14 17:19:10.211 | INFO     | agentchat.services.rag.vector_stores.chroma:insert:247 - Generating embeddings for 5 documents...
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 17:19:11.056 | DEBUG    | agentchat.services.rag.vector_stores.chroma:insert:270 - Inserted batch 1: 5 items
+2026-08-14 17:19:11.056 | INFO     | agentchat.services.rag.vector_stores.chroma:insert:272 - Successfully inserted 5 chunks into collection 't_2aadac46967e4487'
+2026-08-14 17:19:11.069 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/knowledge_file/create 200 time_cost=939.122ms
+2026-08-14 17:19:11.093 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/knowledge_file/select 200 time_cost=20.993ms
+2026-08-14 17:19:11.173 | INFO     | agentchat.services.storage.minio:upload_file:31 - File uploaded successfully: files/2026-8-14/txt/ops_customer_service_qc_ca46f69804.txt
+2026-08-14 17:19:11.173 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/upload 200 time_cost=76.131ms
+2026-08-14 17:19:11.222 | INFO     | agentchat.services.storage.minio:download_file:62 - File files/2026-8-14/txt/ops_customer_service_qc_ca46f69804.txt downloaded successfully to C:\Users\20235\AppData\Local\Temp\tmpjq7j45ds\ops_customer_service_qc_ca46f69804.txt
+2026-08-14 17:19:11.272 | INFO     | agentchat.services.rag.vector_stores.chroma:insert:247 - Generating embeddings for 4 documents...
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 17:19:11.973 | DEBUG    | agentchat.services.rag.vector_stores.chroma:insert:270 - Inserted batch 1: 4 items
+2026-08-14 17:19:11.973 | INFO     | agentchat.services.rag.vector_stores.chroma:insert:272 - Successfully inserted 4 chunks into collection 't_2aadac46967e4487'
+2026-08-14 17:19:11.986 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/knowledge_file/create 200 time_cost=808.100ms
+2026-08-14 17:19:12.015 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/knowledge_file/select 200 time_cost=22.290ms
+2026-08-14 17:19:12.106 | INFO     | agentchat.services.storage.minio:upload_file:31 - File uploaded successfully: files/2026-8-14/txt/ops_daily_report_sop_28df4c8fd0.txt
+2026-08-14 17:19:12.107 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/upload 200 time_cost=83.405ms
+2026-08-14 17:19:12.153 | INFO     | agentchat.services.storage.minio:download_file:62 - File files/2026-8-14/txt/ops_daily_report_sop_28df4c8fd0.txt downloaded successfully to C:\Users\20235\AppData\Local\Temp\tmpihbax617\ops_daily_report_sop_28df4c8fd0.txt
+2026-08-14 17:19:12.195 | INFO     | agentchat.services.rag.vector_stores.chroma:insert:247 - Generating embeddings for 4 documents...
+[INFO] HTTP Request: POST https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings "HTTP/1.1 200 OK"
+2026-08-14 17:19:12.784 | DEBUG    | agentchat.services.rag.vector_stores.chroma:insert:270 - Inserted batch 1: 4 items
+2026-08-14 17:19:12.784 | INFO     | agentchat.services.rag.vector_stores.chroma:insert:272 - Successfully inserted 4 chunks into collection 't_2aadac46967e4487'
+2026-08-14 17:19:12.801 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - POST /api/v1/knowledge_file/create 200 time_cost=690.660ms
+2026-08-14 17:19:12.826 | INFO     | agentchat.middleware.trace_id_middleware:dispatch:29 - GET /api/v1/knowledge_file/select 200 time_cost=20.344ms

@@ -25,8 +25,8 @@ from agentchat.benchmarks.metrics import (
 
 
 REPO_ROOT = Path(__file__).resolve().parents[4]
-DEFAULT_GROUND_TRUTH = REPO_ROOT / "docs" / "eval" / "live_rag_ground_truth.json"
-DEFAULT_OUTPUT_DIR = REPO_ROOT / "docs" / "eval"
+DEFAULT_GROUND_TRUTH = REPO_ROOT / "docs" / "eval" / "live" / "live_rag_ground_truth.json"
+DEFAULT_OUTPUT_DIR = REPO_ROOT / "docs" / "eval" / "live"
 
 
 def _document_ids(documents: Sequence[Any]) -> List[str]:

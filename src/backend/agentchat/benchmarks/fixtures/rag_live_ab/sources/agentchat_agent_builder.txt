@@ -1,0 +1,62 @@
+AgentChat Agent 构建与编排手册
+
+一、Agent 创建
+Agent创建接口为POST /api/v1/agent，支持配置工具、模型、知识库、MCP服务器、记忆开关和多Agent开关。
+Agent的system_prompt用于定义角色和目标，description用于在多Agent路由时判断是否转发。
+创建Agent时可以不绑定模型，后端会使用default_config中的默认模型；显式指定模型时需要传入合法的llm_id。
+Agent列表接口为GET /api/v1/agent，更新Agent使用PUT /api/v1/agent，删除使用DELETE /api/v1/agent。
+
+二、工具与 Skill
+工具通过tool_ids与Agent绑定，工具注册表按名称区分，重复注册同名工具会返回冲突错误。
+Skill文件放在skills目录，Agent通过agent_skill_ids绑定可用Skill。
+Skill由描述、参数模式和执行函数三部分组成，Agent只会在参数匹配时调用。
+内置工具包括知识库检索、天气查询、网页搜索、快递查询和延时工具，实际可用工具以数据库记录为准。
+
+三、MCP 集成
+MCP服务器在mcp目录注册，支持stdio和streamable-http两种传输方式。
+stdio方式适合本地命令进程，streamable-http方式适合远程服务，两类服务器都可以通过mcp_ids绑定Agent。
+MCP工具名称需要在全局唯一，与内置工具重名时平台会拒绝注册。
+连接MCP失败时，Agent会记录error事件并继续执行后续工具，不会中断整轮对话。
+
+四、知识库绑定
+知识库需要先创建并上传文件，再把knowledge_ids传给Agent，检索时由RagHandler按内容字段召回。
+一个Agent最多绑定20个知识库，多知识库检索结果会按score合并并去重。
+知识库文件支持txt、md、pdf和docx四种格式，上传后的解析由后端任务队列异步完成。
+文件解析失败时，知识库文件列表会显示failed状态，重新上传同名文件会生成新的file_id。
+
+五、记忆与多 Agent
+enable_memory为true时，对话中的关键事实会写入记忆向量库，同一agent和会话内可跨轮召回。
+记忆模块区分短期记忆、摘要记忆和长期记忆，短期窗口超出阈值后触发摘要，长期记忆只保存跨对话的关键事实。
+enable_multi_agent为true时，GeneralAgent会构造orchestrator；默认关闭避免普通对话额外开销。
+多Agent能力由orchestrator编排，主Agent按固定关键词路由到客服、酒店和项目三个子Agent，每个子Agent持有独立ReAct链路。
+子Agent返回结果后，主Agent会把子Agent结论与自己的上下文合并，再生成最终回答。
+
+六、权限与部署
+用户只能管理自己创建的Agent和知识库，跨用户操作会在服务层返回权限错误。
+Agent删除是逻辑删除，历史会话仍保留，但新建对话不能再选择该Agent。
+生产环境建议关闭调试日志中的完整prompt输出，避免把用户私有知识写入日志。
+多Agent开关、记忆开关和知识库列表都可在线修改，修改后对下一次对话生效。
+
+七、Agent 配置与模型
+AgentConfig包含name、description、system_prompt、tool_ids、knowledge_ids和mcp_ids等字段，全部由配置对象驱动。
+模型字段为空时会使用default_config中的默认模型，切换模型只需要更新llm_id，不需要重启后端。
+工具调用模型的temperature固定为低值，普通对话模型按系统提示词决定温度上限。
+Agent名称会写入对话上下文和流式事件，前端可以通过agent_name判断当前服务的Agent实例。
+
+八、流式事件与回退
+Agent输出通过astream方法分批产生，事件类型包含agent_start、tool_start、response_chunk和agent_end。
+模型调用失败时会生成error事件，并在下一轮重试前清理失败的工具入参。
+如果工具返回空列表，Agent会记录empty_result并继续下一步，不会中断整轮对话。
+前端在收到agent_end后停止渲染，重复的agent_end事件按幂等处理。
+
+九、orchestrator 路由
+orchestrator按主Agent的system_prompt中的关键词规则匹配子Agent，匹配失败时回退到主Agent普通ReAct。
+每个子Agent拥有独立的history和tools，子Agent调用结束返回结论给主Agent。
+子Agent的token消耗独立统计，usage接口按agent_name区分模型调用。
+路由规则放在orchestrator.py中维护，新增子Agent时需要同时补测试用例。
+
+十、边界与限制
+当前多Agent是固定关键词demo路由，不是通用自然语言编排，简历表述需明确这一范围。
+一个Agent最多绑定20个知识库和多个Skill，但工具总数超过50个时建议拆分Agent。
+Agent删除后，正在进行的流式对话不会中断，新对话无法再选择该Agent。
+跨用户Agent调用、知识库挂载和历史查看都执行归属校验，未授权的请求返回403。

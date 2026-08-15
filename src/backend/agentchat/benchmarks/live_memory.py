@@ -25,7 +25,7 @@ from agentchat.settings import init_app_settings
 
 
 REPO_ROOT = Path(__file__).resolve().parents[4]
-DEFAULT_OUTPUT_DIR = REPO_ROOT / "docs" / "eval"
+DEFAULT_OUTPUT_DIR = REPO_ROOT / "docs" / "eval" / "live"
 DEFAULT_AGENT_NAME = "LiveBench-MemoryAgent"
 DEFAULT_DIALOG_PREFIX = "LiveBench-MemoryDialog"
 

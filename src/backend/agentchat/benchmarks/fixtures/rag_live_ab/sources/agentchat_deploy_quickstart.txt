@@ -1,0 +1,62 @@
+AgentChat 后端快速部署手册
+
+一、环境准备
+项目默认使用docker compose启动MySQL、Redis和MinIO三个依赖服务，后端配置通过config.yaml读取数据库、存储和模型凭证。
+环境变量文件为.env，配置文件为config.yaml，两者都放在src/backend目录下。
+依赖服务端口固定为MySQL 3307、Redis 6380、MinIO 9002和9003，改动端口时需要同步更新.env与docker-compose.yml。
+首次启动前需要执行数据库初始化脚本，脚本会创建数据表并写入默认配置。
+
+二、后端启动
+AgentChat后端启动命令是python -m uvicorn agentchat.main:app --host 0.0.0.0 --port 8000，启动前需要配置数据库和向量库环境变量。
+后端默认端口为7860，修改端口需要同步修改server.port和启动参数。
+健康检查接口为GET /health，返回status字段为ok时表示服务可访问。
+启动日志出现startup complete时，可以从前端页面访问登录入口完成用户注册。
+
+三、向量库与存储
+向量库模式在config.yaml的rag.vector_db.mode中配置，当前支持chroma、lite和standalone三种模式。
+切换到chroma模式后，向量数据落在src/backend/vector_db目录；切换前需要确认后端已停止。
+MinIO桶名在storage.minio.bucket_name中配置，默认桶为agentchat，上传文件按日期和文件类型分目录存放。
+如果上传后文件一直处于解析中，可以先检查MinIO中的文件是否存在，再查看后端日志中的解析任务状态。
+
+四、认证与常用接口
+登录接口为POST /api/v1/user/login，登录成功返回access_token，后续请求在Authorization头中携带Bearer token。
+创建知识库接口为POST /api/v1/knowledge/create，查询知识库列表接口为GET /api/v1/knowledge/select。
+上传文件接口为POST /api/v1/upload，返回值是MinIO预签名地址，随后调用POST /api/v1/knowledge_file/create挂载到知识库。
+Agent创建接口为POST /api/v1/agent，新增用户接口为POST /api/v1/user/register。
+普通对话接口与知识库问答相互独立，知识库问答需要在请求中携带knowledge_id。
+
+五、流式对话
+对话流式接口为POST /api/v1/completion，请求体包含user_input和dialog_id，响应使用SSE格式逐块返回内容事件。
+停止流式返回时前端应关闭EventSource连接，服务端会通过CancellableAsyncStream触发取消。
+流式事件包含dialog_id、event_id、timestamp和trace_id，工具调用事件还会记录tool_name与duration_ms。
+前端收到done事件后应停止渲染增量内容，并把完整对话写入本地历史缓存。
+
+六、常见部署核对清单
+确认.env中数据库、Redis、MinIO和模型凭证均已配置，且没有使用仓库内示例密钥。
+确认config.yaml中encryption_key与其他服务保存的密钥一致。
+确认requirements.txt安装完成，conda环境与启动命令使用的Python一致。
+确认防火墙允许7860端口访问，生产环境建议在反向代理层配置HTTPS。
+
+七、数据库与初始化
+数据库初始化由init_data.py执行，脚本会检查表结构并补充新增字段，不会覆盖已有业务数据。
+MySQL连接字符串同时配置同步和异步两种，修改密码时需要同步更新两处endpoint。
+Redis只保存短期状态和任务队列，重启Redis不影响已落库的对话和知识库记录。
+MinIO对象存储中的文件通过file_id关联知识库记录，删除知识库不会自动删除MinIO中的原始文件。
+
+八、升级与回滚
+升级前先备份vector_db目录和MySQL数据库，备份完成后记录config.yaml的当前版本号。
+后端启动失败时，先回滚到上一份config.yaml，再检查迁移脚本是否执行成功。
+API变更会保留旧路径兼容期，兼容期内会在启动日志中输出deprecated warning。
+停机维护窗口建议选在工作日22:00之后，单次维护窗口不超过30分钟。
+
+九、监控与日志
+日志默认输出到控制台，LOG_DIR环境变量设置后会将日志同时写入指定目录。
+每个请求都生成trace_id，日志按trace_id聚合后可以还原模型调用、工具调用和检索耗时。
+健康检查接口也会返回数据库和Redis的连接状态，排查时可以直接读取返回字段。
+磁盘使用率超过80%时需要检查vector_db和MinIO数据目录，归档日志按30天轮转。
+
+十、常见启动问题
+端口被占用时，先使用netstat定位进程，再决定是否停止占用进程或修改端口。
+config.yaml语法错误通常表现为启动时yaml解析失败，可以使用python -c加载配置验证。
+缺少依赖时报ModuleNotFoundError，优先按requirements.txt在conda环境中重装，不要直接使用系统Python。
+模型接口返回401时，先比较config.yaml中的api_key与.env中的环境变量，空格和引号会导致鉴权失败。

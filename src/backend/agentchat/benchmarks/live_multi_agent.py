@@ -22,7 +22,7 @@ from agentchat.benchmarks.metrics import latency_stats
 
 
 REPO_ROOT = Path(__file__).resolve().parents[4]
-DEFAULT_OUTPUT_DIR = REPO_ROOT / "docs" / "eval"
+DEFAULT_OUTPUT_DIR = REPO_ROOT / "docs" / "eval" / "live"
 DEFAULT_AGENT_NAME = "LiveBench-MultiAgent"
 DEFAULT_DIALOG_PREFIX = "LiveBench-MultiAgentDialog"
 

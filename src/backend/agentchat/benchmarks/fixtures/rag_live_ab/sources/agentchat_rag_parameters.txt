@@ -1,0 +1,61 @@
+AgentChat RAG 检索参数手册
+
+一、整体链路
+知识库问答使用RAG链路：文档上传后切成固定长度分块，写入Chroma向量库，可选同步Elasticsearch关键词索引，检索后经过重排返回结果。
+检索入口分为普通检索与排名检索两层，普通检索负责召回候选，排名检索负责精排和过滤。
+RAG检索的最终结果按score从高到低排序，由merge_documents_by_score按chunk_id去重。
+知识库问答接口为POST /api/v1/knowledge/chat，请求体包含query和knowledge_id。
+
+二、分块与向量化
+分块参数chunk_size默认为500，overlap_size默认为100，较小的chunk适合事实密集的制度文档。
+文本解析按换行符保留行边界，超过chunk_size的长行会被整体放入当前块，可能使块长度超过配置值。
+embedding模型通过multi_models.embedding配置，当前使用DashScope兼容接口。
+向量库模式为chroma时，检索结果相似度分数由1.0减余弦距离得到，score越接近1表示越相关。
+
+三、查询改写
+查询重写会将用户问题改写为多个候选query，再分别检索并合并结果，避免一次改写失败导致召回为空。
+改写结果必须为固定长度3的JSON数组，解析失败时系统会退回到原始query。
+改写后的query列表会保留原始query并做去重，检索时按顺序执行。
+查询改写使用conversation_model，因此改写耗时包含一次真实模型调用。
+
+四、重排与过滤
+Rerank阶段使用gte-rerank-v2对候选文档重排，可以通过min_score和rerank_threshold过滤低相关文档。
+min_score默认0.2，rerank_threshold由config.yaml配置，过滤发生在重排之后、返回top_k之前。
+重排服务不可用时，系统会退回原始检索分数并记录warning，不阻塞知识库问答。
+top_k默认5，代表最终返回给Agent的文档数量；检索阶段会先召回更多候选再精排。
+
+五、ES 与摘要
+enable_elasticsearch为false时只走向量检索，true时会额外查询Elasticsearch关键词结果并与Milvus结果按score合并。
+ES启用后，collection与index使用同一命名，删除文件时需要同时清理向量库和ES索引。
+enable_summary为true时，每个chunk会额外生成并入库一条summary向量，检索支持content+summary双字段。
+summary条目的chunk_id与原chunk一致，但向量库条目is_summary标记为true，普通内容检索会跳过摘要条目。
+
+六、调参与验收
+先看召回再谈精排：第一步用原始query确认候选chunk是否在top10内，第二步再调整改写和阈值。
+hard query没有词重叠时，优先检查改写是否生成同义表达，再检查embedding模型在当前领域的区分度。
+每次调参只改一个变量，归档前后两次原始JSON，禁止用平均值拼凑对比结论。
+线上灰度建议先漂移小流量观察错误率和答案覆盖率，再决定是否全量。
+
+七、检索候选与分数
+content检索返回的score由1.0减余弦距离得到，score接近1表示语义距离更近。
+merge_documents_by_score按score降序排列，并按chunk_id去重，保留最高分候选。
+summary检索会额外查询is_summary为true的条目，summary条目的chunk_id与原chunk一致。
+不同query改写出的多个query会分别检索，合并后同一chunk只保留最高分。
+
+八、回退与异常
+查询改写解析失败时回退到原始query，Rerank接口失败时回退到原始检索分数。
+enable_summary为false时，系统不会生成和检索summary向量，content检索仍正常。
+enable_elasticsearch为false时，RagHandler只调用向量库，不再请求ES服务。
+检索结果为空时，知识库问答返回No relevant documents found，不会拼接空字符串。
+
+九、调参建议
+hard query召回不足时，先看raw query在top10候选中的排名，再判断问题在embedding还是改写。
+top_k用于最终返回，检索阶段固定召回更多候选，调参时应区分候选数与返回数。
+min_score过低会导致低相关chunk进入结果，过高则会过滤掉跨语言同义表达。
+rerank_threshold只在重排结果上生效，调整时需要保留原始检索分数作为对照。
+
+十、记录与验证
+每次调参后保存原始JSON，文件名包含日期和实验组名，例如rag_ab_20260814_baseline.json。
+指标计算以chunk_id为准，不通过答案文本反推召回，避免把生成质量混入检索指标。
+hard query子集单独汇总，全量指标只能反映平均表现，不能替代困难样本分析。
+上线前用同一份ground truth复盘至少3轮，确认指标波动在可接受范围内再更新评测结论。

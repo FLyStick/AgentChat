@@ -1,0 +1,161 @@
+{
+  "version": 1,
+  "created_at": "2026-08-14T09:17:54+00:00",
+  "last_seed_at": "2026-08-14T09:18:47+00:00",
+  "base_url": "http://127.0.0.1:7860",
+  "user_name": "live_ab_0814",
+  "password": "QRViCjUjtIzSWo6Wvo",
+  "knowledge_name": "RagAb0814",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ7XCJ1c2VyX25hbWVcIjogXCJsaXZlX2FiXzA4MTRcIiwgXCJ1c2VyX2lkXCI6IFwiM1wiLCBcInJvbGVcIjogW119IiwiaWF0IjoxNzg2Njk5MTI3LCJuYmYiOjE3ODY2OTkxMjcsImp0aSI6ImE4YjFmZWNjLTVjNzUtNGZhNC1iZDg5LTE3MDU5YmRlOWQ2YyIsImV4cCI6MTc4Njc4NTUyNywidHlwZSI6ImFjY2VzcyIsImZyZXNoIjpmYWxzZX0.7J1zb0YEwsGNkJOjhbFDTqvHWhAVyCnbYKKIU8I0Wn8",
+  "user_id": "3",
+  "knowledge_id": "t_2aadac46967e4487",
+  "files": [
+    {
+      "source_file": "agentchat_agent_builder.txt",
+      "file_id": "5d0ed4e9f252463ea2aa2bf4def09913",
+      "file_name": "agentchat_agent_builder.txt",
+      "oss_url": "http://127.0.0.1:9002/files/2026-8-14/txt/agentchat_agent_builder_877c0a614e.txt",
+      "status": "success"
+    },
+    {
+      "source_file": "agentchat_api_error_faq.txt",
+      "file_id": "dc945b792c4a48608e3fbe894b18ebde",
+      "file_name": "agentchat_api_error_faq.txt",
+      "oss_url": "http://127.0.0.1:9002/files/2026-8-14/txt/agentchat_api_error_faq_9feab117fd.txt",
+      "status": "success"
+    },
+    {
+      "source_file": "agentchat_deploy_quickstart.txt",
+      "file_id": "1ad7c23d9e4a43b7a76eccf8f805364c",
+      "file_name": "agentchat_deploy_quickstart.txt",
+      "oss_url": "http://127.0.0.1:9002/files/2026-8-14/txt/agentchat_deploy_quickstart_29e92e8d20.txt",
+      "status": "success"
+    },
+    {
+      "source_file": "agentchat_developer_faq.txt",
+      "file_id": "1a6fd394c9af46719459abac9a0f29ab",
+      "file_name": "agentchat_developer_faq.txt",
+      "oss_url": "http://127.0.0.1:9002/files/2026-8-14/txt/agentchat_developer_faq_58c2e0ad96.txt",
+      "status": "success"
+    },
+    {
+      "source_file": "agentchat_rag_parameters.txt",
+      "file_id": "6075fc13acec40668a2271b2da6fd326",
+      "file_name": "agentchat_rag_parameters.txt",
+      "oss_url": "http://127.0.0.1:9002/files/2026-8-14/txt/agentchat_rag_parameters_2951cb2da6.txt",
+      "status": "success"
+    },
+    {
+      "source_file": "agentchat_workspace_deploy.txt",
+      "file_id": "0c47c1ced141483990c09bba8ceeefa5",
+      "file_name": "agentchat_workspace_deploy.txt",
+      "oss_url": "http://127.0.0.1:9002/files/2026-8-14/txt/agentchat_workspace_deploy_87ed9f4c67.txt",
+      "status": "success"
+    },
+    {
+      "source_file": "corp_attendance_leave.txt",
+      "file_id": "35a23b5aa98948cfb3f5656796b4065b",
+      "file_name": "corp_attendance_leave.txt",
+      "oss_url": "http://127.0.0.1:9002/files/2026-8-14/txt/corp_attendance_leave_78a7171ada.txt",
+      "status": "success"
+    },
+    {
+      "source_file": "corp_expense_travel.txt",
+      "file_id": "ed25281ced9f42828bb4abcf068dc904",
+      "file_name": "corp_expense_travel.txt",
+      "oss_url": "http://127.0.0.1:9002/files/2026-8-14/txt/corp_expense_travel_048369cef3.txt",
+      "status": "success"
+    },
+    {
+      "source_file": "corp_it_access_audit.txt",
+      "file_id": "2dd8f0c267714f758fbac8f58bf033f7",
+      "file_name": "corp_it_access_audit.txt",
+      "oss_url": "http://127.0.0.1:9002/files/2026-8-14/txt/corp_it_access_audit_edd64218b5.txt",
+      "status": "success"
+    },
+    {
+      "source_file": "corp_performance_pay.txt",
+      "file_id": "66aca7bc39d848f491095a2d0842230d",
+      "file_name": "corp_performance_pay.txt",
+      "oss_url": "http://127.0.0.1:9002/files/2026-8-14/txt/corp_performance_pay_b86a42d8ba.txt",
+      "status": "success"
+    },
+    {
+      "source_file": "corp_recruitment_labor.txt",
+      "file_id": "59566439478c40c48c23a92b4802964b",
+      "file_name": "corp_recruitment_labor.txt",
+      "oss_url": "http://127.0.0.1:9002/files/2026-8-14/txt/corp_recruitment_labor_857bed4a95.txt",
+      "status": "success"
+    },
+    {
+      "source_file": "corp_security_compliance.txt",
+      "file_id": "194b9780f9e14dd1b0e35e06ba61b1c4",
+      "file_name": "corp_security_compliance.txt",
+      "oss_url": "http://127.0.0.1:9002/files/2026-8-14/txt/corp_security_compliance_75c6698300.txt",
+      "status": "success"
+    },
+    {
+      "source_file": "hotel_booking_events.txt",
+      "file_id": "93d8d005a57649098e97e131fdce57ea",
+      "file_name": "hotel_booking_events.txt",
+      "oss_url": "http://127.0.0.1:9002/files/2026-8-14/txt/hotel_booking_events_1ff39c831e.txt",
+      "status": "success"
+    },
+    {
+      "source_file": "hotel_food_beverage.txt",
+      "file_id": "50a83992a96743cab421be3af94d94c0",
+      "file_name": "hotel_food_beverage.txt",
+      "oss_url": "http://127.0.0.1:9002/files/2026-8-14/txt/hotel_food_beverage_a51c62903f.txt",
+      "status": "success"
+    },
+    {
+      "source_file": "hotel_front_desk.txt",
+      "file_id": "94257c96c9864ceaba03f0ddc3fe97db",
+      "file_name": "hotel_front_desk.txt",
+      "oss_url": "http://127.0.0.1:9002/files/2026-8-14/txt/hotel_front_desk_393a2df631.txt",
+      "status": "success"
+    },
+    {
+      "source_file": "hotel_membership_promo.txt",
+      "file_id": "ed00b92e1e4e4e4d9eafae6921a399f8",
+      "file_name": "hotel_membership_promo.txt",
+      "oss_url": "http://127.0.0.1:9002/files/2026-8-14/txt/hotel_membership_promo_c7e08286b3.txt",
+      "status": "success"
+    },
+    {
+      "source_file": "hotel_room_service_extra.txt",
+      "file_id": "77156003b23448f5a5ace9f41dc65ae3",
+      "file_name": "hotel_room_service_extra.txt",
+      "oss_url": "http://127.0.0.1:9002/files/2026-8-14/txt/hotel_room_service_extra_704caf9c0f.txt",
+      "status": "success"
+    },
+    {
+      "source_file": "hotel_rooms_facilities.txt",
+      "file_id": "725f0cd5a5644f4d84e1f5f71fda78bb",
+      "file_name": "hotel_rooms_facilities.txt",
+      "oss_url": "http://127.0.0.1:9002/files/2026-8-14/txt/hotel_rooms_facilities_fcc36b8d39.txt",
+      "status": "success"
+    },
+    {
+      "source_file": "hotel_transport_wellness.txt",
+      "file_id": "6c9dc14cf6a5405ea0dd3f51645177f1",
+      "file_name": "hotel_transport_wellness.txt",
+      "oss_url": "http://127.0.0.1:9002/files/2026-8-14/txt/hotel_transport_wellness_6c30ef4f4a.txt",
+      "status": "success"
+    },
+    {
+      "source_file": "ops_customer_service_qc.txt",
+      "file_id": "b1c831e5dc9a408aa1caac9c6cee44b9",
+      "file_name": "ops_customer_service_qc.txt",
+      "oss_url": "http://127.0.0.1:9002/files/2026-8-14/txt/ops_customer_service_qc_ca46f69804.txt",
+      "status": "success"
+    },
+    {
+      "source_file": "ops_daily_report_sop.txt",
+      "file_id": "090f92702b0f46bd81159b1d5d57cf0d",
+      "file_name": "ops_daily_report_sop.txt",
+      "oss_url": "http://127.0.0.1:9002/files/2026-8-14/txt/ops_daily_report_sop_28df4c8fd0.txt",
+      "status": "success"
+    }
+  ]
+}

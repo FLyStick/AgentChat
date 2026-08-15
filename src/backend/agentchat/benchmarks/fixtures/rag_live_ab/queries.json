@@ -1,0 +1,404 @@
+[
+  {
+    "id": "live_ab_h_checkin",
+    "query": "酒店几点可以办理入住，几点退房？",
+    "difficulty": "easy",
+    "source_docs": ["hotel_front_desk.txt"],
+    "facts": ["酒店入住时间为下午14:00，退房时间为中午12:00，前台24小时值班，行李可以寄存，延迟退房需提前联系前台确认房态。"]
+  },
+  {
+    "id": "live_ab_h_wifi",
+    "query": "客房Wi-Fi密码是多少？",
+    "difficulty": "easy",
+    "source_docs": ["hotel_rooms_facilities.txt"],
+    "facts": ["客房无线网络名称为GrandHotel-Guest，密码为CheckIn2026，公共区域免费连接，行政楼层网络无需密码自动连接。"]
+  },
+  {
+    "id": "live_ab_h_breakfast",
+    "query": "早餐几点供应，住客需要另外付费吗？",
+    "difficulty": "easy",
+    "source_docs": ["hotel_food_beverage.txt"],
+    "facts": ["自助早餐供应时间为06:30至10:00，地点在二楼餐厅，住客含双早，额外早餐每人68元，儿童1.2米以下免费。"]
+  },
+  {
+    "id": "live_ab_h_shuttle",
+    "query": "去浦东机场的班车怎么预约？",
+    "difficulty": "normal",
+    "source_docs": ["hotel_membership_promo.txt"],
+    "facts": ["酒店提供浦东机场免费班车，发车时间为每小时整点，上车地点为酒店正门右侧，需要至少提前30分钟在前台预约座位。"]
+  },
+  {
+    "id": "live_ab_h_gym_pool",
+    "query": "健身房和游泳池的开放时间有什么区别？",
+    "difficulty": "normal",
+    "source_docs": ["hotel_rooms_facilities.txt"],
+    "facts": [
+      "健身房位于三楼的玻璃房，开放时间为06:00至22:00，住客凭房卡进入，18岁以下未成年人需要在监护人陪同下使用。",
+      "游泳池水温恒定为28度，开放时间为07:00至21:00，最深1.6米，进入泳池区域必须穿泳衣并佩戴泳帽。"
+    ]
+  },
+  {
+    "id": "live_ab_h_pet",
+    "query": "酒店可以带宠物入住吗，费用是多少？",
+    "difficulty": "normal",
+    "source_docs": ["hotel_rooms_facilities.txt"],
+    "facts": ["酒店允许携带体重不超过15公斤的宠物入住，每只每晚加收清洁费200元，导盲犬免费，入住时需签署宠物协议。"]
+  },
+  {
+    "id": "live_ab_h_minibar",
+    "query": "客房迷你吧怎么收费？",
+    "difficulty": "easy",
+    "source_docs": ["hotel_rooms_facilities.txt"],
+    "facts": ["客房迷你吧首轮免费，包含两瓶矿泉水和两罐软饮，补充消费按价格表收费，退房时前台会核对迷你吧消费。"]
+  },
+  {
+    "id": "live_ab_h_laundry",
+    "query": "洗衣服务多久能送回，加急怎么收费？",
+    "difficulty": "normal",
+    "source_docs": ["hotel_rooms_facilities.txt"],
+    "facts": ["酒店提供24小时洗衣服务，普通洗衣当天20:00前送回，加急洗衣3小时送回，收费为普通服务的1.5倍。"]
+  },
+  {
+    "id": "live_ab_h_parking",
+    "query": "酒店停车怎么收费，新能源车有专用车位吗？",
+    "difficulty": "normal",
+    "source_docs": ["hotel_rooms_facilities.txt"],
+    "facts": ["停车场共三层，住客免费停车，非住客每小时20元每日封顶100元，新能源车位位于B2层并预留充电桩。"]
+  },
+  {
+    "id": "live_ab_h_invoice",
+    "query": "住宿发票怎么开？企业抬头要提前准备什么？",
+    "difficulty": "normal",
+    "source_docs": ["hotel_front_desk.txt"],
+    "facts": [
+      "住宿发票可在退房时开具，抬头需要与公司信息一致，个人发票只需提供姓名和邮箱。",
+      "电子发票将在退房后24小时内发送至预留邮箱，企业抬头发票需要提前提供纳税人识别号。"
+    ]
+  },
+  {
+    "id": "live_ab_h_membership",
+    "query": "白金卡和钻石卡会员有哪些额外权益？",
+    "difficulty": "normal",
+    "source_docs": ["hotel_membership_promo.txt"],
+    "facts": [
+      "白金卡及以上会员每次入住赠送双人下午茶一份。",
+      "钻石卡会员每年享有4次免费升房券和2次行政酒廊全天使用权。"
+    ]
+  },
+  {
+    "id": "live_ab_h_late_leave",
+    "query": "我是金卡会员，明天下午3点回程，能申请延迟退房到下午3点吗？",
+    "difficulty": "hard",
+    "source_docs": ["hotel_membership_promo.txt", "hotel_front_desk.txt"],
+    "facts": [
+      "金卡会员享延迟退房至14:00，白金卡会员享延迟退房至16:00，钻石卡会员保证延迟退房至18:00。",
+      "住客希望保留房间到下午再离开时，可申请延迟退房；金卡会员最晚可延至14:00，白金卡会员最晚可延至16:00。"
+    ]
+  },
+  {
+    "id": "live_ab_h_event_meal",
+    "query": "周五宴会临时增加桌数，茶歇怎么计费，最晚什么时候通知宴会销售？",
+    "difficulty": "hard",
+    "source_docs": ["hotel_food_beverage.txt"],
+    "facts": [
+      "宴会茶歇按每人48元计费，预订满20桌可赠送贵宾休息室。",
+      "宴会菜单确认后如需临时增加桌数，需要在开餐前24小时通知宴会销售。"
+    ]
+  },
+  {
+    "id": "live_ab_p_deploy",
+    "query": "AgentChat后端启动命令是什么？",
+    "difficulty": "easy",
+    "source_docs": ["agentchat_deploy_quickstart.txt"],
+    "facts": ["AgentChat后端启动命令是python -m uvicorn agentchat.main:app --host 0.0.0.0 --port 8000，启动前需要配置数据库和向量库环境变量。"]
+  },
+  {
+    "id": "live_ab_p_docker",
+    "query": "项目默认依赖哪些服务？",
+    "difficulty": "easy",
+    "source_docs": ["agentchat_deploy_quickstart.txt"],
+    "facts": ["项目默认使用docker compose启动MySQL、Redis和MinIO三个依赖服务，后端配置通过config.yaml读取数据库、存储和模型凭证。"]
+  },
+  {
+    "id": "live_ab_p_completion_sse",
+    "query": "对话流式接口是怎么调用的？",
+    "difficulty": "normal",
+    "source_docs": ["agentchat_deploy_quickstart.txt"],
+    "facts": ["对话流式接口为POST /api/v1/completion，请求体包含user_input和dialog_id，响应使用SSE格式逐块返回内容事件。"]
+  },
+  {
+    "id": "live_ab_p_agent_create",
+    "query": "创建Agent接口支持哪些配置？",
+    "difficulty": "normal",
+    "source_docs": ["agentchat_agent_builder.txt"],
+    "facts": ["Agent创建接口为POST /api/v1/agent，支持配置工具、模型、知识库、MCP服务器、记忆开关和多Agent开关。"]
+  },
+  {
+    "id": "live_ab_p_multi_agent",
+    "query": "多Agent能力是怎么编排的？",
+    "difficulty": "normal",
+    "source_docs": ["agentchat_agent_builder.txt"],
+    "facts": ["多Agent能力由orchestrator编排，主Agent按固定关键词路由到客服、酒店和项目三个子Agent，每个子Agent持有独立ReAct链路。"]
+  },
+  {
+    "id": "live_ab_p_memory",
+    "query": "记忆模块区分哪些层次，各自的作用是什么？",
+    "difficulty": "hard",
+    "source_docs": ["agentchat_agent_builder.txt"],
+    "facts": ["记忆模块区分短期记忆、摘要记忆和长期记忆，短期窗口超出阈值后触发摘要，长期记忆只保存跨对话的关键事实。"]
+  },
+  {
+    "id": "live_ab_p_rewrite",
+    "query": "查询重写的作用是什么？",
+    "difficulty": "normal",
+    "source_docs": ["agentchat_rag_parameters.txt"],
+    "facts": ["查询重写会将用户问题改写为多个候选query，再分别检索并合并结果，避免一次改写失败导致召回为空。"]
+  },
+  {
+    "id": "live_ab_p_rerank",
+    "query": "Rerank阶段如何过滤低相关文档？",
+    "difficulty": "normal",
+    "source_docs": ["agentchat_rag_parameters.txt"],
+    "facts": ["Rerank阶段使用gte-rerank-v2对候选文档重排，可以通过min_score和rerank_threshold过滤低相关文档。"]
+  },
+  {
+    "id": "live_ab_p_tuning",
+    "query": "RAG效果不好时应该先看召回还是先改精排？每次调参可以改几个变量？",
+    "difficulty": "hard",
+    "source_docs": ["agentchat_rag_parameters.txt"],
+    "facts": [
+      "先看召回再谈精排：第一步用原始query确认候选chunk是否在top10内，第二步再调整改写和阈值。",
+      "每次调参只改一个变量，归档前后两次原始JSON，禁止用平均值拼凑对比结论。"
+    ]
+  },
+  {
+    "id": "live_ab_p_chroma",
+    "query": "切换到chroma向量库后数据放在哪里？删除目录前要注意什么？",
+    "difficulty": "normal",
+    "source_docs": ["agentchat_developer_faq.txt"],
+    "facts": ["向量库切换为chroma后会在src/backend目录生成vector_db目录，删除该目录前需要先停止后端。"]
+  },
+  {
+    "id": "live_ab_p_mcp_stdio",
+    "query": "MCP服务器支持哪些传输方式？连接失败会中断整轮对话吗？",
+    "difficulty": "hard",
+    "source_docs": ["agentchat_agent_builder.txt"],
+    "facts": [
+      "MCP服务器在mcp目录注册，支持stdio和streamable-http两种传输方式。",
+      "连接MCP失败时，Agent会记录error事件并继续执行后续工具，不会中断整轮对话。"
+    ]
+  },
+  {
+    "id": "live_ab_p_knowledge_bind",
+    "query": "Agent怎么绑定知识库，一个Agent能绑定多少个？",
+    "difficulty": "normal",
+    "source_docs": ["agentchat_agent_builder.txt"],
+    "facts": [
+      "知识库需要先创建并上传文件，再把knowledge_ids传给Agent，检索时由RagHandler按内容字段召回。",
+      "一个Agent最多绑定20个知识库，多知识库检索结果会按score合并并去重。"
+    ]
+  },
+  {
+    "id": "live_ab_p_done_event",
+    "query": "SSE流式对话收到done事件后前端应该做什么？",
+    "difficulty": "hard",
+    "source_docs": ["agentchat_deploy_quickstart.txt"],
+    "facts": ["前端收到done事件后应停止渲染增量内容，并把完整对话写入本地历史缓存。"]
+  },
+  {
+    "id": "live_ab_c_leave",
+    "query": "请病假需要提前多久申请？",
+    "difficulty": "easy",
+    "source_docs": ["corp_attendance_leave.txt"],
+    "facts": ["员工请假需提前1个工作日提交申请，病假可当日提交并附医院证明，请假由直属主管审批，婚假和产假需同时提交人事备案。"]
+  },
+  {
+    "id": "live_ab_c_expense",
+    "query": "报销大概多久能到账？",
+    "difficulty": "easy",
+    "source_docs": ["corp_expense_travel.txt"],
+    "facts": ["报销单需附原始发票，财务审核通过后5个工作日内打款，单笔超过5000元需要部门总监复核，超过50000元需要总经理审批。"]
+  },
+  {
+    "id": "live_ab_c_overtime",
+    "query": "下班后继续干活，公司如何计酬？加班从几点开始算？",
+    "difficulty": "hard",
+    "source_docs": ["corp_attendance_leave.txt"],
+    "facts": [
+      "加班需提前申请，工作日晚间加班按1.5倍时薪补偿，周末加班优先安排调休，法定节假日加班按3倍时薪补偿。",
+      "工作日19:30后开始计算加班时长，加班申请需要关联具体项目和任务编号。"
+    ]
+  },
+  {
+    "id": "live_ab_c_annual_leave",
+    "query": "年假怎么计算和顺延？",
+    "difficulty": "normal",
+    "source_docs": ["corp_attendance_leave.txt"],
+    "facts": ["员工每年享有10天带薪年假，转正后按入职月份折算，未休完年假可顺延至次年3月31日，逾期视为自动放弃。"]
+  },
+  {
+    "id": "live_ab_c_travel",
+    "query": "出差住宿标准是多少？",
+    "difficulty": "easy",
+    "source_docs": ["corp_expense_travel.txt"],
+    "facts": ["差旅住宿标准为一线城市每晚700元，其他城市每晚450元，出差需要提前在OA系统提交差旅申请并关联预算项目。"]
+  },
+  {
+    "id": "live_ab_c_allowance",
+    "query": "公司提供哪些补贴，怎么发放？",
+    "difficulty": "normal",
+    "source_docs": ["corp_expense_travel.txt"],
+    "facts": ["公司提供每月500元餐饮补贴和200元交通补贴，补贴随工资发放，离职当月按在职天数折算发放。"]
+  },
+  {
+    "id": "live_ab_c_meeting",
+    "query": "会议室预约有哪些规则？",
+    "difficulty": "normal",
+    "source_docs": ["corp_security_compliance.txt"],
+    "facts": ["会议室预约超时30分钟未到达自动释放，会议结束后需关闭投影并带走个人物品。"]
+  },
+  {
+    "id": "live_ab_c_performance",
+    "query": "年度绩效考核分档和年终奖系数是什么？",
+    "difficulty": "normal",
+    "source_docs": ["corp_performance_pay.txt"],
+    "facts": ["年度绩效考核分为S、A、B、C四档，S档年终奖系数为2.0，A档为1.5，B档为1.0，C档无年终奖并进入改进计划。"]
+  },
+  {
+    "id": "live_ab_c_departure",
+    "query": "试用期离职要提前几天？正式员工离职交接期多长？",
+    "difficulty": "hard",
+    "source_docs": ["corp_performance_pay.txt"],
+    "facts": [
+      "员工入职当天签订劳动合同并领取工牌，试用期一般为3个月，试用期内离职需提前3天告知直属主管，正式员工需提前30天。",
+      "正式员工离职交接期为30天，交接内容包括工作文档、账号权限和固定资产。"
+    ]
+  },
+  {
+    "id": "live_ab_c_flex_time",
+    "query": "弹性工作时间是什么？",
+    "difficulty": "easy",
+    "source_docs": ["corp_attendance_leave.txt"],
+    "facts": ["弹性工作时间为上午9:30至下午18:30，核心协作时间为10:30至16:00，每日弹性申请需在当天上午9点前完成打卡备注。"]
+  },
+  {
+    "id": "live_ab_c_procurement",
+    "query": "采购一台20000元的显示器需要什么审批？超过20000元呢？",
+    "difficulty": "hard",
+    "source_docs": ["corp_expense_travel.txt"],
+    "facts": ["采购金额在2000元以内可由部门主管审批，2000元至20000元需要行政部复核，超过20000元需要询价三家供应商。"]
+  },
+  {
+    "id": "live_ab_c_backup",
+    "query": "数据库备份保留多长时间？备份恢复演练多久执行一次？",
+    "difficulty": "hard",
+    "source_docs": ["corp_security_compliance.txt"],
+    "facts": [
+      "数据备份策略为数据库每日全量备份、日志每周归档，备份文件保留90天。",
+      "备份恢复演练每季度执行一次，恢复结果需要形成书面报告。"
+    ]
+  },
+  {
+    "id": "live_ab_c_password",
+    "query": "员工账号密码有什么要求？",
+    "difficulty": "easy",
+    "source_docs": ["corp_security_compliance.txt"],
+    "facts": ["员工账号密码至少12位，包含大小写字母、数字和特殊符号，每90天必须更换一次。"]
+  },
+  {
+    "id": "live_ab_d_connect_error",
+    "query": "调用模型接口出现ConnectError，常见原因是什么？",
+    "difficulty": "normal",
+    "source_docs": ["agentchat_developer_faq.txt"],
+    "facts": ["运行环境中缺少httpcore或httpx版本不匹配时，会在调用OpenAI兼容接口时出现ConnectError，建议按requirements.txt重装httpx与httpcore。"]
+  },
+  {
+    "id": "live_ab_d_cancel",
+    "query": "断流取消机制是怎么实现的？",
+    "difficulty": "hard",
+    "source_docs": ["agentchat_developer_faq.txt"],
+    "facts": ["断流取消由CancellableAsyncStream实现，前端调用stop_streaming_callback后触发request_cancel，终止正在进行的模型流式调用。"]
+  },
+  {
+    "id": "live_ab_d_embedding_timeout",
+    "query": "Embedding请求超时应该排查什么？",
+    "difficulty": "normal",
+    "source_docs": ["agentchat_developer_faq.txt"],
+    "facts": ["Embedding请求超时通常是网络代理或DashScope接口限流导致，可以检查.env中的base_url与api_key。"]
+  },
+  {
+    "id": "live_ab_d_subagent_route",
+    "query": "子Agent没有触发时，怎么判断是不是路由问题？",
+    "difficulty": "hard",
+    "source_docs": ["agentchat_developer_faq.txt"],
+    "facts": [
+      "调试多Agent路由时，先看stream事件中的agent_plan和sub_agent_start，确认关键词是否命中orchestrator规则。",
+      "子Agent没有触发时，检查enable_multi_agent是否为true，以及主Agent是否绑定了正确的子Agent配置。"
+    ]
+  },
+  {
+    "id": "live_ab_o_report",
+    "query": "运营日报每天几点前提交，包含哪些内容？",
+    "difficulty": "normal",
+    "source_docs": ["ops_daily_report_sop.txt"],
+    "facts": ["运营日报每天18:00前提交，内容包括核心指标、异常事件和明日计划。"]
+  },
+  {
+    "id": "live_ab_o_metrics",
+    "query": "日报里的成功率怎么统计？服务端重试成功算首试成功率吗？",
+    "difficulty": "hard",
+    "source_docs": ["ops_daily_report_sop.txt"],
+    "facts": [
+      "成功率只统计用户可见的完整请求，服务端主动重试成功不计入首试成功率。",
+      "核心指标包含在线率、平均响应时长、成功率、token消耗和错误率，统一按0点至24点的自然日统计。"
+    ]
+  },
+  {
+    "id": "live_ab_o_ab",
+    "query": "项目里的A/B实验口径是什么？",
+    "difficulty": "normal",
+    "source_docs": ["ops_daily_report_sop.txt"],
+    "facts": ["优化实验使用A/B口径：对照组和实验组共享同一数据集，只改变一个变量，指标以Recall@5、MRR@5和Hit@1为准。"]
+  },
+  {
+    "id": "live_ab_x_leave_expense",
+    "query": "员工要离职了，未结清的费用报销和账号权限应该怎么处理？",
+    "difficulty": "hard",
+    "source_docs": ["corp_expense_travel.txt", "corp_security_compliance.txt"],
+    "facts": [
+      "报销单提交后，财务会在3个工作日内完成初审并反馈缺失材料。",
+      "员工离职后，IT会在最后一个工作日的18:00统一注销账号并回收权限。"
+    ]
+  },
+  {
+    "id": "live_ab_x_overnight_pet",
+    "query": "出差想带一只17公斤的宠物狗入住酒店，酒店能接受吗？",
+    "difficulty": "hard",
+    "source_docs": ["hotel_rooms_facilities.txt"],
+    "facts": [
+      "酒店允许携带体重不超过15公斤的宠物入住，每只每晚加收清洁费200元，导盲犬免费，入住时需签署宠物协议。",
+      "宠物不得进入餐厅、泳池和健身房，客房清扫时会放置宠物免打扰牌。"
+    ]
+  },
+  {
+    "id": "live_ab_x_budget_meeting",
+    "query": "客户想办一场100人的供应链会议，宴会厅容量、会议套餐和定金规则分别是什么？",
+    "difficulty": "hard",
+    "source_docs": ["hotel_food_beverage.txt", "hotel_membership_promo.txt"],
+    "facts": [
+      "宴会厅可容纳200人，配备LED屏和同声传译接口，下午场和晚场分开预订。",
+      "会议套餐包含投影、音响、白板和茶水，全天半日价12000元起。",
+      "宴会预订需支付30%定金，提前7天取消可全额退还定金。"
+    ]
+  },
+  {
+    "id": "live_ab_x_deploy_policy",
+    "query": "新环境部署完成后怎么确认服务可用？上线实验的原始结果要放到哪里？",
+    "difficulty": "hard",
+    "source_docs": ["agentchat_deploy_quickstart.txt", "ops_daily_report_sop.txt"],
+    "facts": [
+      "健康检查接口为GET /health，返回status字段为ok时表示服务可访问。",
+      "实验上线前需要把原始JSON同步到docs/eval/live，并在VIBECODING_PLAN.md中标记状态。"
+    ]
+  }
+]

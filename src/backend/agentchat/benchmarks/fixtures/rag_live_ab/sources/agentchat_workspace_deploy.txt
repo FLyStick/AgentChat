@@ -1,0 +1,33 @@
+AgentChat 本地部署与协作规范 V1.2
+面向：AgentChat 项目开发者、实习同学与评测执行人
+更新日期：2026-07-20
+
+1. 本地环境与 Conda
+项目推荐使用 Python 3.12 Conda 环境，标准环境名为 `agentchat`。进入环境后先执行 `pip install -e .` 或重新安装 requirements 中列出的依赖。如果提示模块版本异常，优先检查 conda 环境是否与启动脚本一致。Windows 下使用绝对路径启动 Python：`C:\Users\20235\.conda\envs\agentchat\python.exe`，不要混用系统 Python。
+
+2. Docker 依赖服务
+项目默认通过 docker compose 启动 MySQL、Redis 和 MinIO。映射端口为：MySQL 3307、Redis 6380、MinIO 9002/9003。启动依赖使用 `docker compose up -d`，确认容器状态为 healthy 后再启动后端。数据库首次启动会自动建表；如果表结构更新失败，检查 migration 日志和 MySQL 磁盘空间。
+
+3. 后端启动命令
+后端启动命令为 `python -m uvicorn agentchat.main:app --host 0.0.0.0 --port 7860`，在工作目录 `src/backend` 执行。启动前需要完成 `python -m agentchat.main` 的环境初始化，或确认 config.yaml 中数据库、Redis、模型凭证正确。后端启动成功后访问 `http://127.0.0.1:7860/docs` 可以看到 OpenAPI 文档，日志中应无数据库连接错误。
+
+4. 配置文件与密钥管理
+服务配置统一维护在 `src/backend/agentchat/config.yaml`，包含 MySQL、Redis、模型服务、RAG 和存储配置。本地开发可以直接修改配置文件，线上环境必须通过环境变量或密钥管理平台注入密钥。模型 API Key、数据库密码不得提交到公开仓库；如误提交，需要立即轮换密钥并清理 git 历史。
+
+5. 新环境部署验证清单
+新环境部署完成后，按顺序验证：数据库表结构可访问、Redis ping 成功、MinIO 可以上传下载文件、用户注册登录正常、知识库上传索引成功、对话接口流式返回内容。建议先跑 `live_seed` 和一条真实 Completion 冒烟，再执行完整 benchmark。任一步骤失败，按日志定位到具体依赖，禁止直接跳过验证进入评测。
+
+6. 评测原始结果归档
+所有真实链路评测结果统一归档到 `docs/eval/live`，文件名带时间戳，不覆盖历史结果。离线回归结果归档到 `docs/eval/offline`，尚未执行的设计文档放在 `docs/eval/upcoming`。执行 A/B 评测时记录 dataset hash、knowledge_id、top_k、模型配置和运行时间，确保结果可复现。面试材料只能引用已落盘的原始 JSON 数字。
+
+7. 日志与错误排查
+后端运行日志写入 logs 目录，错误堆栈会在终端和日志文件中同时输出。Windows 下中文日志乱码时，可先确认控制台代码页与文件编码，日志文件本身使用 UTF-8。排查问题时按 request_id 聚合日志，优先检查依赖服务健康状态，再分析模型调用和 RAG 链路。生产问题修复后要在对应测试或评测中补充回归用例。
+
+8. 向量库与 Chroma 目录
+RAG 默认使用 Chroma 持久化，数据目录为后端运行目录下的 `vector_db`。删除或切换目录前必须停止后端，否则会出现缓存失效和文件占用。团队共享机器上多个后端实例不应同时指向同一个 `vector_db`。知识库上传后，如果查询结果与预期不一致，先检查集合名、chunk_id 和知识库绑定关系。
+
+9. 协作与代码提交规范
+分支命名使用 `codex/` 前缀，提交前运行 `pytest` 和 benchmark 冒烟。工作目录保持干净，评测产物、日志和临时文件不要混入源码提交范围。多人共同编辑同一文件时，先检查 git 状态和他人未提交改动，不覆盖不属于当前任务的文件。破坏性操作如删除向量目录、重置数据库需先向负责人确认。
+
+10. 交付与验收口径
+每次阶段交付必须包含：可运行代码、可复现命令、原始结果 JSON 和面试口径说明。数字只写已完成并归档的结果，不写未执行的设计预期。RAG 评测区分离线词法回归和真实 Embedding A/B，两类结果不能混用。真实链路评测中使用同一知识库、同一 ground truth，只改变检索策略，保证差异来自策略而不是数据。

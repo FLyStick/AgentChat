@@ -87,7 +87,7 @@
 - `mean_mrr_after >= mean_mrr_before`
 - hard query 的 ground truth 排名是否前移
 
-当前 9 条 query：`mean_mrr` 从 `0.9259` 提升到 `1.0`，加班硬查询从第 3 名提升到第 1 名；原始归档在 `docs/eval/rag_p3_before_after.json`。
+当前 9 条 query：`mean_mrr` 从 `0.9259` 提升到 `1.0`，加班硬查询从第 3 名提升到第 1 名；原始归档在 `docs/eval/offline/rag_p3_before_after.json`。
 
 ### 记忆去重与失败兜底
 
@@ -97,7 +97,7 @@
 - 内容相同的 update 跳过，未知 id 的 update/delete 安全跳过
 - 历史表写失败只丢失历史日志，不影响已经完成的向量写
 
-当前 60 次 add 尝试中 20 次插入、40 次跳过，`duplicate_skip_rate=0.6667`，`exact_hash_ids_stable=true`；原始归档在 `docs/eval/memory_dedup_p3.json`。
+当前 60 次 add 尝试中 20 次插入、40 次跳过，`duplicate_skip_rate=0.6667`，`exact_hash_ids_stable=true`；原始归档在 `docs/eval/offline/memory_dedup_p3.json`。
 
 ## 数据集口径
 
@@ -126,3 +126,5 @@
 - “断流我做了任务级取消，压测目标 500ms，当前模拟链路已通过；真实模型链路的数字我会在整体部署后补”
 - “多 Agent 我实现了固定 demo 编排：主 Agent 路由、子 Agent 独立 ReAct 链、分层流式事件，测试保证关键词场景一定触发”
 - “Context Engineering 我用 benchmark 校准 token 摘要阈值，并做 RAG 优化前后对比：9 条 query 的 mean_mrr 从 0.9259 到 1.0，加班硬查询从第 3 名到第 1 名”
+
+P5.9 RAG 真实 A/B 设计/执行记录见 `docs/eval/live/RAG_COMPARISON_DESIGN.md`，最新正式结果已落盘为 `docs/eval/live/live_rag_comparison_20260814_182215.json`（Rerank 可用 48/50），Rerank 403 历史对照为 `docs/eval/live/live_rag_comparison_20260814_173430.json`；P5.10 Memory 两层 vs 三层设计见 `docs/eval/upcoming/MEMORY_COMPARISON_DESIGN.md`，对应 `live_*.json` 落盘后才能把 Memory 真实 A/B 数字进入面试口径。

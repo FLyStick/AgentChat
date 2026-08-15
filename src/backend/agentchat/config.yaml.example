@@ -59,9 +59,13 @@ multi_models:
     model_name: "text-embedding-v4"
 
   # Rerank 模型配置 (用于重排序召回结果)
+  # DashScope 原生路由示例：
+  #   https://dashscope.aliyuncs.com/api/v1/services/rerank/text-rerank/text-rerank
+  # 若使用 MaaS 网关，请将 base_url 替换为网关自己的 rerank 原生路由：
+  #   https://<gateway-host>/api/v1/services/rerank/text-rerank/text-rerank
   rerank:
-    api_key: "${AGENTCHAT_ALIYUN_API_KEY:-your-api-key}"
-    base_url: "https://dashscope.aliyuncs.com/api/v1/services/rerank/text-rerank/text-rerank"
+    api_key: "${AGENTCHAT_RERANK_API_KEY:-your-rerank-api-key}"
+    base_url: "${AGENTCHAT_RERANK_BASE_URL:-https://dashscope.aliyuncs.com/api/v1/services/rerank/text-rerank/text-rerank}"
     model_name: "gte-rerank-v2"
 
 
@@ -98,7 +102,7 @@ rag:
 
   retrival:
     top_k: 5  # 知识库召回的最大数量
-    min_score: 0.2 # 知识库召回结果的最小相似度分数阈值
+    min_score: 0.0 # gte-rerank-v2 分数口径较低，0.2 会误过滤相关文档；置 0 后仅按重排顺序截断
 
   split:
     chunk_size: 500 # 知识库文档分块的最大字符数
