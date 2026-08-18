@@ -1,0 +1,714 @@
+{
+  "version": 1,
+  "dataset_name": "memory_live_ab_30",
+  "created_for": "p5.10",
+  "scenario_count": 30,
+  "scenarios": [
+    {
+      "scenario_id": "mem_ab_01",
+      "title": "酒店房间：高层南向、无烟与鸡蛋过敏",
+      "context": {
+        "topic": "华东客户现场支持",
+        "project": "苏州工厂数字化改造",
+        "person": "王总",
+        "colleague": "李工",
+        "city": "苏州",
+        "region": "苏州工业园区",
+        "date": "下周二上午十点"
+      },
+      "fact_turns": [
+        "这次去苏州出差，帮我订酒店，我习惯住高层，房间最好朝南，光线好一点，另外一定不要吸烟房。",
+        "早餐要注意，我对鸡蛋过敏，任何含鸡蛋的食物都不要安排，麻烦备注给酒店。"
+      ],
+      "gold_facts": [
+        {"fact_id": "f1", "fact": "用户住宿偏好高层且朝南的房间", "expected_hint": "高层、朝南"},
+        {
+          "fact_id": "f2",
+          "fact": "用户要求无烟房",
+          "expected_hint": "无烟",
+          "expected_variants": [["无烟"], ["非吸烟"], ["禁烟"]]
+        },
+        {"fact_id": "f3", "fact": "用户对鸡蛋过敏，早餐不能含鸡蛋", "expected_hint": "鸡蛋过敏"}
+      ],
+      "probe_question": "帮我再核对一次这次出差的房间和早餐要求，我准备发给酒店了。",
+      "probe_expected_fact_ids": ["f1", "f2", "f3"]
+    },
+    {
+      "scenario_id": "mem_ab_02",
+      "title": "差旅报销：统一账户与餐饮发票",
+      "context": {
+        "topic": "年度外部审计支持",
+        "project": "集团年报审计系统联调",
+        "person": "陈总",
+        "colleague": "赵会计",
+        "city": "杭州",
+        "region": "滨江",
+        "date": "本周五下午三点"
+      },
+      "fact_turns": [
+        "我这边所有差旅报销都走公司统一账户，不用单独绑定我个人银行卡，两年前就这样定的。",
+        "餐饮发票开票抬头也写公司全称，备注里加上项目编号，方便财务归档。"
+      ],
+      "gold_facts": [
+        {"fact_id": "f1", "fact": "差旅报销统一走公司账户", "expected_hint": "公司统一账户"},
+        {
+          "fact_id": "f2",
+          "fact": "餐饮发票抬头写公司全称并备注项目编号",
+          "expected_hint": "公司抬头、项目编号",
+          "expected_variants": [
+            ["公司抬头", "项目编号"],
+            ["公司全称", "项目编号"],
+            ["抬头", "项目编号"]
+          ]
+        }
+      ],
+      "probe_question": "这次杭州出差回来的发票应该怎么处理？",
+      "probe_expected_fact_ids": ["f1", "f2"]
+    },
+    {
+      "scenario_id": "mem_ab_03",
+      "title": "会议安排：早晨优先与周三固定例会",
+      "context": {
+        "topic": "产品迭代例会",
+        "project": "知识库助手 2.0",
+        "person": "刘总监",
+        "colleague": "小周",
+        "city": "上海",
+        "region": "张江",
+        "date": "下周一上午九点"
+      },
+      "fact_turns": [
+        "我习惯在工作日早晨安排重要的会，脑子比较清醒，尤其是产品评审，最好都放在上午。",
+        "每周三上午十点是我们团队的固定例会，这个时段不要给我排其他冲突会议。"
+      ],
+      "gold_facts": [
+        {"fact_id": "f1", "fact": "重要会议偏好安排在工作日早晨", "expected_hint": "工作日早晨"},
+        {"fact_id": "f2", "fact": "每周三上午十点为固定团队例会", "expected_hint": "周三上午十点"}
+      ],
+      "probe_question": "帮我安排下周的产品评审会，选什么时间最合适？",
+      "probe_expected_fact_ids": ["f1"]
+    },
+    {
+      "scenario_id": "mem_ab_04",
+      "title": "设备矩阵：MacBook 与转接头",
+      "context": {
+        "topic": "新办公区网络迁移",
+        "project": "总部七楼网络改造",
+        "person": "吴总",
+        "colleague": "小李",
+        "city": "深圳",
+        "region": "福田",
+        "date": "下周四下午两点"
+      },
+      "fact_turns": [
+        "我办公主要用 MacBook Pro，无线网用 5GHz，另外会议室投屏需要 Type-C 转 HDMI 的转接头。",
+        "公司的打印机我常用那台有扫描功能的，位置在茶水间旁边。"
+      ],
+      "gold_facts": [
+        {"fact_id": "f1", "fact": "用户主要使用 MacBook Pro", "expected_hint": "MacBook Pro"},
+        {"fact_id": "f2", "fact": "会议室投屏需要 Type-C 转 HDMI 转接头", "expected_hint": "Type-C 转 HDMI"},
+        {"fact_id": "f3", "fact": "常用打印机为茶水间旁带扫描功能的打印机", "expected_hint": "茶水间、扫描"}
+      ],
+      "probe_question": "新办公室开会时我要投屏，需要准备什么配件？",
+      "probe_expected_fact_ids": ["f1", "f2"]
+    },
+    {
+      "scenario_id": "mem_ab_05",
+      "title": "航空出行：常旅客卡与靠窗偏好",
+      "context": {
+        "topic": "华北项目出差",
+        "project": "数据中心迁移",
+        "person": "郑总",
+        "colleague": "罗工",
+        "city": "北京",
+        "region": "海淀",
+        "date": "下周三上午"
+      },
+      "fact_turns": [
+        "每次坐飞机我都用国航的常旅客卡，累计里程，座位请优先靠窗。",
+        "北京这个项目我一般住建国门附近，方便去客户那边。"
+      ],
+      "gold_facts": [
+        {"fact_id": "f1", "fact": "用户使用国航常旅客卡并偏好靠窗座位", "expected_hint": "国航、靠窗"},
+        {"fact_id": "f2", "fact": "北京出差常住建国门附近", "expected_hint": "建国门"}
+      ],
+      "probe_question": "帮我订下周去北京的机票，有什么偏好需要加上？",
+      "probe_expected_fact_ids": ["f1"]
+    },
+    {
+      "scenario_id": "mem_ab_06",
+      "title": "办公安排：安静工位与双屏",
+      "context": {
+        "topic": "研发中心重新排布",
+        "project": "研发集中办公区",
+        "person": "周总",
+        "colleague": "宋工",
+        "city": "武汉",
+        "region": "光谷",
+        "date": "下周五上午"
+      },
+      "fact_turns": [
+        "工位调整时我优先选安静区域，靠窗户那边太吵，我不喜欢。",
+        "我需要双屏办公，主机至少要支持两个显示器，最好有支架。"
+      ],
+      "gold_facts": [
+        {"fact_id": "f1", "fact": "用户偏好安静工位区域", "expected_hint": "安静"},
+        {"fact_id": "f2", "fact": "用户需要双屏办公", "expected_hint": "双屏"}
+      ],
+      "probe_question": "研发区重新排位时，我的工位要按什么条件申请？",
+      "probe_expected_fact_ids": ["f1", "f2"]
+    },
+    {
+      "scenario_id": "mem_ab_07",
+      "title": "请假规则：年假优先与周五下午",
+      "context": {
+        "topic": "团队休假安排",
+        "project": "下半年交付冲刺",
+        "person": "孙经理",
+        "colleague": "小杨",
+        "city": "南京",
+        "region": "河西",
+        "date": "八月底"
+      },
+      "fact_turns": [
+        "我请假优先用年假，去年结余还有五天没休完，别再动调休。",
+        "周五下午容易安排，我一般把个人事假放在这个时段。"
+      ],
+      "gold_facts": [
+        {"fact_id": "f1", "fact": "请假优先使用年假而非调休", "expected_hint": "年假优先"},
+        {"fact_id": "f2", "fact": "个人事假一般安排在周五下午", "expected_hint": "周五下午"}
+      ],
+      "probe_question": "我九月初想请两天假，应该怎么优先扣减余额？",
+      "probe_expected_fact_ids": ["f1"]
+    },
+    {
+      "scenario_id": "mem_ab_08",
+      "title": "会员权益：金卡礼遇与延迟退房",
+      "context": {
+        "topic": "酒店会员权益使用",
+        "project": "年中客户答谢活动",
+        "person": "方总",
+        "colleague": "小秦",
+        "city": "广州",
+        "region": "天河",
+        "date": "国庆前一周"
+      },
+      "fact_turns": [
+        "我是这家酒店的钻石会员，订房记得带上会员号，可以升级房型和延迟退房。",
+        "退房我习惯下午两点以后，中午还要见客户。"
+      ],
+      "gold_facts": [
+        {"fact_id": "f1", "fact": "用户是酒店钻石会员", "expected_hint": "钻石会员"},
+        {"fact_id": "f2", "fact": "用户偏好延迟退房至下午两点以后", "expected_hint": "延迟退房、下午两点"}
+      ],
+      "probe_question": "订广州的酒店时，有哪些会员权益需要替我争取？",
+      "probe_expected_fact_ids": ["f1"]
+    },
+    {
+      "scenario_id": "mem_ab_09",
+      "title": "健康习惯：晨跑与无糖饮品",
+      "context": {
+        "topic": "出差期间健康安排",
+        "project": "西南数据保障",
+        "person": "林总",
+        "colleague": "小陶",
+        "city": "成都",
+        "region": "高新区",
+        "date": "下周一早上七点"
+      },
+      "fact_turns": [
+        "我每天早晨六点四十起床跑步，五公里左右，酒店最好离公园或绿道近一点。",
+        "咖啡我只喝无糖美式，别的都太甜。"
+      ],
+      "gold_facts": [
+        {"fact_id": "f1", "fact": "用户每天晨跑约五公里", "expected_hint": "晨跑、五公里"},
+        {"fact_id": "f2", "fact": "咖啡只喝无糖美式", "expected_hint": "无糖美式"}
+      ],
+      "probe_question": "在成都订酒店时要考虑什么健康相关的条件？",
+      "probe_expected_fact_ids": ["f1"]
+    },
+    {
+      "scenario_id": "mem_ab_10",
+      "title": "交通出行：地下车库与新能源充电",
+      "context": {
+        "topic": "新办公区停车位",
+        "project": "总部园区停车改造",
+        "person": "邵总",
+        "colleague": "魏工",
+        "city": "西安",
+        "region": "高新区",
+        "date": "本月底"
+      },
+      "fact_turns": [
+        "我的车是新能源汽车，充电桩必须是快充，公司地库要给我预留带桩车位。",
+        "停车位最好是地下车库，离电梯近一些，下雨方便。"
+      ],
+      "gold_facts": [
+        {"fact_id": "f1", "fact": "用户驾驶新能源汽车，需要快充充电桩", "expected_hint": "新能源、快充"},
+        {"fact_id": "f2", "fact": "用户偏好地下车库且离电梯近的车位", "expected_hint": "地下、电梯近"}
+      ],
+      "probe_question": "园区停车位分配时，我有什么特殊需求？",
+      "probe_expected_fact_ids": ["f1", "f2"]
+    },
+    {
+      "scenario_id": "mem_ab_11",
+      "title": "培训需求：案例导向与中文材料",
+      "context": {
+        "topic": "新员工培训计划",
+        "project": "客服质检培训",
+        "person": "何总监",
+        "colleague": "陆老师",
+        "city": "成都",
+        "region": "锦江",
+        "date": "下周三下午"
+      },
+      "fact_turns": [
+        "培训我更喜欢案例导向的形式，最好每节课都有真实业务案例拆解。",
+        "教材要用中文版，英文材料我阅读比较慢。"
+      ],
+      "gold_facts": [
+        {"fact_id": "f1", "fact": "用户偏好案例导向培训", "expected_hint": "案例导向"},
+        {"fact_id": "f2", "fact": "培训教材需要中文版", "expected_hint": "中文版"}
+      ],
+      "probe_question": "给团队排培训课时，按我的偏好应该优先选什么形式？",
+      "probe_expected_fact_ids": ["f1", "f2"]
+    },
+    {
+      "scenario_id": "mem_ab_12",
+      "title": "项目交付：先验收后付款与周日汇报",
+      "context": {
+        "topic": "客户项目交付",
+        "project": "供应链数据中台",
+        "person": "唐总",
+        "colleague": "小韩",
+        "city": "厦门",
+        "region": "湖里",
+        "date": "下周五五点"
+      },
+      "fact_turns": [
+        "项目交付我一直坚持先验收后付款，验收单必须有客户代表签字，这是红线。",
+        "周日晚上八点前给我发周报，我用半小时扫一遍。"
+      ],
+      "gold_facts": [
+        {"fact_id": "f1", "fact": "项目坚持先验收后付款且验收单需客户代表签字", "expected_hint": "先验收、签字"},
+        {"fact_id": "f2", "fact": "周报需在周日晚上八点前发送", "expected_hint": "周日晚上八点"}
+      ],
+      "probe_question": "供应链项目下周要怎么安排交付和付款节点？",
+      "probe_expected_fact_ids": ["f1"]
+    },
+    {
+      "scenario_id": "mem_ab_13",
+      "title": "预算审批：季末集中申请与线上流程",
+      "context": {
+        "topic": "部门采购预算",
+        "project": "研发效率工具采购",
+        "person": "马总",
+        "colleague": "小潘",
+        "city": "北京",
+        "region": "朝阳",
+        "date": "季度末"
+      },
+      "fact_turns": [
+        "部门采购预算我习惯季末集中申请，不愿意拆成小单。",
+        "所有审批必须走线上流程，不要让我补纸质签字。"
+      ],
+      "gold_facts": [
+        {"fact_id": "f1", "fact": "采购预算习惯季末集中申请", "expected_hint": "季末、集中"},
+        {"fact_id": "f2", "fact": "审批必须走线上流程", "expected_hint": "线上流程"}
+      ],
+      "probe_question": "这轮的研发工具采购应该按什么方式提交？",
+      "probe_expected_fact_ids": ["f1", "f2"]
+    },
+    {
+      "scenario_id": "mem_ab_14",
+      "title": "团队协作：文档库与站会",
+      "context": {
+        "topic": "异地团队协作",
+        "project": "多中心研发协同",
+        "person": "江总",
+        "colleague": "小袁",
+        "city": "合肥",
+        "region": "蜀山",
+        "date": "每天上午九点半"
+      },
+      "fact_turns": [
+        "异地协作的项目，文档必须统一放共享文档库，禁止个人本地版本。",
+        "每天上午九点半站会，十五分钟内结束，迟到超过两分钟的人要说明原因。"
+      ],
+      "gold_facts": [
+        {"fact_id": "f1", "fact": "项目文档必须统一放共享文档库", "expected_hint": "共享文档库"},
+        {"fact_id": "f2", "fact": "每天九点半站会，十五分钟内结束", "expected_hint": "九点半、十五分钟"}
+      ],
+      "probe_question": "多中心项目开工前，协作规范里有哪些硬性要求？",
+      "probe_expected_fact_ids": ["f1", "f2"]
+    },
+    {
+      "scenario_id": "mem_ab_15",
+      "title": "日程冲突：预留家庭时间",
+      "context": {
+        "topic": "出差与家庭时间",
+        "project": "华南区域巡检",
+        "person": "顾总",
+        "colleague": "小郑",
+        "city": "珠海",
+        "region": "香洲",
+        "date": "周末"
+      },
+      "fact_turns": [
+        "周五下午四点以后和周末给我预留家庭时间，不要安排会议和出差。",
+        "孩子周五晚上有钢琴课，我需要按时回家。"
+      ],
+      "gold_facts": [
+        {"fact_id": "f1", "fact": "周五下午四点后与周末不安排会议或出差", "expected_hint": "周五四点、周末"},
+        {"fact_id": "f2", "fact": "孩子周五晚上有钢琴课", "expected_hint": "钢琴课"}
+      ],
+      "probe_question": "下周的出差行程安排时，有哪些时间不能占用？",
+      "probe_expected_fact_ids": ["f1"]
+    },
+    {
+      "scenario_id": "mem_ab_16",
+      "title": "酒店延住：连住折扣与套房",
+      "context": {
+        "topic": "长驻项目酒店",
+        "project": "设备联调驻场",
+        "person": "涂总",
+        "colleague": "小龚",
+        "city": "重庆",
+        "region": "江北",
+        "date": "连续三周"
+      },
+      "fact_turns": [
+        "长驻项目我一般住行政套房，需要书桌和打印机，方便晚上办公。",
+        "连住超过两周要酒店给协议价，我不接受挂牌价。"
+      ],
+      "gold_facts": [
+        {"fact_id": "f1", "fact": "长驻出差偏好行政套房，需书桌和打印机", "expected_hint": "行政套房、打印"},
+        {"fact_id": "f2", "fact": "连住超两周要求协议价", "expected_hint": "协议价"}
+      ],
+      "probe_question": "重庆驻场三周的住宿要怎么跟酒店谈？",
+      "probe_expected_fact_ids": ["f1", "f2"]
+    },
+    {
+      "scenario_id": "mem_ab_17",
+      "title": "报销归档：电子发票与按月整理",
+      "context": {
+        "topic": "财务报销习惯",
+        "project": "顾问服务项目",
+        "person": "柯总",
+        "colleague": "钱会计",
+        "city": "宁波",
+        "region": "鄞州",
+        "date": "每月最后一个工作日"
+      },
+      "fact_turns": [
+        "我报销只用电子发票，PDF 原件放到报销附件里，不要拍照件。",
+        "发票我按月整理，月底最后一个工作日统一提交财务。"
+      ],
+      "gold_facts": [
+        {"fact_id": "f1", "fact": "报销仅接受电子发票 PDF 原件", "expected_hint": "电子发票、PDF"},
+        {"fact_id": "f2", "fact": "发票按月整理并在月底最后一个工作日提交", "expected_hint": "月底最后工作日"}
+      ],
+      "probe_question": "我这个月的手写发票和其他凭证该怎么处理？",
+      "probe_expected_fact_ids": ["f1"]
+    },
+    {
+      "scenario_id": "mem_ab_18",
+      "title": "会议室预订：投影与白板",
+      "context": {
+        "topic": "评审会议场地",
+        "project": "产品界面评审",
+        "person": "费总",
+        "colleague": "小鹿",
+        "city": "北京",
+        "region": "望京",
+        "date": "周四下午两点"
+      },
+      "fact_turns": [
+        "重要的方案评审必须订带投影和白板的大会议室，小洽谈间不行。",
+        "会议室最好能容纳十二个人，椅子要够。"
+      ],
+      "gold_facts": [
+        {"fact_id": "f1", "fact": "重要评审需带投影和白板的大会议室", "expected_hint": "投影、白板"},
+        {"fact_id": "f2", "fact": "会议室需容纳十二人", "expected_hint": "十二人"}
+      ],
+      "probe_question": "下周评审会应该订什么样的会议室？",
+      "probe_expected_fact_ids": ["f1", "f2"]
+    },
+    {
+      "scenario_id": "mem_ab_19",
+      "title": "远程会议：腾讯会议与入会提醒",
+      "context": {
+        "topic": "客户远程评审",
+        "project": "数据安全评估",
+        "person": "袁总",
+        "colleague": "小卞",
+        "city": "天津",
+        "region": "和平",
+        "date": "周二上午十点"
+      },
+      "fact_turns": [
+        "远程会议我统一用腾讯会议，公司账号会带录制，别用其他平台。",
+        "会前十分钟要给我发入会链接，我习惯提前进去调设备。"
+      ],
+      "gold_facts": [
+        {"fact_id": "f1", "fact": "远程会议统一使用腾讯会议", "expected_hint": "腾讯会议"},
+        {"fact_id": "f2", "fact": "会前十分钟发送入会链接", "expected_hint": "提前十分钟"}
+      ],
+      "probe_question": "客户评审的通话怎么安排比较符合我的习惯？",
+      "probe_expected_fact_ids": ["f1", "f2"]
+    },
+    {
+      "scenario_id": "mem_ab_20",
+      "title": "出差城市：高铁优先与市中心",
+      "context": {
+        "topic": "邻市客户拜访",
+        "project": "渠道商调研",
+        "person": "孟总",
+        "colleague": "小包",
+        "city": "济南",
+        "region": "历下",
+        "date": "下周二下午"
+      },
+      "fact_turns": [
+        "去济南这种高铁三小时内的城市，一律选高铁，不坐飞机。",
+        "酒店要订在市中心，离客户写字楼步行十五分钟内。"
+      ],
+      "gold_facts": [
+        {"fact_id": "f1", "fact": "高铁三小时内城市优先选高铁", "expected_hint": "高铁"},
+        {"fact_id": "f2", "fact": "酒店需在市中心且距客户步行十五分钟内", "expected_hint": "市中心、步行"}
+      ],
+      "probe_question": "下周济南的行程，交通和住宿按什么标准定？",
+      "probe_expected_fact_ids": ["f1", "f2"]
+    },
+    {
+      "scenario_id": "mem_ab_21",
+      "title": "饮品偏好：热茶与瓶装水",
+      "context": {
+        "topic": "会议茶歇安排",
+        "project": "季度经营分析会",
+        "person": "龙总",
+        "colleague": "小洪",
+        "city": "长沙",
+        "region": "岳麓",
+        "date": "周五下午"
+      },
+      "fact_turns": [
+        "会议茶歇给我准备热茶就好，绿茶红茶都行，不要碳酸饮料。",
+        "瓶装水我喝常温的，冰水放着也不喝。"
+      ],
+      "gold_facts": [
+        {"fact_id": "f1", "fact": "茶歇偏好热茶而非碳酸饮料", "expected_hint": "热茶"},
+        {"fact_id": "f2", "fact": "瓶装水偏好常温", "expected_hint": "常温"}
+      ],
+      "probe_question": "季度会茶歇的饮品单要怎么调整？",
+      "probe_expected_fact_ids": ["f1", "f2"]
+    },
+    {
+      "scenario_id": "mem_ab_22",
+      "title": "房间温度：恒温空调与加湿器",
+      "context": {
+        "topic": "南方出差住宿",
+        "project": "门店系统升级",
+        "person": "牛总",
+        "colleague": "小纪",
+        "city": "南昌",
+        "region": "红谷滩",
+        "date": "六月"
+      },
+      "fact_turns": [
+        "房间空调温度我习惯固定在二十四度，太高太低都不舒服。",
+        "南方出差一定要房间有加湿器，我鼻炎对干燥很敏感。"
+      ],
+      "gold_facts": [
+        {"fact_id": "f1", "fact": "房间空调恒温二十四度", "expected_hint": "二十四度"},
+        {"fact_id": "f2", "fact": "需要房间提供加湿器", "expected_hint": "加湿器"}
+      ],
+      "probe_question": "南昌住宿有什么环境上的特别要求？",
+      "probe_expected_fact_ids": ["f1", "f2"]
+    },
+    {
+      "scenario_id": "mem_ab_23",
+      "title": "接机服务：航班号与行李提示",
+      "context": {
+        "topic": "商务接待标准",
+        "project": "合作伙伴来访",
+        "person": "尹总",
+        "colleague": "小丁",
+        "city": "青岛",
+        "region": "崂山",
+        "date": "周日下午抵达"
+      },
+      "fact_turns": [
+        "接机司机要提前拿到我的航班号，落地后先看行李转盘，大行李箱要司机帮忙拿。",
+        "用车我喜欢安静一点的商务车，不要和司机闲聊。"
+      ],
+      "gold_facts": [
+        {"fact_id": "f1", "fact": "接机需提前获取航班号并协助拿行李", "expected_hint": "航班号、行李"},
+        {"fact_id": "f2", "fact": "用车偏好安静商务车", "expected_hint": "安静商务车"}
+      ],
+      "probe_question": "周日的接机安排要注意哪些细节？",
+      "probe_expected_fact_ids": ["f1", "f2"]
+    },
+    {
+      "scenario_id": "mem_ab_24",
+      "title": "保险福利：旅行险与证件复印",
+      "context": {
+        "topic": "境外项目出差",
+        "project": "海外市场支撑",
+        "person": "詹总",
+        "colleague": "小苗",
+        "city": "新加坡",
+        "region": "滨海湾",
+        "date": "下月第一周"
+      },
+      "fact_turns": [
+        "出国前一定要帮我买覆盖医疗和行程延误的旅行险，这是硬性要求。",
+        "护照首页和签证页我会扫描备份，行程单也要发我邮箱。"
+      ],
+      "gold_facts": [
+        {"fact_id": "f1", "fact": "出境前必须购买含医疗和行程延误的旅行险", "expected_hint": "旅行险、医疗、延误"},
+        {"fact_id": "f2", "fact": "需要扫描护照签证并发送行程单到邮箱", "expected_hint": "行程单、邮箱"}
+      ],
+      "probe_question": "下月新加坡出差的出行清单要从哪些开始准备？",
+      "probe_expected_fact_ids": ["f1", "f2"]
+    },
+    {
+      "scenario_id": "mem_ab_25",
+      "title": "加班补贴：晚餐标准与打车报销",
+      "context": {
+        "topic": "项目攻坚期保障",
+        "project": "双十一大促保障",
+        "person": "康总",
+        "colleague": "小曹",
+        "city": "上海",
+        "region": "青浦",
+        "date": "十月中旬"
+      },
+      "fact_turns": [
+        "加班超过晚上八点提供晚餐，标准六十五元内实报实销，不含酒水。",
+        "回家打车可以报销，目的地写家里地址就行。"
+      ],
+      "gold_facts": [
+        {"fact_id": "f1", "fact": "加班超八点提供六十五元内晚餐补贴", "expected_hint": "八点、六十五元"},
+        {"fact_id": "f2", "fact": "加班回家打车可报销", "expected_hint": "打车报销"}
+      ],
+      "probe_question": "大促期间加班有什么补贴标准可以用？",
+      "probe_expected_fact_ids": ["f1", "f2"]
+    },
+    {
+      "scenario_id": "mem_ab_26",
+      "title": "福利登记：生日月礼品与家庭地址",
+      "context": {
+        "topic": "员工福利发放",
+        "project": "中秋节福利清单",
+        "person": "梅总",
+        "colleague": "小艾",
+        "city": "郑州",
+        "region": "郑东",
+        "date": "九月中旬"
+      },
+      "fact_turns": [
+        "我的生日在十一月，生日礼品不要蛋糕券，换成体检或按摩券都行。",
+        "福利寄送地址用家里地址，不要寄到公司，我经常出差收不到。"
+      ],
+      "gold_facts": [
+        {"fact_id": "f1", "fact": "生日为十一月，生日礼品不要蛋糕券", "expected_hint": "十一月、不要蛋糕券"},
+        {"fact_id": "f2", "fact": "福利寄送使用家庭地址", "expected_hint": "家庭地址"}
+      ],
+      "probe_question": "今年生日福利登记时，有什么备注要加？",
+      "probe_expected_fact_ids": ["f1", "f2"]
+    },
+    {
+      "scenario_id": "mem_ab_27",
+      "title": "纪念日提醒：结婚纪念日与花束",
+      "context": {
+        "topic": "生活服务助手",
+        "project": "个人日程管理",
+        "person": "谢总",
+        "colleague": "小桑",
+        "city": "佛山",
+        "region": "禅城",
+        "date": "十月八日"
+      },
+      "fact_turns": [
+        "我的结婚纪念日是十月八日，每年提前三天帮我订一小束花，配送回家里。",
+        "太太对百合过敏，花束里不要有百合。"
+      ],
+      "gold_facts": [
+        {"fact_id": "f1", "fact": "结婚纪念日为十月八日，提前三天订花", "expected_hint": "十月八日、提前三天"},
+        {"fact_id": "f2", "fact": "花束中不能包含百合", "expected_hint": "百合过敏"}
+      ],
+      "probe_question": "以后每年的纪念日安排应该怎么设提醒？",
+      "probe_expected_fact_ids": ["f1", "f2"]
+    },
+    {
+      "scenario_id": "mem_ab_28",
+      "title": "会员积分：酒店积分累计与兑换",
+      "context": {
+        "topic": "长期客户积分管理",
+        "project": "年度差旅积分盘点",
+        "person": "沈总",
+        "colleague": "小纪",
+        "city": "泉州",
+        "region": "丰泽",
+        "date": "年底"
+      },
+      "fact_turns": [
+        "所有公司差旅住宿都登记到我的洲际积分账户，房费积分全部归我。",
+        "积分兑换优先换航空里程，其次换房晚，不要礼品卡。"
+      ],
+      "gold_facts": [
+        {"fact_id": "f1", "fact": "差旅住宿积分统一累计到洲际账户", "expected_hint": "洲际、积分"},
+        {"fact_id": "f2", "fact": "积分兑换优先航空里程再换房晚", "expected_hint": "航空里程、房晚"}
+      ],
+      "probe_question": "年底盘点差旅积分时，我要怎么定兑换策略？",
+      "probe_expected_fact_ids": ["f1", "f2"]
+    },
+    {
+      "scenario_id": "mem_ab_29",
+      "title": "行李服务：大件寄存与次日达",
+      "context": {
+        "topic": "退房转场安排",
+        "project": "跨城拜访行程",
+        "person": "易总",
+        "colleague": "小柏",
+        "city": "无锡",
+        "region": "滨湖",
+        "date": "周一下午"
+      },
+      "fact_turns": [
+        "退房后大件行李先寄存酒店，我会回来取，不要直接快递到公司。",
+        "如果真的要寄，优先顺丰次日达，到付我可以接受。"
+      ],
+      "gold_facts": [
+        {"fact_id": "f1", "fact": "退房后大件行李寄存酒店再回来取", "expected_hint": "寄存酒店"},
+        {"fact_id": "f2", "fact": "快递优先顺丰次日达", "expected_hint": "顺丰次日达"}
+      ],
+      "probe_question": "无锡退房那天，行李应该怎么安排？",
+      "probe_expected_fact_ids": ["f1", "f2"]
+    },
+    {
+      "scenario_id": "mem_ab_30",
+      "title": "商务中心：打印装订与会议室打印",
+      "context": {
+        "topic": "客户现场材料",
+        "project": "金融客户标书",
+        "person": "童总",
+        "colleague": "小原",
+        "city": "沈阳",
+        "region": "和平",
+        "date": "周四上午"
+      },
+      "fact_turns": [
+        "标书打印要用商务中心的双面打印和胶装，普通单面装订不行。",
+        "彩色封面打印两份，一份给客户，一份我要留档。"
+      ],
+      "gold_facts": [
+        {"fact_id": "f1", "fact": "标书需双面打印并胶装", "expected_hint": "双面、胶装"},
+        {"fact_id": "f2", "fact": "彩色封面打印两份", "expected_hint": "两份"}
+      ],
+      "probe_question": "沈阳客户标书的打印装订要求是什么？",
+      "probe_expected_fact_ids": ["f1", "f2"]
+    }
+  ]
+}

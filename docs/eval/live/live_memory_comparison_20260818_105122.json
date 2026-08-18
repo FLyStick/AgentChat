@@ -1,0 +1,625 @@
+{
+  "stage": "p5.10",
+  "created_at": "2026-08-18T02:57:25+00:00",
+  "dataset_name": "memory_live_ab_30",
+  "scenario_count": 2,
+  "judge_method": "discriminative_hint_match",
+  "design": "seed_dialog_facts_plus_fresh_probe_dialog",
+  "environment": {
+    "cwd": "D:\\实习记录\\开源项目\\AgentChat\\src\\backend",
+    "python": "C:\\Users\\20235\\.conda\\envs\\agentchat\\python.exe",
+    "base_url": "http://127.0.0.1:7860",
+    "fixture": "D:\\实习记录\\开源项目\\AgentChat\\src\\backend\\agentchat\\benchmarks\\fixtures\\memory_live_ab\\scenarios.json"
+  },
+  "settings": {
+    "limit": 2,
+    "scenario_ids": [],
+    "top_k_memory": 8,
+    "wait_memory_timeout_s": 20.0
+  },
+  "arms": {
+    "two_layer": {
+      "arm": "two_layer",
+      "label": "两层（enable_memory=False）",
+      "enable_memory": false,
+      "case_count": 2,
+      "fact_count": 5,
+      "fact_recall": 0.0,
+      "missing_rate": 1.0,
+      "used_wrongly_rate": 0.0,
+      "case_pass_rate": 0.0,
+      "mean_total_latency_ms": 12103.543,
+      "mean_probe_latency_ms": 13156.991,
+      "mean_first_chunk_ms": 13105.115,
+      "usage_delta": {
+        "input_tokens": 782,
+        "output_tokens": 3583,
+        "total_tokens": 4365,
+        "call_count": 6
+      },
+      "scenario_count": 2,
+      "identity_count": 2
+    },
+    "three_layer": {
+      "arm": "three_layer",
+      "label": "三层（enable_memory=True）",
+      "enable_memory": true,
+      "case_count": 2,
+      "fact_count": 5,
+      "fact_recall": 1.0,
+      "missing_rate": 0.0,
+      "used_wrongly_rate": 0.0,
+      "case_pass_rate": 1.0,
+      "mean_total_latency_ms": 42511.635,
+      "mean_probe_latency_ms": 39172.28,
+      "mean_first_chunk_ms": 11072.046,
+      "usage_delta": {
+        "input_tokens": 913,
+        "output_tokens": 3138,
+        "total_tokens": 4051,
+        "call_count": 6
+      },
+      "scenario_count": 2,
+      "identity_count": 2
+    }
+  },
+  "comparison": {
+    "fact_recall": 1.0,
+    "case_pass_rate": 1.0,
+    "mean_probe_latency_ms": 26015.289
+  },
+  "scenarios": [
+    {
+      "scenario_id": "mem_ab_01",
+      "title": "酒店房间：高层南向、无烟与鸡蛋过敏",
+      "two_layer": {
+        "scenario_id": "mem_ab_01",
+        "title": "酒店房间：高层南向、无烟与鸡蛋过敏",
+        "user_id": "6",
+        "agent_id": "db838e1fe6ed4a749662c301f8124e79",
+        "seed_dialog_id": "a93b0a38e8e04cdea16524195e274f5b",
+        "probe_dialog_id": "23465b6a26aa49edb5408d381a3ac2de",
+        "probe_question": "帮我再核对一次这次出差的房间和早餐要求，我准备发给酒店了。",
+        "seed_turns": [
+          {
+            "user_input": "这次去苏州出差，帮我订酒店，我习惯住高层，房间最好朝南，光线好一点，另外一定不要吸烟房。",
+            "answer": "您好！已为您记录住宿偏好：高层、朝南、光线好、无烟房。\n\n由于当前系统中没有您此次苏州出差的具体行程记录，还需要您补充以下信息以便为您筛选和预订酒店：\n1. 入住与退房日期；\n2. 期望的酒店区域或靠近的办事地点（如工业园区、姑苏区等）；\n3. 公司的差旅预算标准。\n\n请您提供上述信息，我将尽快为您安排。",
+            "answer_length": 153,
+            "latency_ms": 12755.592,
+            "first_chunk_ms": 12706.364,
+            "stream_completed": true,
+            "stream_error": null,
+            "event_type_counts": {
+              "response_chunk": 27
+            }
+          },
+          {
+            "user_input": "早餐要注意，我对鸡蛋过敏，任何含鸡蛋的食物都不要安排，麻烦备注给酒店。",
+            "answer": "好的，已为您记录饮食禁忌：对鸡蛋过敏，预订时会向酒店特别备注早餐及所有餐饮均不含鸡蛋。\n\n目前系统中仍未记录您此次苏州出差的具体行程。为了尽快为您完成预订，还需请您补充以下信息：\n1. 入住与退房日期；\n2. 期望的酒店区域或靠近的办事地点；\n3. 公司的差旅预算标准。\n\n收到上述信息后，我将立即为您安排符合您所有住宿和饮食要求的酒店。",
+            "answer_length": 169,
+            "latency_ms": 11268.755,
+            "first_chunk_ms": 11221.502,
+            "stream_completed": true,
+            "stream_error": null,
+            "event_type_counts": {
+              "response_chunk": 27
+            }
+          }
+        ],
+        "memory_evidence": null,
+        "probe": {
+          "user_input": "帮我再核对一次这次出差的房间和早餐要求，我准备发给酒店了。",
+          "answer": "您好！目前系统中没有关于您这次出差的房间和早餐要求的相关记录。\n\n请您提供具体的入住日期、房间类型、早餐需求以及其他特殊要求，我将帮您核对并整理成发给酒店的确认信息。",
+          "answer_length": 83,
+          "latency_ms": 7929.047,
+          "first_chunk_ms": 7889.803,
+          "stream_completed": true,
+          "stream_error": null,
+          "event_type_counts": {
+            "response_chunk": 13
+          }
+        },
+        "fact_results": [
+          {
+            "fact_id": "f1",
+            "fact": "用户住宿偏好高层且朝南的房间",
+            "expected_hint": "高层、朝南",
+            "terms": [
+              "高层",
+              "朝南"
+            ],
+            "hit_terms": [],
+            "all_terms_hit": false,
+            "variant_checks": [
+              {
+                "terms": [
+                  "高层",
+                  "朝南"
+                ],
+                "hit_terms": [],
+                "all_hit": false
+              }
+            ],
+            "uncertain_marker_hit": false,
+            "verdict": "missing"
+          },
+          {
+            "fact_id": "f2",
+            "fact": "用户要求无烟房",
+            "expected_hint": "无烟",
+            "terms": [
+              "无烟"
+            ],
+            "hit_terms": [],
+            "all_terms_hit": false,
+            "variant_checks": [
+              {
+                "terms": [
+                  "无烟"
+                ],
+                "hit_terms": [],
+                "all_hit": false
+              },
+              {
+                "terms": [
+                  "非吸烟"
+                ],
+                "hit_terms": [],
+                "all_hit": false
+              },
+              {
+                "terms": [
+                  "禁烟"
+                ],
+                "hit_terms": [],
+                "all_hit": false
+              }
+            ],
+            "uncertain_marker_hit": false,
+            "verdict": "missing"
+          },
+          {
+            "fact_id": "f3",
+            "fact": "用户对鸡蛋过敏，早餐不能含鸡蛋",
+            "expected_hint": "鸡蛋过敏",
+            "terms": [
+              "鸡蛋过敏"
+            ],
+            "hit_terms": [],
+            "all_terms_hit": false,
+            "variant_checks": [
+              {
+                "terms": [
+                  "鸡蛋过敏"
+                ],
+                "hit_terms": [],
+                "all_hit": false
+              }
+            ],
+            "uncertain_marker_hit": false,
+            "verdict": "missing"
+          }
+        ],
+        "case_pass": false
+      },
+      "three_layer": {
+        "scenario_id": "mem_ab_01",
+        "title": "酒店房间：高层南向、无烟与鸡蛋过敏",
+        "user_id": "8",
+        "agent_id": "032c37a27aba4921a82c43057a5dd119",
+        "seed_dialog_id": "e6061038dbb04096bef0570cb243445b",
+        "probe_dialog_id": "2d04c7ba673b48009667515ded8ada69",
+        "probe_question": "帮我再核对一次这次出差的房间和早餐要求，我准备发给酒店了。",
+        "seed_turns": [
+          {
+            "user_input": "这次去苏州出差，帮我订酒店，我习惯住高层，房间最好朝南，光线好一点，另外一定不要吸烟房。",
+            "answer": "您好！已为您记录住宿偏好：高层、朝南光线好、无烟房。\n\n目前系统中暂无您此次苏州出差的具体入住与退房日期、预算范围以及偏好区域（如工业园区、姑苏区等）的记录。\n\n请您补充上述行程信息，我将尽快为您筛选并推荐符合要求的酒店选项，待您确认后协助安排预订。",
+            "answer_length": 125,
+            "latency_ms": 39437.019,
+            "first_chunk_ms": 16486.817,
+            "stream_completed": true,
+            "stream_error": null,
+            "event_type_counts": {
+              "response_chunk": 21
+            }
+          },
+          {
+            "user_input": "早餐要注意，我对鸡蛋过敏，任何含鸡蛋的食物都不要安排，麻烦备注给酒店。",
+            "answer": "好的，已为您记录饮食禁忌：对鸡蛋过敏，绝不安排任何含鸡蛋的食物。在为您预订酒店时，我会务必向酒店特别备注此要求，以确保您的用餐安全。\n\n目前系统中仍缺少您此次苏州出差的**入住与退房日期**、**预算范围**以及**期望入住的区域**（如工业园区、姑苏区等）。请您补充这些信息，我将立即为您筛选符合所有要求的酒店并协助预订。",
+            "answer_length": 162,
+            "latency_ms": 51637.146,
+            "first_chunk_ms": 11836.825,
+            "stream_completed": true,
+            "stream_error": null,
+            "event_type_counts": {
+              "response_chunk": 24
+            }
+          }
+        ],
+        "memory_evidence": {
+          "ready": true,
+          "timed_out": false,
+          "waited_ms": 13898.131,
+          "result_count": 7,
+          "top_results": [
+            {
+              "memory": "这次去苏州出差",
+              "score": 1.1095839738845825,
+              "run_id": "e6061038dbb04096bef0570cb243445b"
+            },
+            {
+              "memory": "房间光线要好",
+              "score": 1.1303070783615112,
+              "run_id": "e6061038dbb04096bef0570cb243445b"
+            },
+            {
+              "memory": "一定不要吸烟房",
+              "score": 1.1710647344589233,
+              "run_id": "e6061038dbb04096bef0570cb243445b"
+            }
+          ]
+        },
+        "probe": {
+          "user_input": "帮我再核对一次这次出差的房间和早餐要求，我准备发给酒店了。",
+          "answer": "为您核对这次苏州出差的房间和早餐要求如下，您可以直接复制发给酒店：\n\n**【房间要求】**\n1. 务必安排**无烟房**。\n2. 请安排**高层**房间，最好**朝南**，确保**光线良好**。\n\n**【早餐及饮食要求】**\n1. 客人**对鸡蛋过敏**，早餐及所有餐饮**切勿提供任何含有鸡蛋成分的食物**。\n\n您看这样整理是否合适？如需调整或补充其他信息，请随时告诉我。",
+          "answer_length": 187,
+          "latency_ms": 51432.57,
+          "first_chunk_ms": 12357.572,
+          "stream_completed": true,
+          "stream_error": null,
+          "event_type_counts": {
+            "response_chunk": 31
+          }
+        },
+        "fact_results": [
+          {
+            "fact_id": "f1",
+            "fact": "用户住宿偏好高层且朝南的房间",
+            "expected_hint": "高层、朝南",
+            "terms": [
+              "高层",
+              "朝南"
+            ],
+            "hit_terms": [
+              "高层",
+              "朝南"
+            ],
+            "all_terms_hit": true,
+            "variant_checks": [
+              {
+                "terms": [
+                  "高层",
+                  "朝南"
+                ],
+                "hit_terms": [
+                  "高层",
+                  "朝南"
+                ],
+                "all_hit": true
+              }
+            ],
+            "uncertain_marker_hit": false,
+            "verdict": "used_correctly"
+          },
+          {
+            "fact_id": "f2",
+            "fact": "用户要求无烟房",
+            "expected_hint": "无烟",
+            "terms": [
+              "无烟"
+            ],
+            "hit_terms": [
+              "无烟"
+            ],
+            "all_terms_hit": true,
+            "variant_checks": [
+              {
+                "terms": [
+                  "无烟"
+                ],
+                "hit_terms": [
+                  "无烟"
+                ],
+                "all_hit": true
+              },
+              {
+                "terms": [
+                  "非吸烟"
+                ],
+                "hit_terms": [],
+                "all_hit": false
+              },
+              {
+                "terms": [
+                  "禁烟"
+                ],
+                "hit_terms": [],
+                "all_hit": false
+              }
+            ],
+            "uncertain_marker_hit": false,
+            "verdict": "used_correctly"
+          },
+          {
+            "fact_id": "f3",
+            "fact": "用户对鸡蛋过敏，早餐不能含鸡蛋",
+            "expected_hint": "鸡蛋过敏",
+            "terms": [
+              "鸡蛋过敏"
+            ],
+            "hit_terms": [
+              "鸡蛋过敏"
+            ],
+            "all_terms_hit": true,
+            "variant_checks": [
+              {
+                "terms": [
+                  "鸡蛋过敏"
+                ],
+                "hit_terms": [
+                  "鸡蛋过敏"
+                ],
+                "all_hit": true
+              }
+            ],
+            "uncertain_marker_hit": false,
+            "verdict": "used_correctly"
+          }
+        ],
+        "case_pass": true
+      }
+    },
+    {
+      "scenario_id": "mem_ab_02",
+      "title": "差旅报销：统一账户与餐饮发票",
+      "two_layer": {
+        "scenario_id": "mem_ab_02",
+        "title": "差旅报销：统一账户与餐饮发票",
+        "user_id": "7",
+        "agent_id": "268a0821bf874eadbeed436699242452",
+        "seed_dialog_id": "cb62a1f892334f9a82794bc2e90ef9d7",
+        "probe_dialog_id": "66d85c3d02bc440ebf714ea4fd41dce4",
+        "probe_question": "这次杭州出差回来的发票应该怎么处理？",
+        "seed_turns": [
+          {
+            "user_input": "我这边所有差旅报销都走公司统一账户，不用单独绑定我个人银行卡，两年前就这样定的。",
+            "answer": "您好！收到您的说明。在之前的系统记录中并没有关于您差旅报销方式的相关记录，但我现在已经为您明确记下该偏好：您的所有差旅报销均走公司统一账户，无需单独绑定个人银行卡。后续将按此约定协助您处理相关事务。如有其他要求，请随时告知。",
+            "answer_length": 112,
+            "latency_ms": 11103.014,
+            "first_chunk_ms": 11066.606,
+            "stream_completed": true,
+            "stream_error": null,
+            "event_type_counts": {
+              "response_chunk": 16
+            }
+          },
+          {
+            "user_input": "餐饮发票开票抬头也写公司全称，备注里加上项目编号，方便财务归档。",
+            "answer": "您好！此前没有关于您餐饮发票开票要求的记录。现已为您明确记下：餐饮发票开票抬头需写公司全称，并在备注里加上项目编号，以便财务归档。后续将按此约定协助您处理相关事务。如有其他要求，请随时告知。",
+            "answer_length": 95,
+            "latency_ms": 11179.916,
+            "first_chunk_ms": 11136.975,
+            "stream_completed": true,
+            "stream_error": null,
+            "event_type_counts": {
+              "response_chunk": 15
+            }
+          }
+        ],
+        "memory_evidence": null,
+        "probe": {
+          "user_input": "这次杭州出差回来的发票应该怎么处理？",
+          "answer": "您好！由于目前没有您所在公司具体财务报销制度的记录，我无法为您提供确切的内部报销流程。\n\n一般而言，企业出差发票的处理通常包括以下通用步骤：\n\n1. **整理核对**：按费用类别（如交通、住宿、餐饮等）整理发票，仔细核对公司抬头、税号、金额、日期及发票章是否准确无误。\n2. **查验真伪**：根据公司要求，对增值税发票进行查重和真伪查验。\n3. **填写单据**：在公司的财务系统或纸质报销单上填写出差事由、费用明细，并关联出差申请单或行程单。\n4. **规范贴票**：纸质发票按财务要求规范粘贴（如分类平铺或鱼鳞状粘贴）；电子发票按公司要求打印或上传至报销系统。\n5. **提交审批**：将整理好的报销单据及附件提交给直属领导和财务部门进行审批。\n\n建议您直接查阅公司的《财务报销管理制度》或咨询财务部同事，以确认具体的系统操作、贴票规范及审批流程。如果您能提供公司的具体规定，我也可以帮您进一步梳理。",
+          "answer_length": 403,
+          "latency_ms": 18384.935,
+          "first_chunk_ms": 18320.427,
+          "stream_completed": true,
+          "stream_error": null,
+          "event_type_counts": {
+            "response_chunk": 65
+          }
+        },
+        "fact_results": [
+          {
+            "fact_id": "f1",
+            "fact": "差旅报销统一走公司账户",
+            "expected_hint": "公司统一账户",
+            "terms": [
+              "公司统一账户"
+            ],
+            "hit_terms": [],
+            "all_terms_hit": false,
+            "variant_checks": [
+              {
+                "terms": [
+                  "公司统一账户"
+                ],
+                "hit_terms": [],
+                "all_hit": false
+              }
+            ],
+            "uncertain_marker_hit": false,
+            "verdict": "missing"
+          },
+          {
+            "fact_id": "f2",
+            "fact": "餐饮发票抬头写公司全称并备注项目编号",
+            "expected_hint": "公司抬头、项目编号",
+            "terms": [
+              "公司抬头",
+              "项目编号"
+            ],
+            "hit_terms": [
+              "公司抬头"
+            ],
+            "all_terms_hit": false,
+            "variant_checks": [
+              {
+                "terms": [
+                  "公司抬头",
+                  "项目编号"
+                ],
+                "hit_terms": [
+                  "公司抬头"
+                ],
+                "all_hit": false
+              },
+              {
+                "terms": [
+                  "公司全称",
+                  "项目编号"
+                ],
+                "hit_terms": [],
+                "all_hit": false
+              },
+              {
+                "terms": [
+                  "抬头",
+                  "项目编号"
+                ],
+                "hit_terms": [
+                  "抬头"
+                ],
+                "all_hit": false
+              }
+            ],
+            "uncertain_marker_hit": false,
+            "verdict": "missing"
+          }
+        ],
+        "case_pass": false
+      },
+      "three_layer": {
+        "scenario_id": "mem_ab_02",
+        "title": "差旅报销：统一账户与餐饮发票",
+        "user_id": "9",
+        "agent_id": "1a0c2a392a644caba6398143685a8098",
+        "seed_dialog_id": "ec9006fa94454214858bd52e5174026c",
+        "probe_dialog_id": "c2d3187bb3164d0d87bae7fe458f4f45",
+        "probe_question": "这次杭州出差回来的发票应该怎么处理？",
+        "seed_turns": [
+          {
+            "user_input": "我这边所有差旅报销都走公司统一账户，不用单独绑定我个人银行卡，两年前就这样定的。",
+            "answer": "您好！此前的系统中没有关于您差旅报销方式的记录。现在我已明确记录您的要求：您的所有差旅报销均走公司统一账户，无需单独绑定个人银行卡。\n\n请问当前是否有具体的差旅申请或报销事务需要我协助处理？",
+            "answer_length": 95,
+            "latency_ms": 41782.818,
+            "first_chunk_ms": 11853.415,
+            "stream_completed": true,
+            "stream_error": null,
+            "event_type_counts": {
+              "response_chunk": 13
+            }
+          },
+          {
+            "user_input": "餐饮发票开票抬头也写公司全称，备注里加上项目编号，方便财务归档。",
+            "answer": "您好！此前的记录中没有关于餐饮发票开票要求的相关信息。现在我已明确记录您的要求：餐饮发票开票抬头需写公司全称，并在备注里加上项目编号，以方便财务归档。\n\n请问还有其他报销规定需要补充，或有具体的事务需要我协助处理吗？",
+            "answer_length": 108,
+            "latency_ms": 43868.269,
+            "first_chunk_ms": 9292.364,
+            "stream_completed": true,
+            "stream_error": null,
+            "event_type_counts": {
+              "response_chunk": 15
+            }
+          }
+        ],
+        "memory_evidence": {
+          "ready": false,
+          "timed_out": true,
+          "waited_ms": 20483.332,
+          "result_count": 0,
+          "top_results": []
+        },
+        "probe": {
+          "user_input": "这次杭州出差回来的发票应该怎么处理？",
+          "answer": "您好！关于您杭州出差回来的发票处理，请注意以下几点要求：\n\n1. **报销途径**：所有差旅报销均走公司统一账户，无需单独绑定个人银行卡。\n2. **餐饮发票**：开票抬头需写**公司全称**，并且发票备注里必须加上**项目编号**，以方便财务归档。\n3. **其他发票**：请将住宿、交通等其他发票整理好，按公司常规的差旅报销流程提交申请即可。",
+          "answer_length": 173,
+          "latency_ms": 26911.99,
+          "first_chunk_ms": 9786.52,
+          "stream_completed": true,
+          "stream_error": null,
+          "event_type_counts": {
+            "response_chunk": 27
+          }
+        },
+        "fact_results": [
+          {
+            "fact_id": "f1",
+            "fact": "差旅报销统一走公司账户",
+            "expected_hint": "公司统一账户",
+            "terms": [
+              "公司统一账户"
+            ],
+            "hit_terms": [
+              "公司统一账户"
+            ],
+            "all_terms_hit": true,
+            "variant_checks": [
+              {
+                "terms": [
+                  "公司统一账户"
+                ],
+                "hit_terms": [
+                  "公司统一账户"
+                ],
+                "all_hit": true
+              }
+            ],
+            "uncertain_marker_hit": false,
+            "verdict": "used_correctly"
+          },
+          {
+            "fact_id": "f2",
+            "fact": "餐饮发票抬头写公司全称并备注项目编号",
+            "expected_hint": "公司抬头、项目编号",
+            "terms": [
+              "公司抬头",
+              "项目编号"
+            ],
+            "hit_terms": [
+              "项目编号"
+            ],
+            "all_terms_hit": true,
+            "variant_checks": [
+              {
+                "terms": [
+                  "公司抬头",
+                  "项目编号"
+                ],
+                "hit_terms": [
+                  "项目编号"
+                ],
+                "all_hit": false
+              },
+              {
+                "terms": [
+                  "公司全称",
+                  "项目编号"
+                ],
+                "hit_terms": [
+                  "公司全称",
+                  "项目编号"
+                ],
+                "all_hit": true
+              },
+              {
+                "terms": [
+                  "抬头",
+                  "项目编号"
+                ],
+                "hit_terms": [
+                  "抬头",
+                  "项目编号"
+                ],
+                "all_hit": true
+              }
+            ],
+            "uncertain_marker_hit": false,
+            "verdict": "used_correctly"
+          }
+        ],
+        "case_pass": true
+      }
+    }
+  ]
+}

@@ -13,7 +13,7 @@
 | P3 | 核心能力增强 | 真多 Agent 协作、记忆质量、检索质量的增量优化 | 4-6 天 | 已完成（离线/模拟可复现） |
 | P3.5 | 生产链路收敛 | 把 P3 的模拟增强接回生产配置，统一 token 预算并全量回归 | 1-2 天 | 已完成（生产配置化，全量测试通过） |
 | P4 | 交付与简历对齐 | 文档收敛、部署验证、简历措辞与实测结果对齐 | 2-3 天 | 已完成（文档与部署对齐，真实链路补测项已单独列出） |
-| P5 | 真实链路评测 | 把 P2/P3 的离线/模拟证据升级为真实服务链路数字，形成可面试口径 | 3-5 天 | 进行中（P5.9 已完成，P5.10 待执行） |
+| P5 | 真实链路评测 | 把 P2/P3 的离线/模拟证据升级为真实服务链路数字，形成可面试口径 | 3-5 天 | 已完成（P5.1-P5.10 全部执行） |
 
 ## P0：基线修复
 
@@ -187,7 +187,7 @@
 - [x] P5.7 多 Agent 真实场景：创建 `enable_multi_agent=True` 的测试 Agent，跑 3-5 个固定业务任务，记录 orchestrator 路由与子 Agent ReAct 事件
 - [x] P5.8 证据收敛：更新 `benchmarks/README.md`、`P4_INTERVIEW_MATERIAL.md` 和本文件状态，只有存在原始 JSON 时才把离线数字升级为真实链路口径
 - [x] P5.9 RAG 真实 A/B（路线 B）：扩充自建真实知识库到 21 文档 / 102 chunk，人工标注 50 条 query（含 17 条 hard queries），新增 `live_rag_ab.py` 在同一知识库上对比 baseline vs 生产完整链路，正式归档 `docs/eval/live/live_rag_comparison_20260814_182215.json`（Rerank `gte-rerank-v2` 可用 48/50，2 条网络抖动走生产 fallback）；历史 `20260814_173430.json` 保留为 Rerank 403 对照；设计文档已随执行结果更新到 `docs/eval/live/RAG_COMPARISON_DESIGN.md`
-- [ ] P5.10 Memory 两层 vs 三层真实对话对比：构造 30 条多轮 Fact Recall 场景，`enable_memory=False/True` 独立 user/agent 各跑一遍，输出 `docs/eval/live/live_memory_comparison_*.json`；设计文档 `docs/eval/upcoming/MEMORY_COMPARISON_DESIGN.md`
+- [x] P5.10 Memory 两层 vs 三层真实对话对比：30 条 Fact Recall 场景已完成，原始 JSON 归档 `docs/eval/live/live_memory_comparison_20260818_105736.json`，设计文档与执行记录见 `docs/eval/upcoming/MEMORY_COMPARISON_DESIGN.md`
 
 验收标准：
 - 后端在 conda `agentchat` 环境启动成功，Docker 依赖服务 healthy
@@ -238,10 +238,10 @@ P5.6/P5.7 手动复现（从 `src/backend` 执行，先确认后端已启动且 
   Get-ChildItem ..\..\docs\eval\live\live_memory_*.json, ..\..\docs\eval\live\live_multi_agent_*.json | Sort-Object LastWriteTime -Descending | Select-Object -First 2
   ```
 
-P5.9/P5.10 进度（P5.9 已完成，P5.10 待执行）：
+P5.9/P5.10 进度（P5.9、P5.10 均已完成）：
 
 - P5.9 RAG 真实 A/B 已完成（Rerank 重新配置后重新覆盖）：真实知识库 `t_2aadac46967e4487`（`RagAb0814`）灌入 21 个文档、102 个 chunk，50 条 ground truth（easy 11 / normal 22 / hard 17）已落盘 `docs/eval/live/live_rag_ab_ground_truth.json`；最新 A/B 原始 JSON 为 `docs/eval/live/live_rag_comparison_20260814_182215.json`，旧 `20260814_173430.json` 保留为历史对照。总体 `Recall@5` 从 `0.8467` 到 `0.96`、`MRR@5` 从 `0.6967` 到 `0.7983`、`Hit@1` 从 `0.88` 到 `0.98`；hard 子集 `Recall@5` 从 `0.7843` 到 `0.9412`、`MRR@5` 从 `0.7255` 到 `0.7843`、`Hit@1` 从 `0.8824` 到 `1.0`，证据命中率从 `0.7941` 到 `0.9706`。Rerank 已通过阿里云 MaaS 原生路由接入：`gte-rerank-v2` 可用 `48/50`，2 条因 DNS 瞬时错误自动降级；`min_score` 从 `0.2` 调整为 `0.0` 以匹配 GTE rerank 分数口径。差异来自 Query Rewrite + Rerank + min_score 修正的组合，未做单组件消融，不能表述为“Rerank 单独提升”；设计文档见 `docs/eval/live/RAG_COMPARISON_DESIGN.md`
-- P5.10 Memory 两层 vs 三层：真实多轮 Fact Recall 场景，独立 user/agent 防污染；设计见 `docs/eval/upcoming/MEMORY_COMPARISON_DESIGN.md`
+- P5.10 Memory 两层 vs 三层已完成：30 条真实场景 / 62 个 Gold Facts 全部执行，原始 JSON `docs/eval/live/live_memory_comparison_20260818_105736.json`。两层（`enable_memory=False`）`fact_recall=0.0968、case_pass_rate=0.0`；三层（`enable_memory=True`）`fact_recall=0.6774、case_pass_rate=0.4667`；Fact Recall `+0.5806`、Case Pass Rate `+0.4667`。每条场景为 2 轮 seed 事实埋点 + 全新 probe 对话，两层/三层各自每场景独立 user/agent 防污染；评测为判别式 hint 匹配（支持 `expected_variants` 同义变体），不是 LLM-as-Judge；fixture 见 `src/backend/agentchat/benchmarks/fixtures/memory_live_ab/scenarios.json`
 
 P5.9 手动复现（从 `src/backend` 执行，先确认后端已启动且 Docker 依赖 healthy）：
 
@@ -265,6 +265,19 @@ P5.9 手动复现（从 `src/backend` 执行，先确认后端已启动且 Docke
 
   # 4. 查看最新归档
   Get-ChildItem ..\..\docs\eval\live\live_rag_comparison_*.json | Sort-Object LastWriteTime -Descending | Select-Object -First 1
+  ```
+
+P5.10 手动复现（从 `src/backend` 执行，先确认后端已启动且 Docker 依赖 healthy）：
+
+  ```powershell
+  # 1. 冒烟 2 条（快速确认链路与评分）
+  & 'C:\Users\20235\.conda\envs\agentchat\python.exe' -m agentchat.benchmarks.live_memory_ab --limit 2 --wait-memory-timeout 15 --output-dir ..\..\docs\eval\live
+
+  # 2. 正式全量 30 条（可重复执行，每次生成新的时间戳 JSON）
+  & 'C:\Users\20235\.conda\envs\agentchat\python.exe' -m agentchat.benchmarks.live_memory_ab --limit 30 --wait-memory-timeout 15 --output-dir ..\..\docs\eval\live
+
+  # 3. 查看最新归档
+  Get-ChildItem ..\..\docs\eval\live\live_memory_comparison_*.json | Sort-Object LastWriteTime -Descending | Select-Object -First 1
   ```
 
 ## 协作规则

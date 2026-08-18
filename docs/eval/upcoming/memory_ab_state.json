@@ -1,0 +1,498 @@
+{
+  "created_at": "2026-08-18T02:57:36+00:00",
+  "base_url": "http://127.0.0.1:7860",
+  "arms": {
+    "two_layer": {
+      "enable_memory": false,
+      "scenario_count": 30,
+      "scenario_identities": [
+        {
+          "scenario_id": "mem_ab_01",
+          "user_name": "ab2l_0818_105736_s01",
+          "password": "ZfTVTOkQvbMrkZprIE",
+          "user_id": "10",
+          "agent_name": "LiveBench-MemoryTwo-mem_ab_01-20260818_105736",
+          "agent_id": "9ef0484f81894c01b024138640aa35a5"
+        },
+        {
+          "scenario_id": "mem_ab_02",
+          "user_name": "ab2l_0818_105736_s02",
+          "password": "6EdJfkHPGZtZfOAoit",
+          "user_id": "11",
+          "agent_name": "LiveBench-MemoryTwo-mem_ab_02-20260818_105736",
+          "agent_id": "95087e048488409d95ff2bf16ed4e7d7"
+        },
+        {
+          "scenario_id": "mem_ab_03",
+          "user_name": "ab2l_0818_105736_s03",
+          "password": "WmHmFg9Xr41IBLiqSp",
+          "user_id": "12",
+          "agent_name": "LiveBench-MemoryTwo-mem_ab_03-20260818_105736",
+          "agent_id": "5a916420fcd5425e9800a0f90c34b7c3"
+        },
+        {
+          "scenario_id": "mem_ab_04",
+          "user_name": "ab2l_0818_105736_s04",
+          "password": "nMjautKOdid3fKvC4v",
+          "user_id": "13",
+          "agent_name": "LiveBench-MemoryTwo-mem_ab_04-20260818_105736",
+          "agent_id": "885defe4922a4c00be704c4084f17361"
+        },
+        {
+          "scenario_id": "mem_ab_05",
+          "user_name": "ab2l_0818_105736_s05",
+          "password": "SyojmC0ZURjMlk2YHy",
+          "user_id": "14",
+          "agent_name": "LiveBench-MemoryTwo-mem_ab_05-20260818_105736",
+          "agent_id": "b6aa4972c32a4fddb12f2d9cb7b60420"
+        },
+        {
+          "scenario_id": "mem_ab_06",
+          "user_name": "ab2l_0818_105736_s06",
+          "password": "M4F1IPLKMc5ulIvJRa",
+          "user_id": "15",
+          "agent_name": "LiveBench-MemoryTwo-mem_ab_06-20260818_105736",
+          "agent_id": "9b5ebc7a3c244a8d8dd9eeb74a58e084"
+        },
+        {
+          "scenario_id": "mem_ab_07",
+          "user_name": "ab2l_0818_105736_s07",
+          "password": "IRkr1r4KPINUUJKiEJ",
+          "user_id": "16",
+          "agent_name": "LiveBench-MemoryTwo-mem_ab_07-20260818_105736",
+          "agent_id": "20501f9f7618475fbaea872e27a24fa8"
+        },
+        {
+          "scenario_id": "mem_ab_08",
+          "user_name": "ab2l_0818_105736_s08",
+          "password": "qmKtbTEgRa4DJxb5kl",
+          "user_id": "17",
+          "agent_name": "LiveBench-MemoryTwo-mem_ab_08-20260818_105736",
+          "agent_id": "0fc0e0580f05439c944d6eaa9d0cee3e"
+        },
+        {
+          "scenario_id": "mem_ab_09",
+          "user_name": "ab2l_0818_105736_s09",
+          "password": "C4u4UkADwWhKaY3JdQ",
+          "user_id": "18",
+          "agent_name": "LiveBench-MemoryTwo-mem_ab_09-20260818_105736",
+          "agent_id": "d843e6a31a1146d1905abd0e4d6c2af9"
+        },
+        {
+          "scenario_id": "mem_ab_10",
+          "user_name": "ab2l_0818_105736_s10",
+          "password": "jddzbg1r2rUSEG6vai",
+          "user_id": "19",
+          "agent_name": "LiveBench-MemoryTwo-mem_ab_10-20260818_105736",
+          "agent_id": "0623839a8d3f4852b351c5cf06427102"
+        },
+        {
+          "scenario_id": "mem_ab_11",
+          "user_name": "ab2l_0818_105736_s11",
+          "password": "6zTKTeRb3GUCTOEMbp",
+          "user_id": "20",
+          "agent_name": "LiveBench-MemoryTwo-mem_ab_11-20260818_105736",
+          "agent_id": "5ef3da62bc474ddbb09dfe8fc38edffe"
+        },
+        {
+          "scenario_id": "mem_ab_12",
+          "user_name": "ab2l_0818_105736_s12",
+          "password": "kDe99sU6YexO5hT1Nh",
+          "user_id": "21",
+          "agent_name": "LiveBench-MemoryTwo-mem_ab_12-20260818_105736",
+          "agent_id": "249284fb08fd4c51aaf869e1b561a2df"
+        },
+        {
+          "scenario_id": "mem_ab_13",
+          "user_name": "ab2l_0818_105736_s13",
+          "password": "kUXbsCKWNXxv4nBt5x",
+          "user_id": "22",
+          "agent_name": "LiveBench-MemoryTwo-mem_ab_13-20260818_105736",
+          "agent_id": "3cc5e98b775e45f5a2d6514a31800242"
+        },
+        {
+          "scenario_id": "mem_ab_14",
+          "user_name": "ab2l_0818_105736_s14",
+          "password": "Nh1T1Wq6LGR0zsLNEn",
+          "user_id": "23",
+          "agent_name": "LiveBench-MemoryTwo-mem_ab_14-20260818_105736",
+          "agent_id": "f0a624b7d1ab4af0aa0d16fb2e199780"
+        },
+        {
+          "scenario_id": "mem_ab_15",
+          "user_name": "ab2l_0818_105736_s15",
+          "password": "Vs3rEIPmKAqI4wMEBU",
+          "user_id": "24",
+          "agent_name": "LiveBench-MemoryTwo-mem_ab_15-20260818_105736",
+          "agent_id": "3cd6a27dd06c4a4a83db26a50c45dced"
+        },
+        {
+          "scenario_id": "mem_ab_16",
+          "user_name": "ab2l_0818_105736_s16",
+          "password": "1OoeuFTnVONKNRm5B9",
+          "user_id": "25",
+          "agent_name": "LiveBench-MemoryTwo-mem_ab_16-20260818_105736",
+          "agent_id": "6e91ce093e04413581ad9a0570eae34c"
+        },
+        {
+          "scenario_id": "mem_ab_17",
+          "user_name": "ab2l_0818_105736_s17",
+          "password": "XtU9QhSYOF1Ug73QP3",
+          "user_id": "26",
+          "agent_name": "LiveBench-MemoryTwo-mem_ab_17-20260818_105736",
+          "agent_id": "65384a629db24453abdb2918f537322d"
+        },
+        {
+          "scenario_id": "mem_ab_18",
+          "user_name": "ab2l_0818_105736_s18",
+          "password": "eJuZVu55avgTY3kU8S",
+          "user_id": "27",
+          "agent_name": "LiveBench-MemoryTwo-mem_ab_18-20260818_105736",
+          "agent_id": "f394498c576546baa626cc7ade6f497a"
+        },
+        {
+          "scenario_id": "mem_ab_19",
+          "user_name": "ab2l_0818_105736_s19",
+          "password": "B55gH1qRZJPr0nZNgw",
+          "user_id": "28",
+          "agent_name": "LiveBench-MemoryTwo-mem_ab_19-20260818_105736",
+          "agent_id": "c453747b33644fc083fd0712d912623e"
+        },
+        {
+          "scenario_id": "mem_ab_20",
+          "user_name": "ab2l_0818_105736_s20",
+          "password": "bPzhoE5DHlrp10ZIjo",
+          "user_id": "29",
+          "agent_name": "LiveBench-MemoryTwo-mem_ab_20-20260818_105736",
+          "agent_id": "951910b87da240569a224e6ed8736a6a"
+        },
+        {
+          "scenario_id": "mem_ab_21",
+          "user_name": "ab2l_0818_105736_s21",
+          "password": "o7cZZ0aR4Mhuz5MsgJ",
+          "user_id": "30",
+          "agent_name": "LiveBench-MemoryTwo-mem_ab_21-20260818_105736",
+          "agent_id": "4edfc7170b884250b89043dd9dd23032"
+        },
+        {
+          "scenario_id": "mem_ab_22",
+          "user_name": "ab2l_0818_105736_s22",
+          "password": "ilFBGls2oTLoFPIXDO",
+          "user_id": "31",
+          "agent_name": "LiveBench-MemoryTwo-mem_ab_22-20260818_105736",
+          "agent_id": "62cc9d646d694627945371706ffd9e4c"
+        },
+        {
+          "scenario_id": "mem_ab_23",
+          "user_name": "ab2l_0818_105736_s23",
+          "password": "vEBPvMU4vNTbsaMcGP",
+          "user_id": "32",
+          "agent_name": "LiveBench-MemoryTwo-mem_ab_23-20260818_105736",
+          "agent_id": "8210ae3de1f9401ab4125c22be12bfa8"
+        },
+        {
+          "scenario_id": "mem_ab_24",
+          "user_name": "ab2l_0818_105736_s24",
+          "password": "6eVmYs7IdxISa1pJZ9",
+          "user_id": "33",
+          "agent_name": "LiveBench-MemoryTwo-mem_ab_24-20260818_105736",
+          "agent_id": "57799becda024c3fadae64e1876e94fc"
+        },
+        {
+          "scenario_id": "mem_ab_25",
+          "user_name": "ab2l_0818_105736_s25",
+          "password": "QbGKQZSaTarDe8Djuy",
+          "user_id": "34",
+          "agent_name": "LiveBench-MemoryTwo-mem_ab_25-20260818_105736",
+          "agent_id": "41bc873cddeb4941b60c383543670636"
+        },
+        {
+          "scenario_id": "mem_ab_26",
+          "user_name": "ab2l_0818_105736_s26",
+          "password": "yr1p7bQYyiO7y5RIc5",
+          "user_id": "35",
+          "agent_name": "LiveBench-MemoryTwo-mem_ab_26-20260818_105736",
+          "agent_id": "e6c30b5a6dee463592b8bd47e6ee4ce2"
+        },
+        {
+          "scenario_id": "mem_ab_27",
+          "user_name": "ab2l_0818_105736_s27",
+          "password": "TGyBwZPm5oCyJGlSNQ",
+          "user_id": "36",
+          "agent_name": "LiveBench-MemoryTwo-mem_ab_27-20260818_105736",
+          "agent_id": "78d377cd3ea2424fa0e9bdfd4cf03770"
+        },
+        {
+          "scenario_id": "mem_ab_28",
+          "user_name": "ab2l_0818_105736_s28",
+          "password": "eKc8NCbF2gFecx21Eo",
+          "user_id": "37",
+          "agent_name": "LiveBench-MemoryTwo-mem_ab_28-20260818_105736",
+          "agent_id": "68052018573d43579f895eb6d9b494ec"
+        },
+        {
+          "scenario_id": "mem_ab_29",
+          "user_name": "ab2l_0818_105736_s29",
+          "password": "xEpFRI6wbA1PKFxXAG",
+          "user_id": "38",
+          "agent_name": "LiveBench-MemoryTwo-mem_ab_29-20260818_105736",
+          "agent_id": "7cb001e8674447509c64df42101e6b7c"
+        },
+        {
+          "scenario_id": "mem_ab_30",
+          "user_name": "ab2l_0818_105736_s30",
+          "password": "LotONwdPPZiyhUJuiu",
+          "user_id": "39",
+          "agent_name": "LiveBench-MemoryTwo-mem_ab_30-20260818_105736",
+          "agent_id": "593d796e2a2b4dc291b3c859d1fe6e42"
+        }
+      ]
+    },
+    "three_layer": {
+      "enable_memory": true,
+      "scenario_count": 30,
+      "scenario_identities": [
+        {
+          "scenario_id": "mem_ab_01",
+          "user_name": "ab3l_0818_105736_s01",
+          "password": "cyrAmBFjqbNG2xlecA",
+          "user_id": "40",
+          "agent_name": "LiveBench-MemoryThree-mem_ab_01-20260818_105736",
+          "agent_id": "c8bba8c43e95439a858f9f713e753d40"
+        },
+        {
+          "scenario_id": "mem_ab_02",
+          "user_name": "ab3l_0818_105736_s02",
+          "password": "klKKN3PA7YGWL3IPnq",
+          "user_id": "41",
+          "agent_name": "LiveBench-MemoryThree-mem_ab_02-20260818_105736",
+          "agent_id": "fb7ec6f2dcdb4094be1d5d9749e46bab"
+        },
+        {
+          "scenario_id": "mem_ab_03",
+          "user_name": "ab3l_0818_105736_s03",
+          "password": "daRvU0v0yooBnM76P4",
+          "user_id": "42",
+          "agent_name": "LiveBench-MemoryThree-mem_ab_03-20260818_105736",
+          "agent_id": "9b0972463ad643e5b9144f64ea59f3a3"
+        },
+        {
+          "scenario_id": "mem_ab_04",
+          "user_name": "ab3l_0818_105736_s04",
+          "password": "JGlt8g6CFPUCAYjqRY",
+          "user_id": "43",
+          "agent_name": "LiveBench-MemoryThree-mem_ab_04-20260818_105736",
+          "agent_id": "2a8368865e964902b5abee260000a6f0"
+        },
+        {
+          "scenario_id": "mem_ab_05",
+          "user_name": "ab3l_0818_105736_s05",
+          "password": "AOZ5lcGSq3JuhdCQJ7",
+          "user_id": "44",
+          "agent_name": "LiveBench-MemoryThree-mem_ab_05-20260818_105736",
+          "agent_id": "843cf638836b40d3b5ffbd22fce5ef4e"
+        },
+        {
+          "scenario_id": "mem_ab_06",
+          "user_name": "ab3l_0818_105736_s06",
+          "password": "9shAwZPKaKZAp3sH9C",
+          "user_id": "45",
+          "agent_name": "LiveBench-MemoryThree-mem_ab_06-20260818_105736",
+          "agent_id": "59bf91fd0cfb4ce2a3c3641df31bce9d"
+        },
+        {
+          "scenario_id": "mem_ab_07",
+          "user_name": "ab3l_0818_105736_s07",
+          "password": "LmXFdd2G7os8HWUksy",
+          "user_id": "46",
+          "agent_name": "LiveBench-MemoryThree-mem_ab_07-20260818_105736",
+          "agent_id": "1609ed4e85584f289b070ceb06ad546a"
+        },
+        {
+          "scenario_id": "mem_ab_08",
+          "user_name": "ab3l_0818_105736_s08",
+          "password": "DNIe9zaqtrdKK9t1xL",
+          "user_id": "47",
+          "agent_name": "LiveBench-MemoryThree-mem_ab_08-20260818_105736",
+          "agent_id": "c0537beb40174922bebd9a9173a948c4"
+        },
+        {
+          "scenario_id": "mem_ab_09",
+          "user_name": "ab3l_0818_105736_s09",
+          "password": "swDcDlElPYJdbs1NKc",
+          "user_id": "48",
+          "agent_name": "LiveBench-MemoryThree-mem_ab_09-20260818_105736",
+          "agent_id": "64c0d7dc2ad545699aec0a31bbfd7c78"
+        },
+        {
+          "scenario_id": "mem_ab_10",
+          "user_name": "ab3l_0818_105736_s10",
+          "password": "5vlsn6RmZWpuzH2cFf",
+          "user_id": "49",
+          "agent_name": "LiveBench-MemoryThree-mem_ab_10-20260818_105736",
+          "agent_id": "6bdf9e6832864c909a25d865c7cd7009"
+        },
+        {
+          "scenario_id": "mem_ab_11",
+          "user_name": "ab3l_0818_105736_s11",
+          "password": "NeHXM8jvFzlAnIv1YK",
+          "user_id": "50",
+          "agent_name": "LiveBench-MemoryThree-mem_ab_11-20260818_105736",
+          "agent_id": "958bb6da67a043bfa9041f766440262b"
+        },
+        {
+          "scenario_id": "mem_ab_12",
+          "user_name": "ab3l_0818_105736_s12",
+          "password": "GJHsu8ga7pMoPm5mkX",
+          "user_id": "51",
+          "agent_name": "LiveBench-MemoryThree-mem_ab_12-20260818_105736",
+          "agent_id": "3a7a1246c4cf4ccc93f11ad560cd7546"
+        },
+        {
+          "scenario_id": "mem_ab_13",
+          "user_name": "ab3l_0818_105736_s13",
+          "password": "kOtC6hdQ32EIFXtxu1",
+          "user_id": "52",
+          "agent_name": "LiveBench-MemoryThree-mem_ab_13-20260818_105736",
+          "agent_id": "8ae84cd94b094ccca2474ebf25e81af3"
+        },
+        {
+          "scenario_id": "mem_ab_14",
+          "user_name": "ab3l_0818_105736_s14",
+          "password": "uDdrdVin8UMzrSZYof",
+          "user_id": "53",
+          "agent_name": "LiveBench-MemoryThree-mem_ab_14-20260818_105736",
+          "agent_id": "371c57a73598463092f9cf6be579ccf8"
+        },
+        {
+          "scenario_id": "mem_ab_15",
+          "user_name": "ab3l_0818_105736_s15",
+          "password": "LJTtIyzkkcrlUV2xkT",
+          "user_id": "54",
+          "agent_name": "LiveBench-MemoryThree-mem_ab_15-20260818_105736",
+          "agent_id": "55f427d2b3e34915a28496efeed58b63"
+        },
+        {
+          "scenario_id": "mem_ab_16",
+          "user_name": "ab3l_0818_105736_s16",
+          "password": "hHOZaxfq7E76O3IpdB",
+          "user_id": "55",
+          "agent_name": "LiveBench-MemoryThree-mem_ab_16-20260818_105736",
+          "agent_id": "d42152f34098413e842c1d7fbdf28d45"
+        },
+        {
+          "scenario_id": "mem_ab_17",
+          "user_name": "ab3l_0818_105736_s17",
+          "password": "O40vu3FHTVhe6kmStV",
+          "user_id": "56",
+          "agent_name": "LiveBench-MemoryThree-mem_ab_17-20260818_105736",
+          "agent_id": "373dd0d99a8847ff88afa8e84126db52"
+        },
+        {
+          "scenario_id": "mem_ab_18",
+          "user_name": "ab3l_0818_105736_s18",
+          "password": "wOr4egPwBiz1uRCKOn",
+          "user_id": "57",
+          "agent_name": "LiveBench-MemoryThree-mem_ab_18-20260818_105736",
+          "agent_id": "a234781b71c04c698391482e22f98c91"
+        },
+        {
+          "scenario_id": "mem_ab_19",
+          "user_name": "ab3l_0818_105736_s19",
+          "password": "5pZ2G7ZYWRl3PEyJX3",
+          "user_id": "58",
+          "agent_name": "LiveBench-MemoryThree-mem_ab_19-20260818_105736",
+          "agent_id": "5ddc27111b1343c4bf31a40da5504564"
+        },
+        {
+          "scenario_id": "mem_ab_20",
+          "user_name": "ab3l_0818_105736_s20",
+          "password": "L5gxsGVSh246zYu4gB",
+          "user_id": "59",
+          "agent_name": "LiveBench-MemoryThree-mem_ab_20-20260818_105736",
+          "agent_id": "6fc5fc9a4d7a4a9a9ebabc496c7e9dd6"
+        },
+        {
+          "scenario_id": "mem_ab_21",
+          "user_name": "ab3l_0818_105736_s21",
+          "password": "aoQNJhpA9sf6vVeg3w",
+          "user_id": "60",
+          "agent_name": "LiveBench-MemoryThree-mem_ab_21-20260818_105736",
+          "agent_id": "a15726c9e0844c61894036bbbad697d3"
+        },
+        {
+          "scenario_id": "mem_ab_22",
+          "user_name": "ab3l_0818_105736_s22",
+          "password": "pmdFugn4gdi9sN8tz2",
+          "user_id": "61",
+          "agent_name": "LiveBench-MemoryThree-mem_ab_22-20260818_105736",
+          "agent_id": "2cd9caa1f8e248e7b05a0f9f3c68ebb0"
+        },
+        {
+          "scenario_id": "mem_ab_23",
+          "user_name": "ab3l_0818_105736_s23",
+          "password": "LJDJHCgLt6qFp0VQEH",
+          "user_id": "62",
+          "agent_name": "LiveBench-MemoryThree-mem_ab_23-20260818_105736",
+          "agent_id": "d218c390b019490185bacb878edd3ee7"
+        },
+        {
+          "scenario_id": "mem_ab_24",
+          "user_name": "ab3l_0818_105736_s24",
+          "password": "aKAVjqkVc4Lfz9J13n",
+          "user_id": "63",
+          "agent_name": "LiveBench-MemoryThree-mem_ab_24-20260818_105736",
+          "agent_id": "334ba99157c344e28804ce2b4fe9ee82"
+        },
+        {
+          "scenario_id": "mem_ab_25",
+          "user_name": "ab3l_0818_105736_s25",
+          "password": "lTHIYMCHo9nZ5dob1t",
+          "user_id": "64",
+          "agent_name": "LiveBench-MemoryThree-mem_ab_25-20260818_105736",
+          "agent_id": "8497beb48f6f4dd788f56d8b4f49d845"
+        },
+        {
+          "scenario_id": "mem_ab_26",
+          "user_name": "ab3l_0818_105736_s26",
+          "password": "kPnU0I3CmflSuMjAYI",
+          "user_id": "65",
+          "agent_name": "LiveBench-MemoryThree-mem_ab_26-20260818_105736",
+          "agent_id": "8b6f405449ea4ad984e5c364c62fbfe4"
+        },
+        {
+          "scenario_id": "mem_ab_27",
+          "user_name": "ab3l_0818_105736_s27",
+          "password": "q57INNEf0CrrphyBWB",
+          "user_id": "66",
+          "agent_name": "LiveBench-MemoryThree-mem_ab_27-20260818_105736",
+          "agent_id": "de78336fe5e942f88d709676d06d87b3"
+        },
+        {
+          "scenario_id": "mem_ab_28",
+          "user_name": "ab3l_0818_105736_s28",
+          "password": "qsElyzkGLQ2ZEszxVV",
+          "user_id": "67",
+          "agent_name": "LiveBench-MemoryThree-mem_ab_28-20260818_105736",
+          "agent_id": "ab7d1213fcb54c14ab61387c7356bb7d"
+        },
+        {
+          "scenario_id": "mem_ab_29",
+          "user_name": "ab3l_0818_105736_s29",
+          "password": "PofSuaZ9dbnwsSraQh",
+          "user_id": "68",
+          "agent_name": "LiveBench-MemoryThree-mem_ab_29-20260818_105736",
+          "agent_id": "638fd8e8b52f438096101b0e18902160"
+        },
+        {
+          "scenario_id": "mem_ab_30",
+          "user_name": "ab3l_0818_105736_s30",
+          "password": "VKItokh97HzMeYI3oO",
+          "user_id": "69",
+          "agent_name": "LiveBench-MemoryThree-mem_ab_30-20260818_105736",
+          "agent_id": "ddf44454f08d4d33b29145b44029da3a"
+        }
+      ]
+    }
+  }
+}

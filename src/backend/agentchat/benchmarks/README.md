@@ -86,11 +86,13 @@ benchmarks/
 ├── live_cancel.py       # 真实 SSE 断流评测
 ├── live_memory.py       # 真实记忆链路评测
 ├── live_multi_agent.py  # 真实多 Agent 评测
+├── live_memory_ab.py    # 两层 vs 三层记忆真实 A/B
 └── fixtures/
     ├── rag/dataset.json
     ├── rag_live/         # P5 真实 RAG sources（3 份）
     ├── rag_live_ab/      # P5.9 A/B queries 与 21 份 sources
-    └── memory/cases.json
+    ├── memory/cases.json
+    └── memory_live_ab/   # P5.10 30 条场景 / 62 Gold Facts
 ```
 
 P3 原始 JSON 归档在 `docs/eval/offline/token_budget_p3.json`、`docs/eval/offline/rag_p3_before_after.json`、`docs/eval/offline/memory_dedup_p3.json`。
@@ -128,6 +130,12 @@ P3 原始 JSON 归档在 `docs/eval/offline/token_budget_p3.json`、`docs/eval/o
 & 'C:\Users\20235\.conda\envs\agentchat\python.exe' -m agentchat.benchmarks.live_rag_ab `
   --top-k 5 `
   --output-dir ..\..\docs\eval\live
+
+# 7. Memory 两层 vs 三层（P5.10，冒烟 2 条）
+& 'C:\Users\20235\.conda\envs\agentchat\python.exe' -m agentchat.benchmarks.live_memory_ab --limit 2 --wait-memory-timeout 15 --output-dir ..\..\docs\eval\live
+
+# 8. Memory 两层 vs 三层（P5.10，正式全量 30 条）
+& 'C:\Users\20235\.conda\envs\agentchat\python.exe' -m agentchat.benchmarks.live_memory_ab --limit 30 --wait-memory-timeout 15 --output-dir ..\..\docs\eval\live
 ```
 
 已落盘的真实链路结果：
@@ -140,8 +148,9 @@ P3 原始 JSON 归档在 `docs/eval/offline/token_budget_p3.json`、`docs/eval/o
 | Memory | 5 facts，same run 5/5、cross run 5/5，`hit_rate=1.0`、`mean_mrr=1.0` | `docs/eval/live/live_memory_20260814_154252.json` |
 | Multi-Agent | 5 cases，`pass_rate=1.0`、`route_match_rate=1.0`、`sub_agent_pair_count=5/5`、`tool_calls=5` | `docs/eval/live/live_multi_agent_20260814_155110.json` |
 | RAG A/B | 50 queries / 102 chunks，hard 子集 `Recall@5` 0.7843→0.9412、`MRR@5` 0.7255→0.7843、`Hit@1` 0.8824→1.0；Rerank 48/50 | `docs/eval/live/live_rag_comparison_20260814_182215.json` |
+| Memory A/B | 30 scenarios / 62 facts，`fact_recall` 0.0968→0.6774、`case_pass_rate` 0→0.4667；判别式 hint 评分 | `docs/eval/live/live_memory_comparison_20260818_105736.json` |
 
-要点：`live_seed.py` 会新建/复用评测用户；`live_completion.py`、`live_cancel.py`、`live_memory.py`、`live_multi_agent.py` 每次运行都会创建新的测试 Agent/Dialog，结果写入新的时间戳 JSON，不会覆盖历史归档。真实链路数字只用于 P5 面试口径，离线数字继续作为可复现 baseline 保留。
+要点：`live_seed.py` 会新建/复用评测用户；`live_completion.py`、`live_cancel.py`、`live_memory.py`、`live_multi_agent.py` 每次运行都会创建新的测试 Agent/Dialog，`live_memory_ab.py` 为每场景每 arm 创建独立身份，结果写入新的时间戳 JSON，不会覆盖历史归档。真实链路数字只用于 P5 面试口径，离线数字继续作为可复现 baseline 保留。
 
 ## 路线 B：RAG 真实 A/B（P5.9，已完成）
 
@@ -155,13 +164,13 @@ P3 原始 JSON 归档在 `docs/eval/offline/token_budget_p3.json`、`docs/eval/o
 - 结果：全量 `Recall@5` 0.8467→0.96、`MRR@5` 0.6967→0.7983、`Hit@1` 0.88→0.98；hard 17 条 `Recall@5` 0.7843→0.9412、`MRR@5` 0.7255→0.7843、`Hit@1` 0.8824→1.0；
 - 限制：`query_rewrite` 可用 50/50，`rerank` 可用 48/50（2 条 DNS 瞬时错误后按生产 fallback 降级，JSON 记录 `availability.rerank=false`）；`min_score` 由 `0.2` 调整为 `0.0` 以匹配 `gte-rerank-v2` 分数口径；差异来自组合策略，未做单组件消融，不能表述为 Rerank 单独提升。
 
-## Memory 两层 vs 三层（P5.10，upcoming）
+## Memory 两层 vs 三层（P5.10，已完成）
 
-设计文档：`docs/eval/upcoming/MEMORY_COMPARISON_DESIGN.md`。
+设计与执行记录：`docs/eval/upcoming/MEMORY_COMPARISON_DESIGN.md`。
 
-- 两层：`enable_memory=False`，短期历史 + 中期摘要；
-- 三层：`enable_memory=True`，短期历史 + 中期摘要 + 长期向量记忆；
-- 30 条多轮 Fact Recall 场景，早期埋入 Gold Facts，末期必须依赖早期事实作答；
-- 两组使用独立 user/agent，禁止用同一身份连续跑对照，防止记忆污染；
-- 指标 `fact_recall / case_pass_rate`，目标归档 `docs/eval/live/live_memory_comparison_*.json`；
-- 预期脚本 `live_memory_ab.py`，先跑 10-15 条冒烟再扩到全量。
+- 两层：`enable_memory=False`，短期历史 + 中期摘要；三层：`enable_memory=True`，短期历史 + 中期摘要 + 长期向量记忆；
+- 实际形态：每条场景 2 轮 seed 事实埋点 + 全新 probe 会话，30 条场景 / 62 Gold Facts；
+- 每场景、每 arm 独立 user/agent，共 60 组身份；身份清单 `docs/eval/live/memory_ab_state.json`；
+- 判别式 hint 匹配（支持 `expected_variants` 同义变体），非 LLM-as-Judge；
+- 结果 `docs/eval/live/live_memory_comparison_20260818_105736.json`：Fact Recall `0.0968 → 0.6774`（+0.5806）、Case Pass Rate `0 → 0.4667`（14/30）；
+- 限制：评测前的记忆证据轮询仅 1/30 场景 `ready=true`，其中 13 个 `ready=false` 场景最终仍答对；该轮询暂不能逐条证明“检索 -> 注入 -> 回答”因果，详情见设计文档第 8 节。
