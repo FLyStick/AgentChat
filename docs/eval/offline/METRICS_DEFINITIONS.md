@@ -114,17 +114,17 @@
 
 - 离线 RAG 使用词法相似度：字母数字连续串 + 中文单字 token，再加 tag 命中加分；它验证的是“固定样本可复现”，不表达生产语义检索能力
 - 离线记忆只验证“上下文里能否找回答案片段”，不验证 LLM 抽取、去重、合并质量
-- 断流压测是本地 asyncio 模拟生产者，不是真实 LLM 推理链路；真实服务的 `cancel_to_terminate_ms` 必须在部署链路中重跑
-- P3 多 Agent 当前是固定关键词 demo 路由，真实模型路由与子 Agent ReAct 需要在 P4 服务链路中验证
-- Token 校准、RAG 优化、记忆去重当前均为离线/模拟口径，数字用于回归和面试解释，不直接等同于生产线上指标
-- 只有完成真实链路复跑并归档原始 JSON 之后，P2/P3 数字才可以进入简历
+- 断流评测包含本地 asyncio 模拟与真实 SSE 链路（P5.5）两种口径；离线数字只做回归，真实链路数字以 `docs/eval/live/live_cancel_20260814_151430.json` 为准
+- 多 Agent 当前是固定关键词 demo 路由，不支持通用 NL 图编排；真实链路路由与子 Agent ReAct 已在 P5.7 的 5 个固定场景中验证
+- Token 校准、RAG 优化、记忆去重仍保留离线/模拟口径，数字用于回归和解释；真实链路提升以 P5.9（RAG A/B）、P5.10（Memory 两层 vs 三层）为准
+- 只有归档 `docs/eval/live/` 原始 JSON 后，数字才能作为真实链路口径进入简历；P5 已完成后，面试数字以 P5.9/P5.10 等正式 JSON 为准，P2/P3 离线数字继续只做回归解释
 
 ## 面试表达建议
 
-- “RAG 部分我建了固定知识库和 query 集，9 条 query 上 hit_rate=1.0，MRR 0.9259；离线基线用于回归，线上数字等部署后补测”
-- “记忆我按短期窗口、摘要、长期事实三档做 benchmark，每档 4 条固定样本，先验证链路能找回答案”
-- “断流我做了任务级取消，压测目标 500ms，当前模拟链路已通过；真实模型链路的数字我会在整体部署后补”
-- “多 Agent 我实现了固定 demo 编排：主 Agent 路由、子 Agent 独立 ReAct 链、分层流式事件，测试保证关键词场景一定触发”
-- “Context Engineering 我用 benchmark 校准 token 摘要阈值，并做 RAG 优化前后对比：9 条 query 的 mean_mrr 从 0.9259 到 1.0，加班硬查询从第 3 名到第 1 名”
+- “RAG：9 条离线 query 上 hit_rate=1.0、MRR 0.9259 只用来解释回归；真实链路口径用 P5.9 的 50 条 query A/B，Recall@5 0.8467 -> 0.96”
+- “记忆：离线三档 hit_rate=1.0 证明检索链路可用；两层 vs 三层真实 A/B（P5.10）是最终回答级证据，Fact Recall 0.0968 -> 0.6774”
+- “断流：模拟链路先校准 500ms 阈值；真实 SSE 链路（P5.5）5/5 轮通过，cancel_to_terminate 均值 0.485ms、max 1.356ms”
+- “多 Agent：固定 demo 路由 + 子 Agent 独立 ReAct 链 + 分层事件；P5.7 真实链路 5 个场景 pass_rate=1.0、route_match_rate=1.0”
+- “Context Engineering：离线 token 摘要阈值校准 + 记忆去重 20/60 插入、40 次跳过；真实记忆提升以 P5.10 两层 vs 三层为准”
 
-P5.9 RAG 真实 A/B 设计/执行记录见 `docs/eval/live/RAG_COMPARISON_DESIGN.md`，最新正式结果已落盘为 `docs/eval/live/live_rag_comparison_20260814_182215.json`（Rerank 可用 48/50），Rerank 403 历史对照为 `docs/eval/live/live_rag_comparison_20260814_173430.json`；P5.10 Memory 两层 vs 三层设计见 `docs/eval/upcoming/MEMORY_COMPARISON_DESIGN.md`，对应 `live_*.json` 落盘后才能把 Memory 真实 A/B 数字进入面试口径。
+P5.5 真实 SSE 断流、P5.7 多 Agent、P5.9 RAG A/B、P5.10 Memory 两层 vs 三层均已落盘；设计与执行记录见 `docs/eval/upcoming/RAG_COMPARISON_DESIGN.md`、`docs/eval/upcoming/MEMORY_COMPARISON_DESIGN.md`，原始 JSON 在 `docs/eval/live/`，面试数字只有以这些 JSON 为证据才可引用。
